@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quests.apps.QuestsConfig',
-
+    'npcs.apps.NpcsConfig',
+    'items.apps.ItemsConfig',
+    'rewards.apps.RewardsConfig',
+    'steps.apps.StepsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
