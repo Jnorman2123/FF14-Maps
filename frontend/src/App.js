@@ -1,11 +1,14 @@
-import { ConnectedRouter } from 'connected-react-router';
-import routes from './routes';
+//import routes from './routes';
+import { Link } from 'react-router-dom';
 
-function App({history}) {
+function App() {
   return (
-    <ConnectedRouter history={history} >
-      {routes}
-    </ConnectedRouter>
+    <div>
+      <h1>Bookkeeper</h1>
+      <nav>
+        <Link to='quests'>Quests</Link>
+      </nav>
+    </div>
   );
 }
 

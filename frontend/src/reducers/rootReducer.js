@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
 import questReducer from './questReducer';
 
-const rootReducer = (history) => 
+const rootReducer = () => 
     combineReducers({
-        router: connectRouter(history),
         quests: questReducer,
     })
 

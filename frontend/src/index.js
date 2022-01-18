@@ -4,14 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import configureStore, { history } from './configureStore';
+import configureStore from './configureStore';
 import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Quests from './routes/quests';
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App history={history} />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='quests' element={<Quests />} />
+      </Routes>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
