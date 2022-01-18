@@ -62,7 +62,7 @@ class Item(models.Model):
     item_quantity = models.IntegerField()
 
     def __str__(self):
-        return self.item_name
+        return self.item_name + " " + str(self.item_quantity)
 
 
 class Npc(models.Model):
