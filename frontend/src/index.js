@@ -7,7 +7,8 @@ import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Quests from './routes/quests';
+import Quest from './components/Quest';
+import Npc from './components/Npc';
 
 const store = configureStore();
 
@@ -16,7 +17,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
-        <Route path='quests' element={<Quests />} />
+        <Route path='quests' element={<Quest />} />
+        <Route path='npcs' element={<Npc />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

@@ -5,60 +5,8 @@ from django.db import models
 # Create your models here.
 
 
-class Quest(models.Model):
-    QUEST_TYPES = (
-        ('Main Story', 'Main Story'),
-        ('Class', 'Class'),
-        ('Side', 'Side'),
-        ('Hunting Log', 'Hunting Log'),
-    )
-
-    CLASS_TYPES = (
-        ('All', 'All'),
-        ('Gladiator', 'Gladiator'),
-        ('Marauder', 'Marauder'),
-        ('Archer', 'Archer'),
-        ('Lancer', 'Lancer'),
-        ('Pugilist', 'Pugilist'),
-        ('Rogue', 'Rogue'),
-        ('Conjurer', 'Conjurer'),
-        ('Arcanist', 'Arcanist'),
-        ('Thaumaturge', 'Thaumaturge'),
-        ('Paladin', 'Paladin'),
-        ('Warrior', 'Warrior'),
-        ('Monk', 'Monk'),
-        ('Dragoon', 'Dragoon'),
-        ('Ninja', 'Ninja'),
-        ('Bard', 'Bard'),
-        ('Black Mage', 'Black Mage'),
-        ('Summoner', 'Summoner'),
-        ('Scholar', 'Scholar'),
-        ('White Mage', 'White Mage'),
-        ('Blue Mage', 'Blue Mage'),
-        ('Dark Knight', 'Dark Knight'),
-        ('Machinist', 'Machinist'),
-        ('Astrologian', 'Astrologian'),
-        ('Samurai', 'Samurai'),
-        ('Red Mage', 'Red Mage'),
-        ('Gunbreaker', 'Gunbreaker'),
-        ('Dancer', 'Dancer'),
-        ('Reaper', 'Reaper'),
-        ('Sage', 'Sage'),
-    )
-
-    quest_name = models.CharField(max_length=250)
-    previous_quest = models.CharField(max_length=250)
-    quest_level = models.IntegerField()
-    quest_type = models.CharField(max_length=25, choices=QUEST_TYPES)
-    quest_class = models.CharField(max_length=25, choices=CLASS_TYPES)
-    next_quest = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.quest_name
-
-
 class Item(models.Model):
-    item_name = models.CharField(max_length=50)
+    item_name = models.CharField(max_length=100)
     item_quantity = models.IntegerField()
 
     def __str__(self):
@@ -152,32 +100,85 @@ class Npc(models.Model):
         ('Elpis (The World Unsundered)', 'Elpis (The World Unsundered)'),
     )
 
-    npc_name = models.CharField(max_length=100)
+    npc_name = models.CharField(max_length=100, unique=True)
     npc_type = models.CharField(max_length=25, choices=NPC_TYPES)
     npc_zone = models.CharField(max_length=250, choices=ZONE_NAMES)
     npc_location_x = models.DecimalField(max_digits=3, decimal_places=1)
     npc_location_y = models.DecimalField(max_digits=3, decimal_places=1)
     npc_sold_items = models.ManyToManyField(Item)
-    npc_quests = models.ManyToManyField(Quest, through='Step')
 
     def __str__(self):
         return self.npc_name
 
 
 class Reward(models.Model):
+    reward_quest_name = models.CharField(max_length=250, unique=True)
     reward_experience = models.IntegerField()
     reward_gil = models.IntegerField()
     reward_items = models.ManyToManyField(Item)
     reward_other = models.CharField(max_length=100)
-    reward_quest = models.OneToOneField(
-        Quest, on_delete=models.CASCADE, primary_key=False)
 
     def __str__(self):
-        return self.reward_quest
+        return self.reward_quest_name
+
+
+class Quest(models.Model):
+    QUEST_TYPES = (
+        ('Main Story', 'Main Story'),
+        ('Class', 'Class'),
+        ('Side', 'Side'),
+        ('Hunting Log', 'Hunting Log'),
+    )
+
+    CLASS_TYPES = (
+        ('All', 'All'),
+        ('Gladiator', 'Gladiator'),
+        ('Marauder', 'Marauder'),
+        ('Archer', 'Archer'),
+        ('Lancer', 'Lancer'),
+        ('Pugilist', 'Pugilist'),
+        ('Rogue', 'Rogue'),
+        ('Conjurer', 'Conjurer'),
+        ('Arcanist', 'Arcanist'),
+        ('Thaumaturge', 'Thaumaturge'),
+        ('Paladin', 'Paladin'),
+        ('Warrior', 'Warrior'),
+        ('Monk', 'Monk'),
+        ('Dragoon', 'Dragoon'),
+        ('Ninja', 'Ninja'),
+        ('Bard', 'Bard'),
+        ('Black Mage', 'Black Mage'),
+        ('Summoner', 'Summoner'),
+        ('Scholar', 'Scholar'),
+        ('White Mage', 'White Mage'),
+        ('Blue Mage', 'Blue Mage'),
+        ('Dark Knight', 'Dark Knight'),
+        ('Machinist', 'Machinist'),
+        ('Astrologian', 'Astrologian'),
+        ('Samurai', 'Samurai'),
+        ('Red Mage', 'Red Mage'),
+        ('Gunbreaker', 'Gunbreaker'),
+        ('Dancer', 'Dancer'),
+        ('Reaper', 'Reaper'),
+        ('Sage', 'Sage'),
+    )
+
+    quest_name = models.CharField(max_length=250, unique=True)
+    previous_quest = models.CharField(max_length=250)
+    quest_level = models.IntegerField()
+    quest_type = models.CharField(max_length=25, choices=QUEST_TYPES)
+    quest_class = models.CharField(max_length=25, choices=CLASS_TYPES)
+    next_quest = models.CharField(max_length=250)
+    quest_npcs = models.ManyToManyField(Npc, through='Step')
+    quest_reward = models.OneToOneField(
+        Reward, on_delete=models.CASCADE, primary_key=False)
+
+    def __str__(self):
+        return self.quest_name
 
 
 class Step(models.Model):
-    step_description = models.CharField(max_length=250)
+    step_description = models.CharField(max_length=250, unique=True)
     quest_step = models.ForeignKey(Quest, on_delete=models.CASCADE)
     step_npc = models.ForeignKey(Npc, on_delete=models.CASCADE)
 
