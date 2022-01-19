@@ -77,7 +77,7 @@ class WorldNav extends Component {
         return (
             <Container fluid>
                 <Row >
-                    <Col md={{span: 4, offset: 2}}>
+                    <Col md={{span: 6, offset: 3}}>
                         <Navbar bg='light' >
                             <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
                             <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />

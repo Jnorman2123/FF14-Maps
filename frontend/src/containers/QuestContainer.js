@@ -14,8 +14,9 @@ class QuestContainer extends Component {
 
     render() {
         return (
-            <Container>
-                <h1>Quest</h1>
+            <Container className='bg-primary' >
+                <h1>Quest Name</h1>
+                <h1>Quest Steps</h1>
             </Container>
         )
     }
