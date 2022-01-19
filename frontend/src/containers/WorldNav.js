@@ -3,7 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown'
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import RegionDropdown from '../components/RegionDropdown';
 
 class WorldNav extends Component {
 
@@ -12,10 +13,10 @@ class WorldNav extends Component {
         this.state = {
             regions: {
                 original: ["La Noscea", "The Black Shroud", "Thanalan"],
-                heavensward_regions: ["Coerthas", "Mor Dhona", "Abalathia's Spine", "Dravania"],
-                stormblood_regions: ["Gyr Abania", "Hingashi", "Othard"],
-                shadowbringers_regions: ["Norvandt"],
-                endwalker_regions: ["The Northern Empty", "Ilsabard", "The Sea of Stars", "The World Unsundered"],
+                heavensward: ["Coerthas", "Mor Dhona", "Abalathia's Spine", "Dravania"],
+                stormblood: ["Gyr Abania", "Hingashi", "Othard"],
+                shadowbringers: ["Norvandt"],
+                endwalker: ["The Northern Empty", "Ilsabard", "The Sea of Stars", "The World Unsundered"],
             },
             zones: ['Limsa Lominsa Upper Decks (La Noscea)', 'Limsa Lominsa Lower Decks (La Noscea)', 'Mist (La Noscea)',
             "Wolve's Den Pier (La Noscea)", 'Middle La Noscea (La Noscea)', 'Lower La Noscea (La Noscea)', 
@@ -38,18 +39,54 @@ class WorldNav extends Component {
         }
     }
 
+    capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    renderNavDropdowns = (region) => {
+        let expansion = null;
+        if (region === "original") {
+            expansion = this.state.regions.original
+        } else if (region === "heavensward") {
+            expansion = this.state.regions.heavensward
+        } else if (region === 'stormblood') {
+            expansion = this.state.regions.stormblood
+        } else if (region === 'shadowbringers') {
+            expansion = this.state.regions.shadowbringers
+        } else {
+            expansion = this.state.regions.endwalker
+        }
+        if (expansion === this.state.regions.original) {
+            return expansion.map(r => {
+                return <NavDropdown key={r} title={r} id='basic-nav-dropdown'>
+                    {this.state.zones.filter(zone => zone.includes(r)).map(zone => {
+                        return <NavDropdown.Item key={zone}>{zone}</NavDropdown.Item>
+                    })}
+                </NavDropdown>
+            })
+        }  else {
+            return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
+                    {expansion.map(r => this.state.zones.filter(zone => zone.includes(r)).map(zone => {
+                        return <NavDropdown.Item key={zone}>{zone}</NavDropdown.Item>
+                    }))}
+                </NavDropdown>
+        }
+    }
+
     render() {
         return (
             <Container fluid>
-                <Navbar bg='light' >
-                    {this.state.regions.map(region => {
-                        return <NavDropdown key={region} title={region} id='basic-nav-dropdown'>
-                            {this.state.zones.filter(zone => zone.includes(region)).map(zone => {
-                                return <NavDropdown.Item>{zone}</NavDropdown.Item>
-                            })}
-                        </NavDropdown>
-                    })}
-                </Navbar> 
+                <Row >
+                    <Col md={{span: 4, offset: 2}}>
+                        <Navbar bg='light' >
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' />
+                        </Navbar>
+                    </Col>
+                </Row>
             </Container>    
         )
     }
