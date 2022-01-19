@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import WorldNav from './containers/WorldNav';
 
 function App() {
   return (
     <div>
-      <h1>Home Page</h1>
+      <WorldNav />
+      <p>---</p>
       <nav>
         <Link to='quests'>Quests</Link>
         <p>--</p>
