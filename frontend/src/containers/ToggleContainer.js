@@ -64,8 +64,8 @@ class ToggleContainer extends Component {
                 </Dropdown> 
     }
 
-    renderButtons = (type) => {
-        return <ToggleButton id='toggle-check' type='checkbox' >{type}</ToggleButton>
+    renderButtons = (selection) => {
+        return <ToggleButton id='toggle-check' type='checkbox' >{selection}</ToggleButton>
     }
 
     render() {
@@ -96,14 +96,19 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     {this.props.types.map(t => {
-                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} type={t.name}/>
+                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} selection={t.name} />
                     })}   
                 </Row>   
                 <br/>
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Level</h5>
                 </Row> 
-                <br/>      
+                <br/>    
+                <Row>
+                    {this.props.levels.map(l => {
+                        return <ButtonToggle key={l.lvl} renderButton={this.renderButtons} selection={l.lvl} />
+                    })}    
+                </Row>  
             </Container>
         )
     }
