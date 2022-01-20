@@ -17,7 +17,7 @@ class ToggleContainer extends Component {
 
     renderDropdowns = (selection) => {
         let selection_name = '';
-        if (selection === this.state.class) {
+        if (selection === this.props.classes) {
             selection_name = 'Class';
         } else {
             selection_name = 'Type';
@@ -48,8 +48,8 @@ class ToggleContainer extends Component {
                     <h1>Toggle Quests</h1>
                 </Row>
                 <Row>
-                    {this.renderDropdowns(this.state.type)}
-                    {this.renderDropdowns(this.state.class)}
+                    {this.renderDropdowns(this.props.types)}
+                    {this.renderDropdowns(this.props.classes)}
                 </Row>               
             </Container>
         )

@@ -28,7 +28,7 @@ class App extends Component {
           </Row>
           <Row>
             <Col md={3} className='bg-dark'>
-              <ToggleContainer />         
+              <ToggleContainer classes={this.state.class}  types={this.state.type} />         
             </Col>
             <Col md={{span: 3, offset: 6}} className='bg-dark'>
               <QuestContainer />
