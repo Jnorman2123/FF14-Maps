@@ -6,6 +6,7 @@ import QuestContainer from './containers/QuestContainer';
 import ToggleContainer from './containers/ToggleContainer';
 import WorldNav from './containers/WorldNav';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MapContainer from './containers/MapContainer';
 
 class App extends Component {
 
@@ -63,7 +64,10 @@ class App extends Component {
             <Col md={3} className='bg-dark'>
               <ToggleContainer classes={this.state.class}  types={this.state.type} levels={this.state.level} />         
             </Col>
-            <Col md={{span: 3, offset: 6}} className='bg-dark'>
+            <Col md={6} >
+              <MapContainer mapName='World' />
+            </Col>
+            <Col md={3} className='bg-dark'>
               <QuestContainer />
             </Col>
           </Row>
