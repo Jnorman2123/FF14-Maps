@@ -5,6 +5,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import ToggleDropdown from '../components/ToggleDropdown';
+import ButtonToggle from '../components/ButtonToggle';
 
 class ToggleContainer extends Component {
 
@@ -63,6 +64,10 @@ class ToggleContainer extends Component {
                 </Dropdown> 
     }
 
+    renderButtons = (type) => {
+        return <ToggleButton id='toggle-check' type='checkbox' >{type}</ToggleButton>
+    }
+
     render() {
         return (
             <Container className='bg-primary' >
@@ -83,7 +88,12 @@ class ToggleContainer extends Component {
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.melee_dps_jobs}/>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.physical_ranged_dps_jobs}/>                
                 </Row>   
-                <br/>              
+                <br/>    
+                <Row>
+                    {this.props.types.map(t => {
+                        return <ButtonToggle key={t} renderButton={this.renderButtons} type={t}/>
+                    })}   
+                </Row>          
             </Container>
         )
     }
