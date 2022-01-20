@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Quest from './components/Quest';
-import Npc from './components/Npc';
+import MapContainer from './containers/MapContainer';
 
 const store = configureStore();
 
@@ -15,9 +14,11 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
-        <Route path='quests' element={<Quest />} />
-        <Route path='npcs' element={<Npc />} />
+        <Route path='/' element={<App />}>
+          <Route path='world' element={<MapContainer mapName='World' />} />
+          <Route path='newgridania' element={<MapContainer mapName='New Gridania' />} />
+          <Route path='oldgridania' element={<MapContainer mapName='Old Gridania' />} />
+        </Route> 
       </Routes>
     </BrowserRouter>
   </Provider>,
