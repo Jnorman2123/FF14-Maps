@@ -17,28 +17,50 @@ class ToggleContainer extends Component {
 
     renderDropdowns = (selection) => {
         let selection_name = '';
-        if (selection === this.props.classes) {
-            selection_name = 'Class';
-        } else {
-            selection_name = 'Type';
+        switch (selection) {
+            case this.props.classes.base_classes:
+                selection_name = 'Base Class'
+                break
+
+            case this.props.classes.tank_jobs:
+                selection_name = 'Tank Job'
+                break
+            
+            case this.props.classes.healer_jobs:
+                selection_name = 'Healer Job'
+                break
+
+            case this.props.classes.melee_dps_jobs:
+                selection_name = 'Melee Dps Job'
+                break
+
+            case this.props.classes.physical_ranged_dps_jobs:
+                selection_name = 'Ranged Dps Job'
+                break
+
+            case this.props.classes.magical_ranged_dps_jobs:
+                selection_name = 'Magic Dps Job'
+                break
+
+            default: 
+                selection_name = ''
+                break
         }
 
-        return <Col>
-            <Dropdown>
-                <Dropdown.Toggle id='dropdown-basic'>Toggle Quest {selection_name}</Dropdown.Toggle>
-                <ButtonGroup>
-                    <Dropdown.Menu>
-                        {selection.map(t => {
-                            return <Dropdown.Item key={t} >
-                            <ToggleButton key={t} id='toggle-check' type='checkbox' >
-                                {t}                                   
-                            </ToggleButton>
-                        </Dropdown.Item>
-                        })}
-                    </Dropdown.Menu> 
-                </ButtonGroup>
-            </Dropdown> 
-        </Col>
+        return <Dropdown>
+                    <Dropdown.Toggle id='dropdown-basic'>{selection_name} </Dropdown.Toggle>
+                        <ButtonGroup>
+                            <Dropdown.Menu>
+                                {selection.map(t => {
+                                    return <Dropdown.Item key={t.name} >
+                                    <ToggleButton key={t.name} id='toggle-check' type='checkbox' >
+                                        {t.name}                                   
+                                    </ToggleButton>
+                                </Dropdown.Item>
+                                })}
+                            </Dropdown.Menu> 
+                        </ButtonGroup>
+                </Dropdown> 
     }
 
     render() {
@@ -48,9 +70,20 @@ class ToggleContainer extends Component {
                     <h1>Toggle Quests</h1>
                 </Row>
                 <Row>
-                    {this.renderDropdowns(this.props.types)}
-                    {this.renderDropdowns(this.props.classes)}
-                </Row>               
+                    <Col>{this.renderDropdowns(this.props.classes.base_classes)}</Col>
+                    <Col>{this.renderDropdowns(this.props.classes.tank_jobs)}</Col>                
+                </Row>  
+                <br/>   
+                <Row>
+                    <Col>{this.renderDropdowns(this.props.classes.healer_jobs)}</Col>
+                    <Col>{this.renderDropdowns(this.props.classes.magical_ranged_dps_jobs)}</Col>                
+                </Row> 
+                <br/>            
+                <Row>
+                    <Col>{this.renderDropdowns(this.props.classes.melee_dps_jobs)}</Col>
+                    <Col>{this.renderDropdowns(this.props.classes.physical_ranged_dps_jobs)}</Col>                
+                </Row>   
+                <br/>              
             </Container>
         )
     }

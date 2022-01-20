@@ -14,7 +14,7 @@ export default function npcReducer(
                 ...state,
                 npcs: action.npcs,
                 requesting: false,
-            }
+            };
         default: 
             return state;
     }
