@@ -6,8 +6,10 @@ class ToggleContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            class: '',
-            type: ''
+            class: ['All', 'Gladiator', 'Marauder', 'Archer', 'Lancer', 'Pugilist', 'Rogue', 'Conjurer', 'Arcanist', 'Thaumaturge', 
+                'Paladin', 'Warrior', 'Monk', 'Dragoon', 'Ninja', 'Bard', 'Black Mage', 'Summoner', 'Scholar', 'White Mage', 
+                'Blue Mage', 'Dark Knight', 'Machinist', 'Astrologian', 'Samurai', 'Red Mage', 'Gunbreaker', 'Dancer', 'Reaper', 'Sage'],
+            type: ['Main Story', 'Class', 'Side', 'Hunting Log']
         }
     }
 
