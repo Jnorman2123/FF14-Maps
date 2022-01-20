@@ -12,9 +12,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      class: ['All', 'Gladiator', 'Marauder', 'Archer', 'Lancer', 'Pugilist', 'Rogue', 'Conjurer', 'Arcanist', 'Thaumaturge', 
-                'Paladin', 'Warrior', 'Monk', 'Dragoon', 'Ninja', 'Bard', 'Black Mage', 'Summoner', 'Scholar', 'White Mage', 
-                'Blue Mage', 'Dark Knight', 'Machinist', 'Astrologian', 'Samurai', 'Red Mage', 'Gunbreaker', 'Dancer', 'Reaper', 'Sage'],
+      class:  {
+        base_classes: [
+          {name: 'Gladiator', active: false}, {name: 'Marauder', active: false}, {name: 'Archer', active: false},
+          {name: 'Lancer', active: false}, {name: 'Pugilist', active: false}, {name: 'Rogue', active: false}, 
+          {name: 'Conjurer', active: false}, {name: 'Arcanist', active: false}, {name: 'Thaumaturge', active: false}
+        ],
+        tank_jobs: [
+          {name: 'Paladin', active: false}, {name: 'Warrior', active: false}, {name: 'Dark Knight', active: false}, 
+          {name: 'Gunbreaker', active: false}
+        ],
+        healer_jobs: [
+          {name: 'White Mage', active: false}, {name: 'Scholar', active: false}, {name: 'Astrologian', active: false}, 
+          {name: 'Sage', active: false}
+        ],
+        melee_dps_jobs: [
+          {name: 'Monk', active: false}, {name: 'Dragoon', active: false}, {name: 'Ninja', active: false},
+          {name: 'Samurai', active: false}, {name: 'Reaper', active: false}
+        ],
+        physical_ranged_dps_jobs: [
+          {name: 'Bard', active: false}, {name: 'Machinist', active: false}, {name: 'Dancer', active: false}
+        ],
+        magical_ranged_dps_jobs: [
+          {name: 'Black Mage', active: false}, {name: 'Summoner', active: false}, {name: 'Red Mage', active: false}, 
+          {name: 'Blue Mage', active: false}
+        ],
+      },
       type: ['Main Story', 'Class', 'Side', 'Hunting Log']
     }
   }
