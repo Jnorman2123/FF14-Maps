@@ -4,7 +4,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import ToggleDropdown from '../components/ToggleDropdown';
 
 class ToggleContainer extends Component {
