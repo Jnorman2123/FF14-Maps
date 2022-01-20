@@ -96,7 +96,7 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     {this.props.types.map(t => {
-                        return <ButtonToggle key={t} renderButton={this.renderButtons} type={t}/>
+                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} type={t.name}/>
                     })}   
                 </Row>   
                 <br/>

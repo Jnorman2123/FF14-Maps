@@ -38,7 +38,10 @@ class App extends Component {
           {name: 'Blue Mage', active: false}
         ],
       },
-      type: ['Main Story', 'Class/Job', 'Side', 'Hunting Log']
+      type: [
+        {name: 'Main Story', active: false}, {name: 'Class/Job', active: false}, {name: 'Side', active: false}, 
+        {name: 'Hunting Log', active: false}
+      ]
     }
   }
 
