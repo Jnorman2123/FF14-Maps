@@ -1,19 +1,23 @@
-import Col from 'react-bootstrap/esm/Col';
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import QuestContainer from './containers/QuestContainer';
+import ToggleContainer from './containers/ToggleContainer';
 import WorldNav from './containers/WorldNav';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div>
-      <WorldNav />
       <Container fluid>
         <Row>
-          <Col className='bg-primary' md={{span: 3, offset: 0}} >
-            <h1>toggle</h1>
+          <WorldNav />
+        </Row>
+        <Row>
+          <Col md={3} className='bg-dark'>
+            <ToggleContainer />
           </Col>
-          <Col md={{span: 3, offset: 9}}>
+          <Col md={{span: 3, offset: 6}} className='bg-dark'>
             <QuestContainer />
           </Col>
         </Row>

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 
-class QuestContainer extends Component {
+class ToggleContainer extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            steps: [],
-            reward: {}
+            class: '',
+            type: ''
         }
     }
 
     render() {
         return (
             <Container className='bg-primary' >
-                <h1>Quest</h1>
+                <h1>Toggle Quests</h1>
+                <h1>Dropdowns</h1>
             </Container>
         )
     }
 }
 
-export default QuestContainer;
+export default ToggleContainer;

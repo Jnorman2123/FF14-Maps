@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -75,19 +73,15 @@ class WorldNav extends Component {
 
     render() {
         return (
-            <Container fluid>
-                <Row >
-                    <Col md={{span: 6, offset: 3}}>
-                        <Navbar bg='light' >
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' />
-                        </Navbar>
-                    </Col>
-                </Row>
-            </Container>    
+            <Col md={{span: 6, offset: 3}}>
+                <Navbar bg='light' >
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' />
+                </Navbar>
+            </Col>
         )
     }
 }
