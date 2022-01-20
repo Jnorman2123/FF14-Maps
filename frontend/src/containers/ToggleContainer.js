@@ -5,6 +5,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ToggleDropdown from '../components/ToggleDropdown';
 
 class ToggleContainer extends Component {
 
@@ -70,18 +71,18 @@ class ToggleContainer extends Component {
                     <h1>Toggle Quests</h1>
                 </Row>
                 <Row>
-                    <Col>{this.renderDropdowns(this.props.classes.base_classes)}</Col>
-                    <Col>{this.renderDropdowns(this.props.classes.tank_jobs)}</Col>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.base_classes}/>
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.tank_jobs}/>                
                 </Row>  
                 <br/>   
                 <Row>
-                    <Col>{this.renderDropdowns(this.props.classes.healer_jobs)}</Col>
-                    <Col>{this.renderDropdowns(this.props.classes.magical_ranged_dps_jobs)}</Col>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.healer_jobs}/> 
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.magical_ranged_dps_jobs}/>                
                 </Row> 
                 <br/>            
                 <Row>
-                    <Col>{this.renderDropdowns(this.props.classes.melee_dps_jobs)}</Col>
-                    <Col>{this.renderDropdowns(this.props.classes.physical_ranged_dps_jobs)}</Col>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.melee_dps_jobs}/>
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.physical_ranged_dps_jobs}/>                
                 </Row>   
                 <br/>              
             </Container>
