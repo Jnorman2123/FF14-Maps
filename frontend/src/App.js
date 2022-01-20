@@ -16,6 +16,25 @@ function App() {
         <Row>
           <Col md={3} className='bg-dark'>
             <ToggleContainer />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
           </Col>
           <Col md={{span: 3, offset: 6}} className='bg-dark'>
             <QuestContainer />
