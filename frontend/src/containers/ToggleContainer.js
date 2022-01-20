@@ -20,27 +20,27 @@ class ToggleContainer extends Component {
         let selection_name = '';
         switch (selection) {
             case this.props.classes.base_classes:
-                selection_name = 'Base Class'
+                selection_name = 'Base Classes'
                 break
 
             case this.props.classes.tank_jobs:
-                selection_name = 'Tank Job'
+                selection_name = 'Tank Jobs'
                 break
             
             case this.props.classes.healer_jobs:
-                selection_name = 'Healer Job'
+                selection_name = 'Healer Jobs'
                 break
 
             case this.props.classes.melee_dps_jobs:
-                selection_name = 'Melee Dps Job'
+                selection_name = 'Melee Dps Jobs'
                 break
 
             case this.props.classes.physical_ranged_dps_jobs:
-                selection_name = 'Ranged Dps Job'
+                selection_name = 'Ranged Dps Jobs'
                 break
 
             case this.props.classes.magical_ranged_dps_jobs:
-                selection_name = 'Magic Dps Job'
+                selection_name = 'Magic Dps Jobs'
                 break
 
             default: 
@@ -72,8 +72,9 @@ class ToggleContainer extends Component {
         return (
             <Container className='bg-primary' >
                 <Row>
-                    <h1>Toggle Quests</h1>
+                    <h5 className='text-center'>Toggle Quests by Class/Job</h5>
                 </Row>
+                <br/>
                 <Row>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.base_classes}/>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.tank_jobs}/>                
@@ -88,12 +89,21 @@ class ToggleContainer extends Component {
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.melee_dps_jobs}/>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.physical_ranged_dps_jobs}/>                
                 </Row>   
-                <br/>    
+                <br/>   
+                <Row>
+                    <h5 className='text-center'>Toggle Quests by Type</h5>
+                </Row>
+                <br/>
                 <Row>
                     {this.props.types.map(t => {
                         return <ButtonToggle key={t} renderButton={this.renderButtons} type={t}/>
                     })}   
-                </Row>          
+                </Row>   
+                <br/>
+                <Row>
+                    <h5 className='text-center'>Toggle Quests by Level</h5>
+                </Row> 
+                <br/>      
             </Container>
         )
     }
