@@ -53,6 +53,19 @@ class App extends Component {
     }
   }
 
+  setClassActive = (event) => {
+    let class_name = event.target.name;
+    Object.entries(this.state.class).map(class_type => {
+      return class_type[1].map(job => {
+        if (job.name === class_name) {
+          job.active = !job.active;
+          this.setState({[job.active]: job.active})
+        }
+        return job.active
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +75,8 @@ class App extends Component {
           </Row>
           <Row>
             <Col md={3} className='bg-dark'>
-              <ToggleContainer classes={this.state.class}  types={this.state.type} levels={this.state.level} />         
+              <ToggleContainer classes={this.state.class}  types={this.state.type} levels={this.state.level} 
+              setClassActive={this.setClassActive} />         
             </Col>
             <Col md={6} >
               <Outlet />

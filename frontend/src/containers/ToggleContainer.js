@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import ToggleDropdown from '../components/ToggleDropdown';
@@ -51,12 +51,13 @@ class ToggleContainer extends Component {
         return <Dropdown>
                     <Dropdown.Toggle id='dropdown-basic'>{selection_name} </Dropdown.Toggle>
                         <ButtonGroup>
-                            <Dropdown.Menu>
+                            <Dropdown.Menu>    
                                 {selection.map(t => {
                                     return <Dropdown.Item key={t.name} >
-                                    <ToggleButton key={t.name} id='toggle-check' type='checkbox' >
+                                    <Button key={t.name} id='toggle-check' type='checkbox' name={t.name}
+                                    onClick={this.props.setClassActive}>
                                         {t.name}                                   
-                                    </ToggleButton>
+                                    </Button>
                                 </Dropdown.Item>
                                 })}
                             </Dropdown.Menu> 
@@ -65,7 +66,9 @@ class ToggleContainer extends Component {
     }
 
     renderButtons = (selection) => {
-        return <ToggleButton id='toggle-check' type='checkbox' >{selection}</ToggleButton>
+        return <Button id='toggle-check' type='checkbox' name={selection} onClick={this.props.setActive} >
+            {selection}
+        </Button>
     }
 
     render() {

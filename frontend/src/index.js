@@ -29,7 +29,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />}>
           {map_names.map(n => {
-            return <Route path={`${n.split(" ").join('').toLowerCase()}`} element={<MapContainer mapName={n} />} />
+            return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} element={<MapContainer mapName={n} />} />
           })}
         </Route> 
       </Routes>
