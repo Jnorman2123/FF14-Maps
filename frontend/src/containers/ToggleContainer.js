@@ -16,7 +16,7 @@ class ToggleContainer extends Component {
         }
     }
 
-    renderDropdowns = (selection) => {
+    setSelectionName = (selection) => {
         let selection_name = '';
         switch (selection) {
             case this.props.classes.base_classes:
@@ -47,18 +47,26 @@ class ToggleContainer extends Component {
                 selection_name = ''
                 break
         }
+        return selection_name;
+    }
 
+    renderDropdowns = (selection) => {
+        let selection_name = this.setSelectionName(selection);
         return <Dropdown>
                     <Dropdown.Toggle id='dropdown-basic'>{selection_name} </Dropdown.Toggle>
                         <ButtonGroup>
                             <Dropdown.Menu>    
                                 {selection.map(t => {
+                                    let isActive = false;
+                                    let theme = '';
+                                    t.active ? isActive = true : isActive = false;
+                                    t.active ? theme = 'btn-primary' : theme = 'btn-secondary';
                                     return <Dropdown.Item key={t.name} >
-                                    <Button key={t.name} id='toggle-check' type='checkbox' name={t.name}
-                                    onClick={this.props.setClassActive}>
-                                        {t.name}                                   
-                                    </Button>
-                                </Dropdown.Item>
+                                        <Button key={t.name} id='toggle-check' className={theme} type='checkbox' name={t.name}
+                                        onClick={this.props.setClassActive} active={isActive}>
+                                            {t.name}                                   
+                                        </Button>
+                                    </Dropdown.Item>
                                 })}
                             </Dropdown.Menu> 
                         </ButtonGroup>
