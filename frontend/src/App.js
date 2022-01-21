@@ -66,6 +66,30 @@ class App extends Component {
     })
   }
 
+  setTypeActive = (event) => {
+    let type_name = event.target.name;
+    this.state.type.map(type => {
+      if (type.name === type_name) {
+        type.active = !type.active;
+        this.setState({[type.active]: type.active});
+      }
+      console.log(type);
+      return type.active
+    })
+  }
+
+  setLvlActive = (event) => {
+    let lvl_name = event.target.name;
+    this.state.level.map(lvl => {
+      if (lvl.lvl === Number.parseInt(lvl_name)) {
+        lvl.active = !lvl.active;
+        this.setState({[lvl.active]: lvl.active});
+      }
+      console.log(lvl);
+      return lvl.active
+    })
+  }
+
   render() {
     return (
       <div>
@@ -76,7 +100,7 @@ class App extends Component {
           <Row>
             <Col md={3} className='bg-dark'>
               <ToggleContainer classes={this.state.class}  types={this.state.type} levels={this.state.level} 
-              setClassActive={this.setClassActive} />         
+              setClassActive={this.setClassActive} setTypeActive={this.setTypeActive} setLvlActive={this.setLvlActive} />         
             </Col>
             <Col md={6} >
               <Outlet />

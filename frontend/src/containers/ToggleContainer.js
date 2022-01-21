@@ -73,9 +73,29 @@ class ToggleContainer extends Component {
                 </Dropdown> 
     }
 
-    renderButtons = (selection) => {
-        return <Button id='toggle-check' type='checkbox' name={selection} onClick={this.props.setActive} >
-            {selection}
+    renderTypeButtons = (selection) => {
+        let isActive = false;
+        let theme = '';
+
+        selection.active ? isActive = true : isActive = false;
+        selection.active ? theme = 'btn-primary' : theme = 'btn-secondary';
+        
+        return <Button id='toggle-check' type='checkbox' name={selection.name} onClick={this.props.setTypeActive} 
+        className={theme} active={isActive} >
+            {selection.name}
+        </Button>
+    }
+
+    renderLvlButtons = (selection) => {
+        let isActive = false;
+        let theme = '';
+
+        selection.active ? isActive = true : isActive = false;
+        selection.active ? theme = 'btn-primary' : theme = 'btn-secondary';
+        
+        return <Button id='toggle-check' type='checkbox' name={selection.lvl} onClick={this.props.setLvlActive} 
+        className={theme} active={isActive} >
+            {selection.lvl}
         </Button>
     }
 
@@ -107,7 +127,7 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     {this.props.types.map(t => {
-                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} selection={t.name} />
+                        return <ButtonToggle key={t.name} renderButton={this.renderTypeButtons} selection={t} />
                     })}   
                 </Row>   
                 <br/>
@@ -117,7 +137,7 @@ class ToggleContainer extends Component {
                 <br/>    
                 <Row>
                     {this.props.levels.map(l => {
-                        return <ButtonToggle key={l.lvl} renderButton={this.renderButtons} selection={l.lvl} />
+                        return <ButtonToggle key={l.lvl} renderButton={this.renderLvlButtons} selection={l} />
                     })}    
                 </Row>  
             </Container>
