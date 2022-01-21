@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import RegionDropdown from '../components/RegionDropdown';
+import { Link } from 'react-router-dom';
 
 class WorldNav extends Component {
 
@@ -58,14 +59,20 @@ class WorldNav extends Component {
             return expansion.map(r => {
                 return <NavDropdown key={r} title={r} id='basic-nav-dropdown'>
                     {this.state.zones.filter(zone => zone.includes(r)).map(zone => {
-                        return <NavDropdown.Item key={zone}>{zone}</NavDropdown.Item>
+                        let split_name = zone.split(' ');
+                        let splice_index = split_name.findIndex(l => l.includes('('));
+                        split_name.splice(splice_index);
+                        return <NavDropdown.Item key={zone}><Link to={`/${split_name.join('').toLowerCase()}`}>{zone}</Link></NavDropdown.Item>
                     })}
                 </NavDropdown>
             })
         }  else {
             return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
                     {expansion.map(r => this.state.zones.filter(zone => zone.includes(r)).map(zone => {
-                        return <NavDropdown.Item key={zone}>{zone}</NavDropdown.Item>
+                        let split_name = zone.split(' ');
+                        let splice_index = split_name.findIndex(l => l.includes('('));
+                        split_name.splice(splice_index);
+                        return <NavDropdown.Item key={zone}><Link to={`/${split_name.join('').toLowerCase()}`}>{zone}</Link></NavDropdown.Item>
                     }))}
                 </NavDropdown>
         }

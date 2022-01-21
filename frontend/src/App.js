@@ -6,7 +6,7 @@ import QuestContainer from './containers/QuestContainer';
 import ToggleContainer from './containers/ToggleContainer';
 import WorldNav from './containers/WorldNav';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
 class App extends Component {
 
@@ -44,11 +44,11 @@ class App extends Component {
         {name: 'Hunting Log', active: false}
       ],
       level: [
-        {lvl: 5, active: false}, {lvl: 10, active: false}, {lvl: 15, active: false}, {lvl: 15, active: false}, 
-        {lvl: 20, active: false}, {lvl: 25, active: false}, {lvl: 30, active: false}, {lvl: 35, active: false}, 
-        {lvl: 40, active: false}, {lvl: 45, active: false}, {lvl: 50, active: false}, {lvl: 55, active: false},
-        {lvl: 60, active: false}, {lvl: 65, active: false}, {lvl: 70, active: false}, {lvl: 75, active: false},
-        {lvl: 80, active: false}, {lvl: 85, active: false}, {lvl: 90, active: false}
+        {lvl: 5, active: false}, {lvl: 10, active: false}, {lvl: 15, active: false}, {lvl: 20, active: false}, 
+        {lvl: 25, active: false}, {lvl: 30, active: false}, {lvl: 35, active: false}, {lvl: 40, active: false}, 
+        {lvl: 45, active: false}, {lvl: 50, active: false}, {lvl: 55, active: false}, {lvl: 60, active: false}, 
+        {lvl: 65, active: false}, {lvl: 70, active: false}, {lvl: 75, active: false}, {lvl: 80, active: false}, 
+        {lvl: 85, active: false}, {lvl: 90, active: false}
       ]
     }
   }
