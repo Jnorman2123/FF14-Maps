@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MapContainer from './containers/MapContainer';
+import MapCont from './containers/MapCont';
 
 const store = configureStore();
 const map_names = [
@@ -29,7 +29,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />}>
           {map_names.map(n => {
-            return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} element={<MapContainer mapName={n} />} />
+            return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} element={<MapCont mapName={n} />} />
           })}
         </Route> 
       </Routes>

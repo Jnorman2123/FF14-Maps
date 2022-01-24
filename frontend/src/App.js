@@ -73,7 +73,6 @@ class App extends Component {
         type.active = !type.active;
         this.setState({[type.active]: type.active});
       }
-      console.log(type);
       return type.active
     })
   }
@@ -85,7 +84,6 @@ class App extends Component {
         lvl.active = !lvl.active;
         this.setState({[lvl.active]: lvl.active});
       }
-      console.log(lvl);
       return lvl.active
     })
   }
