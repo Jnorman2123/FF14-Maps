@@ -38,6 +38,13 @@ class MapCont extends Component {
                                 })}
                             </ul>
                         </Col>
+                        <Col>
+                            <ul>
+                                {this.props.steps.steps.map(step => {
+                                    return <li key={step.step_description}>{step.step_description}</li>
+                                })}
+                            </ul>
+                        </Col>
                     </Row>
                 </Container>
                 
