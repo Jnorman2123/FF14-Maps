@@ -52,6 +52,41 @@ class Home extends Component {
         }
     }
 
+    setClassActive = (event) => {
+        let class_name = event.target.name;
+        Object.entries(this.state.class).map(class_type => {
+          return class_type[1].map(job => {
+            if (job.name === class_name) {
+              job.active = !job.active;
+              this.setState({[job.active]: job.active})
+            }
+            return job.active
+          })
+        })
+      }
+    
+      setTypeActive = (event) => {
+        let type_name = event.target.name;
+        this.state.type.map(type => {
+          if (type.name === type_name) {
+            type.active = !type.active;
+            this.setState({[type.active]: type.active});
+          }
+          return type.active
+        })
+      }
+    
+      setLvlActive = (event) => {
+        let lvl_name = event.target.name;
+        this.state.level.map(lvl => {
+          if (lvl.lvl === Number.parseInt(lvl_name)) {
+            lvl.active = !lvl.active;
+            this.setState({[lvl.active]: lvl.active});
+          }
+          return lvl.active
+        })
+      }
+
     render() {
         return (
             <div>

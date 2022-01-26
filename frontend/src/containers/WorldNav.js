@@ -62,7 +62,11 @@ class WorldNav extends Component {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
                         split_name.splice(splice_index);
-                        return <NavDropdown.Item key={zone}><Link to={`/${split_name.join('').toLowerCase()}`}>{zone}</Link></NavDropdown.Item>
+                        return <NavDropdown.Item as='div' key={zone}>
+                            <Link to={`/${split_name.join('').toLowerCase()}`}>
+                                {zone}
+                            </Link>
+                        </NavDropdown.Item>
                     })}
                 </NavDropdown>
             })
@@ -72,7 +76,11 @@ class WorldNav extends Component {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
                         split_name.splice(splice_index);
-                        return <NavDropdown.Item key={zone}><Link to={`/${split_name.join('').toLowerCase()}`}>{zone}</Link></NavDropdown.Item>
+                        return <NavDropdown.Item as='div' key={zone}>
+                            <Link to={`/${split_name.join('').toLowerCase()}`}>
+                                {zone}
+                            </Link>
+                        </NavDropdown.Item>
                     }))}
                 </NavDropdown>
         }
