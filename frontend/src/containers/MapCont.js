@@ -11,7 +11,12 @@ class MapCont extends Component {
     
         return (
             <div>
-                <div className='text-center' >{this.props.mapName} </div>
+                <ul>
+                    {this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName)).map(n => {
+                        return <li key={n.npc_name}>{n.npc_name} {n.npc_location_x} {n.npc_location_y}</li>
+                    })}
+                </ul>
+                {/* <div className='text-center' >{this.props.mapName} </div>
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom}
                 maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} maxBoundsViscosity='1' scrollWheelZoom={true}
                 style={{height: '800px', width: '935px'}}>
@@ -31,7 +36,7 @@ class MapCont extends Component {
                             New Gridania Aetheryte
                         </Popup>
                     </Marker>
-                </MapContainer>
+                </MapContainer> */}
             </div>
             
         );
