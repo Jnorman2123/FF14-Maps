@@ -15,7 +15,7 @@ class MapCont extends Component {
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom}
                 maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} maxBoundsViscosity='1' scrollWheelZoom={true}
                 style={{height: '800px', width: '935px'}}>
-                    <ImageOverlay url='./maps/NewGridaniaPlaceholder.png' bounds={this.props.bounds} opacity={1} />
+                    <ImageOverlay url='./maps/NewGridania_Base_v3.jpg' bounds={this.props.bounds} opacity={1} />
                     <Marker position={pos3}>
                         <Popup>
                             Archer's Guild Aethernet
