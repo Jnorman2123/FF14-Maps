@@ -45,6 +45,13 @@ class MapCont extends Component {
                                 })}
                             </ul>
                         </Col>
+                        <Col>
+                            <ul>
+                                {this.props.rewards.rewards.map(reward => {
+                                    return <li key={reward.reward_quest_name}>{reward.reward_quest_name}</li>
+                                })}
+                            </ul>
+                        </Col>
                     </Row>
                 </Container>
                 
