@@ -5,7 +5,9 @@ import MapCont from './containers/MapCont';
 import Home from './containers/Home';
 import { LatLngBounds } from 'leaflet';
 import { connect } from 'react-redux';
-import { fetchNpcs} from './actions/npcs/npcActions';
+import { fetchNpcs } from './actions/npcs/npcActions';
+import { fetchQuests } from './actions/quests/questActions';
+import { fetchItems } from './actions/items/itemActions';
 
 class App extends Component {
 
@@ -35,6 +37,8 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchNpcs();
+    this.props.fetchQuests();
+    this.props.fetchItems();
   }
 
   revertLat = (x,y) => {
@@ -50,13 +54,15 @@ class App extends Component {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
               minZoom={5} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} npcs={this.props.npcs} />} />
+              revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
+              />} />
             })}
             {this.state.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
               minZoom={4} maxZoom={6} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
-              revertLat={this.revertLat} npcs={this.props.npcs} />} />
+              revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items} 
+              />} />
             })}
           </Route> 
         </Routes>
@@ -68,10 +74,12 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
       npcs: state.npcs,
+      quests: state.quests,
+      items: state.items,
       requesting: state.requesting,
   }
 }
 
-export default connect(mapStateToProps, { fetchNpcs })(App);
+export default connect(mapStateToProps, { fetchNpcs, fetchQuests, fetchItems })(App);
 
 
