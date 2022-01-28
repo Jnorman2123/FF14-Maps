@@ -4,6 +4,7 @@ import questReducer from './questReducer';
 import itemReducer from './itemReducer';
 import stepReducer from './stepReducer';
 import rewardReducer from './rewardReducer';
+import filterReducer from './filterReducer';
 
 const rootReducer = () => 
     combineReducers({
@@ -11,7 +12,8 @@ const rootReducer = () =>
         npcs: npcReducer,
         items: itemReducer,
         steps: stepReducer,
-        rewards: rewardReducer
+        rewards: rewardReducer,
+        storeData: filterReducer
     })
 
 export default rootReducer;

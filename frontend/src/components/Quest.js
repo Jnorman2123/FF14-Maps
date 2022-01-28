@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuests} from '../actions/quests/questActions';
+import { fetchQuests} from '../store/actions/quests/questActions';
 import Npc from './Npc';
 
 class Quest extends Component {

@@ -10,7 +10,6 @@ class MapCont extends Component {
     render() {
 
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
-        //let quests = this.props.quests.filter(quest => )
         return (    
 
             <div>
@@ -19,36 +18,23 @@ class MapCont extends Component {
                     <Row>
                         <Col>
                             <ul>
-                                {npcs.map(n => {
-                                    return <li key={n.npc_name}>{n.npc_name} </li>
-                                })}
-                            </ul>
-                        </Col>
-                        <Col>
-                            <ul>
                                 {this.props.quests.quests.map(quest => {
-                                    return <li key={quest.quest_name}>{quest.quest_name}</li>
-                                })}
-                            </ul>      
-                        </Col>
-                        <Col>
-                            <ul>
-                                {this.props.items.items.map(item => {
-                                    return <li key={item.id}>{item.item_name}</li>
-                                })}
-                            </ul>
-                        </Col>
-                        <Col>
-                            <ul>
-                                {this.props.steps.steps.map(step => {
-                                    return <li key={step.step_description}>{step.step_description}</li>
-                                })}
-                            </ul>
-                        </Col>
-                        <Col>
-                            <ul>
-                                {this.props.rewards.rewards.map(reward => {
-                                    return <li key={reward.reward_quest_name}>{reward.reward_quest_name}</li>
+                                    let quest_steps = [];
+                                    this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
+                                        quest_steps.push(s);
+                                        return quest_steps;
+                                    })
+                                    return <li key={quest.quest_name}>
+                                        {quest.quest_name}-{quest.quest_type}-{quest.quest_class}-{quest.quest_level}
+                                        <ul>
+                                            {quest_steps.map(step => {
+                                                let step_npc = npcs.filter(npc => npc.id === step.step_npc);
+                                                if (step_npc[0] !== undefined) {
+                                                    return <li key={step.step_description}>{step.step_description}<p>{step_npc[0].npc_name}</p></li>
+                                                }
+                                            })}
+                                        </ul>
+                                    </li>
                                 })}
                             </ul>
                         </Col>

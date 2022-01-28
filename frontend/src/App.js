@@ -5,11 +5,11 @@ import MapCont from './containers/MapCont';
 import Home from './containers/Home';
 import { LatLngBounds } from 'leaflet';
 import { connect } from 'react-redux';
-import { fetchNpcs } from './actions/npcs/npcActions';
-import { fetchQuests } from './actions/quests/questActions';
-import { fetchItems } from './actions/items/itemActions';
-import { fetchSteps } from './actions/steps/stepActions';
-import { fetchRewards } from './actions/rewards/rewardActions';
+import { fetchNpcs } from './store/actions/npcs/npcActions';
+import { fetchQuests } from './store/actions/quests/questActions';
+import { fetchItems } from './store/actions/items/itemActions';
+import { fetchSteps } from './store/actions/steps/stepActions';
+import { fetchRewards } from './store/actions/rewards/rewardActions';
 
 class App extends Component {
 

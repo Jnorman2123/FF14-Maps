@@ -12,42 +12,31 @@ class ToggleContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            base_classes: this.props.classes.slice(0, 9),
+            tank_jobs: this.props.classes.slice(9, 13),
+            healer_jobs: this.props.classes.slice(13, 17),
+            melee_dps_jobs: this.props.classes.slice(17, 22),
+            physical_ranged_dps_jobs: this.props.classes.slice(22, 25),
+            magical_ranged_dps_jobs: this.props.classes.slice(25),
         }
     }
 
     setSelectionName = (selection) => {
-        let selection_name = '';
-        switch (selection) {
-            case this.props.classes.base_classes:
-                selection_name = 'Base Classes'
-                break
-
-            case this.props.classes.tank_jobs:
-                selection_name = 'Tank Jobs'
-                break
-            
-            case this.props.classes.healer_jobs:
-                selection_name = 'Healer Jobs'
-                break
-
-            case this.props.classes.melee_dps_jobs:
-                selection_name = 'Melee Dps Jobs'
-                break
-
-            case this.props.classes.physical_ranged_dps_jobs:
-                selection_name = 'Ranged Dps Jobs'
-                break
-
-            case this.props.classes.magical_ranged_dps_jobs:
-                selection_name = 'Magic Dps Jobs'
-                break
-
-            default: 
-                selection_name = ''
-                break
+        let selectionName = '';
+        if (selection === this.state.base_classes) {
+            selectionName = 'Base Classes';
+        } else if (selection === this.state.tank_jobs) {
+            selectionName = 'Tank Jobs';
+        } else if (selection === this.state.healer_jobs) {
+            selectionName = 'Healer Jobs';
+        } else if (selection === this.state.melee_dps_jobs) {
+            selectionName = 'Melee Dps Jobs';
+        } else if (selection === this.state.physical_ranged_dps_jobs) {
+            selectionName = 'Physical Ranged Dps Jobs';
+        } else {
+            selectionName = 'Magical Ranged Dps Jobs';
         }
-        return selection_name;
+        return selectionName;
     }
 
     renderDropdowns = (selection) => {
@@ -73,29 +62,24 @@ class ToggleContainer extends Component {
                 </Dropdown> 
     }
 
-    renderTypeButtons = (selection) => {
+    renderButtons = (selection) => {
+        let setActive = null;
         let isActive = false;
         let theme = '';
+
+        if (selection.name === 'Main Story' || selection.name === 'Class/Job' || selection.name === 'Side'
+        || selection.name === 'Hunring Log') {
+            setActive = this.props.setTypeActive;
+        } else {
+            setActive = this.props.setLevelActive;
+        }
 
         selection.active ? isActive = true : isActive = false;
         selection.active ? theme = 'btn-primary' : theme = 'btn-secondary';
         
-        return <Button id='toggle-check' type='checkbox' name={selection.name} onClick={this.props.setTypeActive} 
+        return <Button id='toggle-check' type='checkbox' name={selection.name} onClick={setActive} 
         className={theme} active={isActive} >
             {selection.name}
-        </Button>
-    }
-
-    renderLvlButtons = (selection) => {
-        let isActive = false;
-        let theme = '';
-
-        selection.active ? isActive = true : isActive = false;
-        selection.active ? theme = 'btn-primary' : theme = 'btn-secondary';
-        
-        return <Button id='toggle-check' type='checkbox' name={selection.lvl} onClick={this.props.setLvlActive} 
-        className={theme} active={isActive} >
-            {selection.lvl}
         </Button>
     }
 
@@ -107,18 +91,18 @@ class ToggleContainer extends Component {
                 </Row>
                 <br/>
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.base_classes}/>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.tank_jobs}/>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/>
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>                
                 </Row>  
                 <br/>   
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.healer_jobs}/> 
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.magical_ranged_dps_jobs}/>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.healer_jobs}/> 
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.magical_ranged_dps_jobs}/>                
                 </Row> 
                 <br/>            
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.melee_dps_jobs}/>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.props.classes.physical_ranged_dps_jobs}/>                
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.melee_dps_jobs}/>
+                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.physical_ranged_dps_jobs}/>                
                 </Row>   
                 <br/>   
                 <Row>
@@ -127,7 +111,7 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     {this.props.types.map(t => {
-                        return <ButtonToggle key={t.name} renderButton={this.renderTypeButtons} selection={t} />
+                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} selection={t} />
                     })}   
                 </Row>   
                 <br/>
@@ -137,7 +121,7 @@ class ToggleContainer extends Component {
                 <br/>    
                 <Row>
                     {this.props.levels.map(l => {
-                        return <ButtonToggle key={l.lvl} renderButton={this.renderLvlButtons} selection={l} />
+                        return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
                     })}    
                 </Row>  
             </Container>

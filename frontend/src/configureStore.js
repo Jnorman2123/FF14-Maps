@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers/rootReducer';
+import rootReducer from './store/reducers/rootReducer';
 
 export default function configureStore(preLoadedState) {
     const composeEnhancer = 

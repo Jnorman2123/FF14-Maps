@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchNpcs} from '../actions/npcs/npcActions';
+import { fetchNpcs} from '../store/actions/npcs/npcActions';
 
 class Npc extends Component {
 
