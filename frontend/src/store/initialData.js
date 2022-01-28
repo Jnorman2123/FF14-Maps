@@ -15,7 +15,7 @@ export const initialData = {
         
       ],
     [QUEST_TYPES] : [
-        {name: 'Main Story', active: false}, {name: 'Class/Job', active: false}, {name: 'Side', active: false}, 
+        {name: 'Main Story', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
         {name: 'Hunting Log', active: false},
     ],
     [QUEST_LEVELS] : [

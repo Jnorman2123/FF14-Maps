@@ -10,18 +10,22 @@ class MapCont extends Component {
 
     render() {
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
-        let active_quest_types = this.props.quest_types.filter(t => t.active);
+        let active_quest_types = this.props.quest_types.filter(t => t.active).map(at => at.name);
         let active_quest_levels = this.props.quest_levels.filter(l => l.active);
         let lvls = active_quest_levels.map(l => l.name);
         let lvl_ranges = lvls.map(l => l.split("-").map(i => parseInt(i)));
         let active_quests = [];
         this.props.quests.quests.map(q => {
-            if (active_classes.includes(q.quest_class) || q.quest_class === 'All') {
-                active_quests.push(q);
+            if ((active_classes.includes(q.quest_class) || q.quest_class === 'All') && active_quest_types.includes(q.quest_type)) {
+                lvl_ranges.map(lr => {
+                    if (q.quest_level >= lr[0] && q.quest_level <= lr[1]) {
+                        active_quests.push(q);
+                    }
+                    return active_quests;
+                })
                 return active_quests;
             }
         })
-        console.log(active_classes);
         console.log(active_quests);
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
         return (    
@@ -32,7 +36,7 @@ class MapCont extends Component {
                     <Row>
                         <Col>
                             <ul>
-                                {this.props.quests.quests.map(quest => {
+                                {active_quests.map(quest => {
                                     let quest_steps = [];
                                     this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
                                         quest_steps.push(s);

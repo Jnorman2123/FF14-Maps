@@ -67,8 +67,8 @@ class ToggleContainer extends Component {
         let isActive = false;
         let theme = '';
 
-        if (selection.name === 'Main Story' || selection.name === 'Class/Job' || selection.name === 'Side'
-        || selection.name === 'Hunring Log') {
+        if (selection.name === 'Main Story' || selection.name === 'Class' || selection.name === 'Side'
+        || selection.name === 'Hunting Log') {
             setActive = this.props.setTypeActive;
         } else {
             setActive = this.props.setLevelActive;
