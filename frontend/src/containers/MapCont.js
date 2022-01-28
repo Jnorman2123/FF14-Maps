@@ -4,11 +4,25 @@ import L from 'leaflet';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import { connect } from 'react-redux';
 
 class MapCont extends Component {
 
     render() {
-
+        let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
+        let active_quest_types = this.props.quest_types.filter(t => t.active);
+        let active_quest_levels = this.props.quest_levels.filter(l => l.active);
+        let lvls = active_quest_levels.map(l => l.name);
+        let lvl_ranges = lvls.map(l => l.split("-").map(i => parseInt(i)));
+        let active_quests = [];
+        this.props.quests.quests.map(q => {
+            if (active_classes.includes(q.quest_class) || q.quest_class === 'All') {
+                active_quests.push(q);
+                return active_quests;
+            }
+        })
+        console.log(active_classes);
+        console.log(active_quests);
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
         return (    
 
@@ -59,4 +73,10 @@ class MapCont extends Component {
     }
 }
 
-export default MapCont;
+const mapStateToProps = (storeData) => ({
+    classes: storeData.storeData.classes,
+    quest_levels: storeData.storeData.quest_levels,
+    quest_types: storeData.storeData.quest_types
+})
+
+export default connect(mapStateToProps)(MapCont);
