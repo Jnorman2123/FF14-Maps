@@ -1,10 +1,11 @@
-from django.urls import path
-from . import views
+from rest_framework.routers import DefaultRouter
+from .views import QuestViewSet, ItemViewSet, NpcViewSet, RewardViewSet, StepViewSet
 
-urlpatterns = [
-    path('api/quests/', views.QuestListCreate.as_view()),
-    path('api/items/', views.ItemListCreate.as_view()),
-    path('api/npcs/', views.NpcListCreate.as_view()),
-    path('api/rewards/', views.RewardListCreate.as_view()),
-    path('api/steps/', views.StepListCreate.as_view()),
-]
+router = DefaultRouter()
+router.register(r'quests', QuestViewSet, basename='quest')
+router.register(r'items', ItemViewSet, basename='items')
+router.register(r'npcs', NpcViewSet, basename='npcs')
+router.register(r'rewards', RewardViewSet, basename='rewards')
+router.register(r'steps', StepViewSet, basename='items')
+
+urlpatterns = router.urls
