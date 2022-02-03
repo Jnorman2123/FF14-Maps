@@ -60,22 +60,18 @@ class App extends Component {
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
               minZoom={5} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
-              steps={this.props.steps} rewards={this.props.rewards} />}> 
-                <Route path=':questId' element={<Quest />} />
-            </Route>
+              steps={this.props.steps} rewards={this.props.rewards} />} />
             })}
             {this.state.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
               minZoom={4} maxZoom={6} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items} 
-              steps={this.props.steps} rewards={this.props.rewards} />}> 
-                <Route path=':questId' element={<Quest />} />
-              </Route>
+              steps={this.props.steps} rewards={this.props.rewards} />} />
             })}
-          </Route>
-          <Route path='*' element={<div><p>There is nothing here.</p></div>}>
           </Route> 
+          <Route index element={<Quest />}/>
+          <Route path='*' element={<div><p>There is nothing here.</p></div>} />
         </Routes>
       </BrowserRouter>
     );

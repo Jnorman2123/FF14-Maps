@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuests} from '../store/actions/quests/questActions';
 import Npc from './Npc';
 
 class Quest extends Component {
-
-    componentDidMount() {
-        this.props.fetchQuests();
-    }
 
     renderQuests= () => {
         if (this.props.quests.requesting === true) {
@@ -40,17 +35,10 @@ class Quest extends Component {
         return (
             <main>
                 <h2>quests</h2>
-                {this.renderQuests()}
             </main>
         )
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        quests: state.quests,
-        requesting: state.requesting,
-    }
-}
 
-export default connect(mapStateToProps, { fetchQuests })(Quest);
+export default Quest;
