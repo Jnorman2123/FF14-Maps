@@ -35,6 +35,7 @@ class Quest extends Component {
         return (
             <main>
                 <h2>quests</h2>
+                <h2>{this.props.q_id}</h2>
             </main>
         )
     }

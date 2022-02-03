@@ -61,7 +61,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />}>
+          <Route path='/' element={<Home q_id={this.state.quest_id} />}>
             {this.state.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
@@ -76,8 +76,7 @@ class App extends Component {
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items} 
               steps={this.props.steps} rewards={this.props.rewards} setQuestId={this.setQuestId} />} />
             })}
-          </Route> 
-          <Route index element={<QuestContainer q_id={this.state.quest_id} />}/>
+          </Route>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />
         </Routes>
       </BrowserRouter>

@@ -3,19 +3,11 @@ import Container from 'react-bootstrap/esm/Container';
 
 class QuestContainer extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            steps: [],
-            reward: {}
-        }
-    }
-
     render() {
         return (
-            <Container className='bg-primary' >
+            <Container key={Math.random()} className='bg-primary' >
                 <h1>Quest</h1>
+                <h2>{this.props.q_id}</h2>
             </Container>
         )
     }
