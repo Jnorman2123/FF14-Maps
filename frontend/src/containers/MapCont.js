@@ -47,6 +47,11 @@ class MapCont extends Component {
                                 position={this.props.revertLat(step_npc[0].npc_location_x, step_npc[0].npc_location_y)}>
                                     <Popup>
                                         {step_npc[0].npc_name}
+                                        <ol>
+                                            {this.props.steps.steps.filter(step => step.step_npc === step_npc[0].id).map(s => {
+                                                return <li>{s.step_description}</li>
+                                            })}
+                                        </ol>                                       
                                     </Popup>
                                 </Marker>
                             }
