@@ -24,7 +24,6 @@ class MapCont extends Component {
             }
             return active_quests;
         })
-        console.log(active_quests);
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
         return (    
 
@@ -49,7 +48,10 @@ class MapCont extends Component {
                                         {step_npc[0].npc_name}
                                         <ol>
                                             {this.props.steps.steps.filter(step => step.step_npc === step_npc[0].id).map(s => {
-                                                return <li>{s.step_description}</li>
+                                                return <li key={s.step_description} quest_id={s.quest_step} 
+                                                onClick={this.props.setQuestId}>
+                                                    {s.step_description}
+                                                </li>
                                             })}
                                         </ol>                                       
                                     </Popup>

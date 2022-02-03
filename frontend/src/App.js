@@ -10,7 +10,7 @@ import { fetchQuests } from './store/actions/quests/questActions';
 import { fetchItems } from './store/actions/items/itemActions';
 import { fetchSteps } from './store/actions/steps/stepActions';
 import { fetchRewards } from './store/actions/rewards/rewardActions';
-import Quest from './components/Quest';
+import QuestContainer from './containers/QuestContainer';
 
 class App extends Component {
 
@@ -34,7 +34,8 @@ class App extends Component {
       ],
       region_names: [
         'La Noscea', 'The Black Shroud', 'Thanalan', 'Heavensward', 'Stormblood', 'Shadowbringers', 'Endwalker'
-      ]
+      ],
+      quest_id: null
     }
   }
 
@@ -50,6 +51,12 @@ class App extends Component {
     return [-y, x];
   } 
 
+  setQuestId = (e) => {
+    this.setState({
+      quest_id: Object.entries(e.target)[1][1].quest_id
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -60,17 +67,17 @@ class App extends Component {
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
               minZoom={5} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
-              steps={this.props.steps} rewards={this.props.rewards} />} />
+              steps={this.props.steps} rewards={this.props.rewards} setQuestId={this.setQuestId} />} />
             })}
             {this.state.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
               minZoom={4} maxZoom={6} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items} 
-              steps={this.props.steps} rewards={this.props.rewards} />} />
+              steps={this.props.steps} rewards={this.props.rewards} setQuestId={this.setQuestId} />} />
             })}
           </Route> 
-          <Route index element={<Quest />}/>
+          <Route index element={<QuestContainer q_id={this.state.quest_id} />}/>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />
         </Routes>
       </BrowserRouter>
