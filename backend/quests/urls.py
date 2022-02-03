@@ -6,6 +6,6 @@ router.register(r'quests', QuestViewSet, basename='quest')
 router.register(r'items', ItemViewSet, basename='items')
 router.register(r'npcs', NpcViewSet, basename='npcs')
 router.register(r'rewards', RewardViewSet, basename='rewards')
-router.register(r'steps', StepViewSet, basename='items')
+router.register(r'steps', StepViewSet, basename='steps')
 
 urlpatterns = router.urls
