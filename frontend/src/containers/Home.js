@@ -63,7 +63,8 @@ class Home extends Component {
                             <Outlet />
                         </Col>
                         <Col md={3} className='bg-dark'>
-                            <QuestContainer q_id={this.props.q_id} />
+                            <QuestContainer q_id={this.props.q_id} npcs={this.props.npcs} quests={this.props.quests} 
+                            items={this.props.items} steps={this.props.steps} rewards={this.props.rewards}/>
                         </Col>
                     </Row>
                 </Container>       

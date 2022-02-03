@@ -10,7 +10,6 @@ import { fetchQuests } from './store/actions/quests/questActions';
 import { fetchItems } from './store/actions/items/itemActions';
 import { fetchSteps } from './store/actions/steps/stepActions';
 import { fetchRewards } from './store/actions/rewards/rewardActions';
-import QuestContainer from './containers/QuestContainer';
 
 class App extends Component {
 
@@ -61,7 +60,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home q_id={this.state.quest_id} />}>
+          <Route path='/' element={<Home q_id={this.state.quest_id} npcs={this.props.npcs} quests={this.props.quests} 
+            items={this.props.items} steps={this.props.steps} rewards={this.props.rewards}/>}>
             {this.state.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}

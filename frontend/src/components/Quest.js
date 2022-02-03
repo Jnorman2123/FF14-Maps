@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Npc from './Npc';
 
 class Quest extends Component {
