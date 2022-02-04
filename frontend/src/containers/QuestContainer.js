@@ -38,7 +38,9 @@ class QuestContainer extends Component {
                     <ol>
                         {quest_steps.map(s => {
                             let npc = this.props.npcs.npcs.filter(n => n.id === s.step_npc)
-                            return <li key={s.step_description}><h6>{s.step_description}-{npc[0].npc_name}-{npc[0].npc_zone}</h6></li>
+                            return <li key={s.step_description}>
+                                <h6>{s.step_description} - {npc[0].npc_name} - {npc[0].npc_zone}</h6>
+                            </li>
                         })}
                     </ol>
                 </Row>

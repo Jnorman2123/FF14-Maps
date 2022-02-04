@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 class MapCont extends Component {
 
     render() {
+        let mapName = this.props.mapName.split(' ');
+        let joinedName = mapName.join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
         let active_quest_types = this.props.quest_types.filter(t => t.active).map(at => at.name);
         let active_quest_levels = this.props.quest_levels.filter(l => l.active);
@@ -32,7 +34,7 @@ class MapCont extends Component {
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom}
                 maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} maxBoundsViscosity='1' scrollWheelZoom={true}
                 style={{height: '800px', width: '935px'}}>
-                    <ImageOverlay url='./maps/NewGridania_Base_v3.jpg' bounds={this.props.bounds} opacity={1} />
+                    <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
                     {active_quests.map(quest => {
                         let quest_steps = [];
                         this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
