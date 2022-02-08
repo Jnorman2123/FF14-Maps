@@ -36,9 +36,13 @@ class MapCont extends Component {
                 style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
                     {active_quests.map(quest => {
+                        console.log(quest);
                         let quest_steps = [];
                         this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
-                            quest_steps.push(s);
+                            console.log(s);
+                            if (s.step_npc === quest.quest_npcs[0]) {
+                                quest_steps.push(s);
+                            }
                             return quest_steps;
                         })
                         return quest_steps.map(step => {
@@ -49,7 +53,7 @@ class MapCont extends Component {
                                     <Popup>
                                         {step_npc[0].npc_name}
                                         <ol>
-                                            {this.props.steps.steps.filter(step => step.step_npc === step_npc[0].id).map(s => {
+                                            {quest_steps.filter(step => step.step_npc === step_npc[0].id).map(s => {
                                                 return <li key={s.step_description} quest_id={s.quest_step} 
                                                 onClick={this.props.setQuestId}>
                                                     {s.step_description}
