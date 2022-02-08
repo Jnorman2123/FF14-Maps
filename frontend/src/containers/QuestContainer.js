@@ -11,8 +11,6 @@ class QuestContainer extends Component {
         if (active_quest.length > 0) {
             quest_reward = this.props.rewards.rewards.filter(r => r.id === active_quest[0].quest_reward);
             quest_steps = this.props.steps.steps.filter(s => s.quest_step === active_quest[0].id);
-            console.log(quest_steps);
-
             return <Container key={Math.random()} className='bg-primary' >
                 <Row><h1 className='text-center'>{active_quest[0].quest_name}</h1></Row>
                 <Row><h2 className='text-center'>Quest Reward</h2></Row>

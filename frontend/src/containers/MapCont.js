@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MapContainer, Marker, Popup, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
+import Accordion from 'react-bootstrap/Accordion';
 
 class MapCont extends Component {
 
@@ -27,19 +28,38 @@ class MapCont extends Component {
             return active_quests;
         })
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
+        let npc_ids = npcs.map(n => n.id);
         return (    
 
             <div>
                 <div className='text-center' >{this.props.mapName} </div>
+                <Accordion>
+                    <Accordion.Item eventKey='0'>
+                        <Accordion.Header>List of available quests based on filter</Accordion.Header>
+                        <Accordion.Body>
+                            {active_quests.map(aq => {
+                                let inZone = false;
+                                aq.quest_npcs.map(npc => {
+                                    if (npc_ids.includes(npc)) {
+                                        inZone = true;
+                                    }
+                                    return inZone
+                                })
+                                if (inZone) {
+                                    return <p key={aq.quest_name} >{aq.quest_name}</p>
+                                }
+                                return null;
+                            })}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom}
                 maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} maxBoundsViscosity='1' scrollWheelZoom={true}
                 style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
                     {active_quests.map(quest => {
-                        console.log(quest);
                         let quest_steps = [];
                         this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
-                            console.log(s);
                             if (s.step_npc === quest.quest_npcs[0]) {
                                 quest_steps.push(s);
                             }
@@ -63,6 +83,7 @@ class MapCont extends Component {
                                     </Popup>
                                 </Marker>
                             }
+                            return null;
                         });
                     })}
                 </MapContainer>
