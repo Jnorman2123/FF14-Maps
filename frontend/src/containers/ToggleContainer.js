@@ -41,7 +41,7 @@ class ToggleContainer extends Component {
 
     renderDropdowns = (selection) => {
         let selection_name = this.setSelectionName(selection);
-        return <Dropdown>
+        return <Dropdown autoClose='outside'>
                     <Dropdown.Toggle id='dropdown-basic'>{selection_name} </Dropdown.Toggle>
                         <ButtonGroup>
                             <Dropdown.Menu>    

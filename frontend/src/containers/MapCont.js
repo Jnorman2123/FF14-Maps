@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { MapContainer, Marker, Popup, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
-import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
-import DropdownButton from 'react-bootstrap/esm/DropdownButton';
-import Dropdown from 'react-bootstrap/esm/Dropdown';
+import Accordion from 'react-bootstrap/esm/Accordion';
+import Button from 'react-bootstrap/esm/Button';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
 
 class MapCont extends Component {
 
@@ -70,21 +72,9 @@ class MapCont extends Component {
         return (    
             <div>
                 <div className='text-center' >{this.props.mapName} </div>
-                <DropdownButton as={ButtonGroup} id='dropdown-button-drop-end' drop='end' title='List of available quests'>
-                    {activeInZoneQuests.map(quest => {
-                        return <Dropdown key={quest.quest_name} >
-                            <Dropdown.Item id='dropdown-basic'>
-                                <input type='checkbox' id='quest' onChange={this.handleClick}
-                                checked={this.setChecked(quest.id, activeInZoneQuests)}></input>
-                                {quest.quest_name} 
-                            </Dropdown.Item>
-                            <p>{quest.quest_name}</p>
-                        </Dropdown>;
-                    })}
-                </DropdownButton>
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
-                maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
+                maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
                     {active_quests.map(quest => {   
                         this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
@@ -115,6 +105,30 @@ class MapCont extends Component {
                         });
                     })}
                 </MapContainer>
+                <Accordion>
+                    <Accordion.Item eventKey='0'>
+                        <Accordion.Header>Available Quests</Accordion.Header>
+                        <Accordion.Body>
+                            {activeInZoneQuests.map(quest => {
+                                let isActive = false;
+                                let theme = '';
+                                quest.active ? isActive = true : isActive = false;
+                                quest.active ? theme = 'btn-primary' : theme = 'btn-secondary';
+                                return <Container key={quest.quest_name}>
+                                    <Row>
+                                        <Col>
+                                            <Button size='sm' key={quest.quest_name} id='toggle-check' className={theme} type='checkbox'
+                                            active={isActive} >
+                                                Toggle On/Off
+                                            </Button>
+                                        </Col>
+                                        <Col><p>{quest.quest_name}</p></Col>
+                                    </Row>
+                                </Container>
+                            })}      
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
             </div>
             
         );
