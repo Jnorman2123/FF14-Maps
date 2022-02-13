@@ -46,13 +46,11 @@ class ToggleContainer extends Component {
                         <ButtonGroup>
                             <Dropdown.Menu>    
                                 {selection.map(t => {
-                                    let isActive = false;
                                     let theme = '';
-                                    t.active ? isActive = true : isActive = false;
                                     t.active ? theme = 'btn-primary' : theme = 'btn-secondary';
                                     return <Dropdown.Item key={t.name} >
                                         <Button key={t.name} id='toggle-check' className={theme} type='checkbox' name={t.name}
-                                        onClick={this.props.setClassActive} active={isActive}>
+                                        onClick={this.props.setClassActive}>
                                             {t.name}                                   
                                         </Button>
                                     </Dropdown.Item>

@@ -9,25 +9,43 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 class MapCont extends Component {
-
-    setChecked = (id, quests) => {
-        let quest_ids = quests.map(q => q.id);
-        let isChecked = false;
-        if (quest_ids.includes(id)) {
-            isChecked = true;     
+    constructor(props) {
+        super(props);
+        this.state = {
+            toggled_quests: [],
+            map_markers: [],
         }
-        return isChecked;
     }
 
-    handleClick = (e) => {
-        console.log(e.target.checked);
-        if (e.target.checked === false) {
-            e.target.checked = true;
+    toggleQuest = (quest) => {
+        let add_npcs = [];
+        let remove_npcs = [];
+        quest.quest_npcs.map(npc_id => {
+            let npc = this.props.npcs.npcs.filter(npc => npc.id === npc_id);
+            if (!this.state.map_markers.includes(npc[0])) {
+                add_npcs.push(npc[0]);
+                return add_npcs;
+            } else {
+                remove_npcs.push(npc[0]);
+                return remove_npcs;
+            }
+            
+        })
+        if (this.state.toggled_quests.length === 0 || !this.state.toggled_quests.includes(quest)) {
+            this.setState({
+                toggled_quests: [...this.state.toggled_quests, quest],
+                map_markers: this.state.map_markers.concat(add_npcs)
+            });
+        } else if (this.state.toggled_quests.length > 0 && this.state.toggled_quests.includes(quest)) {
+            this.setState({
+                toggled_quests: this.state.toggled_quests.filter(q => q !== quest),
+                map_markers: this.state.map_markers.filter(m => !remove_npcs.includes(m))
+            });
         }
-        return e.target.checked;
     }
 
     render() {
+        console.log(this.state.map_markers);
         let mapName = this.props.mapName.split(' ');
         let joinedName = mapName.join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
@@ -36,6 +54,7 @@ class MapCont extends Component {
         let lvls = active_quest_levels.map(l => l.name);
         let lvl_ranges = lvls.map(l => l.split("-").map(i => parseInt(i)));
         let active_quests = [];
+
         this.props.quests.quests.map(q => {
             if ((active_classes.includes(q.quest_class) || q.quest_class === 'All') 
             && active_quest_types.includes(q.quest_type)) {
@@ -49,6 +68,7 @@ class MapCont extends Component {
             }
             return active_quests;
         })
+
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
         let npc_ids = npcs.map(n => n.id);
         let activeInZoneQuests = [];
@@ -67,8 +87,24 @@ class MapCont extends Component {
             return activeInZoneQuests;
         })
 
+        active_quests.map(quest => {   
+            this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
+                if (s.step_npc === quest.quest_npcs[0]) {
+                    quest_starters.push(s);
+                }
+                return quest_starters;
+            })
+            return quest_starters.map(step => {
+                let step_npc = npcs.filter(npc => npc.id === step.step_npc);
+                if (step_npc[0] !== undefined) {
+                    if (!this.state.map_markers.includes(step_npc[0])) {
+                        this.state.map_markers.push(step_npc[0]);
+                    }               
+                }
+                return null;
+            });
+        });
         
-
         return (    
             <div>
                 <div className='text-center' >{this.props.mapName} </div>
@@ -76,49 +112,32 @@ class MapCont extends Component {
                 minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
-                    {active_quests.map(quest => {   
-                        this.props.steps.steps.filter(step => step.quest_step === quest.id).map(s => {
-                            if (s.step_npc === quest.quest_npcs[0]) {
-                                quest_starters.push(s);
-                            }
-                            return quest_starters;
-                        })
-                        return quest_starters.map(step => {
-                            let step_npc = npcs.filter(npc => npc.id === step.step_npc);
-                            if (step_npc[0] !== undefined) {
-                                return <Marker key={Math.random()} 
-                                position={this.props.revertLat(step_npc[0].npc_location_x, step_npc[0].npc_location_y)}>
-                                    <Popup>
-                                        {step_npc[0].npc_name}
-                                        <ol>
-                                            {quest_starters.filter(step => step.step_npc === step_npc[0].id).map(s => {
-                                                return <li key={s.step_description} quest_id={s.quest_step} 
-                                                onClick={this.props.setQuestId}>
-                                                    {s.step_description}
-                                                </li>
-                                            })}
-                                        </ol>                                       
-                                    </Popup>
-                                </Marker>
-                            }
-                            return null;
-                        });
+                    {this.state.map_markers.map(m => {
+                        console.log(m);
+                        if (m !== undefined) {
+                            return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} >
+                            
+                        </Marker>
+                        }
                     })}
+                    
                 </MapContainer>
                 <Accordion>
                     <Accordion.Item eventKey='0'>
                         <Accordion.Header>Available Quests</Accordion.Header>
                         <Accordion.Body>
                             {activeInZoneQuests.map(quest => {
-                                let isActive = false;
                                 let theme = '';
-                                quest.active ? isActive = true : isActive = false;
-                                quest.active ? theme = 'btn-primary' : theme = 'btn-secondary';
+                                if (this.state.toggled_quests.length > 0 && this.state.toggled_quests.includes(quest)) {
+                                    theme = 'btn-primary';
+                                } else {
+                                    theme = 'btn-secondary';
+                                };
                                 return <Container key={quest.quest_name}>
                                     <Row>
                                         <Col>
                                             <Button size='sm' key={quest.quest_name} id='toggle-check' className={theme} type='checkbox'
-                                            active={isActive} >
+                                            onClick={() => this.toggleQuest(quest)}>
                                                 Toggle On/Off
                                             </Button>
                                         </Col>
