@@ -20,6 +20,7 @@ class MapCont extends Component {
     toggleQuest = (quest) => {
         let add_npcs = [];
         let remove_npcs = [];
+
         quest.quest_npcs.map(npc_id => {
             let npc = this.props.npcs.npcs.filter(npc => npc.id === npc_id);
             if (!this.state.map_markers.includes(npc[0])) {
@@ -45,7 +46,6 @@ class MapCont extends Component {
     }
 
     render() {
-        console.log(this.state.map_markers);
         let mapName = this.props.mapName.split(' ');
         let joinedName = mapName.join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
@@ -113,12 +113,16 @@ class MapCont extends Component {
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${joinedName}.png`} bounds={this.props.bounds} opacity={1} />
                     {this.state.map_markers.map(m => {
-                        console.log(m);
-                        if (m !== undefined) {
-                            return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} >
-                            
+                        return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} >
+                            <Popup>
+                                <ol>
+                                    {this.props.steps.steps.filter(s => s.step_npc === m.id).map(npc_step => {
+                                        console.log(npc_step);
+                                        return <li key={npc_step.step_description}>{npc_step.step_description}</li>
+                                    })}
+                                </ol>
+                            </Popup>
                         </Marker>
-                        }
                     })}
                     
                 </MapContainer>
