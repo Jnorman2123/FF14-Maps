@@ -126,7 +126,8 @@ class MapCont extends Component {
                                 <ol>
                                     {this.props.steps.steps.filter(s => s.step_npc === m.id).map(npc_step => {
                                         let quest_step = this.props.quests.quests.filter(q => q.id === npc_step.quest_step)
-                                        return <li key={npc_step.step_description}>
+                                        return <li key={npc_step.step_description} quest_id={npc_step.quest_step} 
+                                        onClick={this.props.setQuestId} >
                                             {npc_step.step_description} ({quest_step[0].quest_name})
                                         </li>
                                     })}
@@ -134,7 +135,6 @@ class MapCont extends Component {
                             </Popup>
                         </Marker>
                     })}
-                    
                 </MapContainer>
                 <Accordion>
                     <Accordion.Item eventKey='0'>
