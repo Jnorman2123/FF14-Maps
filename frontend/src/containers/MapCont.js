@@ -122,6 +122,7 @@ class MapCont extends Component {
                     {map_markers.map(m => {
                         return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} >
                             <Popup>
+                                 <h6 className='text-center'>{m.npc_name}</h6>
                                 <ol>
                                     {this.props.steps.steps.filter(s => s.step_npc === m.id).map(npc_step => {
                                         let quest_step = this.props.quests.quests.filter(q => q.id === npc_step.quest_step)
