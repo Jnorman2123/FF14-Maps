@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import startQuestIconUrl from '../icons/StartQuestIcon.PNG';
+import turnInQuestIconUrl from '../icons/TurnInQuestIcon.PNG';
 
 class MapCont extends Component {
 
@@ -110,8 +112,6 @@ class MapCont extends Component {
             return map_markers;
         })
 
-        console.log(map_markers);
-
         return (    
             <div>
                 <div className='text-center' >{this.props.mapName} </div>
@@ -120,7 +120,26 @@ class MapCont extends Component {
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {map_markers.map(m => {
-                        return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} >
+                        let questIcon = null;
+                        if (m !== undefined) {
+                            let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
+                            if (quest_starter_npcs.includes(m.id)) {
+                                questIcon = new L.Icon({
+                                    iconUrl: startQuestIconUrl,
+                                    iconRetinaUrl: startQuestIconUrl,
+                                    popupAnchor: [-0, -0],
+                                    iconSize: [25, 55],
+                                })
+                            } else {
+                                questIcon = new L.Icon({
+                                    iconUrl: turnInQuestIconUrl,
+                                    iconRetinaUrl: turnInQuestIconUrl,
+                                    popupAnchor: [-0, -0],
+                                    iconSize: [25, 55],
+                                })
+                            }
+                            return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} 
+                            icon={questIcon} >
                             <Popup>
                                  <h6 className='text-center'>{m.npc_name}</h6>
                                 <ol>
@@ -134,6 +153,8 @@ class MapCont extends Component {
                                 </ol>
                             </Popup>
                         </Marker>
+                        }
+                        return null;
                     })}
                 </MapContainer>
                 <Accordion>
