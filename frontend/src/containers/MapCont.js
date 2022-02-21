@@ -9,6 +9,14 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import startQuestIconUrl from '../icons/StartQuestIcon.PNG';
 import turnInQuestIconUrl from '../icons/TurnInQuestIcon.PNG';
+import stepOneQuestIconUrl from '../icons/Step1QuestIcon.PNG';
+import stepTwoQuestIconUrl from '../icons/Step2QuestIcon.PNG';
+import stepThreeQuestIconUrl from '../icons/Step3QuestIcon.PNG';
+import stepFourQuestIconUrl from '../icons/Step4QuestIcon.PNG';
+import stepFiveQuestIconUrl from '../icons/Step5QuestIcon.PNG';
+import stepSixQuestIconUrl from '../icons/Step6QuestIcon.PNG';
+import stepSevenQuestIconUrl from '../icons/Step7QuestIcon.PNG';
+import stepEightQuestIconUrl from '../icons/Step8QuestIcon.PNG';
 
 class MapCont extends Component {
 
@@ -42,6 +50,7 @@ class MapCont extends Component {
         let active_in_zone_quests = [];
         let quest_starters = [];
         let map_markers = [];
+        let quest_turn_ins = [];
 
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName))
         let npc_ids = npcs.map(n => n.id);
@@ -100,6 +109,12 @@ class MapCont extends Component {
             return null;
         });
 
+        in_zone_quests.map(q => {
+            let quest_steps = this.props.steps.steps.filter(s => s.quest_step === q.id)
+            quest_turn_ins.push(quest_steps.pop());
+            return quest_turn_ins;
+        })
+
         this.state.toggled_quests.map(q => {
             let npc = null;
             q.quest_npcs.map(npc_id => {
@@ -120,24 +135,60 @@ class MapCont extends Component {
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {map_markers.map(m => {
+                        let marker_index = null;
                         let questIcon = null;
+                        let questIconUrl = '';
                         if (m !== undefined) {
                             let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
-                            if (quest_starter_npcs.includes(m.id)) {
-                                questIcon = new L.Icon({
-                                    iconUrl: startQuestIconUrl,
-                                    iconRetinaUrl: startQuestIconUrl,
-                                    popupAnchor: [-0, -0],
-                                    iconSize: [25, 55],
-                                })
-                            } else {
-                                questIcon = new L.Icon({
-                                    iconUrl: turnInQuestIconUrl,
-                                    iconRetinaUrl: turnInQuestIconUrl,
-                                    popupAnchor: [-0, -0],
-                                    iconSize: [25, 55],
-                                })
+                            let quest_turn_in_npcs = quest_turn_ins.map(qt => qt.step_npc);
+                            let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m.id))
+                        
+                            if (marker_quest.length === 1) {
+                                marker_index = marker_quest[0].quest_npcs.findIndex(n => n === m.id);
                             }
+                            console.log(marker_index);
+                            if (quest_starter_npcs.includes(m.id)) {
+                                questIconUrl = startQuestIconUrl;
+                            } else if (quest_turn_in_npcs.includes(m.id)) {
+                                questIconUrl = turnInQuestIconUrl;
+                            } else {
+                                switch (marker_index) {
+                                    case 1:
+                                        questIconUrl = stepOneQuestIconUrl
+                                        break
+                                    case 2:
+                                        questIconUrl = stepTwoQuestIconUrl
+                                        break
+                                    case 3:
+                                        questIconUrl = stepThreeQuestIconUrl
+                                        break
+                                    case 4:
+                                        questIconUrl = stepFourQuestIconUrl
+                                        break
+                                    case 5:
+                                        questIconUrl = stepFiveQuestIconUrl
+                                        break
+                                    case 6:
+                                        questIconUrl = stepSixQuestIconUrl
+                                        break
+                                    case 7:
+                                        questIconUrl = stepSevenQuestIconUrl
+                                        break
+                                    default:
+                                        questIconUrl = stepEightQuestIconUrl
+                                        break
+                                }
+                            }
+                            console.log(questIconUrl);
+
+                            questIcon = new L.Icon({
+                                iconUrl: questIconUrl,
+                                iconRetinaUrl: questIconUrl,
+                                popupAnchor: [-0, -0],
+                                iconSize: [30, 30],
+                            })
+
+
                             return <Marker key={Math.random()} position={this.props.revertLat(m.npc_location_x, m.npc_location_y)} 
                             icon={questIcon} >
                             <Popup>
