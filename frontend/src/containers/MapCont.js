@@ -28,8 +28,9 @@ class MapCont extends Component {
         }
     }
 
-    toggleQuest = (quest) => {
-        if (!this.state.toggled_quests.includes(quest)) {
+    toggleQuest = (quest, quest_col) => {
+        console.log(quest_col);
+        if (!this.state.toggled_quests.includes(quest) && quest_col.includes(quest)) {
             this.setState({
                 toggled_quests: [...this.state.toggled_quests, quest],
             })
@@ -111,7 +112,7 @@ class MapCont extends Component {
             let active_quest = active_in_zone_quests.filter(aq => aq[0].id === q.id);
             q.quest_npcs.map(npc_id => {
                 npc = npcs.filter(n => n.id === npc_id);
-                if (!map_markers.includes(npc[0])) {
+                if (!map_markers.includes(npc[0]) && active_quest[0] !== undefined) {
                     map_markers.push([npc[0], active_quest[0][1]]);
                 }
                 return map_markers;
@@ -177,7 +178,7 @@ class MapCont extends Component {
                                 popupAnchor: [-0, -0],
                                 iconSize: [30, 30],
                             })
-                            let fillOptions = { color: m[1], fillColor: m[1], fillOpacity: 1}
+                            let fillOptions = { color: m[1], fillColor: m[1], fillOpacity: 100}
 
                             return <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
                             icon={questIcon} >
@@ -215,7 +216,7 @@ class MapCont extends Component {
                                     <Row>
                                         <Col>
                                             <Button size='sm' key={quest.quest_name} id='toggle-check' className={theme} type='checkbox'
-                                            onClick={() => this.toggleQuest(quest[0])}>
+                                            onClick={() => this.toggleQuest(quest[0], active_in_zone_quests.map(q => q[0]))}>
                                                 Toggle On/Off
                                             </Button>
                                         </Col>
