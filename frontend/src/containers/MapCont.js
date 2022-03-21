@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, Popup, ImageOverlay, CircleMarker } from 'react-leaflet';
+import { MapContainer, Marker, Popup, ImageOverlay, LayerGroup } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Accordion from 'react-bootstrap/esm/Accordion';
@@ -7,17 +7,6 @@ import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import randomColor from 'randomcolor';
-import startQuestIconUrl from '../icons/StartQuestIcon.PNG';
-import turnInQuestIconUrl from '../icons/TurnInQuestIcon.PNG';
-import stepOneQuestIconUrl from '../icons/Step1QuestIcon.PNG';
-import stepTwoQuestIconUrl from '../icons/Step2QuestIcon.PNG';
-import stepThreeQuestIconUrl from '../icons/Step3QuestIcon.PNG';
-import stepFourQuestIconUrl from '../icons/Step4QuestIcon.PNG';
-import stepFiveQuestIconUrl from '../icons/Step5QuestIcon.PNG';
-import stepSixQuestIconUrl from '../icons/Step6QuestIcon.PNG';
-import stepSevenQuestIconUrl from '../icons/Step7QuestIcon.PNG';
-import stepEightQuestIconUrl from '../icons/Step8QuestIcon.PNG';
 
 class MapCont extends Component {
 
@@ -71,7 +60,7 @@ class MapCont extends Component {
             && active_quest_types.includes(q.quest_type)) {
                 lvl_ranges.map(lr => {
                     if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_in_zone_quests.includes(q)) {
-                        active_in_zone_quests.push([q, randomColor()]);
+                        active_in_zone_quests.push([q, `./icons/second_layer/BgColor${active_in_zone_quests.length + 1}.PNG`]);
                     }
                     return active_in_zone_quests;
                 })
@@ -128,75 +117,59 @@ class MapCont extends Component {
                 maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {map_markers.map(m => {
+                        let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
+                        let quest_turn_in_npcs = quest_turn_ins.map(qt => qt.step_npc);
                         let marker_index = null;
-                        let questIcon = null;
-                        let questIconUrl = '';
+                        let stepIcon = null;
+                        let stepIconUrl = '';
+                        let colorIcon = null;
                         if (m[0] !== undefined) {
-                            let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
-                            let quest_turn_in_npcs = quest_turn_ins.map(qt => qt.step_npc);
                             let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m[0].id))
                         
                             if (marker_quest.length === 1) {
                                 marker_index = marker_quest[0].quest_npcs.findIndex(n => n === m[0].id);
                             }
                             if (quest_starter_npcs.includes(m[0].id)) {
-                                questIconUrl = startQuestIconUrl;
+                                stepIconUrl = `./icons/third_layer/StartIcon.PNG`;
                             } else if (quest_turn_in_npcs.includes(m[0].id)) {
-                                questIconUrl = turnInQuestIconUrl;
+                                stepIconUrl = `./icons/third_layer/TurnInIcon.PNG`;
                             } else {
-                                switch (marker_index) {
-                                    case 1:
-                                        questIconUrl = stepOneQuestIconUrl
-                                        break
-                                    case 2:
-                                        questIconUrl = stepTwoQuestIconUrl
-                                        break
-                                    case 3:
-                                        questIconUrl = stepThreeQuestIconUrl
-                                        break
-                                    case 4:
-                                        questIconUrl = stepFourQuestIconUrl
-                                        break
-                                    case 5:
-                                        questIconUrl = stepFiveQuestIconUrl
-                                        break
-                                    case 6:
-                                        questIconUrl = stepSixQuestIconUrl
-                                        break
-                                    case 7:
-                                        questIconUrl = stepSevenQuestIconUrl
-                                        break
-                                    default:
-                                        questIconUrl = stepEightQuestIconUrl
-                                        break
-                                }
+                                stepIconUrl = `./icons/third_layer/Step${marker_index}Icon.PNG`;
                             }
-
-                            questIcon = new L.Icon({
-                                iconUrl: questIconUrl,
-                                iconRetinaUrl: questIconUrl,
+                            stepIcon = new L.Icon({
+                                iconUrl: stepIconUrl,
+                                iconRetinaUrl: stepIconUrl,
                                 popupAnchor: [-0, -0],
                                 iconSize: [30, 30],
                             })
-                            let fillOptions = { color: m[1], fillColor: m[1], fillOpacity: 100}
+                            colorIcon = new L.Icon({
+                                iconUrl: m[1],
+                                iconRetinaUrl: m[1],
+                                popupAnchor: [-0, -0],
+                                iconSize: [30, 30],
+                            })
 
-                            return <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
-                            icon={questIcon} >
-                                <CircleMarker center={this.props.revertLat((m[0].npc_location_x), m[0].npc_location_y)} pathOptions={fillOptions} 
-                                radius={10} />
-                                <Popup>
-                                    <h6 className='text-center'>{m[0].npc_name}</h6>
-                                    <ol>
-                                        {this.props.steps.steps.filter(s => s.step_npc === m[0].id).map(npc_step => {
-                                            let quest_step = this.props.quests.quests.filter(q => q.id === npc_step.quest_step)
-                                            return <li key={npc_step.step_description} quest_id={npc_step.quest_step} 
-                                            onClick={this.props.setQuestId} >
-                                                {npc_step.step_description} ({quest_step[0].quest_name})
-                                            </li>
-                                        })}
-                                    </ol>
-                                </Popup>
-                            </Marker>
+                            return <LayerGroup key={Math.random()}>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
+                                icon={colorIcon} >
+
+                                </Marker>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
+                                icon={stepIcon} >
+                                    <Popup>
+                                        <h6 className='text-center'>{m[0].npc_name}</h6>
+                                        <ol>
+                                            {this.props.steps.steps.filter(s => s.step_npc === m[0].id).map(npc_step => {
+                                                let quest_step = this.props.quests.quests.filter(q => q.id === npc_step.quest_step)
+                                                return <li key={npc_step.step_description} quest_id={npc_step.quest_step} 
+                                                onClick={this.props.setQuestId} >
+                                                    {npc_step.step_description} ({quest_step[0].quest_name})
+                                                </li>
+                                            })}
+                                        </ol>
+                                    </Popup>
+                                </Marker>
+                            </LayerGroup>
                         }
                         return null;
                     })}
