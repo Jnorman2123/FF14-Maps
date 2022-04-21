@@ -137,7 +137,6 @@ class MapCont extends Component {
                         let typeIcon = null;
 
                         if (m[0] !== undefined) {
-                            console.log(m);
                             let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m[0].id))
 
                             if (marker_quest.length === 1) {
