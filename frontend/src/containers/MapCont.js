@@ -60,7 +60,16 @@ class MapCont extends Component {
             && active_quest_types.includes(q.quest_type)) {
                 lvl_ranges.map(lr => {
                     if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_in_zone_quests.includes(q)) {
-                        active_in_zone_quests.push([q, `./icons/second_layer/BgColor${active_in_zone_quests.length + 1}.PNG`]);
+                        let quest_type_icon = '';
+                        if (q.quest_type === 'Hunting Log') {
+                            quest_type_icon = `./icons/fourth_layer/HuntingLogQuestIcon.PNG`;
+                        } else if (q.quest_type === 'Main Story') {
+                            quest_type_icon = `./icons/fourth_layer/MainQuestIcon.PNG`;
+                        } else {
+                            quest_type_icon = `./icons/fourth_layer/${q.quest_type}QuestIcon.PNG`;
+                        }
+                        active_in_zone_quests.push([q, `./icons/second_layer/BgColor${active_in_zone_quests.length + 1}.PNG`,
+                        quest_type_icon]);
                     }
                     return active_in_zone_quests;
                 })
@@ -84,7 +93,7 @@ class MapCont extends Component {
             let step_quest = active_in_zone_quests.filter(q => q[0].id === step.quest_step)
             if (step_npc[0] !== undefined) {
                 if (!map_markers.includes(step_npc[0])) {
-                    map_markers.push([step_npc[0], step_quest[0][1]]);
+                    map_markers.push([step_npc[0], step_quest[0][1], step_quest[0][2]]);
                 }               
             }
             return null;
@@ -99,10 +108,11 @@ class MapCont extends Component {
         this.state.toggled_quests.map(q => {
             let npc = null;
             let active_quest = active_in_zone_quests.filter(aq => aq[0].id === q.id);
+            console.log(active_quest);
             q.quest_npcs.map(npc_id => {
                 npc = npcs.filter(n => n.id === npc_id);
                 if (!map_markers.includes(npc[0]) && active_quest[0] !== undefined) {
-                    map_markers.push([npc[0], active_quest[0][1]]);
+                    map_markers.push([npc[0], active_quest[0][1], active_quest[0][2]]);
                 }
                 return map_markers;
             })
@@ -123,9 +133,13 @@ class MapCont extends Component {
                         let stepIcon = null;
                         let stepIconUrl = '';
                         let colorIcon = null;
+                        let iconContainer = null;
+                        let typeIcon = null;
+
                         if (m[0] !== undefined) {
+                            console.log(m);
                             let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m[0].id))
-                        
+
                             if (marker_quest.length === 1) {
                                 marker_index = marker_quest[0].quest_npcs.findIndex(n => n === m[0].id);
                             }
@@ -136,12 +150,21 @@ class MapCont extends Component {
                             } else {
                                 stepIconUrl = `./icons/third_layer/Step${marker_index}Icon.PNG`;
                             }
+
+                            iconContainer = new L.Icon({
+                                iconUrl: `./icons/first_layer/IconContainer.PNG`,
+                                iconRetinaUrl: `./icons/first_layer/IconContainer.PNG`,
+                                popupAnchor: [-0, -0],
+                                iconSize: [30, 30],
+                            })
+
                             stepIcon = new L.Icon({
                                 iconUrl: stepIconUrl,
                                 iconRetinaUrl: stepIconUrl,
                                 popupAnchor: [-0, -0],
                                 iconSize: [30, 30],
                             })
+
                             colorIcon = new L.Icon({
                                 iconUrl: m[1],
                                 iconRetinaUrl: m[1],
@@ -149,7 +172,18 @@ class MapCont extends Component {
                                 iconSize: [30, 30],
                             })
 
+                            typeIcon = new L.Icon({
+                                iconUrl: m[2],
+                                iconRetinaUrl: m[2],
+                                popupAnchor: [-0, -0],
+                                iconSize: [30, 30],
+                            })
+
                             return <LayerGroup key={Math.random()}>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
+                                icon={iconContainer} >
+                                    
+                                </Marker>
                                 <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
                                 icon={colorIcon} >
 
@@ -168,6 +202,10 @@ class MapCont extends Component {
                                             })}
                                         </ol>
                                     </Popup>
+                                </Marker>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
+                                icon={typeIcon} >
+                                    
                                 </Marker>
                             </LayerGroup>
                         }
