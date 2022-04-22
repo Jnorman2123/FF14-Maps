@@ -189,6 +189,10 @@ class MapCont extends Component {
                                 </Marker>
                                 <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
                                 icon={stepIcon} >
+                                    
+                                </Marker>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
+                                icon={typeIcon} >
                                     <Popup>
                                         <h6 className='text-center'>{m[0].npc_name}</h6>
                                         <ol>
@@ -201,10 +205,6 @@ class MapCont extends Component {
                                             })}
                                         </ol>
                                     </Popup>
-                                </Marker>
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
-                                icon={typeIcon} >
-                                    
                                 </Marker>
                             </LayerGroup>
                         }
