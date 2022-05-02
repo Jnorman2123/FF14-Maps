@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quest, Item, Npc, Reward, Step
+from .models import Job, Quest, Item, Npc, Reward, Step
 
 
 class QuestSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class QuestSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ("id", "item_name", "item_quantity")
+        fields = ("id", "item_name", "item_quantity", "item_optional")
 
 
 class NpcSerializer(serializers.ModelSerializer):
@@ -61,3 +61,9 @@ class StepSerializer(serializers.ModelSerializer):
             data["step_npc"] = NpcSerializer(
                 Npc.objects.get(pk=data["step_npc"])).data
             return data
+
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ("id", "job_name")

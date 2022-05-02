@@ -8,6 +8,7 @@ from django.db import models
 class Item(models.Model):
     item_name = models.CharField(max_length=100)
     item_quantity = models.IntegerField()
+    item_optional = models.BooleanField(default=False)
 
     def __str__(self):
         return self.item_name + " " + str(self.item_quantity)
@@ -122,6 +123,13 @@ class Reward(models.Model):
         return self.reward_quest_name
 
 
+class Job(models.Model):
+    job_name = models.CharField(max_length=25, unique=True)
+
+    def __str__(self):
+        return self.job_name
+
+
 class Quest(models.Model):
     QUEST_TYPES = (
         ('Main Story', 'Main Story'),
@@ -130,44 +138,11 @@ class Quest(models.Model):
         ('Hunting Log', 'Hunting Log'),
     )
 
-    CLASS_TYPES = (
-        ('All', 'All'),
-        ('Gladiator', 'Gladiator'),
-        ('Marauder', 'Marauder'),
-        ('Archer', 'Archer'),
-        ('Lancer', 'Lancer'),
-        ('Pugilist', 'Pugilist'),
-        ('Rogue', 'Rogue'),
-        ('Conjurer', 'Conjurer'),
-        ('Arcanist', 'Arcanist'),
-        ('Thaumaturge', 'Thaumaturge'),
-        ('Paladin', 'Paladin'),
-        ('Warrior', 'Warrior'),
-        ('Monk', 'Monk'),
-        ('Dragoon', 'Dragoon'),
-        ('Ninja', 'Ninja'),
-        ('Bard', 'Bard'),
-        ('Black Mage', 'Black Mage'),
-        ('Summoner', 'Summoner'),
-        ('Scholar', 'Scholar'),
-        ('White Mage', 'White Mage'),
-        ('Blue Mage', 'Blue Mage'),
-        ('Dark Knight', 'Dark Knight'),
-        ('Machinist', 'Machinist'),
-        ('Astrologian', 'Astrologian'),
-        ('Samurai', 'Samurai'),
-        ('Red Mage', 'Red Mage'),
-        ('Gunbreaker', 'Gunbreaker'),
-        ('Dancer', 'Dancer'),
-        ('Reaper', 'Reaper'),
-        ('Sage', 'Sage'),
-    )
-
     quest_name = models.CharField(max_length=250, unique=True)
     previous_quest = models.CharField(max_length=250)
     quest_level = models.IntegerField()
     quest_type = models.CharField(max_length=25, choices=QUEST_TYPES)
-    quest_class = models.CharField(max_length=25, choices=CLASS_TYPES)
+    quest_class = models.ManyToManyField(Job)
     next_quest = models.CharField(max_length=250)
     quest_npcs = models.ManyToManyField(Npc, through='Step')
     quest_reward = models.OneToOneField(
