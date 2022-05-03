@@ -56,26 +56,35 @@ class MapCont extends Component {
         })
         
         in_zone_quests.map(q => {
-            console.log(q.quest_class);
-            if ((active_classes.includes(q.quest_class) || q.quest_class[0].job_name === 'All') 
-            && active_quest_types.includes(q.quest_type)) {
-                lvl_ranges.map(lr => {
-                    if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_in_zone_quests.includes(q)) {
-                        let quest_type_icon = '';
-                        if (q.quest_type === 'Hunting Log') {
-                            quest_type_icon = `./icons/fourth_layer/HuntingLogQuestIcon.PNG`;
-                        } else if (q.quest_type === 'Main Story') {
-                            quest_type_icon = `./icons/fourth_layer/MainQuestIcon.PNG`;
-                        } else {
-                            quest_type_icon = `./icons/fourth_layer/${q.quest_type}QuestIcon.PNG`;
+            let quest_job_names = [];
+            q.quest_class.map(c => {
+                let job_name = this.props.jobs.jobs.filter(job => job.id === c);
+                quest_job_names.push(job_name[0].job_name);
+                return quest_job_names;
+            })
+
+            quest_job_names.map(name => {
+                if ((active_classes.includes(name) || name === 'All') 
+                && active_quest_types.includes(q.quest_type)) {
+                    lvl_ranges.map(lr => {
+                        if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_in_zone_quests.includes(q)) {
+                            let quest_type_icon = '';
+                            if (q.quest_type === 'Hunting Log') {
+                                quest_type_icon = `./icons/fourth_layer/HuntingLogQuestIcon.PNG`;
+                            } else if (q.quest_type === 'Main Story') {
+                                quest_type_icon = `./icons/fourth_layer/MainQuestIcon.PNG`;
+                            } else {
+                                quest_type_icon = `./icons/fourth_layer/${q.quest_type}QuestIcon.PNG`;
+                            }
+                            active_in_zone_quests.push([q, `./icons/second_layer/BgColor${active_in_zone_quests.length + 1}.PNG`,
+                            quest_type_icon]);
                         }
-                        active_in_zone_quests.push([q, `./icons/second_layer/BgColor${active_in_zone_quests.length + 1}.PNG`,
-                        quest_type_icon]);
-                    }
+                        return active_in_zone_quests;
+                    })
                     return active_in_zone_quests;
-                })
+                }
                 return active_in_zone_quests;
-            }
+            })
             return active_in_zone_quests;
         })
 
