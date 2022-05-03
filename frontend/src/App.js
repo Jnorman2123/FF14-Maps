@@ -10,6 +10,7 @@ import { fetchQuests } from './store/actions/quests/questActions';
 import { fetchItems } from './store/actions/items/itemActions';
 import { fetchSteps } from './store/actions/steps/stepActions';
 import { fetchRewards } from './store/actions/rewards/rewardActions';
+import { fetchJobs } from './store/actions/jobs/jobActions';
 
 class App extends Component {
 
@@ -44,6 +45,7 @@ class App extends Component {
     this.props.fetchItems();
     this.props.fetchSteps();
     this.props.fetchRewards();
+    this.props.fetchJobs();
   }
 
   revertLat = (x,y) => {
@@ -67,14 +69,14 @@ class App extends Component {
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
               minZoom={5} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
-              steps={this.props.steps} rewards={this.props.rewards} setQuestId={this.setQuestId} />} />
+              steps={this.props.steps} rewards={this.props.rewards} jobs={this.props.jobs} setQuestId={this.setQuestId} />} />
             })}
             {this.state.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
               minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items} 
-              steps={this.props.steps} rewards={this.props.rewards} setQuestId={this.setQuestId} />} />
+              steps={this.props.steps} rewards={this.props.rewards} jobs={this.props.jobs} setQuestId={this.setQuestId} />} />
             })}
           </Route>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />
@@ -91,10 +93,11 @@ function mapStateToProps(state) {
       items: state.items,
       steps: state.steps,
       rewards: state.rewards,
+      jobs: state.jobs,
       requesting: state.requesting,
   }
 }
 
-export default connect(mapStateToProps, { fetchNpcs, fetchQuests, fetchItems, fetchSteps, fetchRewards })(App);
+export default connect(mapStateToProps, { fetchNpcs, fetchQuests, fetchItems, fetchSteps, fetchRewards, fetchJobs })(App);
 
 

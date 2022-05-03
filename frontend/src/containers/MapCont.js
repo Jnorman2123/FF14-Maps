@@ -56,7 +56,8 @@ class MapCont extends Component {
         })
         
         in_zone_quests.map(q => {
-            if ((active_classes.includes(q.quest_class) || q.quest_class === 'All') 
+            console.log(q.quest_class);
+            if ((active_classes.includes(q.quest_class) || q.quest_class[0].job_name === 'All') 
             && active_quest_types.includes(q.quest_type)) {
                 lvl_ranges.map(lr => {
                     if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_in_zone_quests.includes(q)) {

@@ -5,6 +5,7 @@ import itemReducer from './itemReducer';
 import stepReducer from './stepReducer';
 import rewardReducer from './rewardReducer';
 import filterReducer from './filterReducer';
+import jobReducer from './jobReducer';
 
 const rootReducer = () => 
     combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = () =>
         items: itemReducer,
         steps: stepReducer,
         rewards: rewardReducer,
+        jobs: jobReducer,
         storeData: filterReducer
     })
 
