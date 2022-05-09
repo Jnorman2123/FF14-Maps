@@ -20,7 +20,14 @@ class RegionMapCont extends Component {
         let active_in_zone_quests = [];
 
         return (
-            <div className="text-center" >{this.props.mapName}</div>
+            <Container>
+                <div className="text-center" >{this.props.mapName}</div>
+                <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
+                    minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
+                    maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
+                    <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
+                </MapContainer>
+            </Container>
         )
     }
 }
