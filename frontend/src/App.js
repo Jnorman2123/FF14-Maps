@@ -74,7 +74,7 @@ class App extends Component {
             />} />
             {this.state.region_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
-              element={<RegionMapCont bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
+              element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
               minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
               steps={this.props.steps} rewards={this.props.rewards} jobs={this.props.jobs} />} />
