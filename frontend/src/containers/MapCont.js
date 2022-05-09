@@ -18,7 +18,6 @@ class MapCont extends Component {
     }
 
     toggleQuest = (quest, quest_col) => {
-        console.log(quest_col);
         if (!this.state.toggled_quests.includes(quest) && quest_col.includes(quest)) {
             this.setState({
                 toggled_quests: [...this.state.toggled_quests, quest],
@@ -118,7 +117,6 @@ class MapCont extends Component {
         this.state.toggled_quests.map(q => {
             let npc = null;
             let active_quest = active_in_zone_quests.filter(aq => aq[0].id === q.id);
-            console.log(active_quest);
             q.quest_npcs.map(npc_id => {
                 npc = npcs.filter(n => n.id === npc_id);
                 if (!map_markers.includes(npc[0]) && active_quest[0] !== undefined) {
