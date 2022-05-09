@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MapCont from './containers/MapCont';
 import RegionMapCont from './containers/RegionMapCont';
+import WorldMapCont from './containers/WorldMapCont';
 import Home from './containers/Home';
 import { LatLngBounds } from 'leaflet';
 import { connect } from 'react-redux';
@@ -65,7 +66,7 @@ class App extends Component {
         <Routes>
           <Route path='/' element={<Home q_id={this.state.quest_id} npcs={this.props.npcs} quests={this.props.quests} 
             items={this.props.items} steps={this.props.steps} rewards={this.props.rewards}/>}>
-            <Route path='/world' element={<RegionMapCont mapName='World' 
+            <Route path='/world' element={<WorldMapCont mapName='World' 
             boundsbounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}
             zoom={4} minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)}
             revertLat={this.revertLat} npcs={this.props.npcs} quests={this.props.quests} items={this.props.items}
