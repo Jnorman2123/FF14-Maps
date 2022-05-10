@@ -66,6 +66,14 @@ class RegionMapCont extends Component {
             this.props.revertLat(35.3, 23.8), this.props.revertLat(33.3, 24.8), this.props.revertLat(31.3, 25.1),
             this.props.revertLat(27.9, 24.3), this.props.revertLat(25.9, 21.5)
         ];
+        let lowerLaNoscea = [
+            this.props.revertLat(27.1, 28.6), this.props.revertLat(30.3, 27.0), this.props.revertLat(31.5, 28.1), 
+            this.props.revertLat(31.9, 29.5), this.props.revertLat(30.5, 31.7), this.props.revertLat(27.7, 32.7), 
+            this.props.revertLat(28.0, 33.7), this.props.revertLat(25.7, 36.0), this.props.revertLat(27.6, 36.1),
+            this.props.revertLat(28.7, 37.1), this.props.revertLat(26.4, 39.8), this.props.revertLat(24.1, 39.0),
+            this.props.revertLat(22.8, 37.3), this.props.revertLat(25.7, 33.4), this.props.revertLat(24.6, 32.5),
+            this.props.revertLat(26.2, 31.2), this.props.revertLat(27.6, 31.2), this.props.revertLat(26.8, 29.2)
+        ];
         let purpleOptions = { color: 'purple'}
 
         return (
@@ -80,6 +88,7 @@ class RegionMapCont extends Component {
                     <Polygon positions={outerLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={middleLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={easternLaNoscea} pathOptions={purpleOptions} />
+                    <Polygon positions={lowerLaNoscea} pathOptions={purpleOptions} />
                 </MapContainer>
             </Container>
         )
