@@ -78,6 +78,11 @@ class RegionMapCont extends Component {
             this.props.revertLat(17.5, 27.8), this.props.revertLat(20.2, 27.3), this.props.revertLat(20.2, 29.9), 
             this.props.revertLat(19.5, 30.0), this.props.revertLat(18.3, 29.5), this.props.revertLat(17.4, 28.5)
         ];
+        let limsaLominsaUpperDecks = [
+            this.props.revertLat(20.1, 26.3), this.props.revertLat(21.0, 25.3), this.props.revertLat(21.4, 25.5), 
+            this.props.revertLat(22.0, 28.2), this.props.revertLat(21.9, 29.0), this.props.revertLat(20.7, 29.7),
+            this.props.revertLat(20.6, 26.9), this.props.revertLat(20.2, 26.5)
+        ];
         let purpleOptions = { color: 'purple'}
 
         return (
@@ -94,6 +99,7 @@ class RegionMapCont extends Component {
                     <Polygon positions={easternLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={lowerLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={limsaLominsaLowerDecks} pathOptions={purpleOptions} />
+                    <Polygon positions={limsaLominsaUpperDecks} pathOptions={purpleOptions} />
                 </MapContainer>
             </Container>
         )
