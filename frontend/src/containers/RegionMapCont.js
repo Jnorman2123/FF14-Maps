@@ -85,21 +85,38 @@ class RegionMapCont extends Component {
         ];
         let purpleOptions = { color: 'purple'}
 
+        let keyContainer = new L.Icon({
+            iconUrl: `./icons/RegionMapKey.PNG`,
+            iconRetinaUrl: `./icons/RegionMapKey.PNG`,
+            popupAnchor: [0, 0],
+            iconSize: [125, 125],
+        })
+
         return (
             <Container>
                 <div className="text-center" >{this.props.mapName}</div>
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
-                    minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
+                    minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    <Polygon positions={westernLaNoscea} pathOptions={purpleOptions} />
-                    <Polygon positions={upperLaNoscea} pathOptions={purpleOptions} />
+                    <Polygon positions={westernLaNoscea} pathOptions={purpleOptions}  eventHandlers={{
+                        mouseover: () => {
+                            console.log('mouse over western la noscea');
+                        }
+                    }} />
+                    <Polygon positions={upperLaNoscea} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log('mouse over upper la noscea');
+                        }
+                    }} />
                     <Polygon positions={outerLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={middleLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={easternLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={lowerLaNoscea} pathOptions={purpleOptions} />
                     <Polygon positions={limsaLominsaLowerDecks} pathOptions={purpleOptions} />
                     <Polygon positions={limsaLominsaUpperDecks} pathOptions={purpleOptions} />
+                    <Marker key={Math.random()} position={this.props.revertLat(5.5, 37.5)}
+                                icon={keyContainer}/>
                 </MapContainer>
             </Container>
         )
