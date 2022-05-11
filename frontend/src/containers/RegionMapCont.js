@@ -149,6 +149,44 @@ class RegionMapCont extends Component {
             this.props.revertLat(19.2, 25.4), this.props.revertLat(20.1, 25.4), this.props.revertLat(20.1, 25.8), 
             this.props.revertLat(19.8, 26.2), this.props.revertLat(19.5, 26.2), this.props.revertLat(19.3, 26.6)
         ];
+        let uldahStepsOfThal = [
+            this.props.revertLat(19.2, 27.0), this.props.revertLat(19.2, 27.3), this.props.revertLat(19.6, 27.4), 
+            this.props.revertLat(20.2, 26.9), this.props.revertLat(20.7, 26.9), this.props.revertLat(20.9, 26.6), 
+            this.props.revertLat(20.9, 26.1), this.props.revertLat(20.8, 25.4), this.props.revertLat(20.4, 24.7),
+            this.props.revertLat(20.0, 25.2), this.props.revertLat(20.3, 25.6), this.props.revertLat(20.3, 26.0),
+            this.props.revertLat(20.1, 26.3), this.props.revertLat(19.9, 26.5), this.props.revertLat(19.5, 26.6),
+            this.props.revertLat(19.6, 26.9)
+        ];
+        let westernThanalan = [
+            this.props.revertLat(7.0, 17.0), this.props.revertLat(8.8, 17.2), this.props.revertLat(10.9, 17.5), 
+            this.props.revertLat(12.0, 18.0), this.props.revertLat(12.0, 18.5), this.props.revertLat(10.5, 19.2), 
+            this.props.revertLat(11.3, 20.7), this.props.revertLat(16.2, 22.0), this.props.revertLat(17.2, 25.2),
+            this.props.revertLat(17.3, 25.8), this.props.revertLat(17.0, 26.2), this.props.revertLat(13.9, 27.7),
+            this.props.revertLat(10.6, 28.5), this.props.revertLat(10.2, 27.5), this.props.revertLat(9.9, 23.1),
+            this.props.revertLat(8.3, 21.8), this.props.revertLat(6.9, 17.6)
+        ];
+        let centralThanalan = [
+            this.props.revertLat(18.2, 21.9), this.props.revertLat(19.9, 22.1), this.props.revertLat(19.7, 23.4), 
+            this.props.revertLat(21.3, 24.0), this.props.revertLat(21.6, 25.5), this.props.revertLat(21.7, 26.6), 
+            this.props.revertLat(22.4, 27.0), this.props.revertLat(23.7, 26.8), this.props.revertLat(24.3, 24.7),
+            this.props.revertLat(23.2, 23.2), this.props.revertLat(25.7, 19.9), this.props.revertLat(25.6, 19.1),
+            this.props.revertLat(22.5, 16.9), this.props.revertLat(21.4, 16.4), this.props.revertLat(19.5, 16.6),
+            this.props.revertLat(18.8, 17.8), this.props.revertLat(18.0, 21.4)
+        ];
+        let northernThanalan = [
+            this.props.revertLat(18.3, 8.5), this.props.revertLat(20.2, 7.9), this.props.revertLat(20.7, 8.4), 
+            this.props.revertLat(21.2, 10.0), this.props.revertLat(23.1, 10.9), this.props.revertLat(23.6, 11.9), 
+            this.props.revertLat(23.4, 12.6), this.props.revertLat(22.6, 13.7), this.props.revertLat(21.9, 15.8),
+            this.props.revertLat(21.4, 16.2), this.props.revertLat(20.7, 16.0), this.props.revertLat(20.5, 15.4),
+            this.props.revertLat(20.1, 13.7), this.props.revertLat(18.1, 10.5)
+        ];
+        let easternThanalan = [
+            this.props.revertLat(25.6, 13.2), this.props.revertLat(27.2, 13.1), this.props.revertLat(28.5, 13.6), 
+            this.props.revertLat(28.9, 14.9), this.props.revertLat(31.6, 14.4), this.props.revertLat(32.3, 12.6), 
+            this.props.revertLat(34.2, 13.1), this.props.revertLat(34.5, 14.2), this.props.revertLat(33.8, 15.6),
+            this.props.revertLat(34.9, 16.8), this.props.revertLat(35.4, 18.1), this.props.revertLat(34.7, 18.6),
+            this.props.revertLat(29.3, 20.2), this.props.revertLat(25.8, 18.9)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -178,6 +216,11 @@ class RegionMapCont extends Component {
         } else if (this.props.mapName === 'Thanalan') {
             polygon1 = uldahStepsOfNald;
             polygon2 = theHustingsStrip;
+            polygon3 = uldahStepsOfThal;
+            polygon4 = westernThanalan;
+            polygon5 = centralThanalan;
+            polygon6 = northernThanalan;
+            polygon7 = easternThanalan;
         }
 
         return (
