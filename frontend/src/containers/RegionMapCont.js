@@ -108,6 +108,29 @@ class RegionMapCont extends Component {
             this.props.revertLat(15.8, 13.8), this.props.revertLat(15.0, 13.8), this.props.revertLat(14.9, 14.2),
             this.props.revertLat(15.5, 15.6), this.props.revertLat(16.1, 16.1), this.props.revertLat(16.6, 16.0)
         ];
+        let northShroud = [
+            this.props.revertLat(13.9, 14.0), this.props.revertLat(13.4, 12.9), this.props.revertLat(13.6, 11.7), 
+            this.props.revertLat(13.5, 11.2), this.props.revertLat(12.9, 10.8), this.props.revertLat(12.4, 10.9), 
+            this.props.revertLat(11.7, 11.6), this.props.revertLat(9.3, 10.6), this.props.revertLat(8.3, 11.0),
+            this.props.revertLat(8.2, 11.8), this.props.revertLat(9.6, 12.4), this.props.revertLat(9.3, 13.2),
+            this.props.revertLat(6.8, 13.4), this.props.revertLat(6.3, 13.8), this.props.revertLat(6.9, 14.8),
+            this.props.revertLat(7.0, 16.6), this.props.revertLat(7.6, 16.6), this.props.revertLat(9.9, 16.7),
+            this.props.revertLat(13.0, 15.5)
+        ];
+        let eastShroud = [
+            this.props.revertLat(23.1, 17.0), this.props.revertLat(25.9, 18.6), this.props.revertLat(28.8, 18.9), 
+            this.props.revertLat(28.8, 17.9), this.props.revertLat(28.1, 17.0), this.props.revertLat(30.2, 16.3), 
+            this.props.revertLat(30.4, 15.8), this.props.revertLat(32.9, 14.8), this.props.revertLat(33.0, 14.5),
+            this.props.revertLat(32.3, 13.8), this.props.revertLat(30.8, 13.9), this.props.revertLat(32.6, 11.9),
+            this.props.revertLat(32.7, 11.0), this.props.revertLat(31.5, 10.0), this.props.revertLat(29.2, 9.5),
+            this.props.revertLat(27.0, 9.6), this.props.revertLat(22.6, 14.8), this.props.revertLat(22.3, 15.5)
+        ];
+        let centralShroud = [
+            this.props.revertLat(14.2, 18.0), this.props.revertLat(13.2, 19.5), this.props.revertLat(13.5, 22.1), 
+            this.props.revertLat(17.9, 25.5), this.props.revertLat(19.9, 25.9), this.props.revertLat(21.9, 24.9), 
+            this.props.revertLat(23.1, 21.1), this.props.revertLat(23.1, 20.4), this.props.revertLat(21.8, 17.9),
+            this.props.revertLat(20.8, 17.9), this.props.revertLat(19.2, 18.4)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -130,6 +153,9 @@ class RegionMapCont extends Component {
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
             polygon2 = oldGridania;
+            polygon3 = northShroud;
+            polygon4 = eastShroud;
+            polygon5 = centralShroud;
         }
 
         return (
