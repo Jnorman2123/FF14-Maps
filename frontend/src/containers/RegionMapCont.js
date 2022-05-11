@@ -187,6 +187,14 @@ class RegionMapCont extends Component {
             this.props.revertLat(34.9, 16.8), this.props.revertLat(35.4, 18.1), this.props.revertLat(34.7, 18.6),
             this.props.revertLat(29.3, 20.2), this.props.revertLat(25.8, 18.9)
         ];
+        let southernThanalan = [
+            this.props.revertLat(24.5, 27.0), this.props.revertLat(27.3, 23.9), this.props.revertLat(28.6, 23.7), 
+            this.props.revertLat(30.3, 24.5), this.props.revertLat(30.5, 26.7), this.props.revertLat(29.7, 28.1), 
+            this.props.revertLat(33.2, 28.7), this.props.revertLat(34.7, 29.5), this.props.revertLat(34.7, 30.0),
+            this.props.revertLat(30.5, 32.2), this.props.revertLat(32.1, 36.1), this.props.revertLat(30.6, 38.9),
+            this.props.revertLat(25.3, 38.8), this.props.revertLat(24.7, 38.0), this.props.revertLat(24.3, 35.0),
+            this.props.revertLat(24.3, 30.8)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -221,6 +229,7 @@ class RegionMapCont extends Component {
             polygon5 = centralThanalan;
             polygon6 = northernThanalan;
             polygon7 = easternThanalan;
+            polygon8 = southernThanalan;
         }
 
         return (
