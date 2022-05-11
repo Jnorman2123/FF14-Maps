@@ -99,7 +99,15 @@ class RegionMapCont extends Component {
             this.props.revertLat(19.9, 15.9), this.props.revertLat(19.9, 16.2), this.props.revertLat(19.6, 16.6),
             this.props.revertLat(18.8, 16.6), this.props.revertLat(19.2, 17.0), this.props.revertLat(19.2, 17.3),
             this.props.revertLat(18.9, 17.3), this.props.revertLat(17.9, 17.1)
-        ]
+        ];
+        let oldGridania = [
+            this.props.revertLat(16.9, 15.5), this.props.revertLat(17.0, 15.0), this.props.revertLat(17.4, 15.2), 
+            this.props.revertLat(18.0, 15.1), this.props.revertLat(18.6, 15.3), this.props.revertLat(19.0, 15.7), 
+            this.props.revertLat(19.3, 15.7), this.props.revertLat(19.8, 13.7), this.props.revertLat(19.4, 13.4),
+            this.props.revertLat(18.8, 13.1), this.props.revertLat(18.1, 12.7), this.props.revertLat(16.1, 13.9),
+            this.props.revertLat(15.8, 13.8), this.props.revertLat(15.0, 13.8), this.props.revertLat(14.9, 14.2),
+            this.props.revertLat(15.5, 15.6), this.props.revertLat(16.1, 16.1), this.props.revertLat(16.6, 16.0)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -109,6 +117,7 @@ class RegionMapCont extends Component {
             popupAnchor: [0, 0],
             iconSize: [125, 125],
         })
+
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
             polygon2 = upperLaNoscea;
@@ -120,6 +129,7 @@ class RegionMapCont extends Component {
             polygon8 = limsaLominsaUpperDecks;
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
+            polygon2 = oldGridania;
         }
 
         return (
