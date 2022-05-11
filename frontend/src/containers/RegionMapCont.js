@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, Popup, ImageOverlay, LayerGroup, Polygon } from 'react-leaflet';
+import { MapContainer, Marker, Popup, ImageOverlay, Polygon } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-
 
 class RegionMapCont extends Component {
     render () {
@@ -26,6 +22,14 @@ class RegionMapCont extends Component {
         let polygon6 = [];
         let polygon7 = [];
         let polygon8 = [];
+        let message1 = [];
+        let message2 = [];
+        let message3 = [];
+        let message4 = [];
+        let message5 = [];
+        let message6 = [];
+        let message7 = [];
+        let message8 = [];
 
         let westernLaNoscea = [
             this.props.revertLat(8.2, 15.1), this.props.revertLat(7.7, 13.5), this.props.revertLat(9.4, 12.9), 
@@ -59,7 +63,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(22.8, 10.9), this.props.revertLat(21.3, 10.6), this.props.revertLat(19.1, 10.6),
             this.props.revertLat(18.8, 11.4)
         ];
-        let middleLaNoscea = [
+        let easternLaNoscea = [
             this.props.revertLat(23.2, 19.9), this.props.revertLat(23.2, 21.2), this.props.revertLat(22.8, 21.9), 
             this.props.revertLat(23.0, 22.5), this.props.revertLat(24.3, 22.1), this.props.revertLat(24.3,22.9), 
             this.props.revertLat(26.0, 23.4), this.props.revertLat(26.7, 24.2), this.props.revertLat(25.6, 25.6),
@@ -69,7 +73,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(20.4, 24.4), this.props.revertLat(18.7, 23.9), this.props.revertLat(19.5, 22.8),
             this.props.revertLat(20.4, 22.9), this.props.revertLat(20.8, 20.9), this.props.revertLat(22.6, 19.6)
         ];
-        let easternLaNoscea = [
+        let middleLaNoscea = [
             this.props.revertLat(26.1, 19.1), this.props.revertLat(27.1, 17.2), this.props.revertLat(28.1, 16.3), 
             this.props.revertLat(33.4, 16.5), this.props.revertLat(36.3, 20.1), this.props.revertLat(36.1, 21.9), 
             this.props.revertLat(35.3, 23.8), this.props.revertLat(33.3, 24.8), this.props.revertLat(31.3, 25.1),
@@ -117,7 +121,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(7.0, 16.6), this.props.revertLat(7.6, 16.6), this.props.revertLat(9.9, 16.7),
             this.props.revertLat(13.0, 15.5)
         ];
-        let eastShroud = [
+        let centralShroud = [
             this.props.revertLat(23.1, 17.0), this.props.revertLat(25.9, 18.6), this.props.revertLat(28.8, 18.9), 
             this.props.revertLat(28.8, 17.9), this.props.revertLat(28.1, 17.0), this.props.revertLat(30.2, 16.3), 
             this.props.revertLat(30.4, 15.8), this.props.revertLat(32.9, 14.8), this.props.revertLat(33.0, 14.5),
@@ -125,7 +129,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(32.7, 11.0), this.props.revertLat(31.5, 10.0), this.props.revertLat(29.2, 9.5),
             this.props.revertLat(27.0, 9.6), this.props.revertLat(22.6, 14.8), this.props.revertLat(22.3, 15.5)
         ];
-        let centralShroud = [
+        let eastShroud = [
             this.props.revertLat(14.2, 18.0), this.props.revertLat(13.2, 19.5), this.props.revertLat(13.5, 22.1), 
             this.props.revertLat(17.9, 25.5), this.props.revertLat(19.9, 25.9), this.props.revertLat(21.9, 24.9), 
             this.props.revertLat(23.1, 21.1), this.props.revertLat(23.1, 20.4), this.props.revertLat(21.8, 17.9),
@@ -157,7 +161,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(20.1, 26.3), this.props.revertLat(19.9, 26.5), this.props.revertLat(19.5, 26.6),
             this.props.revertLat(19.6, 26.9)
         ];
-        let westernThanalan = [
+        let centralThanalan = [
             this.props.revertLat(7.0, 17.0), this.props.revertLat(8.8, 17.2), this.props.revertLat(10.9, 17.5), 
             this.props.revertLat(12.0, 18.0), this.props.revertLat(12.0, 18.5), this.props.revertLat(10.5, 19.2), 
             this.props.revertLat(11.3, 20.7), this.props.revertLat(16.2, 22.0), this.props.revertLat(17.2, 25.2),
@@ -165,7 +169,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(10.6, 28.5), this.props.revertLat(10.2, 27.5), this.props.revertLat(9.9, 23.1),
             this.props.revertLat(8.3, 21.8), this.props.revertLat(6.9, 17.6)
         ];
-        let centralThanalan = [
+        let westernThanalan = [
             this.props.revertLat(18.2, 21.9), this.props.revertLat(19.9, 22.1), this.props.revertLat(19.7, 23.4), 
             this.props.revertLat(21.3, 24.0), this.props.revertLat(21.6, 25.5), this.props.revertLat(21.7, 26.6), 
             this.props.revertLat(22.4, 27.0), this.props.revertLat(23.7, 26.8), this.props.revertLat(24.3, 24.7),
@@ -207,30 +211,53 @@ class RegionMapCont extends Component {
 
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
+            message1 = 'Western La Noscea';
             polygon2 = upperLaNoscea;
+            message2 = 'Upper La Noscea';
             polygon3 = outerLaNoscea;
+            message3 = 'Outer La Noscea';
             polygon4 = easternLaNoscea;
+            message4 = 'Eastern La Noscea';
             polygon5 = middleLaNoscea;
+            message5 = 'Middle La Noscea';
             polygon6 = lowerLaNoscea;
+            message6 = 'Lower La Noscea';
             polygon7 = limsaLominsaLowerDecks;
+            message7 = 'Limsa Lominsa Lower Decks';
             polygon8 = limsaLominsaUpperDecks;
+            message8 = 'Limsa Lominsa Upper Decks';
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
+            message1 = 'New Gridania';
             polygon2 = oldGridania;
+            message2 = 'Old Gridania';
             polygon3 = northShroud;
+            message3 = 'Nortern Shroud';
             polygon4 = eastShroud;
+            message4 = 'East Shroud';
             polygon5 = centralShroud;
+            message5 = 'Central Shroud';
             polygon6 = southShroud;
+            message6 = 'South Shroud';
         } else if (this.props.mapName === 'Thanalan') {
             polygon1 = uldahStepsOfNald;
+            message1 = `Ul'dah Steps of Nald`;
             polygon2 = theHustingsStrip;
+            message2 = 'The Hustings Strip';
             polygon3 = uldahStepsOfThal;
-            polygon4 = westernThanalan;
-            polygon5 = centralThanalan;
+            message3 = `Ul'dah Steps of thal`;
+            polygon4 = centralThanalan;
+            message4 = 'Central Thanalan';
+            polygon5 = westernThanalan;
+            message5 = 'Western Thanalan';
             polygon6 = northernThanalan;
+            message6 = 'Northern Thanalan';
             polygon7 = easternThanalan;
+            message7 = 'Eastern Thanalan';
             polygon8 = southernThanalan;
+            message8 = 'Southern Thanalan';
         }
+        
 
         return (
             <Container>
@@ -241,20 +268,44 @@ class RegionMapCont extends Component {
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     <Polygon positions={polygon1} pathOptions={purpleOptions}  eventHandlers={{
                         mouseover: () => {
-                            console.log('mouse over western la noscea');
+                            console.log(message1);
                         }
                     }} />
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
-                            console.log('mouse over upper la noscea');
+                            console.log(message2);
                         }
                     }} />
-                    <Polygon positions={polygon3} pathOptions={purpleOptions} />
-                    <Polygon positions={polygon5} pathOptions={purpleOptions} />
-                    <Polygon positions={polygon4} pathOptions={purpleOptions} />
-                    <Polygon positions={polygon6} pathOptions={purpleOptions} />
-                    <Polygon positions={polygon7} pathOptions={purpleOptions} />
-                    <Polygon positions={polygon8} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon3} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message3);
+                        }
+                    }} />
+                    <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message4);
+                        }
+                    }} />
+                    <Polygon positions={polygon4} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message5);
+                        }
+                    }} />
+                    <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message6);
+                        }
+                    }} />
+                    <Polygon positions={polygon7} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message7);
+                        }
+                    }} />
+                    <Polygon positions={polygon8} pathOptions={purpleOptions} eventHandlers={{
+                        mouseover: () => {
+                            console.log(message8);
+                        }
+                    }} />
                     <Marker key={Math.random()} position={this.props.revertLat(5.5, 37.5)}
                                 icon={keyContainer}/>
                 </MapContainer>
