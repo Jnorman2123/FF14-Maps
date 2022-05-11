@@ -18,6 +18,15 @@ class RegionMapCont extends Component {
         let lvl_ranges = lvls.map(l => l.split("-").map(i => parseInt(i)));
         let in_zone_quests = [];
         let active_in_zone_quests = [];
+        let polygon1 = [];
+        let polygon2 = [];
+        let polygon3 = [];
+        let polygon4 = [];
+        let polygon5 = [];
+        let polygon6 = [];
+        let polygon7 = [];
+        let polygon8 = [];
+
         let westernLaNoscea = [
             this.props.revertLat(8.2, 15.1), this.props.revertLat(7.7, 13.5), this.props.revertLat(9.4, 12.9), 
             this.props.revertLat(11.2, 14.0), this.props.revertLat(13.3, 16.0), this.props.revertLat(15.9, 16.6), 
@@ -91,6 +100,16 @@ class RegionMapCont extends Component {
             popupAnchor: [0, 0],
             iconSize: [125, 125],
         })
+        if (this.props.mapName === 'La Noscea') {
+            polygon1 = westernLaNoscea;
+            polygon2 = upperLaNoscea;
+            polygon3 = outerLaNoscea;
+            polygon4 = easternLaNoscea;
+            polygon5 = middleLaNoscea;
+            polygon6 = lowerLaNoscea;
+            polygon7 = limsaLominsaLowerDecks;
+            polygon8 = limsaLominsaUpperDecks;
+        }
 
         return (
             <Container>
@@ -99,22 +118,22 @@ class RegionMapCont extends Component {
                     minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    <Polygon positions={westernLaNoscea} pathOptions={purpleOptions}  eventHandlers={{
+                    <Polygon positions={polygon1} pathOptions={purpleOptions}  eventHandlers={{
                         mouseover: () => {
                             console.log('mouse over western la noscea');
                         }
                     }} />
-                    <Polygon positions={upperLaNoscea} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log('mouse over upper la noscea');
                         }
                     }} />
-                    <Polygon positions={outerLaNoscea} pathOptions={purpleOptions} />
-                    <Polygon positions={middleLaNoscea} pathOptions={purpleOptions} />
-                    <Polygon positions={easternLaNoscea} pathOptions={purpleOptions} />
-                    <Polygon positions={lowerLaNoscea} pathOptions={purpleOptions} />
-                    <Polygon positions={limsaLominsaLowerDecks} pathOptions={purpleOptions} />
-                    <Polygon positions={limsaLominsaUpperDecks} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon3} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon5} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon4} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon6} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon7} pathOptions={purpleOptions} />
+                    <Polygon positions={polygon8} pathOptions={purpleOptions} />
                     <Marker key={Math.random()} position={this.props.revertLat(5.5, 37.5)}
                                 icon={keyContainer}/>
                 </MapContainer>
