@@ -131,6 +131,11 @@ class RegionMapCont extends Component {
             this.props.revertLat(23.1, 21.1), this.props.revertLat(23.1, 20.4), this.props.revertLat(21.8, 17.9),
             this.props.revertLat(20.8, 17.9), this.props.revertLat(19.2, 18.4)
         ];
+        let southShroud = [
+            this.props.revertLat(20.6, 26.6), this.props.revertLat(26.1, 26.6), this.props.revertLat(29.3, 29.6), 
+            this.props.revertLat(28.3, 31.1), this.props.revertLat(25.2, 30.6), this.props.revertLat(21.3, 35.1), 
+            this.props.revertLat(20.4, 34.4), this.props.revertLat(20.3, 32.9), this.props.revertLat(20.2, 27.0)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -156,6 +161,7 @@ class RegionMapCont extends Component {
             polygon3 = northShroud;
             polygon4 = eastShroud;
             polygon5 = centralShroud;
+            polygon6 = southShroud;
         }
 
         return (
