@@ -136,6 +136,19 @@ class RegionMapCont extends Component {
             this.props.revertLat(28.3, 31.1), this.props.revertLat(25.2, 30.6), this.props.revertLat(21.3, 35.1), 
             this.props.revertLat(20.4, 34.4), this.props.revertLat(20.3, 32.9), this.props.revertLat(20.2, 27.0)
         ];
+        let uldahStepsOfNald = [
+            this.props.revertLat(18.3, 26.7), this.props.revertLat(18.5, 26.4), this.props.revertLat(18.3, 26.3), 
+            this.props.revertLat(18.4, 25.9), this.props.revertLat(18.5, 25.5), this.props.revertLat(19.0, 25.6), 
+            this.props.revertLat(19.4, 25.4), this.props.revertLat(19.7, 25.2), this.props.revertLat(19.9, 25.1),
+            this.props.revertLat(20.3, 24.7), this.props.revertLat(19.9, 24.3), this.props.revertLat(18.2, 24.2),
+            this.props.revertLat(18.0, 24.4), this.props.revertLat(17.9, 25.7), this.props.revertLat(17.9, 25.7),
+            this.props.revertLat(17.2, 26.4)
+        ];
+        let theHustingsStrip = [
+            this.props.revertLat(18.4, 27.0), this.props.revertLat(18.8, 25.6), this.props.revertLat(19.1, 25.6), 
+            this.props.revertLat(19.2, 25.4), this.props.revertLat(20.1, 25.4), this.props.revertLat(20.1, 25.8), 
+            this.props.revertLat(19.8, 26.2), this.props.revertLat(19.5, 26.2), this.props.revertLat(19.3, 26.6)
+        ];
 
         let purpleOptions = { color: 'purple'}
 
@@ -162,6 +175,9 @@ class RegionMapCont extends Component {
             polygon4 = eastShroud;
             polygon5 = centralShroud;
             polygon6 = southShroud;
+        } else if (this.props.mapName === 'Thanalan') {
+            polygon1 = uldahStepsOfNald;
+            polygon2 = theHustingsStrip;
         }
 
         return (
