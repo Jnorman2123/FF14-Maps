@@ -92,6 +92,15 @@ class RegionMapCont extends Component {
             this.props.revertLat(22.0, 28.2), this.props.revertLat(21.9, 29.0), this.props.revertLat(20.7, 29.7),
             this.props.revertLat(20.6, 26.9), this.props.revertLat(20.2, 26.5)
         ];
+        let newGridania = [
+            this.props.revertLat(16.8, 16.7), this.props.revertLat(16.8, 15.9), this.props.revertLat(17.1, 15.6), 
+            this.props.revertLat(17.6, 15.5), this.props.revertLat(18.0, 15.6), this.props.revertLat(18.4, 15.8), 
+            this.props.revertLat(18.7, 15.8), this.props.revertLat(19.1, 16.3), this.props.revertLat(19.4, 16.0),
+            this.props.revertLat(19.9, 15.9), this.props.revertLat(19.9, 16.2), this.props.revertLat(19.6, 16.6),
+            this.props.revertLat(18.8, 16.6), this.props.revertLat(19.2, 17.0), this.props.revertLat(19.2, 17.3),
+            this.props.revertLat(18.9, 17.3), this.props.revertLat(17.9, 17.1)
+        ]
+
         let purpleOptions = { color: 'purple'}
 
         let keyContainer = new L.Icon({
@@ -109,6 +118,8 @@ class RegionMapCont extends Component {
             polygon6 = lowerLaNoscea;
             polygon7 = limsaLominsaLowerDecks;
             polygon8 = limsaLominsaUpperDecks;
+        } else if (this.props.mapName === 'The Black Shroud') {
+            polygon1 = newGridania;
         }
 
         return (
