@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
 
 class RegionMapCont extends Component {
+
     render () {
         let mapName = this.props.mapName.split(' ').join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
@@ -12,8 +13,12 @@ class RegionMapCont extends Component {
         let active_quest_levels = this.props.quest_levels.filter(l => l.active);
         let lvls = active_quest_levels.map(l => l.name);
         let lvl_ranges = lvls.map(l => l.split("-").map(i => parseInt(i)));
-        let in_zone_quests = [];
+        let active_quests = [];
         let active_in_zone_quests = [];
+        let active_in_zone_hunting_log_quests = [];
+        let active_in_zone_main_quests = [];
+        let active_in_zone_side_quests = [];
+        let active_in_zone_class_quests = [];
         let polygon1 = [];
         let polygon2 = [];
         let polygon3 = [];
@@ -30,6 +35,67 @@ class RegionMapCont extends Component {
         let message6 = [];
         let message7 = [];
         let message8 = [];
+        let popurl1 = '';
+        let popurl2 = '';
+        let popurl3 = '';
+        let popurl4 = '';
+        let popurl5 = '';
+        let popurl6 = '';
+        let popurl7 = '';
+        let popurl8 = '';
+
+        let setActiveQuests = () => {
+            this.props.quests.quests.map(q => {
+                if (active_quest_types.includes(q.quest_type)) {
+                    q.quest_class.map(c => {
+                        let job = this.props.jobs.jobs.filter(j => j.id === c);
+                        if (active_classes.includes(job[0].job_name) || job[0].job_name === 'All') {
+                            lvl_ranges.map(lr => {
+                                if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_quests.includes(q)) {
+                                    active_quests.push(q);
+                                };
+                                return active_quests;
+                            });
+                        };
+                        return active_quests;
+                    });
+                };
+                return active_quests;
+            });
+        };
+
+        let setActiveInZoneQuests = (zone_name) => {
+            active_in_zone_quests = [];
+            active_in_zone_hunting_log_quests = [];
+            active_in_zone_main_quests = [];
+            active_in_zone_side_quests = [];
+            active_in_zone_class_quests = [];
+            setActiveQuests();
+            this.props.npcs.npcs.map(npc => {
+                if (npc.npc_zone.includes(zone_name)) {
+                    active_quests.map(q => {
+                        if (q.quest_npcs[0] === npc.id && !active_in_zone_quests.includes(q)) {
+                            active_in_zone_quests.push(q)
+                        };
+                        return active_in_zone_quests;
+                    });
+                };
+                return active_in_zone_quests;
+            });
+            active_in_zone_quests.map(q => {
+                if (q.quest_type === 'Main Story' && !active_in_zone_main_quests.includes(q)) {
+                    active_in_zone_main_quests.push(q);
+                } else if (q.quest_type === 'Side' && !active_in_zone_side_quests.includes(q)) {
+                    active_in_zone_side_quests.push(q);
+                } else if (q.quest_type === 'Class' && !active_in_zone_class_quests.includes(q)) {
+                    active_in_zone_class_quests.push(q);
+                } else if (q.quest_type === 'Hunting Log' && !active_in_zone_hunting_log_quests.includes(q)) {
+                    active_in_zone_hunting_log_quests.push(q);
+                }
+                return null;
+            });
+            return null;
+        };
 
         let westernLaNoscea = [
             this.props.revertLat(8.2, 15.1), this.props.revertLat(7.7, 13.5), this.props.revertLat(9.4, 12.9), 
@@ -212,27 +278,35 @@ class RegionMapCont extends Component {
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
             message1 = 'Western La Noscea';
+            popurl1 = `./region_zones/WesternLaNosceaHighlighted.PNG`;
             polygon2 = upperLaNoscea;
             message2 = 'Upper La Noscea';
+            popurl2 = `./region_zones/UpperLaNosceaHighlighted.PNG`;
             polygon3 = outerLaNoscea;
             message3 = 'Outer La Noscea';
+            popurl3 = `./region_zones/OuterLaNosceaHighlighted.PNG`;
             polygon4 = easternLaNoscea;
             message4 = 'Eastern La Noscea';
+            popurl4 = `./region_zones/EasternLaNosceaHighlighted.PNG`;
             polygon5 = middleLaNoscea;
             message5 = 'Middle La Noscea';
+            popurl5 = `./region_zones/MiddleLaNosceaHighlighted.PNG`;
             polygon6 = lowerLaNoscea;
             message6 = 'Lower La Noscea';
+            popurl6 = `./region_zones/LowerLaNosceaHighlighted.PNG`;
             polygon7 = limsaLominsaLowerDecks;
             message7 = 'Limsa Lominsa Lower Decks';
+            popurl7 = `./region_zones/LimsaLominsaLowerDecksHighlighted.PNG`;
             polygon8 = limsaLominsaUpperDecks;
             message8 = 'Limsa Lominsa Upper Decks';
+            popurl8 = `./region_zones/LimsaLominsaUpperDecksHighlighted.PNG`;
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
             message1 = 'New Gridania';
             polygon2 = oldGridania;
             message2 = 'Old Gridania';
             polygon3 = northShroud;
-            message3 = 'Nortern Shroud';
+            message3 = 'North Shroud';
             polygon4 = eastShroud;
             message4 = 'East Shroud';
             polygon5 = centralShroud;
@@ -241,11 +315,11 @@ class RegionMapCont extends Component {
             message6 = 'South Shroud';
         } else if (this.props.mapName === 'Thanalan') {
             polygon1 = uldahStepsOfNald;
-            message1 = `Ul'dah Steps of Nald`;
+            message1 = `Ul'dah - Steps of Nald`;
             polygon2 = theHustingsStrip;
             message2 = 'The Hustings Strip';
             polygon3 = uldahStepsOfThal;
-            message3 = `Ul'dah Steps of thal`;
+            message3 = `Ul'dah - Steps of Thal`;
             polygon4 = centralThanalan;
             message4 = 'Central Thanalan';
             polygon5 = westernThanalan;
@@ -257,7 +331,8 @@ class RegionMapCont extends Component {
             polygon8 = southernThanalan;
             message8 = 'Southern Thanalan';
         }
-        
+
+        let popupMarker = '';
 
         return (
             <Container>
@@ -269,45 +344,93 @@ class RegionMapCont extends Component {
                     <Polygon positions={polygon1} pathOptions={purpleOptions}  eventHandlers={{
                         mouseover: () => {
                             console.log(message1);
+                            setActiveInZoneQuests(message1);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
+                            popupMarker = new L.Icon({
+                                iconUrl: popurl1,
+                                iconRetinaUrl: popurl1,
+                                popupAnchor: [0, 0],
+                                iconSize: [650, 650],
+                            })
                         }
                     }} />
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message2);
+                            setActiveInZoneQuests(message2);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon3} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message3);
+                            setActiveInZoneQuests(message3);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message4);
+                            setActiveInZoneQuests(message4);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon4} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message5);
+                            setActiveInZoneQuests(message5);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message6);
+                            setActiveInZoneQuests(message6);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon7} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message7);
+                            setActiveInZoneQuests(message7);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Polygon positions={polygon8} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message8);
+                            setActiveInZoneQuests(message8);
+                            console.log(active_in_zone_hunting_log_quests.length);
+                            console.log(active_in_zone_side_quests.length);
+                            console.log(active_in_zone_class_quests.length);
+                            console.log(active_in_zone_main_quests.length);
                         }
                     }} />
                     <Marker key={Math.random()} position={this.props.revertLat(5.5, 37.5)}
                                 icon={keyContainer}/>
+                    <Marker  key={Math.random()} position={this.props.revertLat(21.5, 21.5)}
+                                icon={popupMarker} opacity={.5} />
                 </MapContainer>
             </Container>
         )
