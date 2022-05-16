@@ -10,23 +10,25 @@ class RegionMapCont extends Component {
         this.state = {
             markers:
                 [{icon: new L.Icon({
-                    iconUrl: `./icons/RegionKey.PNG`,
-                    iconRetinaUrl: `./icons/RegionKey.PNG`,
+                    iconUrl: `./icons/RegionKey.png`,
+                    iconRetinaUrl: `./icons/RegionKey.png`,
                     popupAnchor: [0, 0],
                     iconSize: [150, 175],
                 }),
                 position: [-35.75, 6.25]
             }],
+            regionMarkers: []
         };
     };
 
-    addRegionMarker = (loc, icon, type) => {
-        let marker = [this.props.revertLat(loc[0], loc[1]), icon];
-        if (type === 'highlighted zone' && this.state.markers.length > 1) {
-            this.state.markers.pop();
-        } else if (type === 'number1');
-        this.setState({markers: [...this.state.markers, marker]});
+    addRegionMarker = (loc, icon) => {
+        let marker = {icon: icon, position: this.props.revertLat(loc[0], loc[1])};
+        this.setState({regionMarkers: [...this.state.regionMarkers, marker]});
     };
+
+    removeRegionMarkers = () => {
+        this.setState({regionMarkers: []});
+    }
 
     render () {
         console.log(this.state.markers);
@@ -366,10 +368,24 @@ class RegionMapCont extends Component {
                         mouseover: () => {
                             console.log(message1);
                             setActiveInZoneQuests(message1);
+                            let zoneIcon = new L.Icon({
+                                iconUrl: `./icons/zone_names/CentralShroudZoneName.png`,
+                                iconRetinaUrl: `./icons/zone_names/CentralShroudZoneName.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [100, 42.5],
+                            })
+                            if (this.state.regionMarkers.length !== 1) {
+                                this.addRegionMarker(this.props.revertLat(31.75, -6.25), zoneIcon);
+                            };
+                            
+                            console.log(this.state.regionMarkers);
                             console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
                             console.log(`Side Quests ${active_in_zone_side_quests.length}`);
                             console.log(`Class Quests ${active_in_zone_class_quests.length}`);
                             console.log(`Main Quests ${active_in_zone_main_quests.length}`);
+                        },
+                        mouseout: () => {
+                            this.removeRegionMarkers();
                         }
                     }} />
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
@@ -443,6 +459,10 @@ class RegionMapCont extends Component {
                         }
                     }} />
                     {this.state.markers.map(mar => {
+                        console.log(mar.icon.options);
+                        return <Marker key={Math.random()} position={mar.position} icon={mar.icon} opacity={.5} />
+                    })};
+                    {this.state.regionMarkers.map(mar => {
                         console.log(mar.icon.options);
                         return <Marker key={Math.random()} position={mar.position} icon={mar.icon} />
                     })}
