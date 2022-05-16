@@ -5,8 +5,31 @@ import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
 
 class RegionMapCont extends Component {
+    constructor() {
+        super();
+        this.state = {
+            markers:
+                [{icon: new L.Icon({
+                    iconUrl: `./icons/RegionKey.PNG`,
+                    iconRetinaUrl: `./icons/RegionKey.PNG`,
+                    popupAnchor: [0, 0],
+                    iconSize: [150, 175],
+                }),
+                position: [-35.75, 6.25]
+            }],
+        };
+    };
+
+    addRegionMarker = (loc, icon, type) => {
+        let marker = [this.props.revertLat(loc[0], loc[1]), icon];
+        if (type === 'highlighted zone' && this.state.markers.length > 1) {
+            this.state.markers.pop();
+        } else if (type === 'number1');
+        this.setState({markers: [...this.state.markers, marker]});
+    };
 
     render () {
+        console.log(this.state.markers);
         let mapName = this.props.mapName.split(' ').join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
         let active_quest_types = this.props.quest_types.filter(t => t.active).map(at => at.name);
@@ -266,14 +289,7 @@ class RegionMapCont extends Component {
             this.props.revertLat(24.3, 30.8)
         ];
 
-        let purpleOptions = { color: 'purple'}
-
-        let keyContainer = new L.Icon({
-            iconUrl: `./icons/RegionMapKey.PNG`,
-            iconRetinaUrl: `./icons/RegionMapKey.PNG`,
-            popupAnchor: [0, 0],
-            iconSize: [125, 125],
-        })
+        let purpleOptions = { color: 'purple'};
 
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
@@ -330,9 +346,14 @@ class RegionMapCont extends Component {
             message7 = 'Eastern Thanalan';
             polygon8 = southernThanalan;
             message8 = 'Southern Thanalan';
-        }
+        };
 
-        let popupMarker = '';
+        let popupMarker = new L.Icon({
+            iconUrl: popurl1,
+            iconRetinaUrl: popurl1,
+            popupAnchor: [0, 0],
+            iconSize: [650, 650],
+        });
 
         return (
             <Container>
@@ -345,92 +366,86 @@ class RegionMapCont extends Component {
                         mouseover: () => {
                             console.log(message1);
                             setActiveInZoneQuests(message1);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
-                            popupMarker = new L.Icon({
-                                iconUrl: popurl1,
-                                iconRetinaUrl: popurl1,
-                                popupAnchor: [0, 0],
-                                iconSize: [650, 650],
-                            })
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message2);
                             setActiveInZoneQuests(message2);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon3} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message3);
                             setActiveInZoneQuests(message3);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message4);
                             setActiveInZoneQuests(message4);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon4} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message5);
                             setActiveInZoneQuests(message5);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message6);
                             setActiveInZoneQuests(message6);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon7} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message7);
                             setActiveInZoneQuests(message7);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
                     <Polygon positions={polygon8} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             console.log(message8);
                             setActiveInZoneQuests(message8);
-                            console.log(active_in_zone_hunting_log_quests.length);
-                            console.log(active_in_zone_side_quests.length);
-                            console.log(active_in_zone_class_quests.length);
-                            console.log(active_in_zone_main_quests.length);
+                            console.log(`Hunting Log ${active_in_zone_hunting_log_quests.length}`);
+                            console.log(`Side Quests ${active_in_zone_side_quests.length}`);
+                            console.log(`Class Quests ${active_in_zone_class_quests.length}`);
+                            console.log(`Main Quests ${active_in_zone_main_quests.length}`);
                         }
                     }} />
-                    <Marker key={Math.random()} position={this.props.revertLat(5.5, 37.5)}
-                                icon={keyContainer}/>
-                    <Marker  key={Math.random()} position={this.props.revertLat(21.5, 21.5)}
-                                icon={popupMarker} opacity={.5} />
+                    {this.state.markers.map(mar => {
+                        console.log(mar.icon.options);
+                        return <Marker key={Math.random()} position={mar.position} icon={mar.icon} />
+                    })}
                 </MapContainer>
             </Container>
         )
