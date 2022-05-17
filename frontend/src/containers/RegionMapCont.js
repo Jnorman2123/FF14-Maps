@@ -9,7 +9,7 @@ class RegionMapCont extends Component {
         super();
         this.state = {
             markers:
-                [{icon: new L.Icon({
+            [{icon: new L.Icon({
                     iconUrl: `./icons/RegionKey.png`,
                     iconRetinaUrl: `./icons/RegionKey.png`,
                     popupAnchor: [0, 0],
@@ -17,7 +17,15 @@ class RegionMapCont extends Component {
                 }),
                 position: [-33.5, 6.5]
             }],
-            zoneMarkers: []
+            zoneMarkers: 
+            [{icon: new L.Icon({
+                    iconUrl: `./icons/zone_names/SelectZoneName.png`,
+                    iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [143, 38.5],
+                }),
+                position: [-27.95, 6.6]
+            }]
         };
     };
 
