@@ -3,6 +3,7 @@ import { MapContainer, Marker, Popup, ImageOverlay, Polygon, LayerGroup } from '
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
+import { Link } from 'react-router-dom';
 
 class RegionMapCont extends Component {
     constructor() {
@@ -25,7 +26,8 @@ class RegionMapCont extends Component {
                     iconSize: [143, 38.5],
                 }),
                 position: [-27.95, 6.6]
-            }]
+            }],
+            highlightedMaps: []
         };
     };
 
@@ -36,6 +38,15 @@ class RegionMapCont extends Component {
 
     removeZoneMarkers = () => {
         this.setState({zoneMarkers: []});
+    }
+
+    addHighlightedMap = (loc, icon) => {
+        let map = {icon: icon, position: this.props.revertLat(loc[0], loc[1])};
+        this.setState({highlightedMaps: [...this.state.highlightedMaps, map]});
+    }
+
+    removeHighlightedMap = () => {
+        this.setState({highlightedMaps: []});
     }
 
     render () {
@@ -59,14 +70,31 @@ class RegionMapCont extends Component {
         let polygon6 = [];
         let polygon7 = [];
         let polygon8 = [];
-        let message1 = [];
-        let message2 = [];
-        let message3 = [];
-        let message4 = [];
-        let message5 = [];
-        let message6 = [];
-        let message7 = [];
-        let message8 = [];
+        let message1 = '';
+        let message2 = '';
+        let message3 = '';
+        let message4 = '';
+        let message5 = '';
+        let message6 = '';
+        let message7 = '';
+        let message8 = '';
+        let iconSize1 = [];
+        let iconSize2 = [];
+        let iconSize3 = [];
+        let iconSize4 = [];
+        let iconSize5 = [];
+        let iconSize6 = [];
+        let iconSize7 = [];
+        let iconSize8 = [];
+        let iconPos1 = [];
+        let iconPos2 = [];
+        let iconPos3 = [];
+        let iconPos4 = [];
+        let iconPos5 = [];
+        let iconPos6 = [];
+        let iconPos7 = [];
+        let iconPos8 = [];
+
 
         let setActiveQuests = () => {
             this.props.quests.quests.map(q => {
@@ -290,11 +318,13 @@ class RegionMapCont extends Component {
             this.props.revertLat(24.3, 30.8)
         ];
 
-        let purpleOptions = { color: 'purple'};
+        let purpleOptions = { color: 'clear'};
 
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
             message1 = 'Western La Noscea';
+            iconSize1 = [295.62, 217.62];
+            iconPos1 = [18.1, -12.4];
             polygon2 = upperLaNoscea;
             message2 = 'Upper La Noscea';
             polygon3 = outerLaNoscea;
@@ -348,9 +378,10 @@ class RegionMapCont extends Component {
                     minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '900px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    <Polygon positions={polygon1} pathOptions={purpleOptions}  eventHandlers={{
+                    <Polygon positions={polygon1} pathOptions={purpleOptions}  opacity={1} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message1.split(' ').join('');
                             setActiveInZoneQuests(message1);
                             let zoneIcon = new L.Icon({
@@ -363,7 +394,7 @@ class RegionMapCont extends Component {
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [650, 650],
+                                iconSize: iconSize1,
                             });
                             let sideQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
@@ -389,18 +420,20 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos1[0], iconPos1[1]), highlightedZone);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message1.split(' ').join('').toLowerCase()}`}>To {message1}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message2.split(' ').join('');
                             setActiveInZoneQuests(message2);
                             let zoneIcon = new L.Icon({
@@ -433,18 +466,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message2.split(' ').join('').toLowerCase()}`}>To {message2}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon3} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message3.split(' ').join('');
                             setActiveInZoneQuests(message3);
                             let zoneIcon = new L.Icon({
@@ -477,18 +511,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message3.split(' ').join('').toLowerCase()}`}>To {message3}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon4} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message5.split(' ').join('');
                             setActiveInZoneQuests(message5);
                             let zoneIcon = new L.Icon({
@@ -521,18 +556,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message4.split(' ').join('').toLowerCase()}`}>To {message4}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message4.split(' ').join('');
                             setActiveInZoneQuests(message4);
                             let zoneIcon = new L.Icon({
@@ -565,18 +601,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message5.split(' ').join('').toLowerCase()}`}>To {message5}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message6.split(' ').join('');
                             setActiveInZoneQuests(message6);
                             let zoneIcon = new L.Icon({
@@ -609,18 +646,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message6.split(' ').join('').toLowerCase()}`}>To {message6}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon7} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message7.split(' ').join('');
                             setActiveInZoneQuests(message7);
                             let zoneIcon = new L.Icon({
@@ -653,18 +691,19 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message7.split(' ').join('').toLowerCase()}`}>To {message7}</Link></Popup>
+                    </Polygon>
                     <Polygon positions={polygon8} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
+                            this.removeHighlightedMap();
                             let zone_name_icon = message8.split(' ').join('');
                             setActiveInZoneQuests(message8);
                             let zoneIcon = new L.Icon({
@@ -697,22 +736,25 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [40, 40],
                             });
-                            if (this.state.zoneMarkers.length !== 5) {
-                                this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
-                                this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
-                                this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
-                            };
+                            this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
+                            this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
+                            this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                         }
-                    }} />
+                    }}>
+                        <Popup><Link to={`/${message8.split(' ').join('').toLowerCase()}`}>To {message8}</Link></Popup> 
+                    </Polygon>
                     <LayerGroup>
                         {this.state.markers.map(mar => {
                             return <Marker key={Math.random()} position={mar.position} icon={mar.icon} />
                         })};
                         {this.state.zoneMarkers.map(mar => {
                             return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={250} />
-                        })}
+                        })};
+                        {this.state.highlightedMaps.map(map => {
+                            return <Marker key={Math.random()} position={map.position} icon={map.icon} opacity={1} />
+                        })};
                     </LayerGroup>
                 </MapContainer>
             </Container>
