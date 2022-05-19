@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, ImageOverlay, Polygon, LayerGroup } from '
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 class RegionMapCont extends Component {
     constructor() {
@@ -27,7 +27,9 @@ class RegionMapCont extends Component {
                 }),
                 position: [-27.95, 6.6]
             }],
-            highlightedMaps: []
+            highlightedMaps: [],
+            navigate: false,
+            navigateLink: '',
         };
     };
 
@@ -323,52 +325,94 @@ class RegionMapCont extends Component {
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
             message1 = 'Western La Noscea';
-            iconSize1 = [295.62, 217.62];
-            iconPos1 = [18.1, -12.4];
+            iconSize1 = [780.78, 778.44];
+            iconPos1 = [21.45, -21.45];
             polygon2 = upperLaNoscea;
             message2 = 'Upper La Noscea';
+            iconSize2 = [780.78, 778.44];
+            iconPos2 = [21.45, -21.45];
             polygon3 = outerLaNoscea;
             message3 = 'Outer La Noscea';
+            iconSize3 = [780.78, 778.44];
+            iconPos3 = [21.45, -21.45];
             polygon4 = easternLaNoscea;
             message4 = 'Eastern La Noscea';
+            iconSize4 = [780.78, 778.44];
+            iconPos4 = [21.45, -21.45];
             polygon5 = middleLaNoscea;
             message5 = 'Middle La Noscea';
+            iconSize5 = [780.78, 778.44];
+            iconPos5 = [21.45, -21.45];
             polygon6 = lowerLaNoscea;
             message6 = 'Lower La Noscea';
+            iconSize6 = [780.78, 778.44];
+            iconPos6 = [21.45, -21.45];
             polygon7 = limsaLominsaLowerDecks;
             message7 = 'Limsa Lominsa Lower Decks';
+            iconSize7 = [780.78, 778.44];
+            iconPos7 = [21.45, -21.45];
             polygon8 = limsaLominsaUpperDecks;
             message8 = 'Limsa Lominsa Upper Decks';
+            iconSize8 = [780.78, 778.44];
+            iconPos8 = [21.45, -21.45];
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
             message1 = 'New Gridania';
+            iconSize1 = [780.78, 778.44];
+            iconPos1 = [21.45, -21.45];
             polygon2 = oldGridania;
             message2 = 'Old Gridania';
+            iconSize2 = [780.78, 778.44];
+            iconPos2 = [21.45, -21.45];
             polygon3 = northShroud;
             message3 = 'North Shroud';
+            iconSize3 = [780.78, 778.44];
+            iconPos3 = [21.45, -21.45];
             polygon4 = eastShroud;
             message4 = 'East Shroud';
+            iconSize4 = [780.78, 778.44];
+            iconPos4 = [21.45, -21.45];
             polygon5 = centralShroud;
             message5 = 'Central Shroud';
+            iconSize5 = [780.78, 778.44];
+            iconPos5 = [21.45, -21.45];
             polygon6 = southShroud;
             message6 = 'South Shroud';
+            iconSize6 = [780.78, 778.44];
+            iconPos6 = [21.45, -21.45];
         } else if (this.props.mapName === 'Thanalan') {
             polygon1 = uldahStepsOfNald;
             message1 = `Ul'dah - Steps of Nald`;
+            iconSize1 = [780.78, 778.44];
+            iconPos1 = [21.45, -21.45];
             polygon2 = theHustingsStrip;
             message2 = 'The Hustings Strip';
+            iconSize2 = [780.78, 778.44];
+            iconPos2 = [21.45, -21.45];
             polygon3 = uldahStepsOfThal;
             message3 = `Ul'dah - Steps of Thal`;
+            iconSize3 = [780.78, 778.44];
+            iconPos3 = [21.45, -21.45];
             polygon4 = centralThanalan;
             message4 = 'Central Thanalan';
+            iconSize4 = [780.78, 778.44];
+            iconPos4 = [21.45, -21.45];
             polygon5 = westernThanalan;
             message5 = 'Western Thanalan';
+            iconSize5 = [780.78, 778.44];
+            iconPos5 = [21.45, -21.45];
             polygon6 = northernThanalan;
             message6 = 'Northern Thanalan';
+            iconSize6 = [780.78, 778.44];
+            iconPos6 = [21.45, -21.45];
             polygon7 = easternThanalan;
             message7 = 'Eastern Thanalan';
+            iconSize7 = [780.78, 778.44];
+            iconPos7 = [21.45, -21.45];
             polygon8 = southernThanalan;
             message8 = 'Southern Thanalan';
+            iconSize8 = [780.78, 778.44];
+            iconPos8 = [21.45, -21.45];
         };
 
         return (
@@ -390,45 +434,48 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [143, 38.5],
                             })
+                            let sideQuestNumber = new L.Icon({
+                                iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
+                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let mainQuestNumber = new L.Icon({
+                                iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
+                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let classQuestNumber = new L.Icon({
+                                iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
+                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let huntingQuestNumber = new L.Icon({
+                                iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
+                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [33.5, 33.5],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 popupAnchor: [0, 0],
                                 iconSize: iconSize1,
                             });
-                            let sideQuestNumber = new L.Icon({
-                                iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
-                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
-                                popupAnchor: [0, 0],
-                                iconSize: [40, 40],
-                            });
-                            let mainQuestNumber = new L.Icon({
-                                iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
-                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
-                                popupAnchor: [0, 0],
-                                iconSize: [40, 40],
-                            });
-                            let classQuestNumber = new L.Icon({
-                                iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
-                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
-                                popupAnchor: [0, 0],
-                                iconSize: [40, 40],
-                            });
-                            let huntingQuestNumber = new L.Icon({
-                                iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
-                                iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
-                                popupAnchor: [0, 0],
-                                iconSize: [40, 40],
-                            });
+                            Polygon.bindPopup(<Link to={`/${message1.split(' ').join('').toLowerCase()}`}>To {message1}</Link>).openPopup();
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
                             this.addHighlightedMap(this.props.revertLat(iconPos1[0], iconPos1[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message1.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message1.split(' ').join('').toLowerCase()}`}>To {message1}</Link></Popup>
                     </Polygon>
                     <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
@@ -446,31 +493,38 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize2,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos2[0], iconPos2[1]), highlightedZone);
                         }
                     }}>
                         <Popup><Link to={`/${message2.split(' ').join('').toLowerCase()}`}>To {message2}</Link></Popup>
@@ -491,31 +545,38 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize3,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos3[0], iconPos3[1]), highlightedZone);
                         }
                     }}>
                         <Popup><Link to={`/${message3.split(' ').join('').toLowerCase()}`}>To {message3}</Link></Popup>
@@ -536,34 +597,41 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize5,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos5[0], iconPos5[1]), highlightedZone);
                         }
                     }}>
-                        <Popup><Link to={`/${message4.split(' ').join('').toLowerCase()}`}>To {message4}</Link></Popup>
+                        <Popup><Link to={`/${message5.split(' ').join('').toLowerCase()}`}>To {message5}</Link></Popup>
                     </Polygon>
                     <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
@@ -581,34 +649,41 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize4,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos4[0], iconPos4[1]), highlightedZone);
                         }
                     }}>
-                        <Popup><Link to={`/${message5.split(' ').join('').toLowerCase()}`}>To {message5}</Link></Popup>
+                        <Popup><Link to={`/${message4.split(' ').join('').toLowerCase()}`}>To {message4}</Link></Popup>
                     </Polygon>
                     <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
                         mouseover: () => {
@@ -626,31 +701,38 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize6,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos6[0], iconPos6[1]), highlightedZone);
                         }
                     }}>
                         <Popup><Link to={`/${message6.split(' ').join('').toLowerCase()}`}>To {message6}</Link></Popup>
@@ -671,31 +753,38 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize7,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos7[0], iconPos7[1]), highlightedZone);
                         }
                     }}>
                         <Popup><Link to={`/${message7.split(' ').join('').toLowerCase()}`}>To {message7}</Link></Popup>
@@ -716,31 +805,38 @@ class RegionMapCont extends Component {
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let mainQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let classQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
                             });
                             let huntingQuestNumber = new L.Icon({
                                 iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 iconRetinaUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
                                 popupAnchor: [0, 0],
-                                iconSize: [40, 40],
+                                iconSize: [33.5, 33.5],
+                            });
+                            let highlightedZone = new L.Icon({
+                                iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: iconSize8,
                             });
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addHighlightedMap(this.props.revertLat(iconPos8[0], iconPos8[1]), highlightedZone);
                         }
                     }}>
                         <Popup><Link to={`/${message8.split(' ').join('').toLowerCase()}`}>To {message8}</Link></Popup> 
@@ -753,9 +849,10 @@ class RegionMapCont extends Component {
                             return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={250} />
                         })};
                         {this.state.highlightedMaps.map(map => {
-                            return <Marker key={Math.random()} position={map.position} icon={map.icon} opacity={1} />
+                            return <Marker key={Math.random()} position={map.position} icon={map.icon} interactive={false} />
                         })};
                     </LayerGroup>
+                    {this.state.navigate && <Navigate to={this.state.navigateLink} replace={true} />}
                 </MapContainer>
             </Container>
         )
