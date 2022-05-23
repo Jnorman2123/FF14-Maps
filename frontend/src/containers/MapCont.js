@@ -183,7 +183,7 @@ class MapCont extends Component {
                                 iconUrl: m[2],
                                 iconRetinaUrl: m[2],
                                 popupAnchor: [-0, -0],
-                                iconSize: [30, 30],
+                                iconSize: [40, 40],
                             })
 
                             return <LayerGroup key={Math.random()}>
