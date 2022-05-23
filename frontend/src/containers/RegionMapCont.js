@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, Popup, ImageOverlay, Polygon, LayerGroup } from 'react-leaflet';
+import { MapContainer, Marker, ImageOverlay, Polygon, LayerGroup } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 class RegionMapCont extends Component {
     constructor() {
@@ -19,14 +19,48 @@ class RegionMapCont extends Component {
                 position: [-33.5, 6.5]
             }],
             zoneMarkers: 
-            [{icon: new L.Icon({
+            [
+                {icon: new L.Icon({
                     iconUrl: `./icons/zone_names/SelectZoneName.png`,
                     iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
                     popupAnchor: [0, 0],
                     iconSize: [143, 38.5],
                 }),
                 position: [-27.95, 6.6]
-            }],
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-31.4, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-34.15, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-36.9, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-39.65, 9.4]
+                }
+            ],
             highlightedMaps: [],
             popupMarkers: [],
             navigate: false,
@@ -999,7 +1033,7 @@ class RegionMapCont extends Component {
                     </Polygon>
                     <LayerGroup>
                         {this.state.markers.map(mar => {
-                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} />
+                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={250} />
                         })};
                         {this.state.highlightedMaps.map(map => {
                             return <Marker key={Math.random()} position={map.position} icon={map.icon} interactive={false} 
