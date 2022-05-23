@@ -95,6 +95,53 @@ class RegionMapCont extends Component {
         this.setState({popupMarkers: []});
     };
 
+    resetZoneMarkers = () => {
+        this.setState({zoneMarkers: 
+            [
+                {icon: new L.Icon({
+                    iconUrl: `./icons/zone_names/SelectZoneName.png`,
+                    iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [143, 38.5],
+                }),
+                position: [-27.95, 6.6]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-31.4, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-34.15, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-36.9, 9.4]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-39.65, 9.4]
+                }
+            ]
+        });
+    }
+
     render () {
         let mapName = this.props.mapName.split(' ').join('');
         let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
@@ -387,50 +434,50 @@ class RegionMapCont extends Component {
             message1 = 'Western La Noscea';
             iconSize1 = [780.78, 778.44];
             iconPos1 = [21.45, -21.45];
-            popupPos1 = [16, -14];
-            popupNamePos1 = [15.75, -14];
+            popupPos1 = [11, -9];
+            popupNamePos1 = [10.75, -9];
             polygon2 = upperLaNoscea;
             message2 = 'Upper La Noscea';
             iconSize2 = [780.78, 778.44];
             iconPos2 = [21.45, -21.45];
-            popupPos2 = [11, -24];
-            popupNamePos2 = [10.75, -24];
+            popupPos2 = [10, -26];
+            popupNamePos2 = [9.75, -26];
             polygon3 = outerLaNoscea;
             message3 = 'Outer La Noscea';
             iconSize3 = [780.78, 778.44];
             iconPos3 = [21.45, -21.45];
-            popupPos3 = [7, -20];
-            popupNamePos3 = [6.75, -20];
+            popupPos3 = [3, -22];
+            popupNamePos3 = [2.75, -22];
             polygon4 = easternLaNoscea;
             message4 = 'Eastern La Noscea';
             iconSize4 = [780.78, 778.44];
             iconPos4 = [21.45, -21.45];
-            popupPos4 = [17, -32];
-            popupNamePos4 = [16.75, -32];
+            popupPos4 = [15, -32];
+            popupNamePos4 = [14.75, -32];
             polygon5 = middleLaNoscea;
             message5 = 'Middle La Noscea';
             iconSize5 = [780.78, 778.44];
             iconPos5 = [21.45, -21.45];
-            popupPos5 = [23, -24];
-            popupNamePos5 = [22.75, -24];
+            popupPos5 = [18, -22];
+            popupNamePos5 = [17.75, -22];
             polygon6 = lowerLaNoscea;
             message6 = 'Lower La Noscea';
             iconSize6 = [780.78, 778.44];
             iconPos6 = [21.45, -21.45];
-            popupPos6 = [28, -30];
-            popupNamePos6 = [27.75, -30];
+            popupPos6 = [25, -30];
+            popupNamePos6 = [24.75, -30];
             polygon7 = limsaLominsaLowerDecks;
             message7 = 'Limsa Lominsa Lower Decks';
             iconSize7 = [780.78, 778.44];
             iconPos7 = [21.45, -21.45];
-            popupPos7 = [26, -19];
-            popupNamePos7 = [25.75, -19];
+            popupPos7 = [25, -19];
+            popupNamePos7 = [24.75, -19];
             polygon8 = limsaLominsaUpperDecks;
             message8 = 'Limsa Lominsa Upper Decks';
             iconSize8 = [780.78, 778.44];
             iconPos8 = [21.45, -21.45];
-            popupPos8 = [26, -21];
-            popupNamePos8 = [25.75, -21];
+            popupPos8 = [25, -21];
+            popupNamePos8 = [24.75, -21];
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
             message1 = 'New Gridania';
@@ -519,6 +566,8 @@ class RegionMapCont extends Component {
             popupNamePos8 = [21.75, -28];
         };
 
+            
+
         return (
             <Container>
                 <div className="text-center" >{this.props.mapName}</div>
@@ -586,6 +635,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message1.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -649,6 +701,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message2.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -712,6 +767,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message3.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -775,6 +833,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message5.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -838,6 +899,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message4.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -901,6 +965,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message6.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -965,6 +1032,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message7.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
@@ -1028,6 +1098,9 @@ class RegionMapCont extends Component {
                         }, click: () => {
                             this.setState({ navigate: true });
                             this.setState({ navigateLink: `/${message8.split(' ').join('').toLowerCase()}` });
+                        }, mouseout: () => {
+                            this.resetZoneMarkers();
+                            this.removePopupMarkers();
                         }
                     }}>
                     </Polygon>
