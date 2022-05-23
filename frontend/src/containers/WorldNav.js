@@ -55,7 +55,8 @@ class WorldNav extends Component {
         }
         if (expansion === this.state.regions.original) {
             return expansion.map(r => {
-                return <NavDropdown drop='end' key={r} title={r} id='basic-nav-dropdown'>
+                return <NavDropdown key={r} title={<Link to={`/${r.split(' ').join('').toLowerCase()}`} >{r}</Link>} 
+                id='basic-nav-dropdown'>
                     {this.state.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
@@ -69,7 +70,7 @@ class WorldNav extends Component {
                 </NavDropdown>
             })
         }  else {
-            return <NavDropdown drop='end' key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
+            return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
                     {expansion.map(r => this.state.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
