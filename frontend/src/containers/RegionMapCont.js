@@ -28,6 +28,7 @@ class RegionMapCont extends Component {
                 position: [-27.95, 6.6]
             }],
             highlightedMaps: [],
+            popupMarkers: [],
             navigate: false,
             navigateLink: '',
         };
@@ -40,16 +41,25 @@ class RegionMapCont extends Component {
 
     removeZoneMarkers = () => {
         this.setState({zoneMarkers: []});
-    }
+    };
 
     addHighlightedMap = (loc, icon) => {
         let map = {icon: icon, position: this.props.revertLat(loc[0], loc[1])};
         this.setState({highlightedMaps: [...this.state.highlightedMaps, map]});
-    }
+    };
 
     removeHighlightedMap = () => {
         this.setState({highlightedMaps: []});
-    }
+    };
+
+    addPopupMarker = (loc, icon) => {
+        let map = {icon: icon, position: this.props.revertLat(loc[0], loc[1])};
+        this.setState({popupMarkers: [...this.state.popupMarkers, map]});
+    };
+
+    removePopupMarkers = () => {
+        this.setState({popupMarkers: []});
+    };
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
@@ -96,6 +106,22 @@ class RegionMapCont extends Component {
         let iconPos6 = [];
         let iconPos7 = [];
         let iconPos8 = [];
+        let popupPos1 = [];
+        let popupPos2 = [];
+        let popupPos3 = [];
+        let popupPos4 = [];
+        let popupPos5 = [];
+        let popupPos6 = [];
+        let popupPos7 = [];
+        let popupPos8 = [];
+        let popupNamePos1 = [];
+        let popupNamePos2 = [];
+        let popupNamePos3 = [];
+        let popupNamePos4 = [];
+        let popupNamePos5 = [];
+        let popupNamePos6 = [];
+        let popupNamePos7 = [];
+        let popupNamePos8 = [];
 
 
         let setActiveQuests = () => {
@@ -320,99 +346,143 @@ class RegionMapCont extends Component {
             this.props.revertLat(24.3, 30.8)
         ];
 
-        let purpleOptions = { color: 'clear'};
+        let purpleOptions = { color: 'tan'};
 
         if (this.props.mapName === 'La Noscea') {
             polygon1 = westernLaNoscea;
             message1 = 'Western La Noscea';
             iconSize1 = [780.78, 778.44];
             iconPos1 = [21.45, -21.45];
+            popupPos1 = [16, -14];
+            popupNamePos1 = [15.75, -14];
             polygon2 = upperLaNoscea;
             message2 = 'Upper La Noscea';
             iconSize2 = [780.78, 778.44];
             iconPos2 = [21.45, -21.45];
+            popupPos2 = [11, -24];
+            popupNamePos2 = [10.75, -24];
             polygon3 = outerLaNoscea;
             message3 = 'Outer La Noscea';
             iconSize3 = [780.78, 778.44];
             iconPos3 = [21.45, -21.45];
+            popupPos3 = [7, -20];
+            popupNamePos3 = [6.75, -20];
             polygon4 = easternLaNoscea;
             message4 = 'Eastern La Noscea';
             iconSize4 = [780.78, 778.44];
             iconPos4 = [21.45, -21.45];
+            popupPos4 = [17, -32];
+            popupNamePos4 = [16.75, -32];
             polygon5 = middleLaNoscea;
             message5 = 'Middle La Noscea';
             iconSize5 = [780.78, 778.44];
             iconPos5 = [21.45, -21.45];
+            popupPos5 = [23, -24];
+            popupNamePos5 = [22.75, -24];
             polygon6 = lowerLaNoscea;
             message6 = 'Lower La Noscea';
             iconSize6 = [780.78, 778.44];
             iconPos6 = [21.45, -21.45];
+            popupPos6 = [28, -30];
+            popupNamePos6 = [27.75, -30];
             polygon7 = limsaLominsaLowerDecks;
             message7 = 'Limsa Lominsa Lower Decks';
             iconSize7 = [780.78, 778.44];
             iconPos7 = [21.45, -21.45];
+            popupPos7 = [26, -19];
+            popupNamePos7 = [25.75, -19];
             polygon8 = limsaLominsaUpperDecks;
             message8 = 'Limsa Lominsa Upper Decks';
             iconSize8 = [780.78, 778.44];
             iconPos8 = [21.45, -21.45];
+            popupPos8 = [26, -21];
+            popupNamePos8 = [25.75, -21];
         } else if (this.props.mapName === 'The Black Shroud') {
             polygon1 = newGridania;
             message1 = 'New Gridania';
             iconSize1 = [780.78, 778.44];
             iconPos1 = [21.45, -21.45];
+            popupPos1 = [26, -19];
+            popupNamePos1 = [25.75, -19];
             polygon2 = oldGridania;
             message2 = 'Old Gridania';
             iconSize2 = [780.78, 778.44];
             iconPos2 = [21.45, -21.45];
+            popupPos2 = [26, -29];
+            popupNamePos2 = [25.75, -19];
             polygon3 = northShroud;
             message3 = 'North Shroud';
             iconSize3 = [780.78, 778.44];
             iconPos3 = [21.45, -21.45];
+            popupPos3 = [26, -19];
+            popupNamePos3 = [25.75, -19];
             polygon4 = eastShroud;
             message4 = 'East Shroud';
             iconSize4 = [780.78, 778.44];
             iconPos4 = [21.45, -21.45];
+            popupPos4 = [26, -19];
+            popupNamePos4 = [25.75, -19];
             polygon5 = centralShroud;
             message5 = 'Central Shroud';
             iconSize5 = [780.78, 778.44];
             iconPos5 = [21.45, -21.45];
+            popupPos5 = [26, -19];
+            popupNamePos5 = [25.75, -19];
             polygon6 = southShroud;
             message6 = 'South Shroud';
             iconSize6 = [780.78, 778.44];
             iconPos6 = [21.45, -21.45];
+            popupPos6 = [26, -19];
+            popupNamePos6 = [25.75, -19];
         } else if (this.props.mapName === 'Thanalan') {
             polygon1 = uldahStepsOfNald;
             message1 = `Ul'dah - Steps of Nald`;
             iconSize1 = [780.78, 778.44];
             iconPos1 = [21.45, -21.45];
+            popupPos1 = [26, -19];
+            popupNamePos1 = [25.75, -19];
             polygon2 = theHustingsStrip;
             message2 = 'The Hustings Strip';
             iconSize2 = [780.78, 778.44];
             iconPos2 = [21.45, -21.45];
+            popupPos2 = [26, -19];
+            popupNamePos2 = [25.75, -19];
             polygon3 = uldahStepsOfThal;
             message3 = `Ul'dah - Steps of Thal`;
             iconSize3 = [780.78, 778.44];
             iconPos3 = [21.45, -21.45];
+            popupPos3 = [26, -19];
+            popupNamePos3 = [25.75, -19];
             polygon4 = centralThanalan;
             message4 = 'Central Thanalan';
             iconSize4 = [780.78, 778.44];
             iconPos4 = [21.45, -21.45];
+            popupPos4 = [26, -19];
+            popupNamePos4 = [25.75, -19];
             polygon5 = westernThanalan;
             message5 = 'Western Thanalan';
             iconSize5 = [780.78, 778.44];
             iconPos5 = [21.45, -21.45];
+            popupPos5 = [26, -19];
+            popupNamePos5 = [25.75, -19];
             polygon6 = northernThanalan;
             message6 = 'Northern Thanalan';
             iconSize6 = [780.78, 778.44];
             iconPos6 = [21.45, -21.45];
+            popupPos6 = [26, -19];
+            popupNamePos6 = [25.75, -19];
             polygon7 = easternThanalan;
             message7 = 'Eastern Thanalan';
             iconSize7 = [780.78, 778.44];
             iconPos7 = [21.45, -21.45];
+            popupPos7 = [26, -19];
+            popupNamePos7 = [25.75, -19];
             polygon8 = southernThanalan;
             message8 = 'Southern Thanalan';
             iconSize8 = [780.78, 778.44];
             iconPos8 = [21.45, -21.45];
+            popupPos8 = [26, -19];
+            popupNamePos8 = [25.75, -19];
         };
 
         return (
@@ -422,10 +492,11 @@ class RegionMapCont extends Component {
                     minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '900px'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    <Polygon positions={polygon1} pathOptions={purpleOptions}  opacity={1} eventHandlers={{
+                    <Polygon positions={polygon1} pathOptions={purpleOptions}  opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message1.split(' ').join('');
                             setActiveInZoneQuests(message1);
                             let zoneIcon = new L.Icon({
@@ -458,18 +529,25 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 popupAnchor: [0, 0],
                                 iconSize: iconSize1,
                             });
-                            Polygon.bindPopup(<Link to={`/${message1.split(' ').join('').toLowerCase()}`}>To {message1}</Link>).openPopup();
                             this.addzoneMarker(this.props.revertLat(27.95, -6.6), zoneIcon);
                             this.addzoneMarker(this.props.revertLat(31.4, -9.4), classQuestNumber);
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos1[0], popupPos1[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos1[0], popupNamePos1[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos1[0], iconPos1[1]), highlightedZone);
                         }, click: () => {
                             this.setState({ navigate: true });
@@ -477,10 +555,11 @@ class RegionMapCont extends Component {
                         }
                     }}>
                     </Polygon>
-                    <Polygon positions={polygon2} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon2} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message2.split(' ').join('');
                             setActiveInZoneQuests(message2);
                             let zoneIcon = new L.Icon({
@@ -513,6 +592,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -524,15 +609,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos2[0], popupPos2[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos2[0], popupNamePos2[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos2[0], iconPos2[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message2.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message2.split(' ').join('').toLowerCase()}`}>To {message2}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon3} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon3} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message3.split(' ').join('');
                             setActiveInZoneQuests(message3);
                             let zoneIcon = new L.Icon({
@@ -565,6 +655,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -576,15 +672,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos3[0], popupPos3[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos3[0], popupNamePos3[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos3[0], iconPos3[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message3.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message3.split(' ').join('').toLowerCase()}`}>To {message3}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon4} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon4} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message5.split(' ').join('');
                             setActiveInZoneQuests(message5);
                             let zoneIcon = new L.Icon({
@@ -617,6 +718,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -628,15 +735,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos5[0], popupPos5[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos5[0], popupNamePos5[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos5[0], iconPos5[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message5.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message5.split(' ').join('').toLowerCase()}`}>To {message5}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon5} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon5} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message4.split(' ').join('');
                             setActiveInZoneQuests(message4);
                             let zoneIcon = new L.Icon({
@@ -669,6 +781,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -680,15 +798,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos4[0], popupPos4[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos4[0], popupNamePos4[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos4[0], iconPos4[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message4.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message4.split(' ').join('').toLowerCase()}`}>To {message4}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon6} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon6} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message6.split(' ').join('');
                             setActiveInZoneQuests(message6);
                             let zoneIcon = new L.Icon({
@@ -721,6 +844,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -732,15 +861,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos6[0], popupPos6[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos6[0], popupNamePos6[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos6[0], iconPos6[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message6.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message6.split(' ').join('').toLowerCase()}`}>To {message6}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon7} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon7} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message7.split(' ').join('');
                             setActiveInZoneQuests(message7);
                             let zoneIcon = new L.Icon({
@@ -773,6 +907,13 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -784,15 +925,20 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos7[0], popupPos7[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos7[0], popupNamePos7[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos7[0], iconPos7[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message7.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message7.split(' ').join('').toLowerCase()}`}>To {message7}</Link></Popup>
                     </Polygon>
-                    <Polygon positions={polygon8} pathOptions={purpleOptions} eventHandlers={{
+                    <Polygon positions={polygon8} pathOptions={purpleOptions} opacity={.01} eventHandlers={{
                         mouseover: () => {
                             this.removeZoneMarkers();
                             this.removeHighlightedMap();
+                            this.removePopupMarkers();
                             let zone_name_icon = message8.split(' ').join('');
                             setActiveInZoneQuests(message8);
                             let zoneIcon = new L.Icon({
@@ -825,6 +971,12 @@ class RegionMapCont extends Component {
                                 popupAnchor: [0, 0],
                                 iconSize: [33.5, 33.5],
                             });
+                            let zonePopup = new L.Icon({
+                                iconUrl: `./icons/zone_names/PopupContainer.png`,
+                                iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
+                                popupAnchor: [0, 0],
+                                iconSize: [182, 112],
+                            });
                             let highlightedZone = new L.Icon({
                                 iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                                 iconRetinaUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
@@ -836,20 +988,28 @@ class RegionMapCont extends Component {
                             this.addzoneMarker(this.props.revertLat(34.15, -9.4), mainQuestNumber);
                             this.addzoneMarker(this.props.revertLat(36.9, -9.4), huntingQuestNumber);
                             this.addzoneMarker(this.props.revertLat(39.65, -9.4), sideQuestNumber);
+                            this.addPopupMarker(this.props.revertLat(popupPos8[0], popupPos8[1]), zonePopup);
+                            this.addzoneMarker(this.props.revertLat(popupNamePos8[0], popupNamePos8[1]), zoneIcon);
                             this.addHighlightedMap(this.props.revertLat(iconPos8[0], iconPos8[1]), highlightedZone);
+                        }, click: () => {
+                            this.setState({ navigate: true });
+                            this.setState({ navigateLink: `/${message8.split(' ').join('').toLowerCase()}` });
                         }
                     }}>
-                        <Popup><Link to={`/${message8.split(' ').join('').toLowerCase()}`}>To {message8}</Link></Popup> 
                     </Polygon>
                     <LayerGroup>
                         {this.state.markers.map(mar => {
                             return <Marker key={Math.random()} position={mar.position} icon={mar.icon} />
                         })};
-                        {this.state.zoneMarkers.map(mar => {
-                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={250} />
-                        })};
                         {this.state.highlightedMaps.map(map => {
-                            return <Marker key={Math.random()} position={map.position} icon={map.icon} interactive={false} />
+                            return <Marker key={Math.random()} position={map.position} icon={map.icon} interactive={false} 
+                            zIndexOffset={0} />
+                        })};
+                        {this.state.popupMarkers.map(mar => {
+                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={500} />
+                        })};
+                        {this.state.zoneMarkers.map(mar => {
+                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={1000} />
                         })};
                     </LayerGroup>
                     {this.state.navigate && <Navigate to={this.state.navigateLink} replace={true} />}
