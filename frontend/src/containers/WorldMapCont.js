@@ -69,11 +69,15 @@ class WorldMapCont extends Component {
     render () {
 
         let laNoscea = [
-            [-28.3, 10], [-28.6, 12], [-24.7, 14.2], [-22.5, 13.7], [-19.75, 12.25], [-19.75, 10.5], [-22, 6],
-            [-24, 6], [-26.5, 7]
+            [-28.5, 4.75], [-28.6, 12], [-24.7, 14.2], [-22.5, 13.7], [-19.75, 12.25], [-19.75, 10.5], [-22, 6],
+            [-24, 6], [-26.5, 4.75]
         ];
-        let polygon2 = [];
-        let polygon3 = [];
+        let thanalan = [
+            [-29, 15.5], [-37.5, 20], [-37.5, 22.5], [-34, 25.5], [-26, 25.5], [-26, 15.5]
+        ];
+        let theBlackShroud = [
+            [-25, 26], [-21, 22], [-16, 22], [-14, 27], [-14, 30], [-16, 32], [-20, 32], [-24, 31]
+        ];
         let polyOptions = { color: 'purple' }
 
         return (
@@ -82,6 +86,8 @@ class WorldMapCont extends Component {
                 crs={L.CRS.Simple} maxBoundsViscosity='1' scrollWheelZoom={false} maxZoom={this.props.zoom}
                 minZoom={this.props.zoom} style={{height: '800px', width: '900px'}} >
                     <Polygon positions={laNoscea} pathOptions={polyOptions} opacity={1} />
+                    <Polygon positions={thanalan} pathOptions={polyOptions} opacity={1} />
+                    <Polygon positions={theBlackShroud} pathOptions={polyOptions} opacity={1} />
                     <ImageOverlay url={`./maps/${this.props.mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {this.state.keyMarkers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={250}/>
