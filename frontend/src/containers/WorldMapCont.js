@@ -19,11 +19,55 @@ class WorldMapCont extends Component {
                     position: [-34, 36.25]
                 }
             ],
+            zoneMarkers: 
+            [
+                {icon: new L.Icon({
+                    iconUrl: `./icons/zone_names/SelectZoneName.png`,
+                    iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [143, 38.5],
+                }),
+                position: [-28.6, 36.3]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-31.9, 39.1]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-34.7, 39.1]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-37.4, 39.1]
+                },
+                {icon: new L.Icon({
+                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
+                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
+                    popupAnchor: [0, 0],
+                    iconSize: [33.5, 33.5],
+                }),
+                position: [-40.15, 39.1]
+                }
+            ],
         }
-    }
+    };
 
 
     render () {
+
         return (
             <Container>
                 <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}
@@ -31,8 +75,10 @@ class WorldMapCont extends Component {
                 minZoom={this.props.zoom} style={{height: '800px', width: '900px'}} >
                     <ImageOverlay url={`./maps/${this.props.mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {this.state.keyMarkers.map(mar => {
-                        return <Marker key={Math.random()} icon={mar.icon} 
-                        position={mar.position} />
+                        return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={250}/>
+                    })}
+                    {this.state.zoneMarkers.map(mar => {
+                        return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={500}/>
                     })}
                 </MapContainer>
             </Container>
