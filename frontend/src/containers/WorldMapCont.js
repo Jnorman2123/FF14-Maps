@@ -68,11 +68,20 @@ class WorldMapCont extends Component {
 
     render () {
 
+        let laNoscea = [
+            [-28.3, 10], [-28.6, 12], [-24.7, 14.2], [-22.5, 13.7], [-19.75, 12.25], [-19.75, 10.5], [-22, 6],
+            [-24, 6], [-26.5, 7]
+        ];
+        let polygon2 = [];
+        let polygon3 = [];
+        let polyOptions = { color: 'purple' }
+
         return (
             <Container>
                 <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}
                 crs={L.CRS.Simple} maxBoundsViscosity='1' scrollWheelZoom={false} maxZoom={this.props.zoom}
                 minZoom={this.props.zoom} style={{height: '800px', width: '900px'}} >
+                    <Polygon positions={laNoscea} pathOptions={polyOptions} opacity={1} />
                     <ImageOverlay url={`./maps/${this.props.mapName}.png`} bounds={this.props.bounds} opacity={1} />
                     {this.state.keyMarkers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={250}/>
