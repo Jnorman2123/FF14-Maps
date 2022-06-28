@@ -511,6 +511,12 @@ class WorldMapCont extends Component {
 }
 
 const mapStateToProps = (storeData) => ({
+    items: storeData.items,
+    npcs: storeData.npcs,
+    quests: storeData.quests,
+    rewards: storeData.rewards,
+    steps: storeData.steps,
+    jobs: storeData.jobs,
     classes: storeData.storeData.classes,
     quest_levels: storeData.storeData.quest_levels,
     quest_types: storeData.storeData.quest_types
