@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import { connect } from 'react-redux';
 
 class QuestContainer extends Component {
 
@@ -61,4 +62,12 @@ class QuestContainer extends Component {
     }
 }
 
-export default QuestContainer;
+const mapStateToProps = (state) => ({
+    items: state.items,
+    npcs: state.npcs,
+    quests: state.quests,
+    rewards: state.rewards,
+    steps: state.steps,
+})
+
+export default connect(mapStateToProps)(QuestContainer);

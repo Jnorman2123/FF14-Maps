@@ -76,7 +76,7 @@ class Home extends Component {
 const mapStateToProps = (storeData) => ({
     classes: storeData.storeData.classes,
     quest_levels: storeData.storeData.quest_levels,
-    quest_types: storeData.storeData.quest_types
+    quest_types: storeData.storeData.quest_types,
 })
 
 export default connect(mapStateToProps, { updateClass, updateQuestLevel, updateQuestType })(Home);
