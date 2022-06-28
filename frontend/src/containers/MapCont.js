@@ -162,21 +162,21 @@ class MapCont extends Component {
                                 iconUrl: `./icons/first_layer/IconContainer.PNG`,
                                 iconRetinaUrl: `./icons/first_layer/IconContainer.PNG`,
                                 popupAnchor: [-0, -0],
-                                iconSize: [30, 30],
+                                iconSize: [40, 40],
                             })
 
                             stepIcon = new L.Icon({
                                 iconUrl: stepIconUrl,
                                 iconRetinaUrl: stepIconUrl,
                                 popupAnchor: [-0, -0],
-                                iconSize: [30, 30],
+                                iconSize: [40, 40],
                             })
 
                             colorIcon = new L.Icon({
                                 iconUrl: m[1],
                                 iconRetinaUrl: m[1],
                                 popupAnchor: [-0, -0],
-                                iconSize: [30, 30],
+                                iconSize: [40, 40],
                             })
 
                             typeIcon = new L.Icon({
@@ -188,13 +188,14 @@ class MapCont extends Component {
 
                             return <LayerGroup key={Math.random()}>
                                 <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
-                                icon={iconContainer} >
-                                    
-                                </Marker>
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
                                 icon={colorIcon} >
 
                                 </Marker>
+                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
+                                icon={iconContainer} >
+                                    
+                                </Marker>
+                                
                                 <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
                                 icon={stepIcon} >
                                     
