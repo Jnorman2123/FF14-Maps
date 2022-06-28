@@ -1,4 +1,4 @@
-import { CLASSES, QUEST_TYPES, QUEST_LEVELS } from "./dataTypes";
+import { CLASSES, QUEST_TYPES, QUEST_LEVELS, INSIDE_ZONE_NAMES, OUTSIDE_ZONE_NAMES, REGION_NAMES } from "./dataTypes";
 
 export const initialData = {
     [CLASSES] : [
@@ -24,5 +24,23 @@ export const initialData = {
         {name: '41-45', active: false}, {name: '46-50', active: false}, {name: '51-55', active: false}, {name: '56-60', active: false}, 
         {name: '61-65', active: false}, {name: '66-70', active: false}, {name: '71-75', active: false}, {name: '76-80', active: false}, 
         {name: '81-85', active: false}, {name: '86-90', active: false}
+    ],
+    [INSIDE_ZONE_NAMES] : [
+        'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks',  
+        'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip',  
+        'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
+        'Kugane', 'Crystarium', 'Old Sharlayan', 'Labyrinthos', 'Radz-at-Han',  
+    ],
+    [OUTSIDE_ZONE_NAMES] : [
+        'Middle La Noscea', 'Lower La Noscea', 'Eastern La Noscea', 'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea',
+        'Central Shroud', 'East Shroud', 'South Shroud', 'North Shroud', 'Western Thanalan', 'Eastern Thanalan', 
+        'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan', 'Coerthas Central Highlands', 'Coerthas Western Highlands', 
+        'Mor Dhona', "The Sea of Clouds", "Azys Lla", 'The Dravanian Forelands', 'The Dravanian Hinterlands', 'The Churning Mists',
+        'The Fringes', 'The Peaks', 'The Lochs', 'The Ruby Sea', 'Yanxia', 'The Azim Steppe', 'Lakeland', 'Eulmore', 'Kholusia', 
+        'Amh Araeng', 'Il Mheg', "The Rak'tika Greatwood", 'The Tempest', 'Garlemald', 'Thavnair', 'Mare Lamentorum', 'Ultima Thule', 
+        'Elpis'
+    ],
+    [REGION_NAMES] : [
+        'La Noscea', 'The Black Shroud', 'Thanalan', 'Heavensward', 'Stormblood', 'Shadowbringers', 'Endwalker'
     ],
 }

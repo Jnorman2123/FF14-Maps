@@ -1,4 +1,4 @@
-import { CLASSES, QUEST_LEVELS, QUEST_TYPES} from "../../dataTypes";
+import { CLASSES, QUEST_LEVELS, QUEST_TYPES } from "../../dataTypes";
 import { UPDATE } from "./filterActions";
 
 const createUpdateEvent = (dataType, payload) => {
