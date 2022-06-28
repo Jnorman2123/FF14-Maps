@@ -3,8 +3,9 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import { connect } from 'react-redux';
+import QuestInfo from '../components/QuestInfo';
 
-class QuestContainer extends Component {
+class QuestInfoContainer extends Component {
 
     renderQuestInfo = (active_quest) => {
         let quest_reward = null;
@@ -55,9 +56,9 @@ class QuestContainer extends Component {
         let active_quest = this.props.quests.quests.filter(q => q.id === this.props.q_id);
 
         return (
-            <div>
-                {this.renderQuestInfo(active_quest)}
-            </div>
+            <>
+                <QuestInfo renderQuestInfo={this.renderQuestInfo} active_quest={active_quest} />
+            </>
         )
     }
 }
@@ -70,4 +71,4 @@ const mapStateToProps = (state) => ({
     steps: state.steps,
 })
 
-export default connect(mapStateToProps)(QuestContainer);
+export default connect(mapStateToProps)(QuestInfoContainer);

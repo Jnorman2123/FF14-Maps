@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import QuestContainer from './QuestContainer';
+import QuestInfoContainer from './QuestInfoContainer';
 import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
@@ -63,8 +63,7 @@ class Home extends Component {
                             <Outlet />
                         </Col>
                         <Col md={3} className='bg-dark'>
-                            <QuestContainer q_id={this.props.q_id} npcs={this.props.npcs} quests={this.props.quests} 
-                            items={this.props.items} steps={this.props.steps} rewards={this.props.rewards}/>
+                            <QuestInfoContainer q_id={this.props.q_id} />
                         </Col>
                     </Row>
                 </Container>       

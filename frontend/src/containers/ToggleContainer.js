@@ -24,19 +24,22 @@ class ToggleContainer extends Component {
 
     setSelectionName = (selection) => {
         let selectionName = '';
-        if (selection === this.state.base_classes) {
-            selectionName = 'Base Classes';
-        } else if (selection === this.state.tank_jobs) {
-            selectionName = 'Tank Jobs';
-        } else if (selection === this.state.healer_jobs) {
-            selectionName = 'Healer Jobs';
-        } else if (selection === this.state.melee_dps_jobs) {
-            selectionName = 'Melee Dps Jobs';
-        } else if (selection === this.state.physical_ranged_dps_jobs) {
-            selectionName = 'Physical Ranged Dps Jobs';
-        } else {
-            selectionName = 'Magical Ranged Dps Jobs';
+
+        switch (selection) {
+            case this.state.base_classes:
+                return selectionName = 'Base Classes';
+            case this.state.tank_jobs:
+                return selectionName = 'Tank Jobs';
+            case this.state.healer_jobs: 
+                return selectionName = 'Healer Jobs';
+            case this.state.melee_dps_jobs: 
+                return selectionName = 'Melee Dps Jobs'; 
+            case this.state.physical_ranged_dps_jobs: 
+                return selectionName = 'Physical Ranged Dps Jobs'; 
+            case this.state.magical_ranged_dps_jobs: 
+                return selectionName = 'Magical Ranged Dps Jobs';    
         }
+        
         return selectionName;
     }
 

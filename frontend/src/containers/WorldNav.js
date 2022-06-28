@@ -4,37 +4,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import RegionDropdown from '../components/RegionDropdown';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class WorldNav extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            regions: {
-                original: ["La Noscea", "The Black Shroud", "Thanalan"],
-                heavensward: ["Coerthas", "Mor Dhona", "Abalathia's Spine", "Dravania"],
-                stormblood: ["Gyr Abania", "Hingashi", "Othard"],
-                shadowbringers: ["Norvandt"],
-                endwalker: ["The Northern Empty", "Ilsabard", "The Sea of Stars", "The World Unsundered"],
-            },
-            zones: ['Limsa Lominsa Upper Decks (La Noscea)', 'Limsa Lominsa Lower Decks (La Noscea)', 'Middle La Noscea (La Noscea)', 
-            'Lower La Noscea (La Noscea)', 'Eastern La Noscea (La Noscea)', 'Western La Noscea (La Noscea)', 'Upper La Noscea (La Noscea)', 
-            'Outer La Noscea (La Noscea)', 'New Gridania (The Black Shroud)', 'Old Gridania (The Black Shroud)', 
-            'Central Shroud (The Black Shroud)', 'East Shroud (The Black Shroud)', 'South Shroud (The Black Shroud)', 
-            'North Shroud (The Black Shroud)', "Ul'dah - Steps of Nald (Thanalan)", "Ul'dah - Steps of Thal (Thanalan)", 
-            'Hustings Strip (Thanalan)', 'The Gold Saucer (Thanalan)', 'Western Thanalan (Thanalan)', 'Eastern Thanalan (Thanalan)', 
-            'Central Thanalan (Thanalan)', 'Southern Thanalan (Thanalan)', 'Northern Thanalan (Thanalan)', 'Foundation (Coerthas)', 
-            'The Pillars (Coerthas)', 'Coerthas Central Highlands (Coerthas)', 'Coerthas Western Highlands (Coerthas)', 
-            'Mor Dhona (Mor Dhona)', "The Sea of Clouds (Abalathia's Spine)", "Azys Lla (Abalathia's Spine)", 'Idyllshire (Dravania)', 
-            'The Dravanian Forelands (Dravania)', 'The Dravanian Hinterlands (Dravania)', 'The Churning Mists (Dravania)', 
-            "Rhalgr's Reach (Gyr Abania)", 'The Fringes (Gyr Abania)', 'The Peaks (Gyr Abania)', 'The Lochs (Gyr Abania)', 
-            'Kugane (Hingashi)', 'The Ruby Sea (Othard)', 'Yanxia (Othard)', 'The Azim Steppe (Othard)', 
-            'Crystarium (Norvandt)', 'Lakeland (Norvandt)', 'Eulmore (Norvandt)', 'Kholusia (Norvandt)', 'Amh Araeng (Norvandt)', 
-            'Il Mheg (Norvandt)', "The Rak'tika Greatwood (Norvandt)", 'The Tempest (Norvandt)', 'Old Sharlayan (The Northern Empty)', 
-            'Labyrinthos (The Northern Empty)', 'Garlemald (Ilsabard)', 'Radz-at-Han (Ilsabard)', 'Thavnair (Ilsabard)', 
-            'Mare Lamentorum (The Sea of Stars)', 'Ultima Thule (The Sea of Stars)', 'Elpis (The World Unsundered)']
-        }
-    }
 
     capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -43,21 +15,21 @@ class WorldNav extends Component {
     renderNavDropdowns = (region) => {
         let expansion = null;
         if (region === "original") {
-            expansion = this.state.regions.original
+            expansion = this.props.original_regions
         } else if (region === "heavensward") {
-            expansion = this.state.regions.heavensward
+            expansion = this.props.heavensward_regions
         } else if (region === 'stormblood') {
-            expansion = this.state.regions.stormblood
+            expansion = this.props.stormblood_regions
         } else if (region === 'shadowbringers') {
-            expansion = this.state.regions.shadowbringers
+            expansion = this.props.shadowbringers_regions
         } else {
-            expansion = this.state.regions.endwalker
+            expansion = this.props.endwalker_regions
         }
-        if (expansion === this.state.regions.original) {
+        if (expansion === this.props.original_regions) {
             return expansion.map(r => {
                 return <NavDropdown key={r} title={<Link to={`/${r.split(' ').join('').toLowerCase()}`} >{r}</Link>} 
                 id='basic-nav-dropdown'>
-                    {this.state.zones.filter(zone => zone.includes(r)).map(zone => {
+                    {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
                         split_name.splice(splice_index);
@@ -71,7 +43,7 @@ class WorldNav extends Component {
             })
         }  else {
             return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
-                    {expansion.map(r => this.state.zones.filter(zone => zone.includes(r)).map(zone => {
+                    {expansion.map(r => this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
                         split_name.splice(splice_index);
@@ -100,4 +72,13 @@ class WorldNav extends Component {
     }
 }
 
-export default WorldNav;
+const mapStateToProps = (storeData) => ({
+    zones: storeData.storeData.zones,
+    original_regions: storeData.storeData.original_regions,
+    heavensward_regions: storeData.storeData.heavensward_regions,
+    stormblood_regions: storeData.storeData.stormblood_regions,
+    shadowbringers_regions: storeData.storeData.shadowbringers_regions,
+    endwalker_regions: storeData.storeData.endwalker_regions,
+})
+
+export default connect(mapStateToProps)(WorldNav);

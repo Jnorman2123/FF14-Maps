@@ -13,14 +13,14 @@ class Quest extends Component {
                         return (
                             <li key={quest.id}>
                                 <ul>
-                                {quest.quest_name}
-                                {quest.quest_npcs.map((npc, index) => {
-                                    return (
-                                        <li key={index}>
-                                            <Npc npc_id={npc} />
-                                        </li>
-                                    )
-                                })}
+                                    {quest.quest_name}
+                                    {quest.quest_npcs.map((npc, index) => {
+                                        return (
+                                            <li key={index}>
+                                                <Npc npc_id={npc} />
+                                            </li>
+                                        )
+                                    })}
                                 </ul>
                             </li>
                         )
