@@ -6,6 +6,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import ToggleDropdown from '../components/ToggleDropdown';
 import ButtonToggle from '../components/ButtonToggle';
+import { connect } from 'react-redux';
 
 class ToggleContainer extends Component {
 
@@ -108,7 +109,7 @@ class ToggleContainer extends Component {
                 </Row>
                 <br/>
                 <Row>
-                    {this.props.types.map(t => {
+                    {this.props.quest_types.map(t => {
                         return <ButtonToggle key={t.name} renderButton={this.renderButtons} selection={t} />
                     })}   
                 </Row>   
@@ -118,7 +119,7 @@ class ToggleContainer extends Component {
                 </Row> 
                 <br/>    
                 <Row>
-                    {this.props.levels.map(l => {
+                    {this.props.quest_levels.map(l => {
                         return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
                     })}    
                 </Row>  
@@ -127,4 +128,10 @@ class ToggleContainer extends Component {
     }
 }
 
-export default ToggleContainer;
+const mapStateToProps = (storeData) => ({
+    classes: storeData.storeData.classes,
+    quest_levels: storeData.storeData.quest_levels,
+    quest_types: storeData.storeData.quest_types
+})
+
+export default connect(mapStateToProps)(ToggleContainer);

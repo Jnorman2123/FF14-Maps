@@ -56,8 +56,8 @@ class Home extends Component {
                     </Row>
                     <Row>
                         <Col md={3} className='bg-dark'>
-                            <ToggleContainer classes={this.props.classes}  types={this.props.quest_types} levels={this.props.quest_levels} 
-                            setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} setTypeActive={this.setTypeActive} />         
+                            <ToggleContainer setClassActive={this.setClassActive} 
+                            setLevelActive={this.setLevelActive} setTypeActive={this.setTypeActive} />         
                         </Col>
                         <Col md={6} >
                             <Outlet />
