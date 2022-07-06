@@ -10,3 +10,4 @@ export const HEAVENSWARD_REGIONS = 'heavensward_regions';
 export const STORMBLOOD_REGIONS = 'stormblood_regions';
 export const SHADOWBRINGERS_REGIONS = 'shadowbringers_regions';
 export const ENDWALKER_REGIONS = 'endwalker_regions';
+export const ZONE_ATTRIBUTES = 'zone_attributes';

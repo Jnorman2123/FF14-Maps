@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, ImageOverlay, Polygon, LayerGroup } from 'react-leaflet';
+import { MapContainer, Marker, ImageOverlay, Polygon } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
@@ -9,134 +9,72 @@ class WorldMapCont extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            keyMarkers: [
-                {icon: new L.Icon({
-                    iconUrl: `./icons/RegionKey.png`,
-                    iconRetinaUrl: `./icons/RegionKey.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [195, 288],
-                    }),
-                    position: [-34, 36.25]
-                }
+            key_markers: [
+                {icon: new L.Icon({iconUrl: `./icons/RegionKey.png`, iconSize: [195, 288]}), 
+                position: [-34, 36.25]}
             ],
-            zoneMarkers: 
-            [
-                {icon: new L.Icon({
-                    iconUrl: `./icons/zone_names/SelectZoneName.png`,
-                    iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [143, 38.5],
-                }),
+            zone_markers: [
+                {icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegionName.png`, iconSize: [143, 38.5]}), 
                 position: [-28.6, 36.3]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-31.9, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-34.7, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-37.4, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-40.15, 39.1]
                 }
             ],
-            highlightedMarkers: [],
-            popupMarkers: [],
+            highlighted_markers: [],
+            popup_markers: [],
             navigate: false,
-            navigateLink: '',
+            navigate_link: '',
         }
     };
 
-    addHighlightedMarker = (pos, icon) => {
+    addMarker = (pos, icon, type) => {
         let marker = {icon: icon, position: pos};
-        this.setState({ highlightedMarkers: [...this.state.highlightedMarkers, marker]})
+        if (type === 'highlighted') {
+            this.setState({ highlighted_markers: [...this.state.highlighted_markers, marker]})
+        } else if (type === 'popup') {
+            this.setState({ popup_markers: [...this.state.popup_markers, marker]})
+        } else {
+            this.setState({ zone_markers: [...this.state.zone_markers, marker]})
+        }
     };
 
-    removeHighlightedMarker = () => {
-        this.setState({highlightedMarkers: []});
-    };
-
-    addPopupMarker = (pos, icon) => {
-        let marker = {icon: icon, position: pos};
-        this.setState({ popupMarkers: [...this.state.popupMarkers, marker]})
-    };
-
-    removePopupMarker = () => {
-        this.setState({popupMarkers: []});
-    };
-
-    addZoneMarker = (pos, icon) => {
-        let marker = {icon: icon, position: pos};
-        this.setState({ zoneMarkers: [...this.state.zoneMarkers, marker]})
-    };
-
-    removeZoneMarkers = () => {
-        this.setState({zoneMarkers: []});
+    removeMarker = (type) => {
+        if (type === 'highlighted') {
+            this.setState({highlighted_markers: []});
+        } else if (type === 'popup') {
+            this.setState({popup_markers: []});
+        } else {
+            this.setState({zone_markers: []});
+        }
+        
     };
 
     resetZoneMarkers = () => {
-        this.setState({zoneMarkers: 
+        this.setState({zone_markers: 
             [
-                {icon: new L.Icon({
-                    iconUrl: `./icons/zone_names/SelectZoneName.png`,
-                    iconRetinaUrl: `./icons/zone_names/SelectZoneName.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [143, 38.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegionName.png`, iconSize: [143, 38.5]}),
                 position: [-28.6, 36.3]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-31.9, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-34.7, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-37.4, 39.1]
                 },
-                {icon: new L.Icon({
-                    iconUrl: `./icons/quest_numbers/Hyphen.png`,
-                    iconRetinaUrl: `./icons/quest_numbers/Hyphen.png`,
-                    popupAnchor: [0, 0],
-                    iconSize: [33.5, 33.5],
-                }),
+                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
                 position: [-40.15, 39.1]
                 }
             ],
@@ -144,11 +82,7 @@ class WorldMapCont extends Component {
     };
 
     makeMarkerIcon = (iconUrl, iconSize) => {
-        let icon = new L.Icon({
-            iconUrl: iconUrl,
-            iconRetinaUrl: iconUrl,
-            popupAnchor: [0, 0],
-            iconSize: [iconSize[0], iconSize[1]],
+        let icon = new L.Icon({iconUrl: iconUrl, iconSize: [iconSize[0], iconSize[1]],
         })
         return icon;
     }
@@ -156,354 +90,160 @@ class WorldMapCont extends Component {
 
     render () {
 
+        let setQuestType = (quests, type) => {
+            return quests.filter(q => q.quest_type === type)
+        }
+
+        let setQuestStarters = (type) => {
+            let quests = setQuestType(active_quests, type).map(aq => {
+                let starter_npc = npcs.filter(npc => npc.id === aq.quest_npcs[0]);
+                return starter_npc[0];
+            });
+            return quests;
+        }
+
+        let setStartersLength = (quests, region) => {
+            return quests.filter(q => q.npc_zone.includes(region)).length
+        }
+
+        let createIcon = (url, size) => {
+            let icon = new L.Icon({
+                iconUrl: url,
+                iconSize: [size[0], size[1]],
+            });
+            return icon;
+        } 
+
+        let createPolygon = (region, region_pos, region_icon, region_name_popup_pos, region_name_icon, region_popup_pos) => {
+            let navLink = `/${region.split(" ").join('').toLowerCase()}`;
+            return <Polygon positions={region_pos} pathOptions={polyOptions} opacity={.1} eventHandlers={{
+                mouseover: () => {
+                    this.removeMarker('zone');
+                    let main_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
+                        (main_starters, region)}.png`, quest_count_icon_size);
+                    let side_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
+                        (side_starters, region)}.png`, quest_count_icon_size);
+                    let hunting_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
+                        (hunting_starters, region)}.png`, quest_count_icon_size);
+                    let class_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
+                        (class_starters, region)}.png`, quest_count_icon_size);
+                    this.addMarker(highlight_pos, region_icon, 'highlighted');
+                    this.addMarker(region_name_popup_pos, region_name_icon, 'zone');
+                    this.addMarker(region_name_pos, region_name_icon, 'zone');
+                    this.addMarker(main_quest_count_icon_pos, main_quest_count_icon, 'zone');
+                    this.addMarker(side_quest_count_icon_pos, side_quest_count_icon, 'zone');
+                    this.addMarker(hunting_quest_count_icon_pos, hunting_quest_count_icon, 'zone');
+                    this.addMarker(class_quest_count_icon_pos, class_quest_count_icon, 'zone');
+                    this.addMarker(region_popup_pos, popup_marker, 'popup');
+                },
+                mouseout: () => {
+                    this.removeMarker('highlighted');
+                    this.removeMarker('popup');
+                    this.resetZoneMarkers();
+                }, 
+                click: () => {
+                    this.setState({ navigate: true });
+                    this.setState({ navigate_link: navLink });
+                }
+            }} />
+        }
+
         let quests = this.props.quests.quests;
-        let jobs = this.props.jobs.jobs;
-        let activeQuests = [];
-        let activeClasses = [];
-        let activeQuestTypes = [];
-        let activeQuestLevels = [];
-        let activeJobs = [];
-        let classQuests = [];
-        let mainQuests = [];
-        let huntingQuests = [];
-        let sideQuests = [];
-        let classQuestStarters = [];
-        let mainQuestStarters = [];
-        let huntingQuestStarters = [];
-        let sideQuestStarters = [];
-        let blackShroudMainStarters = [];
-        let blackShroudSideStarters = [];
-        let blackShroudHuntingStarters = [];
-        let blackShroudClassStarters = [];
-        let thanalanMainStarters = [];
-        let thanalanSideStarters = [];
-        let thanalanHuntingStarters = [];
-        let thanalanClassStarters = [];
-        let laNosceaMainStarters = [];
-        let laNosceaSideStarters = [];
-        let laNosceaHuntingStarters = [];
-        let laNosceaClassStarters = [];
-
-        this.props.classes.map(c => {
-            if (c.active === true) {
-                activeClasses.push(c.name);
-            }
-            return activeClasses;
+        let npcs = this.props.npcs.npcs;
+        let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
+        let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
+        let active_quest_levels = this.props.quest_levels.filter(ql => ql.active === true).map(ql => {
+            let lvl_ranges = ql.name.split('-');
+            return [parseInt(lvl_ranges[0]), parseInt(lvl_ranges[1])]
         });
-
-        this.props.quest_types.map(qt => {
-            if (qt.active === true) {
-                activeQuestTypes.push(qt.name);
-            }
-            return activeQuestTypes;
-        });
-
-        this.props.quest_levels.map(ql => {
-            if (ql.active === true) {
-                let lvlRanges = ql.name.split('-');
-                activeQuestLevels.push([parseInt(lvlRanges[0]), parseInt(lvlRanges[1])]);
-            }
-            return activeQuestLevels;
-        });
-
-        jobs.map(j => {
-            if (activeClasses.includes(j.job_name)) {
-                activeJobs.push(j.id);
-            }
-            return activeJobs;
-        })
-
+        let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
+        let active_quests = [];
+        
         quests.map(q => {
-            if (activeQuestTypes.includes(q.quest_type)) {
+            if (active_quest_types.includes(q.quest_type)) {
                 q.quest_class.map(qc => {
-                    if (activeJobs.includes(qc) || qc === 30) {
-                        activeQuestLevels.map(ql => {
+                    if (active_jobs.includes(qc) || qc === 30) {
+                        active_quest_levels.map(ql => {
                             if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
-                            && !activeQuests.includes(q)) {
-                                activeQuests.push(q);
+                            && !active_quests.includes(q)) {
+                                active_quests.push(q);
                             }
-                            return activeQuests;
+                            return active_quests;
                         })
                     }
-                    return activeQuests;
+                    return active_quests;
                 })
             }
-            return activeQuests;
+            return active_quests;
         });
 
-        activeQuests.map(aq => {
-            if (aq.quest_type === "Main Story") {
-                mainQuests.push(aq);
-            } else if (aq.quest_type === "Side") {
-                sideQuests.push(aq);
-            } else if (aq.quest_type === "Hunting Log") {
-                huntingQuests.push(aq);
-            } else if (aq.quest_type === "Class") {
-                classQuests.push(aq);
-            }
-            return mainQuests;
-        })
-
-        mainQuests.map(aq => {
-            let starterNpc = this.props.npcs.npcs.filter(npc => npc.id === aq.quest_npcs[0]);
-            mainQuestStarters.push(starterNpc[0]);
-            return mainQuestStarters;
-        });
-
-        sideQuests.map(aq => {
-            let starterNpc = this.props.npcs.npcs.filter(npc => npc.id === aq.quest_npcs[0]);
-            sideQuestStarters.push(starterNpc[0]);
-            return sideQuestStarters;
-        });
-
-        huntingQuests.map(aq => {
-            let starterNpc = this.props.npcs.npcs.filter(npc => npc.id === aq.quest_npcs[0]);
-            huntingQuestStarters.push(starterNpc[0]);
-            return huntingQuestStarters;
-        });
-
-        classQuests.map(aq => {
-            let starterNpc = this.props.npcs.npcs.filter(npc => npc.id === aq.quest_npcs[0]);
-            classQuestStarters.push(starterNpc[0]);
-            return classQuestStarters;
-        });
-
-        mainQuestStarters.map(qs => {
-            if (qs.npc_zone.includes('The Black Shroud')) {
-                blackShroudMainStarters.push(qs);
-            } else if (qs.npc_zone.includes('Thanalan')) {
-                thanalanMainStarters.push(qs);
-            } else if (qs.npc_zone.includes('La Noscea')) {
-                laNosceaMainStarters.push(qs);
-            }
-            return blackShroudMainStarters;
-        })
-
-        sideQuestStarters.map(qs => {
-            if (qs.npc_zone.includes('The Black Shroud')) {
-                blackShroudSideStarters.push(qs);
-            } else if (qs.npc_zone.includes('Thanalan')) {
-                thanalanSideStarters.push(qs);
-            } else if (qs.npc_zone.includes('La Noscea')) {
-                laNosceaSideStarters.push(qs);
-            }
-            return blackShroudSideStarters;
-        })
-
-        huntingQuestStarters.map(qs => {
-            if (qs.npc_zone.includes('The Black Shroud')) {
-                blackShroudHuntingStarters.push(qs);
-            } else if (qs.npc_zone.includes('Thanalan')) {
-                thanalanHuntingStarters.push(qs);
-            } else if (qs.npc_zone.includes('La Noscea')) {
-                laNosceaHuntingStarters.push(qs);
-            }
-            return blackShroudHuntingStarters;
-        })
-
-        classQuestStarters.map(qs => {
-            if (qs.npc_zone.includes('The Black Shroud')) {
-                blackShroudClassStarters.push(qs);
-            } else if (qs.npc_zone.includes('Thanalan')) {
-                thanalanClassStarters.push(qs);
-            } else if (qs.npc_zone.includes('La Noscea')) {
-                laNosceaClassStarters.push(qs);
-            }
-            return blackShroudClassStarters;
-        })
-
-
-        let laNoscea = [
+        let class_starters = setQuestStarters('Class');
+        let main_starters = setQuestStarters('Main Story');
+        let hunting_starters = setQuestStarters('Hunting Log');
+        let side_starters = setQuestStarters('Side');
+        
+        let la_noscea = [
             [-28.5, 4.75], [-28.6, 12], [-24.7, 14.2], [-22.5, 13.7], [-19.75, 12.25], [-19.75, 10.5], [-22, 6],
             [-24, 6], [-26.5, 4.75]
         ];
         let thanalan = [
             [-29, 15.5], [-37.5, 20], [-37.5, 22.5], [-34, 25.5], [-26, 25.5], [-26, 15.5]
         ];
-        let theBlackShroud = [
+        let the_black_shroud = [
             [-25, 26], [-21, 22], [-16, 22], [-14, 27], [-14, 30], [-16, 32], [-20, 32], [-24, 31]
         ];
+
         let polyOptions = { color: 'tan' }
-
-        let laNosceaIcon = new L.Icon({
-            iconUrl: `./maps/LaNosceaHighlighted.png`,
-            iconRetinaUrl: `./maps/LaNosceaHighlighted.png`,
-            popupAnchor: [0, 0],
-            iconSize: [775.775, 773.45],
-        });
-
-        let thanalanIcon = new L.Icon({
-            iconUrl: `./maps/ThanalanHighlighted.png`,
-            iconRetinaUrl: `./maps/ThanalanHighlighted.png`,
-            popupAnchor: [0, 0],
-            iconSize: [775.775, 773.45],
-        });
-
-        let theBlackShroudIcon = new L.Icon({
-            iconUrl: `./maps/TheBlackShroudHighlighted.png`,
-            iconRetinaUrl: `./maps/TheBlackShroudHighlighted.png`,
-            popupAnchor: [0, 0],
-            iconSize: [775.775, 773.45],
-        });
-
-        let laNosceaNameIcon = new L.Icon({
-            iconUrl: `./icons/region_names/LaNosceaRegionName.png`,
-            iconRetinaUrl: `./icons/region_names/LaNosceaRegionName.png`,
-            popupAnchor: [0, 0],
-            iconSize: [143, 38.5],
-        });
-
-        let thanalanNameIcon = new L.Icon({
-            iconUrl: `./icons/region_names/ThanalanRegionName.png`,
-            iconRetinaUrl: `./icons/region_names/ThanalanRegionName.png`,
-            popupAnchor: [0, 0],
-            iconSize: [143, 38.5],
-        });
-
-        let theBlackShroudNameIcon = new L.Icon({
-            iconUrl: `./icons/region_names/TheBlackShroudRegionName.png`,
-            iconRetinaUrl: `./icons/region_names/TheBlackShroudRegionName.png`,
-            popupAnchor: [0, 0],
-            iconSize: [143, 38.5],
-        });
-
-        let popupMarker = new L.Icon({
-            iconUrl: `./icons/zone_names/PopupContainer.png`,
-            iconRetinaUrl: `./icons/zone_names/PopupContainer.png`,
-            popupAnchor: [0, 0],
-            iconSize: [182, 112],
-        });
-
-        let mainQuestCountIcon = null;
-        let sideQuestCountIcon = null;
-        let huntingQuestCountIcon = null;
-        let classQuestCountIcon = null;
-        let mainQuestCountIconPos = [-34.7, 39.1];
-        let sideQuestCountIconPos = [-40.15, 39.1];
-        let huntingQuestCountIconPos = [-37.4, 39.1];
-        let classQuestCountIconPos = [-31.9, 39.1];
-        let questCountIconSize = [33.5, 33.5];
+        let la_noscea_icon = createIcon(`./maps/LaNosceaHighlighted.png`, [775.775, 773.45]);
+        let thanalan_icon = createIcon(`./maps/ThanalanHighlighted.png`, [775.775, 773.45]);
+        let the_black_shroud_icon = createIcon(`./maps/TheBlackShroudHighlighted.png`, [775.775, 773.45]);
+        let la_noscea_name_icon = createIcon(`./icons/region_names/LaNosceaRegionName.png`, [143, 38.5]);
+        let thanalan_name_icon = createIcon(`./icons/region_names/ThanalanRegionName.png`, [143, 38.5]);
+        let the_black_shroud_name_icon = createIcon(`./icons/region_names/TheBlackShroudRegionName.png`, [143, 38.5]);
+        let popup_marker = createIcon(`./icons/zone_names/PopupContainer.png`, [182, 112]);
+        
+        let main_quest_count_icon_pos = [-34.7, 39.1];
+        let side_quest_count_icon_pos = [-40.15, 39.1];
+        let hunting_quest_count_icon_pos = [-37.4, 39.1];
+        let class_quest_count_icon_pos = [-31.9, 39.1];
+        let quest_count_icon_size = [33.5, 33.5];
     
 
-        let regionNamePos = [-28.6, 36.3];
-        let highlightPos = [-21.5, 21.4];
-        let laNosceaPopupPos = [-18, 10];
-        let thanalanPopupPos = [-24, 21];
-        let theBlackShroudPopupPos = [-12, 28];
-        let laNosceaNamePopupPos = [-17.75, 10];
-        let thanalanNamePopupPos = [-23.75, 21];
-        let theBlackShroudNamePopupPos = [-11.75, 28];
+        let region_name_pos = [-28.6, 36.3];
+        let highlight_pos = [-21.5, 21.4];
+        let la_noscea_popup_pos = [-18, 10];
+        let thanalan_popup_pos = [-24, 21];
+        let the_black_shroud_popup_pos = [-12, 28];
+        let la_noscea_name_popup_pos = [-17.75, 10];
+        let thanalan_name_popup_pos = [-23.75, 21];
+        let the_black_shroud_name_popup_pos = [-11.75, 28];
 
         return (
             <Container>
                 <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}
                 crs={L.CRS.Simple} maxBoundsViscosity='1' scrollWheelZoom={false} maxZoom={this.props.zoom}
-                minZoom={this.props.zoom} style={{height: '800px', width: '900px'}} >
-                    <Polygon positions={laNoscea} pathOptions={polyOptions} opacity={.1} eventHandlers={{
-                        mouseover: () => {
-                            this.removeZoneMarkers();
-                            mainQuestCountIcon = `./icons/quest_numbers/${laNosceaMainStarters.length}.png`;
-                            sideQuestCountIcon = `./icons/quest_numbers/${laNosceaSideStarters.length}.png`;
-                            huntingQuestCountIcon = `./icons/quest_numbers/${laNosceaHuntingStarters.length}.png`;
-                            classQuestCountIcon = `./icons/quest_numbers/${laNosceaClassStarters.length}.png`;
-                            mainQuestCountIcon = this.makeMarkerIcon(mainQuestCountIcon, questCountIconSize);
-                            sideQuestCountIcon = this.makeMarkerIcon(sideQuestCountIcon, questCountIconSize);
-                            huntingQuestCountIcon = this.makeMarkerIcon(huntingQuestCountIcon, questCountIconSize);
-                            classQuestCountIcon = this.makeMarkerIcon(classQuestCountIcon, questCountIconSize);
-                            this.addHighlightedMarker(highlightPos, laNosceaIcon);
-                            this.addZoneMarker(laNosceaNamePopupPos, laNosceaNameIcon);
-                            this.addZoneMarker(regionNamePos, laNosceaNameIcon);
-                            this.addZoneMarker(mainQuestCountIconPos, mainQuestCountIcon);
-                            this.addZoneMarker(sideQuestCountIconPos, sideQuestCountIcon);
-                            this.addZoneMarker(huntingQuestCountIconPos, huntingQuestCountIcon);
-                            this.addZoneMarker(classQuestCountIconPos, classQuestCountIcon);
-                            this.addPopupMarker(laNosceaPopupPos, popupMarker);
-                        },
-                        mouseout: () => {
-                            this.removeHighlightedMarker();
-                            this.removePopupMarker();
-                            this.resetZoneMarkers();
-                        }, 
-                        click: () => {
-                            this.setState({ navigate: true });
-                            this.setState({ navigateLink: `/lanoscea` });
-                        }
-                    }} />
-                    <Polygon positions={thanalan} pathOptions={polyOptions} opacity={.1} eventHandlers={{
-                        mouseover: () => {
-                            this.removeZoneMarkers();
-                            mainQuestCountIcon = `./icons/quest_numbers/${thanalanMainStarters.length}.png`;
-                            sideQuestCountIcon = `./icons/quest_numbers/${thanalanSideStarters.length}.png`;
-                            huntingQuestCountIcon = `./icons/quest_numbers/${thanalanHuntingStarters.length}.png`;
-                            classQuestCountIcon = `./icons/quest_numbers/${thanalanClassStarters.length}.png`;
-                            mainQuestCountIcon = this.makeMarkerIcon(mainQuestCountIcon, questCountIconSize);
-                            sideQuestCountIcon = this.makeMarkerIcon(sideQuestCountIcon, questCountIconSize);
-                            huntingQuestCountIcon = this.makeMarkerIcon(huntingQuestCountIcon, questCountIconSize);
-                            classQuestCountIcon = this.makeMarkerIcon(classQuestCountIcon, questCountIconSize);
-                            this.addHighlightedMarker(highlightPos, thanalanIcon);
-                            this.addZoneMarker(thanalanNamePopupPos, thanalanNameIcon);
-                            this.addZoneMarker(regionNamePos, thanalanNameIcon);
-                            this.addZoneMarker(mainQuestCountIconPos, mainQuestCountIcon);
-                            this.addZoneMarker(sideQuestCountIconPos, sideQuestCountIcon);
-                            this.addZoneMarker(huntingQuestCountIconPos, huntingQuestCountIcon);
-                            this.addZoneMarker(classQuestCountIconPos, classQuestCountIcon);
-                            this.addPopupMarker(thanalanPopupPos, popupMarker);
-                        },
-                        mouseout: () => {
-                            this.removeHighlightedMarker();
-                            this.removePopupMarker();
-                            this.resetZoneMarkers();
-                        }, 
-                        click: () => {
-                            this.setState({ navigate: true });
-                            this.setState({ navigateLink: `/thanalan` });
-                        }
-                    }}/>
-                    <Polygon positions={theBlackShroud} pathOptions={polyOptions} opacity={.1} eventHandlers={{
-                        mouseover: () => {
-                            this.removeZoneMarkers();
-                            mainQuestCountIcon = `./icons/quest_numbers/${blackShroudMainStarters.length}.png`;
-                            sideQuestCountIcon = `./icons/quest_numbers/${blackShroudSideStarters.length}.png`;
-                            huntingQuestCountIcon = `./icons/quest_numbers/${blackShroudHuntingStarters.length}.png`;
-                            classQuestCountIcon = `./icons/quest_numbers/${blackShroudClassStarters.length}.png`;
-                            mainQuestCountIcon = this.makeMarkerIcon(mainQuestCountIcon, questCountIconSize);
-                            sideQuestCountIcon = this.makeMarkerIcon(sideQuestCountIcon, questCountIconSize);
-                            huntingQuestCountIcon = this.makeMarkerIcon(huntingQuestCountIcon, questCountIconSize);
-                            classQuestCountIcon = this.makeMarkerIcon(classQuestCountIcon, questCountIconSize);
-                            this.addHighlightedMarker(highlightPos, theBlackShroudIcon);
-                            this.addZoneMarker(theBlackShroudNamePopupPos, theBlackShroudNameIcon);
-                            this.addZoneMarker(regionNamePos, theBlackShroudNameIcon);
-                            this.addZoneMarker(mainQuestCountIconPos, mainQuestCountIcon);
-                            this.addZoneMarker(sideQuestCountIconPos, sideQuestCountIcon);
-                            this.addZoneMarker(huntingQuestCountIconPos, huntingQuestCountIcon);
-                            this.addZoneMarker(classQuestCountIconPos, classQuestCountIcon);
-                            this.addPopupMarker(theBlackShroudPopupPos, popupMarker);
-                        },
-                        mouseout: () => {
-                            this.removeHighlightedMarker();
-                            this.removePopupMarker();
-                            this.resetZoneMarkers();
-                        }, 
-                        click: () => {
-                            this.setState({ navigate: true });
-                            this.setState({ navigateLink: `/theblackshroud` });
-                        }
-                    }}/>
+                minZoom={this.props.zoom} style={{height: '800px', width: '100%'}} >
+                    {createPolygon('La Noscea', la_noscea, la_noscea_icon, 
+                    la_noscea_name_popup_pos, la_noscea_name_icon, la_noscea_popup_pos)};
+                    {createPolygon('Thanalan', thanalan, thanalan_icon,  thanalan_name_popup_pos, 
+                    thanalan_name_icon, thanalan_popup_pos)};
+                    {createPolygon('The Black Shroud', the_black_shroud, the_black_shroud_icon, 
+                    the_black_shroud_name_popup_pos, the_black_shroud_name_icon, the_black_shroud_popup_pos)};
                     <ImageOverlay url={`./maps/${this.props.mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    {this.state.keyMarkers.map(mar => {
+                    {this.state.key_markers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={250}/>
                     })}
-                    {this.state.zoneMarkers.map(mar => {
+                    {this.state.zone_markers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={1000}/>
                     })}
-                    {this.state.highlightedMarkers.map(mar => {
+                    {this.state.highlighted_markers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={0} 
                         opacity={1} interactive={false} />
                     })}
-                    {this.state.popupMarkers.map(mar => {
+                    {this.state.popup_markers.map(mar => {
                         return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={750} />
                     })}
-                    {this.state.navigate && <Navigate to={this.state.navigateLink} replace={true} />}
+                    {this.state.navigate && <Navigate to={this.state.navigate_link} replace={true} />}
                 </MapContainer>
             </Container>
         )
@@ -511,11 +251,8 @@ class WorldMapCont extends Component {
 }
 
 const mapStateToProps = (storeData) => ({
-    items: storeData.items,
     npcs: storeData.npcs,
     quests: storeData.quests,
-    rewards: storeData.rewards,
-    steps: storeData.steps,
     jobs: storeData.jobs,
     classes: storeData.storeData.classes,
     quest_levels: storeData.storeData.quest_levels,

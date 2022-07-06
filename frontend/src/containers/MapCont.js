@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MapContainer, Marker, Popup, ImageOverlay, LayerGroup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import 'react-leaflet-markercluster/dist/styles.min.css';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Accordion from 'react-bootstrap/esm/Accordion';
@@ -89,7 +91,7 @@ class MapCont extends Component {
 
         active_in_zone_quests.map(quest => {   
             this.props.steps.steps.filter(step => step.quest_step === quest[0].id).map(s => {
-                if (s.step_npc === quest[0].quest_npcs[0] && !quest_starters.includes(s)) {
+                if (s.step_npc === quest[0].quest_npcs[0]) {
                     quest_starters.push(s);
                 }
                 return quest_starters;
@@ -101,13 +103,11 @@ class MapCont extends Component {
             let step_npc = npcs.filter(npc => npc.id === step.step_npc);
             let step_quest = active_in_zone_quests.filter(q => q[0].id === step.quest_step)
             if (step_npc[0] !== undefined) {
-                if (!map_markers.includes(step_npc[0])) {
-                    map_markers.push([step_npc[0], step_quest[0][1], step_quest[0][2]]);
-                }               
+                map_markers.push([step_npc[0], step_quest[0][1], step_quest[0][2]]);
             }
             return null;
         });
-      
+
         in_zone_quests.map(q => {
             let quest_steps = this.props.steps.steps.filter(s => s.quest_step === q.id)
             quest_turn_ins.push(quest_steps.pop());
@@ -119,7 +119,7 @@ class MapCont extends Component {
             let active_quest = active_in_zone_quests.filter(aq => aq[0].id === q.id);
             q.quest_npcs.map(npc_id => {
                 npc = npcs.filter(n => n.id === npc_id);
-                if (!map_markers.includes(npc[0]) && active_quest[0] !== undefined) {
+                if (active_quest[0] !== undefined) {
                     map_markers.push([npc[0], active_quest[0][1], active_quest[0][2]]);
                 }
                 return map_markers;
@@ -132,93 +132,92 @@ class MapCont extends Component {
                 <div className='text-center' >{this.props.mapName} </div>
                 <MapContainer key={Math.random()} crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
-                maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '935px'}}>
+                maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '100%'}} >
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    {map_markers.map(m => {
-                        let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
-                        let quest_turn_in_npcs = quest_turn_ins.map(qt => qt.step_npc);
-                        let marker_index = null;
-                        let stepIcon = null;
-                        let stepIconUrl = '';
-                        let colorIcon = null;
-                        let iconContainer = null;
-                        let typeIcon = null;
+                    <MarkerClusterGroup>
+                        {map_markers.map(m => {
+                            let quest_starter_npcs = quest_starters.map(qs => qs.step_npc);
+                            let quest_turn_in_npcs = quest_turn_ins.map(qt => qt.step_npc);
+                            let marker_index = null;
+                            let stepIcon = null;
+                            let stepIconUrl = '';
+                            let colorIcon = null;
+                            let iconContainer = null;
+                            let typeIcon = null;
+                            if (m[0] !== undefined) {
+                                let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m[0].id))
 
-                        if (m[0] !== undefined) {
-                            let marker_quest = this.state.toggled_quests.filter(q => q.quest_npcs.includes(m[0].id))
+                                if (marker_quest.length === 1) {
+                                    marker_index = marker_quest[0].quest_npcs.findIndex(n => n === m[0].id);
+                                }
+                                if (quest_starter_npcs.includes(m[0].id)) {
+                                    stepIconUrl = `./icons/third_layer/StartIcon.PNG`;
+                                } else if (quest_turn_in_npcs.includes(m[0].id)) {
+                                    stepIconUrl = `./icons/third_layer/TurnInIcon.PNG`;
+                                } else {
+                                    stepIconUrl = `./icons/third_layer/Step${marker_index}Icon.PNG`;
+                                }
 
-                            if (marker_quest.length === 1) {
-                                marker_index = marker_quest[0].quest_npcs.findIndex(n => n === m[0].id);
+                                iconContainer = new L.Icon({
+                                    iconUrl: `./icons/first_layer/IconContainer.PNG`,
+                                    iconRetinaUrl: `./icons/first_layer/IconContainer.PNG`,
+                                    popupAnchor: [0, 0],
+                                    iconSize: [45, 45],
+                                })
+
+                                stepIcon = new L.Icon({
+                                    iconUrl: stepIconUrl,
+                                    iconRetinaUrl: stepIconUrl,
+                                    popupAnchor: [0, 0],
+                                    iconSize: [45, 45],
+                                })
+
+                                colorIcon = new L.Icon({
+                                    iconUrl: m[1],
+                                    iconRetinaUrl: m[1],
+                                    popupAnchor: [0, 0],
+                                    iconSize: [45, 45],
+                                })
+
+                                typeIcon = new L.Icon({
+                                    iconUrl: m[2],
+                                    iconRetinaUrl: m[2],
+                                    popupAnchor: [0, 0],
+                                    iconSize: [45, 45],
+                                })
+
+                                return <LayerGroup key={Math.random()}>
+                                    <Marker key={Math.random()} 
+                                    position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
+                                    icon={colorIcon} children={true} >
+                                    </Marker>
+                                    <Marker key={Math.random()} 
+                                    position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} icon={iconContainer} >
+                                    </Marker>
+                                    <Marker key={Math.random()} 
+                                    position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} icon={stepIcon} >
+                                    </Marker>
+                                    <Marker key={Math.random()} 
+                                    position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} icon={typeIcon} >
+                                        <Popup>
+                                            <h6 className='text-center'>{m[0].npc_name}</h6>
+                                            <ol>
+                                                {this.props.steps.steps.filter(s => s.step_npc === m[0].id).map(npc_step => {
+                                                    let quest_step = this.props.quests.quests.
+                                                    filter(q => q.id === npc_step.quest_step)
+                                                    return <li key={npc_step.step_description} quest_id={npc_step.quest_step} 
+                                                    onClick={this.props.setQuestId} >
+                                                        {npc_step.step_description} ({quest_step[0].quest_name})
+                                                    </li>
+                                                })}
+                                            </ol>
+                                        </Popup>
+                                    </Marker>
+                                </LayerGroup>
                             }
-                            if (quest_starter_npcs.includes(m[0].id)) {
-                                stepIconUrl = `./icons/third_layer/StartIcon.PNG`;
-                            } else if (quest_turn_in_npcs.includes(m[0].id)) {
-                                stepIconUrl = `./icons/third_layer/TurnInIcon.PNG`;
-                            } else {
-                                stepIconUrl = `./icons/third_layer/Step${marker_index}Icon.PNG`;
-                            }
-
-                            iconContainer = new L.Icon({
-                                iconUrl: `./icons/first_layer/IconContainer.PNG`,
-                                iconRetinaUrl: `./icons/first_layer/IconContainer.PNG`,
-                                popupAnchor: [-0, -0],
-                                iconSize: [40, 40],
-                            })
-
-                            stepIcon = new L.Icon({
-                                iconUrl: stepIconUrl,
-                                iconRetinaUrl: stepIconUrl,
-                                popupAnchor: [-0, -0],
-                                iconSize: [40, 40],
-                            })
-
-                            colorIcon = new L.Icon({
-                                iconUrl: m[1],
-                                iconRetinaUrl: m[1],
-                                popupAnchor: [-0, -0],
-                                iconSize: [40, 40],
-                            })
-
-                            typeIcon = new L.Icon({
-                                iconUrl: m[2],
-                                iconRetinaUrl: m[2],
-                                popupAnchor: [-0, -0],
-                                iconSize: [40, 40],
-                            })
-
-                            return <LayerGroup key={Math.random()}>
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
-                                icon={colorIcon} >
-
-                                </Marker>
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
-                                icon={iconContainer} >
-                                    
-                                </Marker>
-                                
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)} 
-                                icon={stepIcon} >
-                                    
-                                </Marker>
-                                <Marker key={Math.random()} position={this.props.revertLat(m[0].npc_location_x, m[0].npc_location_y)}
-                                icon={typeIcon} >
-                                    <Popup>
-                                        <h6 className='text-center'>{m[0].npc_name}</h6>
-                                        <ol>
-                                            {this.props.steps.steps.filter(s => s.step_npc === m[0].id).map(npc_step => {
-                                                let quest_step = this.props.quests.quests.filter(q => q.id === npc_step.quest_step)
-                                                return <li key={npc_step.step_description} quest_id={npc_step.quest_step} 
-                                                onClick={this.props.setQuestId} >
-                                                    {npc_step.step_description} ({quest_step[0].quest_name})
-                                                </li>
-                                            })}
-                                        </ol>
-                                    </Popup>
-                                </Marker>
-                            </LayerGroup>
-                        }
-                        return null;
-                    })}
+                            return null;
+                        })}
+                    </MarkerClusterGroup>
                 </MapContainer>
                 <Accordion>
                     <Accordion.Item eventKey='0'>
@@ -234,8 +233,9 @@ class MapCont extends Component {
                                 return <Container key={quest[0].quest_name}>
                                     <Row>
                                         <Col>
-                                            <Button size='sm' key={quest.quest_name} id='toggle-check' className={theme} type='checkbox'
-                                            onClick={() => this.toggleQuest(quest[0], active_in_zone_quests.map(q => q[0]))}>
+                                            <Button size='sm' key={quest.quest_name} id='toggle-check' className={theme} 
+                                            type='checkbox' onClick={() => this.toggleQuest(quest[0], 
+                                            active_in_zone_quests.map(q => q[0]))}>
                                                 Toggle On/Off
                                             </Button>
                                         </Col>

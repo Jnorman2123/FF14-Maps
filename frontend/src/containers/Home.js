@@ -55,14 +55,14 @@ class Home extends Component {
                         <WorldNav />
                     </Row>
                     <Row>
-                        <Col md={3} className='bg-dark'>
+                        <Col className='bg-dark'>
                             <ToggleContainer setClassActive={this.setClassActive} 
                             setLevelActive={this.setLevelActive} setTypeActive={this.setTypeActive} />         
                         </Col>
                         <Col md={6} >
                             <Outlet />
                         </Col>
-                        <Col md={3} className='bg-dark'>
+                        <Col className='bg-dark'>
                             <QuestInfoContainer q_id={this.props.q_id} />
                         </Col>
                     </Row>
