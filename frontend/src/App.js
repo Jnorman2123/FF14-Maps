@@ -5,6 +5,7 @@ import MapCont from './containers/MapCont';
 import RegionMapCont from './containers/RegionMapCont';
 import WorldMapCont from './containers/WorldMapCont';
 import Home from './containers/Home';
+import Info from './containers/Info';
 import { LatLngBounds } from 'leaflet';
 import { connect } from 'react-redux';
 import { fetchNpcs } from './store/actions/npcs/npcActions';
@@ -47,6 +48,7 @@ class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home q_id={this.state.quest_id} />} >
+            <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
             center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} />} />
@@ -68,7 +70,7 @@ class App extends Component {
               minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} setQuestId={this.setQuestId} />} />
             })}
-          </Route>
+            </Route>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />
         </Routes>
       </BrowserRouter>
