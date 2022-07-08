@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, ImageOverlay, Polygon, LayerGroup } from 'react-leaflet';
+import { Polygon } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
-import { Navigate } from 'react-router-dom';
+import RegionMapComponent from '../components/RegionMapComponent';
 
 class RegionMapCont extends Component {
     constructor() {
@@ -84,37 +84,11 @@ class RegionMapCont extends Component {
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
-        let active_classes = this.props.classes.filter(c => c.active).map(ac => ac.name);
-        let active_quest_types = this.props.quest_types.filter(t => t.active).map(at => at.name);
-        let active_quest_levels = this.props.quest_levels.filter(l => l.active);
-        let lvl_ranges = active_quest_levels.map(l => l.name).map(l => l.split("-").map(i => parseInt(i)));
-        let active_quests = [];
         let active_in_zone_quests = [];
         let active_in_zone_hunting_log_quests = [];
         let active_in_zone_main_quests = [];
         let active_in_zone_side_quests = [];
         let active_in_zone_class_quests = [];
-
-
-        let setActiveQuests = () => {
-            this.props.quests.quests.map(q => {
-                if (active_quest_types.includes(q.quest_type)) {
-                    q.quest_class.map(c => {
-                        let job = this.props.jobs.jobs.filter(j => j.id === c);
-                        if (active_classes.includes(job[0].job_name) || job[0].job_name === 'All') {
-                            lvl_ranges.map(lr => {
-                                if ((q.quest_level >= lr[0] && q.quest_level <= lr[1]) && !active_quests.includes(q)) {
-                                    active_quests.push(q);
-                                };
-                                return active_quests;
-                            });
-                        };
-                        return active_quests;
-                    });
-                };
-                return active_quests;
-            });
-        };
 
         let setActiveInZoneQuests = (zone_name) => {
             active_in_zone_quests = [];
@@ -122,10 +96,9 @@ class RegionMapCont extends Component {
             active_in_zone_main_quests = [];
             active_in_zone_side_quests = [];
             active_in_zone_class_quests = [];
-            setActiveQuests();
             this.props.npcs.npcs.map(npc => {
                 if (npc.npc_zone.includes(zone_name)) {
-                    active_quests.map(q => {
+                    this.props.active_quests.map(q => {
                         if (q.quest_npcs[0] === npc.id && !active_in_zone_quests.includes(q)) {
                             active_in_zone_quests.push(q)
                         };
@@ -150,7 +123,6 @@ class RegionMapCont extends Component {
         };
 
         let purpleOptions = { color: 'tan'};
-
         let iconSize = [780.78, 778.44];
         let iconPos = [21.45, -21.45]; 
 
@@ -210,8 +182,10 @@ class RegionMapCont extends Component {
 
         return (
             <Container>
-                <div className="text-center" >{this.props.mapName}</div>
-                <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
+                <RegionMapComponent center={this.props.center} zoom={this.props.zoom} 
+                bounds={this.props.bounds} polygonCollection={polygonCollection} mapName={mapName} 
+                props={this.state} createPolygon={createPolygon} />
+                {/* <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                     minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '100%'}}>
                     <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
@@ -234,22 +208,14 @@ class RegionMapCont extends Component {
                         })};
                     </LayerGroup>
                     {this.state.navigate && <Navigate to={this.state.navigateLink} replace={true} />}
-                </MapContainer>
+                </MapContainer> */}
             </Container>
         )
     }
 }
 
 const mapStateToProps = (storeData) => ({
-    items: storeData.items,
     npcs: storeData.npcs,
-    quests: storeData.quests,
-    rewards: storeData.rewards,
-    steps: storeData.steps,
-    jobs: storeData.jobs,
-    classes: storeData.storeData.classes,
-    quest_levels: storeData.storeData.quest_levels,
-    quest_types: storeData.storeData.quest_types,
     zone_attributes: storeData.storeData.zone_attributes
 })
 

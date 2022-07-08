@@ -1,6 +1,6 @@
 import { CLASSES, QUEST_TYPES, QUEST_LEVELS, INSIDE_ZONE_NAMES, OUTSIDE_ZONE_NAMES, REGION_NAMES,
         ZONES, ORIGINAL_REGIONS, HEAVENSWARD_REGIONS, STORMBLOOD_REGIONS, ENDWALKER_REGIONS, 
-        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES} from "./dataTypes";
+        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES, REGION_ATTRIBUTES} from "./dataTypes";
 
 export const initialData = {
     [CLASSES] : [
@@ -362,5 +362,33 @@ export const initialData = {
                 popupNamePos: [21.75, -28]
             }
         ],
+    ],
+    [REGION_ATTRIBUTES]: [
+        {
+            polygon: [
+                [-28.5, 4.75], [-28.6, 12], [-24.7, 14.2], [-22.5, 13.7], [-19.75, 12.25], [-19.75, 10.5], [-22, 6],
+                [-24, 6], [-26.5, 4.75]
+            ],
+            name: 'La Noscea',
+            popupPos: [-18, 10],
+            popupNamePos: [-17.75, 10]
+        }, 
+        {
+            polygon: [
+                [-29, 15.5], [-37.5, 20], [-37.5, 22.5], [-34, 25.5], [-26, 25.5], [-26, 15.5]
+            ],
+            name: 'Thanalan',
+            popupPos: [-24, 21],
+            popupNamePos: [-23.75, 21]
+        }, 
+        {
+            polygon: [
+                [-25, 26], [-21, 22], [-16, 22], [-14, 27], [-14, 30], [-16, 32], [-20, 32], [-24, 31]
+            ],
+            name: 'The Black Shroud',
+            popupPos: [-12, 28],
+            popupNamePos: [-11.75, 28]
+        }, 
     ]
 }
+
