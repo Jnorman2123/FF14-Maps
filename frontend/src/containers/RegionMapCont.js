@@ -84,45 +84,9 @@ class RegionMapCont extends Component {
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
-        let active_in_zone_quests = [];
-        let active_in_zone_hunting_log_quests = [];
-        let active_in_zone_main_quests = [];
-        let active_in_zone_side_quests = [];
-        let active_in_zone_class_quests = [];
-
-        let setActiveInZoneQuests = (zone_name) => {
-            active_in_zone_quests = [];
-            active_in_zone_hunting_log_quests = [];
-            active_in_zone_main_quests = [];
-            active_in_zone_side_quests = [];
-            active_in_zone_class_quests = [];
-            this.props.npcs.npcs.map(npc => {
-                if (npc.npc_zone.includes(zone_name)) {
-                    this.props.active_quests.map(q => {
-                        if (q.quest_npcs[0] === npc.id && !active_in_zone_quests.includes(q)) {
-                            active_in_zone_quests.push(q)
-                        };
-                        return active_in_zone_quests;
-                    });
-                };
-                return active_in_zone_quests;
-            });
-            active_in_zone_quests.map(q => {
-                if (q.quest_type === 'Main Story' && !active_in_zone_main_quests.includes(q)) {
-                    active_in_zone_main_quests.push(q);
-                } else if (q.quest_type === 'Side' && !active_in_zone_side_quests.includes(q)) {
-                    active_in_zone_side_quests.push(q);
-                } else if (q.quest_type === 'Class' && !active_in_zone_class_quests.includes(q)) {
-                    active_in_zone_class_quests.push(q);
-                } else if (q.quest_type === 'Hunting Log' && !active_in_zone_hunting_log_quests.includes(q)) {
-                    active_in_zone_hunting_log_quests.push(q);
-                }
-                return null;
-            });
-            return null;
-        };
-
-        let purpleOptions = { color: 'tan'};
+        let quest_count_icon_size = [33.5, 33.5];
+        
+        let purpleOptions = { color: 'tan'};    
         let iconSize = [780.78, 778.44];
         let iconPos = [21.45, -21.45]; 
 
@@ -136,26 +100,25 @@ class RegionMapCont extends Component {
                     this.removeMarker('highlighted');
                     this.removeMarker('popup');
                     let zone_name_icon = name.split(' ').join('');
-                    setActiveInZoneQuests(name);
+                    let main_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.main_starters, name)}.png`, quest_count_icon_size);
+                    let side_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.side_starters, name)}.png`, quest_count_icon_size);
+                    let hunting_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.hunting_starters, name)}.png`, quest_count_icon_size);
+                    let class_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.class_starters, name)}.png`, quest_count_icon_size);
                     let zoneIcon = new L.Icon({iconUrl: `./icons/zone_names/${zone_name_icon}ZoneName.png`,
                         iconSize: [143, 38.5]})
-                    let sideQuestNumber = new L.Icon({iconUrl: `./icons/quest_numbers/${active_in_zone_side_quests.length}.png`,
-                        iconSize: [33.5, 33.5]});
-                    let mainQuestNumber = new L.Icon({iconUrl: `./icons/quest_numbers/${active_in_zone_main_quests.length}.png`,
-                        iconSize: [33.5, 33.5]});
-                    let classQuestNumber = new L.Icon({iconUrl: `./icons/quest_numbers/${active_in_zone_class_quests.length}.png`,
-                        iconSize: [33.5, 33.5]});
-                    let huntingQuestNumber = new L.Icon({iconUrl: `./icons/quest_numbers/${active_in_zone_hunting_log_quests.length}.png`,
-                        iconSize: [33.5, 33.5]});
                     let zonePopup = new L.Icon({iconUrl: `./icons/zone_names/PopupContainer.png`,
                         iconSize: [182, 112]});
                     let highlightedZone = new L.Icon({iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
                         iconSize: iconSize});
                     this.addMarker([-27.95, 6.6], zoneIcon, 'zone');
-                    this.addMarker([-31.4, 9.4], classQuestNumber, 'zone');
-                    this.addMarker([-34.15, 9.4], mainQuestNumber, 'zone');
-                    this.addMarker([-36.9, 9.4], huntingQuestNumber, 'zone');
-                    this.addMarker([-39.65, 9.4], sideQuestNumber, 'zone');
+                    this.addMarker([-31.4, 9.4], class_quest_count_icon, 'zone');
+                    this.addMarker([-34.15, 9.4], main_quest_count_icon, 'zone');
+                    this.addMarker([-36.9, 9.4], hunting_quest_count_icon, 'zone');
+                    this.addMarker([-39.65, 9.4], side_quest_count_icon, 'zone');
                     this.addMarker([-popupPos[0], -popupPos[1]], zonePopup, 'popup');
                     this.addMarker([-popupNamePos[0], -popupNamePos[1]], zoneIcon, 'zone');
                     this.addMarker([-iconPos[0], -iconPos[1]], highlightedZone, 'highlighted');
@@ -185,30 +148,6 @@ class RegionMapCont extends Component {
                 <RegionMapComponent center={this.props.center} zoom={this.props.zoom} 
                 bounds={this.props.bounds} polygonCollection={polygonCollection} mapName={mapName} 
                 props={this.state} createPolygon={createPolygon} />
-                {/* <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
-                    minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
-                    maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '100%'}}>
-                    <ImageOverlay url={`./maps/${mapName}.png`} bounds={this.props.bounds} opacity={1} />
-                    {polygonCollection.map(zone => {
-                        return createPolygon(zone.polygon, zone.name, zone.popupPos, zone.popupNamePos);
-                    })}
-                    <LayerGroup>
-                        {this.state.markers.map(mar => {
-                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={250} />
-                        })};
-                        {this.state.highlightedMaps.map(map => {
-                            return <Marker key={Math.random()} position={map.position} icon={map.icon} interactive={false} 
-                            zIndexOffset={0} />
-                        })};
-                        {this.state.popupMarkers.map(mar => {
-                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={500} />
-                        })};
-                        {this.state.zoneMarkers.map(mar => {
-                            return <Marker key={Math.random()} position={mar.position} icon={mar.icon} zIndexOffset={1000} />
-                        })};
-                    </LayerGroup>
-                    {this.state.navigate && <Navigate to={this.state.navigateLink} replace={true} />}
-                </MapContainer> */}
             </Container>
         )
     }

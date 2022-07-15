@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.markercluster-map {
+  height: 100vh;
+}
+
+.customMarker {
+  background-image: url(../public/icons/cluster_icons/ClusterIcon.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.customMarkerActive {
+  background-image: url(../public/icons/cluster_icons/ClusterIconActive.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.customMarker span {
+  display: block;
+  margin-top: 5px;
+  margin-left: 13px;
+  color: #fff;
+}

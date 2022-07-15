@@ -81,52 +81,21 @@ class WorldMapCont extends Component {
         });
     };
 
-    makeMarkerIcon = (iconUrl, iconSize) => {
-        let icon = new L.Icon({iconUrl: iconUrl, iconSize: [iconSize[0], iconSize[1]],
-        })
-        return icon;
-    }
-
-
     render () {
-
-        let setQuestType = (quests, type) => {
-            return quests.filter(q => q.quest_type === type)
-        }
-
-        let setQuestStarters = (type) => {
-            let quests = setQuestType(this.props.active_quests, type).map(aq => {
-                let starter_npc = npcs.filter(npc => npc.id === aq.quest_npcs[0]);
-                return starter_npc[0];
-            });
-            return quests;
-        }
-
-        let setStartersLength = (quests, region) => {
-            return quests.filter(q => q.npc_zone.includes(region)).length
-        }
-
-        let createIcon = (url, size) => {
-            let icon = new L.Icon({
-                iconUrl: url,
-                iconSize: [size[0], size[1]],
-            });
-            return icon;
-        } 
 
         let createPolygon = (region, region_pos, region_icon, region_name_popup_pos, region_name_icon, region_popup_pos) => {
             let navLink = `/${region.split(" ").join('').toLowerCase()}`;
             return <Polygon positions={region_pos} pathOptions={polyOptions} opacity={.1} eventHandlers={{
                 mouseover: () => {
                     this.removeMarker('zone');
-                    let main_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
-                        (main_starters, region)}.png`, quest_count_icon_size);
-                    let side_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
-                        (side_starters, region)}.png`, quest_count_icon_size);
-                    let hunting_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
-                        (hunting_starters, region)}.png`, quest_count_icon_size);
-                    let class_quest_count_icon = this.makeMarkerIcon(`./icons/quest_numbers/${setStartersLength
-                        (class_starters, region)}.png`, quest_count_icon_size);
+                    let main_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.main_starters, region)}.png`, quest_count_icon_size);
+                    let side_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.side_starters, region)}.png`, quest_count_icon_size);
+                    let hunting_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.hunting_starters, region)}.png`, quest_count_icon_size);
+                    let class_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
+                        (this.props.quest_starters.class_starters, region)}.png`, quest_count_icon_size);
                     this.addMarker(highlight_pos, region_icon, 'highlighted');
                     this.addMarker(region_name_popup_pos, region_name_icon, 'zone');
                     this.addMarker(region_name_pos, region_name_icon, 'zone');
@@ -148,19 +117,14 @@ class WorldMapCont extends Component {
             }} />
         }
 
-        let npcs = this.props.npcs.npcs;
-        let class_starters = setQuestStarters('Class');
-        let main_starters = setQuestStarters('Main Story');
-        let hunting_starters = setQuestStarters('Hunting Log');
-        let side_starters = setQuestStarters('Side');
         let polyOptions = { color: 'tan' }
-        let la_noscea_icon = createIcon(`./maps/LaNosceaHighlighted.png`, [775.775, 773.45]);
-        let thanalan_icon = createIcon(`./maps/ThanalanHighlighted.png`, [775.775, 773.45]);
-        let the_black_shroud_icon = createIcon(`./maps/TheBlackShroudHighlighted.png`, [775.775, 773.45]);
-        let la_noscea_name_icon = createIcon(`./icons/region_names/LaNosceaRegionName.png`, [143, 38.5]);
-        let thanalan_name_icon = createIcon(`./icons/region_names/ThanalanRegionName.png`, [143, 38.5]);
-        let the_black_shroud_name_icon = createIcon(`./icons/region_names/TheBlackShroudRegionName.png`, [143, 38.5]);
-        let popup_marker = createIcon(`./icons/zone_names/PopupContainer.png`, [182, 112]);
+        let la_noscea_icon = this.props.createIcon(`./maps/LaNosceaHighlighted.png`, [775.775, 773.45]);
+        let thanalan_icon = this.props.createIcon(`./maps/ThanalanHighlighted.png`, [775.775, 773.45]);
+        let the_black_shroud_icon = this.props.createIcon(`./maps/TheBlackShroudHighlighted.png`, [775.775, 773.45]);
+        let la_noscea_name_icon = this.props.createIcon(`./icons/region_names/LaNosceaRegionName.png`, [143, 38.5]);
+        let thanalan_name_icon = this.props.createIcon(`./icons/region_names/ThanalanRegionName.png`, [143, 38.5]);
+        let the_black_shroud_name_icon = this.props.createIcon(`./icons/region_names/TheBlackShroudRegionName.png`, [143, 38.5]);
+        let popup_marker = this.props.createIcon(`./icons/zone_names/PopupContainer.png`, [182, 112]);
         let main_quest_count_icon_pos = [-34.7, 39.1];
         let side_quest_count_icon_pos = [-40.15, 39.1];
         let hunting_quest_count_icon_pos = [-37.4, 39.1];

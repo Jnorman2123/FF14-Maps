@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MapCont from './containers/MapCont';
+import ZoneMapCont from './containers/ZoneMapCont';
 import RegionMapCont from './containers/RegionMapCont';
 import WorldMapCont from './containers/WorldMapCont';
 import Home from './containers/Home';
 import Info from './containers/Info';
 import { LatLngBounds } from 'leaflet';
+import L from 'leaflet';
 import { connect } from 'react-redux';
 import { fetchNpcs } from './store/actions/npcs/npcActions';
 import { fetchQuests } from './store/actions/quests/questActions';
@@ -21,7 +22,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quest_id: null
+      quest_id: null,
+      key_markers: [
+        {icon: new L.Icon({iconUrl: `./icons/RegionKey.png`, iconSize: [195, 288]}), 
+        position: [-34, 36.25]}
+      ],
+      zone_markers: [
+          {icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegionName.png`, iconSize: [143, 38.5]}), 
+          position: [-28.6, 36.3]
+          },
+          {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+          position: [-31.9, 39.1]
+          },
+          {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+          position: [-34.7, 39.1]
+          },
+          {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+          position: [-37.4, 39.1]
+          },
+          {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+          position: [-40.15, 39.1]
+          }
+      ],
+      highlighted_markers: [],
+      popup_markers: [],
+      navigate: false,
+      navigate_link: '',
     }
   }
 
@@ -81,7 +107,75 @@ class App extends Component {
     })
   }
 
+  addMarker = (pos, icon, type) => {
+    let marker = {icon: icon, position: pos};
+      if (type === 'highlighted') {
+          this.setState({ highlighted_markers: [...this.state.highlighted_markers, marker]})
+      } else if (type === 'popup') {
+          this.setState({ popup_markers: [...this.state.popup_markers, marker]})
+      } else {
+          this.setState({ zone_markers: [...this.state.zone_markers, marker]})
+      }
+  };
+
+  removeMarker = (type) => {
+      if (type === 'highlighted') {
+          this.setState({highlighted_markers: []});
+      } else if (type === 'popup') {
+          this.setState({popup_markers: []});
+      } else {
+          this.setState({zone_markers: []});
+      }
+      
+  };
+
+  resetZoneMarkers = () => {
+      this.setState({zone_markers: 
+          [
+              {icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegionName.png`, iconSize: [143, 38.5]}),
+              position: [-28.6, 36.3]
+              },
+              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+              position: [-31.9, 39.1]
+              },
+              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+              position: [-34.7, 39.1]
+              },
+              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+              position: [-37.4, 39.1]
+              },
+              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
+              position: [-40.15, 39.1]
+              }
+          ],
+      });
+  };
+
+
   render() {
+
+    let setQuestType = (quests, type) => {
+      return quests.filter(q => q.quest_type === type)
+    }
+
+    let setQuestStarters = (type) => {
+        let quests = setQuestType(active_quests, type).map(aq => {
+            let starter_npc = npcs.filter(npc => npc.id === aq.quest_npcs[0]);
+            return starter_npc[0];
+        });
+        return quests;
+    }
+
+    let setStartersLength = (quests, region) => {
+        return quests.filter(q => q.npc_zone.includes(region)).length
+    }
+
+    let createIcon = (url, size) => {
+        let icon = new L.Icon({ iconUrl: url, iconSize: [size[0], size[1]]});
+        return icon;
+    } 
+
+    let npcs = this.props.npcs.npcs;
     let quests = this.props.quests.quests;
     let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
     let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
@@ -111,7 +205,13 @@ class App extends Component {
         return active_quests;
       });
     }
-    
+
+    let quest_starters = {
+      class_starters: setQuestStarters('Class'),
+      main_starters: setQuestStarters('Main Story'),
+      hunting_starters: setQuestStarters('Hunting Log'),
+      side_starters: setQuestStarters('Side')
+    };
     
     return (
       <BrowserRouter>
@@ -121,23 +221,27 @@ class App extends Component {
             <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
-            center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={active_quests} />} />
+            center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={active_quests} 
+            setStartersLength={setStartersLength} createIcon={createIcon} setQuestType={setQuestType} 
+            quest_starters={quest_starters} addMarker={this.addMarker} removeMarker={this.removeMarker} 
+            resetZoneMarkers={this.resetZoneMarkers}  />} />
             {this.props.region_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
               element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
               zoom={4.25} minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} active_quests={active_quests} />} />
+              revertLat={this.revertLat} active_quests={active_quests} setStartersLength={setStartersLength} 
+              createIcon={createIcon} setQuestType={setQuestType} quest_starters={quest_starters} />} />
             })}
             {this.props.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
-              minZoom={5} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
+              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
+              minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} />} />
             })}
             {this.props.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<MapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
-              minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
+              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
+              minZoom={4} maxZoom={9} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} />} />
             })}
             </Route>
@@ -159,6 +263,7 @@ const mapStateToProps = (storeData) => {
       quest_types: storeData.storeData.quest_types,
       quests: storeData.quests,
       jobs: storeData.jobs,
+      npcs: storeData.npcs,
   }
 }
 

@@ -4,7 +4,7 @@ class Info extends Component {
     render() {
         return (
             <div>
-                <img src='./maps/Dravania.png' />
+                <img src='./icons/CentralShroud.jpg' />
             </div>
         )
     }
