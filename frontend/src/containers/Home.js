@@ -6,7 +6,6 @@ import QuestInfoContainer from './QuestInfoContainer';
 import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 class Home extends Component {
 
@@ -26,7 +25,7 @@ class Home extends Component {
                             <Outlet />
                         </Col>
                         <Col className='bg-dark'>
-                            <QuestInfoContainer q_id={this.props.q_id} />
+                            <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
                         </Col>
                     </Row>
                 </Container>       
@@ -35,10 +34,4 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (storeData) => ({
-    classes: storeData.storeData.classes,
-    quest_levels: storeData.storeData.quest_levels,
-    quest_types: storeData.storeData.quest_types,
-})
-
-export default connect(mapStateToProps)(Home);
+export default Home;

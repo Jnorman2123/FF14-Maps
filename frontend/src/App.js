@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ZoneMapCont from './containers/ZoneMapCont';
+import InsideZoneMapCont from './containers/InsideZoneMapCont';
 import RegionMapCont from './containers/RegionMapCont';
 import WorldMapCont from './containers/WorldMapCont';
 import Home from './containers/Home';
@@ -48,6 +49,7 @@ class App extends Component {
       popup_markers: [],
       navigate: false,
       navigate_link: '',
+      toggled_quests: [],
     }
   }
 
@@ -151,6 +153,17 @@ class App extends Component {
       });
   };
 
+  toggleQuest = (marker, quest_col) => {
+    if (!this.state.toggled_quests.includes(marker.quest) && quest_col.includes(marker.quest)) {
+        this.setState({
+            toggled_quests: [...this.state.toggled_quests, marker.quest],
+        })
+    } else {
+        this.setState({
+            toggled_quests: this.state.toggled_quests.filter(q => q !== marker.quest),
+        })
+    }
+  }
 
   render() {
 
@@ -216,8 +229,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home q_id={this.state.quest_id} setClassActive={this.setClassActive} 
-          setLevelActive={this.setLevelActive} setTypeActive={this.setTypeActive} />} >
+          <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
+          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} />} >
             <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
@@ -228,21 +241,23 @@ class App extends Component {
             {this.props.region_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
               element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
-              zoom={4.25} minZoom={4} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
+              zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} active_quests={active_quests} setStartersLength={setStartersLength} 
               createIcon={createIcon} setQuestType={setQuestType} quest_starters={quest_starters} />} />
             })}
             {this.props.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} zoom={5}
-              minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} />} />
+              element={<InsideZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
+              zoom={5.3} minZoom={5.3} maxZoom={9} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
+              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
+              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} />} />
             })}
             {this.props.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} zoom={4}
-              minZoom={4} maxZoom={9} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} />} />
+              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
+              zoom={4.25} minZoom={4.25} maxZoom={9} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
+              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
+              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} />} />
             })}
             </Route>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />

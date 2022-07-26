@@ -4,7 +4,7 @@ class QuestInfo extends Component {
     render() {
         return (
             <>
-                {this.props.renderQuestInfo(this.props.active_quest)}
+                {this.props.renderQuestInfo(this.props.toggled_quests)}
             </>
         )
     }
