@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ZoneMapCont from './containers/ZoneMapCont';
-import InsideZoneMapCont from './containers/InsideZoneMapCont';
 import RegionMapCont from './containers/RegionMapCont';
 import WorldMapCont from './containers/WorldMapCont';
 import Home from './containers/Home';
@@ -247,17 +246,17 @@ class App extends Component {
             })}
             {this.props.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<InsideZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
-              zoom={5.3} minZoom={5.3} maxZoom={9} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
+              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
+              zoom={5.3} minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
               revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
-              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} />} />
+              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={true} />} />
             })}
             {this.props.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
-              zoom={4.25} minZoom={4.25} maxZoom={9} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
+              zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
               revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
-              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} />} />
+              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={false} />} />
             })}
             </Route>
           <Route path='*' element={<div><p>There is nothing here.</p></div>} />

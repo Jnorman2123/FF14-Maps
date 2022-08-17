@@ -11,7 +11,6 @@ import QuestInfo from '../components/QuestInfo';
 class QuestInfoContainer extends Component {
 
     renderQuestInfo = (toggled_quests) => {
-        console.log(this.props);
         return <Container className='bg-primary'>
             {toggled_quests.map(quest => {
                 let quest_reward = this.props.rewards.rewards.filter(reward => reward.id === quest.quest_reward);
