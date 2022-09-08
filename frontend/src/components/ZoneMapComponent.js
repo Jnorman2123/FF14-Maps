@@ -1,19 +1,34 @@
-import React, { Component } from 'react';
-import { MapContainer, ImageOverlay, Marker } from 'react-leaflet';
+import React, { useState } from 'react';
+import { MapContainer, ImageOverlay, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 
-class ZoneMapComponent extends Component {
-    render() {
-        return (    
-            <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
-            minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
-            maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '825px', width: '100%'}} >
-                <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} />
-                {this.props.renderMarkers(this.props.unclustered_markers)}
-                <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={this.props.legend_icon} />
-            </MapContainer>
-        );
+function ZoneLegend(props) {
+    const [zoomLevel, setZoomLevel] = useState(props.props.zoom);
+    
+    const mapEvents = useMapEvents({
+        zoomend: () => {
+            setZoomLevel(mapEvents.getZoom());
+        },
+    });
+
+    if (zoomLevel === 4.25) {
+        return <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={props.props.legend_icon} />
+    } else {
+        return null;
     }
+}
+
+function ZoneMapComponent(props) {
+    
+    return (    
+        <MapContainer crs={L.CRS.Simple} center={props.center} zoom={props.zoom} 
+        minZoom={props.minZoom} maxZoom={props.maxZoom} maxBounds={props.bounds} 
+        maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '825px', width: '100%'}} >
+            <ImageOverlay url={`./maps/${props.mapName}.jpg`} bounds={props.bounds} opacity={1} />
+            {props.renderMarkers(props.unclustered_markers)}
+            <ZoneLegend props={props} />
+        </MapContainer>
+    );
 }
 
 export default ZoneMapComponent;

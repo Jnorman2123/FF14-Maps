@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapContainer, Marker, ImageOverlay, LayerGroup, Tooltip } from 'react-leaflet';
+import { Marker, LayerGroup, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import '../App.css';
