@@ -12,3 +12,4 @@ export const SHADOWBRINGERS_REGIONS = 'shadowbringers_regions';
 export const ENDWALKER_REGIONS = 'endwalker_regions';
 export const ZONE_ATTRIBUTES = 'zone_attributes';
 export const REGION_ATTRIBUTES = 'region_attributes';
+export const LEGEND_ICON_ATTRIBUTES = 'legend_icon_attributes';

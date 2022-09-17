@@ -1,6 +1,6 @@
 import { CLASSES, QUEST_TYPES, QUEST_LEVELS, INSIDE_ZONE_NAMES, OUTSIDE_ZONE_NAMES, REGION_NAMES,
         ZONES, ORIGINAL_REGIONS, HEAVENSWARD_REGIONS, STORMBLOOD_REGIONS, ENDWALKER_REGIONS, 
-        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES, REGION_ATTRIBUTES} from "./dataTypes";
+        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES, REGION_ATTRIBUTES, LEGEND_ICON_ATTRIBUTES} from "./dataTypes";
 
 export const initialData = {
     [CLASSES] : [
@@ -389,6 +389,24 @@ export const initialData = {
             popupPos: [-12, 28],
             popupNamePos: [-11.75, 28]
         }, 
-    ]
+    ],
+    [LEGEND_ICON_ATTRIBUTES] : {
+        legend_size: [121.5, 90.5],
+        vert_arrow_size: [59.5, 42.5],
+        hor_arrow_size: [42.5, 59.5],
+        legend_num_size: [30.5, 25],
+        legend_z_offset: 250,
+        arrow_z_offset: 100,
+        legend_num_z_offset: 500,
+        vert_arrow_offset: 2.5,
+        hor_arrow_offest: 3.5,
+        top_num_offset: 0.9,
+        bot_num_offset: -0.75,
+        left_num_offset: -0.5,
+        right_num_offset: 1.75,
+        la_noscea_legend_pos: [-32, 9],
+        thanalan_legend_pos: [-31, 29.5],
+        the_black_shroud_legend_pos: [-18, 36],
+    }
 }
 

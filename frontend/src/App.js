@@ -178,8 +178,8 @@ class App extends Component {
         return quests;
     }
 
-    let setStartersLength = (quests, region) => {
-        return quests.filter(q => q.npc_zone.includes(region)).length
+    let setStartersLength = (starters, area) => {
+        return starters.filter(q => q.npc_zone.includes(area)).length
     }
 
     let createIcon = (url, size) => {

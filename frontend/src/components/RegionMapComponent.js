@@ -9,7 +9,7 @@ class RegionMapComponent extends Component {
             <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                 maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '100%'}}>
-                <ImageOverlay url={`./maps/${this.props.mapName}.png`} bounds={this.props.bounds} opacity={1} />
+                <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} />
                 {this.props.polygonCollection.map(zone => {
                     return this.props.createPolygon(zone.polygon, zone.name, zone.popupPos, zone.popupNamePos);
                 })}
