@@ -19,11 +19,11 @@ class WorldMapComponent extends Component {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
                     zIndexOffset={marker.z_offset}/>
                 })};
-                {Object.values(this.props.props.thanalan_key_markers).map(marker => {
+                {this.props.thanalan_legend_icons.map(marker => {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
                     zIndexOffset={marker.z_offset}/>
                 })};
-                {Object.values(this.props.props.the_black_shroud_key_markers).map(marker => {
+                {this.props.the_black_shroud_legend_icons.map(marker => {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
                     zIndexOffset={marker.z_offset}/>
                 })};

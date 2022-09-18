@@ -399,7 +399,7 @@ export const initialData = {
         arrow_z_offset: 100,
         legend_num_z_offset: 500,
         vert_arrow_offset: 2.5,
-        hor_arrow_offest: 3.5,
+        hor_arrow_offset: 3.5,
         top_num_offset: 0.9,
         bot_num_offset: -0.75,
         left_num_offset: -0.5,
