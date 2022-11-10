@@ -370,6 +370,7 @@ export const initialData = {
         the_black_shroud_legend_pos: [-18, 36],
     },
     [LA_NOSCEA_MAP_ATTRIBUTES] : {
+        la_noscea_name_pos: [0,0],
         limsa_lominsa_upper_decks_legend_pos: [-32, 9],
         limsa_lominsa_lower_decks_legend_pos: [-32, 9],
         middle_la_noscea_legend_pos: [-31, 29.5],
@@ -380,6 +381,7 @@ export const initialData = {
         outer_la_noscea_legend_pos: [-31, 29.5],
     },
     [THE_BLACK_SHROUD_MAP_ATTRIBUTES] : {
+        the_black_shroud_name_pos: [0,0],
         old_gridania_legend_pos: [-32, 9],
         new_gridania_legend_pos: [-31, 29.5],
         east_shroud_legend_pos: [-18, 36],
@@ -388,6 +390,7 @@ export const initialData = {
         south_shroud_legend_pos: [-18, 36],
     },
     [THANALAN_MAP_ATTRIBUTES] : {
+        thanalan_name_pos: [0,0],
         uldah_steps_of_nald_legend_pos: [-32, 9],
         uldah_steps_of_thal_legend_pos: [-32, 9],
         hustings_strip_legend_pos: [0, 0],

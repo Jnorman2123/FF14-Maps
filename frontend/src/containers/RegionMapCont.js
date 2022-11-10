@@ -84,6 +84,9 @@ class RegionMapCont extends Component {
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
+        let la_nos_map_attrs = this.props.la_noscea_map_attributes;
+        let black_shroud_map_attrs = this.props.the_black_shroud_map_attributes;
+        let than_map_attrs = this.props.thanalan_map_attributes;
         let quest_count_icon_size = [33.5, 33.5];
         
         let purpleOptions = { color: 'tan'};    
@@ -155,6 +158,9 @@ class RegionMapCont extends Component {
 
 const mapStateToProps = (storeData) => ({
     npcs: storeData.npcs,
+    la_noscea_map_attributes: storeData.storeData.la_noscea_map_attributes,
+    the_black_shroud_map_attributes: storeData.storeData.the_black_shroud_map_attributes,
+    thanalan_map_attributes: storeData.storeData.thanalan_map_attributes,
     zone_attributes: storeData.storeData.zone_attributes
 })
 
