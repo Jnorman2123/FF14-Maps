@@ -12,4 +12,7 @@ export const SHADOWBRINGERS_REGIONS = 'shadowbringers_regions';
 export const ENDWALKER_REGIONS = 'endwalker_regions';
 export const ZONE_ATTRIBUTES = 'zone_attributes';
 export const WORLD_MAP_ATTRIBUTES = 'world_map_attributes';
+export const LA_NOSCEA_MAP_ATTRIBUTES = 'la_noscea_map_attributes';
+export const THE_BLACK_SHROUD_MAP_ATTRIBUTES = 'the_black_shroud_map_attributes';
+export const THANALAN_MAP_ATTRIBUTES = 'thanalan_map_attributes';
 export const LEGEND_ICON_ATTRIBUTES = 'legend_icon_attributes';

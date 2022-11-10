@@ -1,6 +1,7 @@
 import { CLASSES, QUEST_TYPES, QUEST_LEVELS, INSIDE_ZONE_NAMES, OUTSIDE_ZONE_NAMES, REGION_NAMES,
         ZONES, ORIGINAL_REGIONS, HEAVENSWARD_REGIONS, STORMBLOOD_REGIONS, ENDWALKER_REGIONS, 
-        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES, WORLD_MAP_ATTRIBUTES, LEGEND_ICON_ATTRIBUTES} from "./dataTypes";
+        SHADOWBRINGERS_REGIONS, ZONE_ATTRIBUTES, WORLD_MAP_ATTRIBUTES, LA_NOSCEA_MAP_ATTRIBUTES,
+        THE_BLACK_SHROUD_MAP_ATTRIBUTES, THANALAN_MAP_ATTRIBUTES, LEGEND_ICON_ATTRIBUTES} from "./dataTypes";
 
 export const initialData = {
     [CLASSES] : [
@@ -367,6 +368,34 @@ export const initialData = {
         la_noscea_legend_pos: [-32, 9],
         thanalan_legend_pos: [-31, 29.5],
         the_black_shroud_legend_pos: [-18, 36],
+    },
+    [LA_NOSCEA_MAP_ATTRIBUTES] : {
+        limsa_lominsa_upper_decks_legend_pos: [-32, 9],
+        limsa_lominsa_lower_decks_legend_pos: [-32, 9],
+        middle_la_noscea_legend_pos: [-31, 29.5],
+        lower_la_noscea_legend_pos: [-31, 29.5],
+        eastern_la_noscea_legend_pos: [-31, 29.5],
+        western_la_noscea_legend_pos: [-31, 29.5],
+        upper_la_noscea_legend_pos: [-31, 29.5],
+        outer_la_noscea_legend_pos: [-31, 29.5],
+    },
+    [THE_BLACK_SHROUD_MAP_ATTRIBUTES] : {
+        old_gridania_legend_pos: [-32, 9],
+        new_gridania_legend_pos: [-31, 29.5],
+        east_shroud_legend_pos: [-18, 36],
+        north_shroud_legend_pos: [-18, 36],
+        central_shroud_legend_pos: [-18, 36],
+        south_shroud_legend_pos: [-18, 36],
+    },
+    [THANALAN_MAP_ATTRIBUTES] : {
+        uldah_steps_of_nald_legend_pos: [-32, 9],
+        uldah_steps_of_thal_legend_pos: [-32, 9],
+        hustings_strip_legend_pos: [0, 0],
+        western_thanalan_legend_pos: [-31, 29.5],
+        eastern_thanalan_legend_pos: [-31, 29.5],
+        central_thanalan_legend_pos: [-31, 29.5],
+        southern_thanalan_legend_pos: [-31, 29.5],
+        northern_thanalan_legend_pos: [-31, 29.5],
     },
     [LEGEND_ICON_ATTRIBUTES] : {
         legend_size: [121.5, 90.5],
