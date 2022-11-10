@@ -83,6 +83,7 @@ class WorldMapCont extends Component {
 
     render () {
         let leg_attrs = this.props.legend_icon_attributes;
+        let world_map_attrs = this.props.world_map_attributes;
 
         let createHoverOverlay = (region, region_icon, region_name_icon, highlight_pos) => {
             let navLink = `/${region.split(" ").join('').toLowerCase()}`;
@@ -91,11 +92,11 @@ class WorldMapCont extends Component {
             let legend_overlay = new L.Icon({iconUrl: legend_overlay_icon, 
                 iconSize: leg_attrs.legend_size});
             if (region === 'La Noscea') {
-                legend_overlay_pos = leg_attrs.la_noscea_legend_pos;
+                legend_overlay_pos = world_map_attrs.la_noscea_legend_pos;
             } else if (region === 'Thanalan') {
-                legend_overlay_pos = leg_attrs.thanalan_legend_pos;
+                legend_overlay_pos = world_map_attrs.thanalan_legend_pos;
             } else {
-                legend_overlay_pos = leg_attrs.the_black_shroud_legend_pos;
+                legend_overlay_pos = world_map_attrs.the_black_shroud_legend_pos;
             }
 
             return <Marker key={Math.random()} icon={legend_overlay} position={legend_overlay_pos} 
@@ -134,19 +135,19 @@ class WorldMapCont extends Component {
                 this.props.setStartersLength(quests.hunting_starters, region)}.png`;
 
             if (region === 'La Noscea') {
-                legend_pos = leg_attrs.la_noscea_legend_pos;
+                legend_pos = world_map_attrs.la_noscea_legend_pos;
                 arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
                 arrow_size = leg_attrs.vert_arrow_size;
                 arrow_offset = leg_attrs.vert_arrow_offset;
                 arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
             } else if (region === 'Thanalan') {
-                legend_pos = leg_attrs.thanalan_legend_pos;
+                legend_pos = world_map_attrs.thanalan_legend_pos;
                 arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                 arrow_size = leg_attrs.hor_arrow_size;
                 arrow_offset = -leg_attrs.hor_arrow_offset;
                 arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
             } else {
-                legend_pos = leg_attrs.the_black_shroud_legend_pos;
+                legend_pos = world_map_attrs.the_black_shroud_legend_pos;
                 arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                 arrow_size = leg_attrs.hor_arrow_size;
                 arrow_offset = -leg_attrs.hor_arrow_offset;
@@ -206,7 +207,7 @@ class WorldMapCont extends Component {
 
 const mapStateToProps = (storeData) => ({
     npcs: storeData.npcs,
-    region_attributes: storeData.storeData.region_attributes, 
+    world_map_attributes: storeData.storeData.world_map_attributes,
     legend_icon_attributes: storeData.storeData.legend_icon_attributes,
 })
 
