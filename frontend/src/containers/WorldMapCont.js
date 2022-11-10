@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Polygon } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
@@ -82,15 +82,29 @@ class WorldMapCont extends Component {
     };
 
     render () {
-        let reg_attrs = this.props.region_attributes;
         let leg_attrs = this.props.legend_icon_attributes;
 
-        let createPolygon = (region, region_pos, region_icon, region_name_icon, highlight_pos) => {
+        let createHoverOverlay = (region, region_icon, region_name_icon, highlight_pos) => {
             let navLink = `/${region.split(" ").join('').toLowerCase()}`;
-            return <Polygon positions={region_pos} pathOptions={polyOptions} opacity={.1} eventHandlers={{
+            let legend_overlay_pos = null;
+            let legend_overlay_icon = `./icons/quest_legend_icons/QuestTotalsBoxHoverOverlay.png`;
+            let legend_overlay = new L.Icon({iconUrl: legend_overlay_icon, 
+                iconSize: leg_attrs.legend_size});
+            if (region === 'La Noscea') {
+                legend_overlay_pos = leg_attrs.la_noscea_legend_pos;
+            } else if (region === 'Thanalan') {
+                legend_overlay_pos = leg_attrs.thanalan_legend_pos;
+            } else {
+                legend_overlay_pos = leg_attrs.the_black_shroud_legend_pos;
+            }
+
+            return <Marker key={Math.random()} icon={legend_overlay} position={legend_overlay_pos} 
+            zIndexOffset={1500} opacity={.1}  eventHandlers={{
                 mouseover: () => {
-                    this.addMarker(highlight_pos, region_icon);
+                    if (this.state.highlighted_markers.length === 0) {
+                        this.addMarker(highlight_pos, region_icon);
                     this.setZoneMarker(region_name_icon);
+                    }
                 },
                 mouseout: () => {
                     this.removeMarker();
@@ -160,10 +174,7 @@ class WorldMapCont extends Component {
             
             return legend_icons;
         }
-        console.log(leg_attrs);
 
-        
-        let polyOptions = { color: 'tan' }
         let la_noscea_icon = this.props.createIcon(`./highlighted_maps/LaNosceaHighlighted.jpg`, [220.1, 234.05]);
         let thanalan_icon = this.props.createIcon(`./highlighted_maps/ThanalanHighlighted.jpg`, [283.65, 262.725]);
         let the_black_shroud_icon = this.props.createIcon(`./highlighted_maps/TheBlackShroudHighlighted.jpg`, [279.775, 257.3]);
@@ -173,22 +184,21 @@ class WorldMapCont extends Component {
         let la_noscea_highlight_pos = [-23.46, 9.375];
         let thanalan_highlight_pos = [-30.51, 22.375];
         let the_black_shroud_highlight_pos = [-19.2, 28.45];
-        let la_noscea_polygon = createPolygon(reg_attrs[0].name, reg_attrs[0].polygon, la_noscea_icon, la_noscea_name_icon, 
-            la_noscea_highlight_pos);
-        let thanalan_polygon = createPolygon(reg_attrs[1].name, reg_attrs[1].polygon, thanalan_icon, thanalan_name_icon, 
-            thanalan_highlight_pos);
-        let the_black_shroud_polygon = createPolygon(reg_attrs[2].name, reg_attrs[2].polygon, the_black_shroud_icon, 
-            the_black_shroud_name_icon, the_black_shroud_highlight_pos);
         let la_noscea_legend_icons = createRegionLegend(this.props.quest_starters, 'La Noscea');
         let thanalan_legend_icons = createRegionLegend(this.props.quest_starters, 'Thanalan')
         let the_black_shroud_legend_icons = createRegionLegend(this.props.quest_starters, 'The Black Shroud')
+        let la_noscea_overlay = createHoverOverlay('La Noscea', la_noscea_icon, la_noscea_name_icon, la_noscea_highlight_pos);
+        let thanalan_overlay = createHoverOverlay('Thanalan', thanalan_icon, thanalan_name_icon, thanalan_highlight_pos);
+        let the_black_shroud_overlay = createHoverOverlay('The Black Shroud', the_black_shroud_icon, the_black_shroud_name_icon, 
+        the_black_shroud_highlight_pos);
+        let hover_overlays = [la_noscea_overlay, thanalan_overlay, the_black_shroud_overlay]
 
         return (
             <Container>
                 <WorldMapComponent mapName={this.props.mapName} bounds={this.props.bounds} center={this.props.center} 
-                zoom={this.props.zoom} props={this.state} la_noscea={la_noscea_polygon} thanalan={thanalan_polygon}
-                the_black_shroud={the_black_shroud_polygon} la_noscea_legend_icons={la_noscea_legend_icons} 
-                thanalan_legend_icons={thanalan_legend_icons} the_black_shroud_legend_icons={the_black_shroud_legend_icons} />
+                zoom={this.props.zoom} props={this.state} createHoverOverlay={this.createHoverOverlay} 
+                la_noscea_legend_icons={la_noscea_legend_icons} thanalan_legend_icons={thanalan_legend_icons} 
+                the_black_shroud_legend_icons={the_black_shroud_legend_icons} hover_overlays={hover_overlays} />
             </Container>
         )
     }

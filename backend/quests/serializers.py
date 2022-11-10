@@ -52,7 +52,7 @@ class RewardSerializer(serializers.ModelSerializer):
 class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Step
-        fields = ("step_description", "quest_step", "step_npc")
+        fields = ("id", "step_description", "quest_step", "step_npc")
 
         def to_representation(self, instance):
             data = super().to_representation(instance)
