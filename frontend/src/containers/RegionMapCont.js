@@ -12,7 +12,7 @@ class RegionMapCont extends Component {
             la_noscea_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
                 position: [-7.6, 33.2]},
             the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]},
+                position: [-7.3, 21.5]},
             thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
                 position: [-7.6, 33.2]},
             highlighted_markers: [],
@@ -37,7 +37,7 @@ class RegionMapCont extends Component {
                 position: [-7.6, 33.2]}});
         } else if (this.props.mapName === 'The Black Shroud') {
             this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]}});
+                position: [-7.3, 21.5]}});
         } else {
             this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
                 position: [-7.6, 33.2]}});
@@ -52,7 +52,7 @@ class RegionMapCont extends Component {
         iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
         } else if (this.props.mapName === 'The Black Shroud') {
             this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        iconSize: [205.7, 34.85]}), position: [-7.3, 21.5]}});
         } else {
             this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
         iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
@@ -246,38 +246,38 @@ class RegionMapCont extends Component {
                     break
                 case 'New Gridania':
                     legend_pos = black_shroud_map_attrs.new_gridania_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case 'East Shroud':
                     legend_pos = black_shroud_map_attrs.east_shroud_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case 'North Shroud':
                     legend_pos = black_shroud_map_attrs.north_shroud_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case 'Central Shroud':
                     legend_pos = black_shroud_map_attrs.central_shroud_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case 'South Shroud':
                     legend_pos = black_shroud_map_attrs.south_shroud_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case `Ul'dah - Steps of Nald`:
                     legend_pos = than_map_attrs.uldah_steps_of_nald_legend_pos;
