@@ -10,11 +10,11 @@ class RegionMapCont extends Component {
         super(props);
         this.state = {
             la_noscea_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]},
+                position: [-7.3, 33.2]},
             the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
                 position: [-7.3, 21.5]},
             thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]},
+                position: [-7.3, 10]},
             highlighted_markers: [],
             navigate: false,
             navigateLink: '',
@@ -34,13 +34,13 @@ class RegionMapCont extends Component {
     setZoneMarker = (zone_icon) => {
         if (this.props.mapName === "La Noscea") {
             this.setState({la_noscea_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]}});
+                position: [-7.3, 33.2]}});
         } else if (this.props.mapName === 'The Black Shroud') {
             this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
                 position: [-7.3, 21.5]}});
         } else {
             this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
-                position: [-7.6, 33.2]}});
+                position: [-7.3, 10]}});
         }
 
         
@@ -49,13 +49,13 @@ class RegionMapCont extends Component {
     resetZoneMarker = () => {
         if (this.props.mapName === "La Noscea") {
             this.setState({la_noscea_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        iconSize: [205.7, 34.85]}), position: [-7.3, 33.2]}});
         } else if (this.props.mapName === 'The Black Shroud') {
             this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
         iconSize: [205.7, 34.85]}), position: [-7.3, 21.5]}});
         } else {
             this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        iconSize: [205.7, 34.85]}), position: [-7.3, 10]}});
         }
     }
 
@@ -288,45 +288,45 @@ class RegionMapCont extends Component {
                     break
                 case `Ul'dah - Steps of Thal`:
                     legend_pos = than_map_attrs.uldah_steps_of_thal_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                     arrow_size = leg_attrs.hor_arrow_size;
                     arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_pos = [legend_pos[0], legend_pos[1] - arrow_offset];
                     break
                 case 'Hustings Strip':
                     legend_pos = than_map_attrs.hustings_strip_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
                     break
                 case 'Western Thanalan':
                     legend_pos = than_map_attrs.western_thanalan_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                     arrow_size = leg_attrs.hor_arrow_size;
                     arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_pos = [legend_pos[0], legend_pos[1] - arrow_offset];
                     break
                 case 'Eastern Thanalan':
                     legend_pos = than_map_attrs.eastern_thanalan_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] - arrow_offset, legend_pos[1]];
                     break
                 case 'Central Thanalan':
                     legend_pos = than_map_attrs.central_thanalan_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                     arrow_size = leg_attrs.hor_arrow_size;
                     arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_pos = [legend_pos[0], legend_pos[1] - arrow_offset];
                     break
                 case 'Southern Thanalan':
                     legend_pos = than_map_attrs.southern_thanalan_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
                     arrow_size = leg_attrs.hor_arrow_size;
                     arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    arrow_pos = [legend_pos[0], legend_pos[1] - arrow_offset];
                     break
                 case 'Northern Thanalan':
                     legend_pos = than_map_attrs.northern_thanalan_legend_pos;
@@ -382,7 +382,7 @@ class RegionMapCont extends Component {
         let uldah_steps_of_thal_name_icon = `./icons/zone_names/Ul'dah-StepsofThal.png`;
         let hustings_strip_name_icon = `./icons/zone_names/HustingsStrip.png`;
         let western_thanalan_name_icon = `./icons/zone_names/WesternThanalan.png`;
-        let eastern_thanalan_name_icon = `./icons/zone_names/EasternThalanan.png`;
+        let eastern_thanalan_name_icon = `./icons/zone_names/EasternThanalan.png`;
         let central_thanalan_name_icon = `./icons/zone_names/CentralThanalan.png`;
         let southern_thanalan_name_icon = `./icons/zone_names/SouthernThanalan.png`;
         let northern_thanalan_name_icon = `./icons/zone_names/NorthernThanalan.png`;
