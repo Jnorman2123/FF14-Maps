@@ -9,7 +9,11 @@ class RegionMapCont extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
+            la_noscea_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]},
+            the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]},
+            thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
                 position: [-7.6, 33.2]},
             highlighted_markers: [],
             navigate: false,
@@ -28,19 +32,39 @@ class RegionMapCont extends Component {
     };
 
     setZoneMarker = (zone_icon) => {
-        this.setState({zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
-        position: [-7.6, 33.2]}});
+        if (this.props.mapName === "La Noscea") {
+            this.setState({la_noscea_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]}});
+        } else if (this.props.mapName === 'The Black Shroud') {
+            this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]}});
+        } else {
+            this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]}});
+        }
+
+        
     }
 
     resetZoneMarker = () => {
-        this.setState({zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}})
+        if (this.props.mapName === "La Noscea") {
+            this.setState({la_noscea_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
+        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        } else if (this.props.mapName === 'The Black Shroud') {
+            this.setState({the_black_shroud_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
+        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        } else {
+            this.setState({thanalan_zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
+        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}});
+        }
     }
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
         let leg_attrs = this.props.leg_attrs;
         let la_nos_map_attrs = this.props.la_nos_map_attrs;
+        let black_shroud_map_attrs = this.props.black_shroud_map_attrs;
+        let than_map_attrs = this.props.than_map_attrs;
 
         let createHoverOverlay = (zone, zone_name_icon) => {
             let navLink = `/${zone.split(" ").join('').toLowerCase()}`;
@@ -48,47 +72,102 @@ class RegionMapCont extends Component {
             let legend_overlay_icon = `./icons/quest_legend_icons/QuestTotalsBoxHoverOverlay.png`;
             let legend_overlay = new L.Icon({iconUrl: legend_overlay_icon, 
                 iconSize: leg_attrs.legend_size});
-            switch (zone) {
-                case 'Limsa Lominsa Upper Decks':
-                    legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_upper_decks_legend_pos;
-                    break
-                case 'Limsa Lominsa Lower Decks':
-                    legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
-                    break
-                case 'Middle La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.middle_la_noscea_legend_pos;
-                    break
-                case 'Lower La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.lower_la_noscea_legend_pos;
-                    break
-                case 'Eastern La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.eastern_la_noscea_legend_pos;
-                    break
-                case 'Western La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.western_la_noscea_legend_pos;
-                    break
-                case 'Upper La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.upper_la_noscea_legend_pos;
-                    break
-                case 'Outer La Noscea':
-                    legend_overlay_pos = la_nos_map_attrs.outer_la_noscea_legend_pos;
-                    break
-                default: 
-                    break
+            
+            if (this.props.mapName === 'La Noscea') {
+                switch (zone) {
+                    case 'Limsa Lominsa Upper Decks':
+                        legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_upper_decks_legend_pos;
+                        break
+                    case 'Limsa Lominsa Lower Decks':
+                        legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
+                        break
+                    case 'Middle La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.middle_la_noscea_legend_pos;
+                        break
+                    case 'Lower La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.lower_la_noscea_legend_pos;
+                        break
+                    case 'Eastern La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.eastern_la_noscea_legend_pos;
+                        break
+                    case 'Western La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.western_la_noscea_legend_pos;
+                        break
+                    case 'Upper La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.upper_la_noscea_legend_pos;
+                        break
+                    case 'Outer La Noscea':
+                        legend_overlay_pos = la_nos_map_attrs.outer_la_noscea_legend_pos;
+                        break
+                    default: 
+                        break
+                }
+            } else if (this.props.mapName === 'The Black Shroud') {
+                switch (zone) {
+                    case 'Old Gridania':
+                        legend_overlay_pos = black_shroud_map_attrs.old_gridania_legend_pos;
+                        break
+                    case 'New Gridania':
+                        legend_overlay_pos = black_shroud_map_attrs.new_gridania_legend_pos;
+                        break
+                    case 'East Shroud':
+                        legend_overlay_pos = black_shroud_map_attrs.east_shroudlegend_pos;
+                        break
+                    case 'North Shroud':
+                        legend_overlay_pos = black_shroud_map_attrs.north_shroud_legend_pos;
+                        break
+                    case 'Central Shroud':
+                        legend_overlay_pos = black_shroud_map_attrs.central_shroud_legend_pos;
+                        break
+                    case 'South Shroud':
+                        legend_overlay_pos = black_shroud_map_attrs.south_shroud_legend_pos;
+                        break
+                    default: 
+                        break
+                }
+            } else {
+                switch (zone) {
+                    case `Ul'dah - Steps of Nald`:
+                        legend_overlay_pos = than_map_attrs.uldah_steps_of_nald_legend_pos;
+                        break
+                    case `Ul'dah - Steps of Thal`:
+                        legend_overlay_pos = than_map_attrs.uldah_steps_of_thal_legend_pos;
+                        break
+                    case 'Hustings Strip':
+                        legend_overlay_pos = than_map_attrs.hustings_strip_legend_pos;
+                        break
+                    case 'Western Thanalan':
+                        legend_overlay_pos = than_map_attrs.western_thanalan_legend_pos;
+                        break
+                    case 'Eastern Thanalan':
+                        legend_overlay_pos = than_map_attrs.eastern_thanalan_legend_pos;
+                        break
+                    case 'Central Thanalan':
+                        legend_overlay_pos = than_map_attrs.central_thanalan_legend_pos;
+                        break
+                    case 'Southern Thanalan':
+                        legend_overlay_pos = than_map_attrs.southern_thanalan_legend_pos;
+                        break
+                    case 'Northern Thanalan':
+                        legend_overlay_pos = than_map_attrs.northern_thanalan_legend_pos;
+                        break
+                    default: 
+                        break
+                }
             }
+            
 
             return <Marker key={Math.random()} icon={legend_overlay} position={legend_overlay_pos} 
             zIndexOffset={1500} opacity={.1}  eventHandlers={{
                 mouseover: () => {
-                    // if (this.state.highlighted_markers.length === 0) {
-                    //     this.addMarker(highlight_pos, zone_icon);
-                    // }
-                    console.log('over');
-                    this.setZoneMarker(zone_name_icon);
+                    if (this.state.highlighted_markers.length === 0) {
+                        // change this to actual values later
+                        this.addMarker([0,0], `./icons/zone_names/SelectAZone.png`);
+                        this.setZoneMarker(zone_name_icon);
+                    }
                 },
                 mouseout: () => {
-                    console.log('out');
-                    // this.removeMarker();
+                    this.removeMarker();
                     this.resetZoneMarker();
                 }, 
                 click: () => {

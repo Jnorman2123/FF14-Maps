@@ -5,7 +5,15 @@ import { Navigate } from 'react-router-dom';
 
 class RegionMapComponent extends Component {
     render() {
-        let zone_marker = this.props.props.zone_marker;
+        let zone_marker = null;
+        if (this.props.mapName === 'LaNoscea') {
+            zone_marker = this.props.props.la_noscea_zone_marker;
+        } else if (this.props.mapName === 'TheBlackShroud') {
+            zone_marker = this.props.props.the_black_shroud_zone_marker;
+        } else {
+            zone_marker = this.props.props.thanalan_zone_marker;
+        }
+
         return (
             <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
