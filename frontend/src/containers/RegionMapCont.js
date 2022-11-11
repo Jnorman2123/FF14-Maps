@@ -1,156 +1,244 @@
 import React, { Component } from 'react';
-import { Polygon } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
 import RegionMapComponent from '../components/RegionMapComponent';
 
 class RegionMapCont extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            markers:
-            [{icon: new L.Icon({iconUrl: `./icons/RegionKey.png`, iconSize: [195, 288]}),
-                position: [-33.5, 6.5]
-            }],
-            zoneMarkers: 
-            [
-                {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectZoneName.png`, iconSize: [143, 38.5]}),
-                position: [-27.95, 6.6]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-31.4, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-34.15, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-36.9, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-39.65, 9.4]
-                }
-            ],
-            highlightedMaps: [],
-            popupMarkers: [],
+            zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}),
+                position: [-7.6, 33.2]},
+            highlighted_markers: [],
             navigate: false,
             navigateLink: '',
         };
     };
 
-    addMarker = (pos, icon, type) => {
+    addMarker = (pos, icon) => {
         let marker = {icon: icon, position: pos};
-        if (type === 'highlighted') {
-            this.setState({ highlightedMaps: [...this.state.highlightedMaps, marker]})
-        } else if (type === 'popup') {
-            this.setState({ popupMarkers: [...this.state.popupMarkers, marker]})
-        } else {
-            this.setState({ zoneMarkers: [...this.state.zoneMarkers, marker]})
-        }
+        this.setState({ highlighted_markers: [...this.state.highlighted_markers, marker]});
     };
 
-    removeMarker = (type) => {
-        if (type === 'highlighted') {
-            this.setState({highlightedMaps: []});
-        } else if (type === 'popup') {
-            this.setState({popupMarkers: []});
-        } else {
-            this.setState({zoneMarkers: []});
-        }
+    removeMarker = () => {
+        this.setState({highlighted_markers: []});
         
     };
 
-    resetZoneMarkers = () => {
-        this.setState({zoneMarkers: 
-            [
-                {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectZoneName.png`, iconSize: [143, 38.5]}),
-                position: [-27.95, 6.6]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-31.4, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-34.15, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-36.9, 9.4]
-                },
-                {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-                position: [-39.65, 9.4]
-                }
-            ]
-        });
+    setZoneMarker = (zone_icon) => {
+        this.setState({zone_marker: {icon: new L.Icon({iconUrl: zone_icon, iconSize: [205.7, 34.85]}),
+        position: [-7.6, 33.2]}});
+    }
+
+    resetZoneMarker = () => {
+        this.setState({zone_marker: {icon: new L.Icon({iconUrl: `./icons/zone_names/SelectAZone.png`,
+        iconSize: [205.7, 34.85]}), position: [-7.6, 33.2]}})
     }
 
     render () {
         let mapName = this.props.mapName.split(' ').join('');
-        let la_nos_map_attrs = this.props.la_noscea_map_attributes;
-        let black_shroud_map_attrs = this.props.the_black_shroud_map_attributes;
-        let than_map_attrs = this.props.thanalan_map_attributes;
-        let quest_count_icon_size = [33.5, 33.5];
-        
-        let purpleOptions = { color: 'tan'};    
-        let iconSize = [780.78, 778.44];
-        let iconPos = [21.45, -21.45]; 
+        let leg_attrs = this.props.leg_attrs;
+        let la_nos_map_attrs = this.props.la_nos_map_attrs;
 
-        let createPolygon = (polygon, name, popupPos, popupNamePos) => {
-            let revertedPolygon = polygon.map(pos => {
-                return this.props.revertLat(pos[0], pos[1])
-            })
-            return <Polygon key={name} positions={revertedPolygon} pathOptions={purpleOptions}  opacity={.01} eventHandlers={{
+        let createHoverOverlay = (zone, zone_name_icon) => {
+            let navLink = `/${zone.split(" ").join('').toLowerCase()}`;
+            let legend_overlay_pos = null;
+            let legend_overlay_icon = `./icons/quest_legend_icons/QuestTotalsBoxHoverOverlay.png`;
+            let legend_overlay = new L.Icon({iconUrl: legend_overlay_icon, 
+                iconSize: leg_attrs.legend_size});
+            switch (zone) {
+                case 'Limsa Lominsa Upper Decks':
+                    legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_upper_decks_legend_pos;
+                    break
+                case 'Limsa Lominsa Lower Decks':
+                    legend_overlay_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
+                    break
+                case 'Middle La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.middle_la_noscea_legend_pos;
+                    break
+                case 'Lower La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.lower_la_noscea_legend_pos;
+                    break
+                case 'Eastern La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.eastern_la_noscea_legend_pos;
+                    break
+                case 'Western La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.western_la_noscea_legend_pos;
+                    break
+                case 'Upper La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.upper_la_noscea_legend_pos;
+                    break
+                case 'Outer La Noscea':
+                    legend_overlay_pos = la_nos_map_attrs.outer_la_noscea_legend_pos;
+                    break
+                default: 
+                    break
+            }
+
+            return <Marker key={Math.random()} icon={legend_overlay} position={legend_overlay_pos} 
+            zIndexOffset={1500} opacity={.1}  eventHandlers={{
                 mouseover: () => {
-                    this.removeMarker('zone');
-                    this.removeMarker('highlighted');
-                    this.removeMarker('popup');
-                    let zone_name_icon = name.split(' ').join('');
-                    let main_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
-                        (this.props.quest_starters.main_starters, name)}.png`, quest_count_icon_size);
-                    let side_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
-                        (this.props.quest_starters.side_starters, name)}.png`, quest_count_icon_size);
-                    let hunting_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
-                        (this.props.quest_starters.hunting_starters, name)}.png`, quest_count_icon_size);
-                    let class_quest_count_icon = this.props.createIcon(`./icons/quest_numbers/${this.props.setStartersLength
-                        (this.props.quest_starters.class_starters, name)}.png`, quest_count_icon_size);
-                    let zoneIcon = new L.Icon({iconUrl: `./icons/zone_names/${zone_name_icon}ZoneName.png`,
-                        iconSize: [143, 38.5]})
-                    let zonePopup = new L.Icon({iconUrl: `./icons/zone_names/PopupContainer.png`,
-                        iconSize: [182, 112]});
-                    let highlightedZone = new L.Icon({iconUrl: `/region_zones/${zone_name_icon}Highlighted.png`,
-                        iconSize: iconSize});
-                    this.addMarker([-27.95, 6.6], zoneIcon, 'zone');
-                    this.addMarker([-31.4, 9.4], class_quest_count_icon, 'zone');
-                    this.addMarker([-34.15, 9.4], main_quest_count_icon, 'zone');
-                    this.addMarker([-36.9, 9.4], hunting_quest_count_icon, 'zone');
-                    this.addMarker([-39.65, 9.4], side_quest_count_icon, 'zone');
-                    this.addMarker([-popupPos[0], -popupPos[1]], zonePopup, 'popup');
-                    this.addMarker([-popupNamePos[0], -popupNamePos[1]], zoneIcon, 'zone');
-                    this.addMarker([-iconPos[0], -iconPos[1]], highlightedZone, 'highlighted');
-                }, click: () => {
+                    // if (this.state.highlighted_markers.length === 0) {
+                    //     this.addMarker(highlight_pos, zone_icon);
+                    // }
+                    console.log('over');
+                    this.setZoneMarker(zone_name_icon);
+                },
+                mouseout: () => {
+                    console.log('out');
+                    // this.removeMarker();
+                    this.resetZoneMarker();
+                }, 
+                click: () => {
                     this.setState({ navigate: true });
-                    this.setState({ navigateLink: `/${name.split(' ').join('').toLowerCase()}` });
-                }, mouseout: () => {
-                    this.resetZoneMarkers();
-                    this.removeMarker('popup');
-                    this.removeMarker('highlighted');
+                    this.setState({ navigate_link: navLink });
                 }
-            }}>
-            </Polygon>
+            }} />
         }
 
-        let polygonCollection = [];
-        if (this.props.mapName === 'La Noscea') {
-            polygonCollection = this.props.zone_attributes[0];
-        } else if (this.props.mapName === 'The Black Shroud') {
-            polygonCollection = this.props.zone_attributes[1];
-        } else {
-            polygonCollection = this.props.zone_attributes[2];
-        };
+        let createZoneLegend = (quests, zone) => {
+            let legend_box_icon = `./icons/quest_legend_icons/QuestTotalsBox.png`;
+            let legend_pos = null;
+            let arrow_icon = null;
+            let arrow_size = null;
+            let arrow_offset = null;
+            let arrow_pos = null;
+            let main_quest_icon = `./icons/quest_legend_icons/${
+                this.props.setStartersLength(quests.main_starters, zone)}.png`;
+            let class_quest_icon = `./icons/quest_legend_icons/${
+                this.props.setStartersLength(quests.class_starters, zone)}.png`;
+            let side_quest_icon = `./icons/quest_legend_icons/${
+                this.props.setStartersLength(quests.side_starters, zone)}.png`;
+            let hunting_quest_icon = `./icons/quest_legend_icons/${
+                this.props.setStartersLength(quests.hunting_starters, zone)}.png`;
+
+            switch (zone) {
+                case 'Limsa Lominsa Upper Decks':
+                    legend_pos = la_nos_map_attrs.limsa_lominsa_upper_decks_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_size = leg_attrs.hor_arrow_size;
+                    arrow_offset = leg_attrs.hor_arrow_offset;
+                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    break
+                case 'Limsa Lominsa Lower Decks':
+                    legend_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
+                    break
+                case 'Middle La Noscea':
+                    legend_pos = la_nos_map_attrs.middle_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] - arrow_offset, legend_pos[1]];
+                    break
+                case 'Lower La Noscea':
+                    legend_pos = la_nos_map_attrs.lower_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`;
+                    arrow_size = leg_attrs.hor_arrow_size;
+                    arrow_offset = leg_attrs.hor_arrow_offset;
+                    arrow_pos = [legend_pos[0], legend_pos[1] - arrow_offset];
+                    break
+                case 'Eastern La Noscea':
+                    legend_pos = la_nos_map_attrs.eastern_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] - arrow_offset, legend_pos[1]];
+                    break
+                case 'Western La Noscea':
+                    legend_pos = la_nos_map_attrs.western_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
+                    arrow_size = leg_attrs.vert_arrow_size;
+                    arrow_offset = leg_attrs.vert_arrow_offset;
+                    arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
+                    break
+                case 'Upper La Noscea':
+                    legend_pos = la_nos_map_attrs.upper_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_size = leg_attrs.hor_arrow_size;
+                    arrow_offset = leg_attrs.hor_arrow_offset;
+                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    break
+                case 'Outer La Noscea':
+                    legend_pos = la_nos_map_attrs.outer_la_noscea_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_size = leg_attrs.hor_arrow_size;
+                    arrow_offset = leg_attrs.hor_arrow_offset;
+                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
+                    break
+                default:
+                    break
+            }
+
+            let legend_icon = {icon: new L.Icon({iconUrl: legend_box_icon, 
+                iconSize: leg_attrs.legend_size}), position: legend_pos, z_offset: leg_attrs.legend_z_offset};
+            let legend_arrow = {icon: new L.Icon({iconUrl: arrow_icon, iconSize: arrow_size}), 
+                position: arrow_pos, z_offset: leg_attrs.arrow_z_offset};
+            let main_quest_number = {icon: new L.Icon({iconUrl: main_quest_icon, iconSize: leg_attrs.legend_num_size}), 
+                position: [legend_pos[0] + leg_attrs.top_num_offset, legend_pos[1] + leg_attrs.left_num_offset], 
+                z_offset: leg_attrs.legend_num_z_offset};
+            let class_quest_number = {icon: new L.Icon({iconUrl: class_quest_icon, iconSize: leg_attrs.legend_num_size}), 
+                position: [legend_pos[0] + leg_attrs.bot_num_offset, legend_pos[1] + leg_attrs.left_num_offset], 
+                z_offset: leg_attrs.legend_num_z_offset};
+            let side_quest_number = {icon: new L.Icon({iconUrl: side_quest_icon, iconSize: leg_attrs.legend_num_size}), 
+                position: [legend_pos[0] + leg_attrs.top_num_offset, legend_pos[1] + leg_attrs.right_num_offset], 
+                z_offset: leg_attrs.legend_num_z_offset};
+            let hunting_log_number = {icon: new L.Icon({iconUrl: hunting_quest_icon, iconSize: leg_attrs.legend_num_size}), 
+                position: [legend_pos[0] + leg_attrs.bot_num_offset, legend_pos[1] + leg_attrs.right_num_offset], 
+                z_offset: leg_attrs.legend_num_z_offset};
+            let legend_icons = [legend_icon, legend_arrow, main_quest_number, class_quest_number, side_quest_number,
+                hunting_log_number]
+            
+            return legend_icons;
+        }
+
+        // let la_noscea_icon = this.props.createIcon(`./highlighted_maps/LaNosceaHighlighted.jpg`, [220.1, 234.05]);
+        // let thanalan_icon = this.props.createIcon(`./highlighted_maps/ThanalanHighlighted.jpg`, [283.65, 262.725]);
+        // let the_black_shroud_icon = this.props.createIcon(`./highlighted_maps/TheBlackShroudHighlighted.jpg`, [279.775, 257.3]);
+        let limsa_lominsa_upper_decks_name_icon = `./icons/zone_names/LimsaLominsaUpperDecks.png`;
+        let limsa_lominsa_lower_decks_name_icon = `./icons/zone_names/LimsaLominsaLowerDecks.png`;
+        let middle_la_noscea_name_icon = `./icons/zone_names/MiddleLaNoscea.png`;
+        let lower_la_noscea_name_icon = `./icons/zone_names/LowerLaNoscea.png`;
+        let eastern_la_noscea_name_icon = `./icons/zone_names/EasternLaNoscea.png`;
+        let western_la_noscea_name_icon = `./icons/zone_names/WesternLaNoscea.png`;
+        let upper_la_noscea_name_icon = `./icons/zone_names/UpperLaNoscea.png`;
+        let outer_la_noscea_name_icon = `./icons/zone_names/OuterLaNoscea.png`;
+        // let la_noscea_highlight_pos = [-23.46, 9.375];
+        // let thanalan_highlight_pos = [-30.51, 22.375];
+        // let the_black_shroud_highlight_pos = [-19.2, 28.45];
+        let limsa_lominsa_upper_decks_legend_icons = createZoneLegend(this.props.quest_starters, 'Limsa Lominsa Upper Decks');
+        let limsa_lominsa_lower_decks_legend_icons = createZoneLegend(this.props.quest_starters, 'Limsa Lominsa Lower Decks');
+        let middle_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Middle La Noscea');
+        let lower_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Lower La Noscea');
+        let eastern_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Eastern La Noscea');
+        let western_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Western La Noscea');
+        let upper_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Upper La Noscea');
+        let outer_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Outer La Noscea');
+        let limsa_lominsa_upper_decks_overlay = createHoverOverlay('Limsa Lominsa Upper Decks', limsa_lominsa_upper_decks_name_icon);
+        let limsa_lominsa_lower_decks_overlay = createHoverOverlay('Limsa Lominsa Lower Decks', limsa_lominsa_lower_decks_name_icon);
+        let middle_la_noscea_overlay = createHoverOverlay('Middle La Noscea', middle_la_noscea_name_icon);
+        let lower_la_noscea_overlay = createHoverOverlay('Lower La Noscea', lower_la_noscea_name_icon);
+        let eastern_la_noscea_overlay = createHoverOverlay('Eastern La Noscea', eastern_la_noscea_name_icon);
+        let western_la_noscea_overlay = createHoverOverlay('Western La Noscea', western_la_noscea_name_icon);
+        let upper_la_noscea_overlay = createHoverOverlay('Upper La Noscea', upper_la_noscea_name_icon);
+        let outer_la_noscea_overlay = createHoverOverlay('Outer La Noscea', outer_la_noscea_name_icon);
+        let zone_legend_icons = [limsa_lominsa_upper_decks_legend_icons, limsa_lominsa_lower_decks_legend_icons, 
+            middle_la_noscea_legend_icons, lower_la_noscea_legend_icons, eastern_la_noscea_legend_icons,
+            western_la_noscea_legend_icons, upper_la_noscea_legend_icons, outer_la_noscea_legend_icons];
+        let hover_overlays = [limsa_lominsa_upper_decks_overlay, limsa_lominsa_lower_decks_overlay, middle_la_noscea_overlay, 
+            lower_la_noscea_overlay, eastern_la_noscea_overlay, western_la_noscea_overlay, upper_la_noscea_overlay, 
+            outer_la_noscea_overlay]; 
 
         return (
             <Container>
-                <RegionMapComponent center={this.props.center} zoom={this.props.zoom} 
-                bounds={this.props.bounds} polygonCollection={polygonCollection} mapName={mapName} 
-                props={this.state} createPolygon={createPolygon} />
+                <RegionMapComponent mapName={mapName} bounds={this.props.bounds} center={this.props.center} 
+                zoom={this.props.zoom} props={this.state} createHoverOverlay={this.createHoverOverlay} 
+                zone_legend_icons={zone_legend_icons} hover_overlays={hover_overlays} />
             </Container>
         )
     }
@@ -158,10 +246,11 @@ class RegionMapCont extends Component {
 
 const mapStateToProps = (storeData) => ({
     npcs: storeData.npcs,
-    la_noscea_map_attributes: storeData.storeData.la_noscea_map_attributes,
-    the_black_shroud_map_attributes: storeData.storeData.the_black_shroud_map_attributes,
-    thanalan_map_attributes: storeData.storeData.thanalan_map_attributes,
-    zone_attributes: storeData.storeData.zone_attributes
+    leg_attrs: storeData.storeData.legend_icon_attributes,
+    la_nos_map_attrs: storeData.storeData.la_noscea_map_attributes,
+    black_shroud_map_attrs: storeData.storeData.the_black_shroud_map_attributes,
+    than_map_attrs: storeData.storeData.thanalan_map_attributes,
 })
 
 export default connect(mapStateToProps)(RegionMapCont);
+

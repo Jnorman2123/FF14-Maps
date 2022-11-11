@@ -8,7 +8,8 @@ import WorldMapComponent from '../components/WorldMapComponent';
 class WorldMapCont extends Component {
     constructor(props) {
         super(props);
-        this.state = {la_noscea_key_markers:
+        this.state = {
+            la_noscea_key_markers:
             {
                 legend_icon: {icon: new L.Icon({iconUrl: `./icons/quest_legend_icons/QuestTotalsBox.png`, 
                     iconSize: [this.props.leg_attrs.legend_size]}), position: [this.props.world_map_attrs.la_noscea_legend_pos], 
