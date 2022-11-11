@@ -17,7 +17,7 @@ class RegionMapCont extends Component {
                 position: [-7.3, 10]},
             highlighted_markers: [],
             navigate: false,
-            navigateLink: '',
+            navigate_link: '',
         };
     };
 

@@ -108,50 +108,6 @@ class App extends Component {
     })
   }
 
-  addMarker = (pos, icon, type) => {
-    let marker = {icon: icon, position: pos};
-      if (type === 'highlighted') {
-          this.setState({ highlighted_markers: [...this.state.highlighted_markers, marker]})
-      } else if (type === 'popup') {
-          this.setState({ popup_markers: [...this.state.popup_markers, marker]})
-      } else {
-          this.setState({ zone_markers: [...this.state.zone_markers, marker]})
-      }
-  };
-
-  removeMarker = (type) => {
-      if (type === 'highlighted') {
-          this.setState({highlighted_markers: []});
-      } else if (type === 'popup') {
-          this.setState({popup_markers: []});
-      } else {
-          this.setState({zone_markers: []});
-      }
-      
-  };
-
-  resetZoneMarkers = () => {
-      this.setState({zone_markers: 
-          [
-              {icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegionName.png`, iconSize: [143, 38.5]}),
-              position: [-28.6, 36.3]
-              },
-              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-              position: [-31.9, 39.1]
-              },
-              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-              position: [-34.7, 39.1]
-              },
-              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-              position: [-37.4, 39.1]
-              },
-              {icon: new L.Icon({iconUrl: `./icons/quest_numbers/Hyphen.png`, iconSize: [33.5, 33.5]}),
-              position: [-40.15, 39.1]
-              }
-          ],
-      });
-  };
-
   toggleQuest = (marker, quest_col) => {
     if (!this.state.toggled_quests.includes(marker.quest) && quest_col.includes(marker.quest)) {
         this.setState({
@@ -235,8 +191,7 @@ class App extends Component {
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
             center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={active_quests} 
             setStartersLength={setStartersLength} createIcon={createIcon} setQuestType={setQuestType} 
-            quest_starters={quest_starters} addMarker={this.addMarker} removeMarker={this.removeMarker} 
-            resetZoneMarkers={this.resetZoneMarkers}  />} />
+            quest_starters={quest_starters} />} />
             {this.props.region_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
               element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
