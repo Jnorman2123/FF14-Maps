@@ -371,8 +371,8 @@ export const initialData = {
     },
     [LA_NOSCEA_MAP_ATTRIBUTES] : {
         la_noscea_name_pos: [0,10],
-        limsa_lominsa_upper_decks_legend_pos: [-30, 5.5],
-        limsa_lominsa_lower_decks_legend_pos: [-36, 15],
+        limsa_lominsa_upper_decks_legend_pos: [-36, 15],
+        limsa_lominsa_lower_decks_legend_pos: [-30, 5.5],
         middle_la_noscea_legend_pos: [-17.75, 25.25],
         lower_la_noscea_legend_pos: [-30, 36.5],
         eastern_la_noscea_legend_pos: [-12, 34],
@@ -380,6 +380,7 @@ export const initialData = {
         upper_la_noscea_legend_pos: [-13, 12],
         outer_la_noscea_legend_pos: [-6, 11.5],
     },
+    
     [THE_BLACK_SHROUD_MAP_ATTRIBUTES] : {
         the_black_shroud_name_pos: [0,0],
         old_gridania_legend_pos: [-13.5, 17.25],
@@ -387,7 +388,7 @@ export const initialData = {
         east_shroud_legend_pos: [-25, 35.5],
         north_shroud_legend_pos: [-21, 8.5],
         central_shroud_legend_pos: [-28.5, 14],
-        south_shroud_legend_pos: [-38, 27],
+        south_shroud_legend_pos: [-38.5, 27],
     },
     [THANALAN_MAP_ATTRIBUTES] : {
         thanalan_name_pos: [0,0],
@@ -405,9 +406,9 @@ export const initialData = {
         vert_arrow_size: [59.5, 42.5],
         hor_arrow_size: [42.5, 59.5],
         legend_num_size: [30.5, 25],
-        legend_z_offset: 250,
-        arrow_z_offset: 100,
-        legend_num_z_offset: 500,
+        legend_z_offset: 500,
+        arrow_z_offset: 250,
+        legend_num_z_offset: 1000,
         vert_arrow_offset: 2.5,
         hor_arrow_offset: 3.5,
         top_num_offset: 0.9,

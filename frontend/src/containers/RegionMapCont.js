@@ -66,7 +66,7 @@ class RegionMapCont extends Component {
         let black_shroud_map_attrs = this.props.black_shroud_map_attrs;
         let than_map_attrs = this.props.than_map_attrs;
 
-        let createHoverOverlay = (zone, zone_name_icon) => {
+        let createHoverOverlay = (zone, zone_name_icon, zone_icon, highlight_pos) => {
             let navLink = `/${zone.split(" ").join('').toLowerCase()}`;
             let legend_overlay_pos = null;
             let legend_overlay_icon = `./icons/quest_legend_icons/QuestTotalsBoxHoverOverlay.png`;
@@ -148,8 +148,7 @@ class RegionMapCont extends Component {
             zIndexOffset={1500} opacity={.1}  eventHandlers={{
                 mouseover: () => {
                     if (this.state.highlighted_markers.length === 0) {
-                        // change this to actual values later
-                        this.addMarker([0,0], `./icons/zone_names/SelectAZone.png`);
+                        this.addMarker(highlight_pos, zone_icon);
                         this.setZoneMarker(zone_name_icon);
                     }
                 },
@@ -183,17 +182,17 @@ class RegionMapCont extends Component {
             switch (zone) {
                 case 'Limsa Lominsa Upper Decks':
                     legend_pos = la_nos_map_attrs.limsa_lominsa_upper_decks_legend_pos;
-                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
-                    arrow_size = leg_attrs.hor_arrow_size;
-                    arrow_offset = leg_attrs.hor_arrow_offset;
-                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
-                    break
-                case 'Limsa Lominsa Lower Decks':
-                    legend_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
                     arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`;
                     arrow_size = leg_attrs.vert_arrow_size;
                     arrow_offset = leg_attrs.vert_arrow_offset;
                     arrow_pos = [legend_pos[0] + arrow_offset, legend_pos[1]];
+                    break
+                case 'Limsa Lominsa Lower Decks':
+                    legend_pos = la_nos_map_attrs.limsa_lominsa_lower_decks_legend_pos;
+                    arrow_icon = `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`;
+                    arrow_size = leg_attrs.hor_arrow_size;
+                    arrow_offset = leg_attrs.hor_arrow_offset;
+                    arrow_pos = [legend_pos[0], legend_pos[1] + arrow_offset];
                     break
                 case 'Middle La Noscea':
                     legend_pos = la_nos_map_attrs.middle_la_noscea_legend_pos;
@@ -360,10 +359,73 @@ class RegionMapCont extends Component {
             
             return legend_icons;
         }
-
-        // let la_noscea_icon = this.props.createIcon(`./highlighted_maps/LaNosceaHighlighted.jpg`, [220.1, 234.05]);
-        // let thanalan_icon = this.props.createIcon(`./highlighted_maps/ThanalanHighlighted.jpg`, [283.65, 262.725]);
-        // let the_black_shroud_icon = this.props.createIcon(`./highlighted_maps/TheBlackShroudHighlighted.jpg`, [279.775, 257.3]);
+       
+        let limsa_lominsa_upper_decks_icon = this.props.createIcon(`./highlighted_maps/LimsaLominsaUpperDecksHighlighted.jpg`, 
+            [92.04, 141.96]);
+        let limsa_lominsa_lower_decks_icon = this.props.createIcon(`./highlighted_maps/LimsaLominsaLowerDecksHighlighted.jpg`, 
+            [138.06, 93.6]);
+        let middle_la_noscea_icon = this.props.createIcon(`./highlighted_maps/MiddleLaNosceaHighlighted.jpg`, 
+            [166.14, 193.44]);
+        let lower_la_noscea_icon = this.props.createIcon(`./highlighted_maps/LowerLaNosceaHighlighted.jpg`, 
+            [168.63, 243.32]);
+        let eastern_la_noscea_icon = this.props.createIcon(`./highlighted_maps/EasternLaNosceaHighlighted.jpg`, 
+            [227.075, 187.55]);
+        let western_la_noscea_icon = this.props.createIcon(`./highlighted_maps/WesternLaNosceaHighlighted.jpg`, 
+            [255.84, 210.6]);
+        let upper_la_noscea_icon = this.props.createIcon(`./highlighted_maps/UpperLaNosceaHighlighted.jpg`, 
+            [198.66, 93.17]);
+        let outer_la_noscea_icon = this.props.createIcon(`./highlighted_maps/OuterLaNosceaHighlighted.jpg`, 
+            [154.44, 137.28]);
+        let old_gridania_icon = this.props.createIcon(`./highlighted_maps/OldGridaniaHighlighted.jpg`, 
+            [134.16, 92.82]);
+        let new_gridania_icon = this.props.createIcon(`./highlighted_maps/NewGridaniaHighlighted.jpg`, 
+            [95.16, 69.42]);
+        let east_shroud_icon = this.props.createIcon(`./highlighted_maps/EastShroudHighlighted.jpg`, 
+            [217.62, 196.56]);
+        let north_shroud_icon = this.props.createIcon(`./highlighted_maps/NorthShroudHighlighted.jpg`, 
+            [177.06, 133.38]);
+        let central_shroud_icon = this.props.createIcon(`./highlighted_maps/CentralShroudHighlighted.jpg`, 
+            [199.68, 167.7]);
+        let south_shroud_icon = this.props.createIcon(`./highlighted_maps/SouthShroudHighlighted.jpg`, 
+            [201.24, 195.78]);
+        let uldah_steps_of_nald_icon = this.props.createIcon(`./highlighted_maps/Ul'dah-StepsOfNaldHighlighted.jpg`, 
+            [113.88, 91.26]);
+        let uldah_steps_of_thal_icon = this.props.createIcon(`./highlighted_maps/Ul'dah-StepsOfThalHighlighted.jpg`, 
+            [113.88, 86.58]);
+        let hustings_strip_icon = this.props.createIcon(`./highlighted_maps/HustingsStripHighlighted.jpg`, 
+            [118.56, 91.26]);
+        let western_thanalan_icon = this.props.createIcon(`./highlighted_maps/WesternThanalanHighlighted.jpg`, 
+            [204.82, 217.14]);
+        let eastern_thanalan_icon = this.props.createIcon(`./highlighted_maps/EasternThanalanHighlighted.jpg`, 
+            [212.16, 175.5]);
+        let central_thanalan_icon = this.props.createIcon(`./highlighted_maps/CentralThanalanHighlighted.jpg`, 
+            [164.3, 216.225]);
+        let southern_thanalan_icon = this.props.createIcon(`./highlighted_maps/SouthernThanalanHighlighted.jpg`, 
+            [219.325, 311.55]);
+        let northern_thanalan_icon = this.props.createIcon(`./highlighted_maps/NorthernThanalanHighlighted.jpg`, 
+            [127.1, 203.825]);
+        let limsa_lominsa_lower_decks_highlight_pos = [-30.6, 13.37];
+        let limsa_lominsa_upper_decks_highlight_pos = [-29.05, 15.05];
+        let middle_la_noscea_highlight_pos = [-22.44, 21.255];
+        let lower_la_noscea_highlight_pos = [-33.5, 27.47];
+        let eastern_la_noscea_highlight_pos = [-19.32, 34.1];
+        let western_la_noscea_highlight_pos = [-18.05, 9.05];
+        let upper_la_noscea_highlight_pos = [-12.39, 20.91];
+        let outer_la_noscea_highlight_pos = [-6.02, 19.2];
+        let old_gridania_highlight_pos = [-12.73, 24.88];
+        let new_gridania_highlight_pos = [-15.37, 25.9];
+        let east_shroud_highlight_pos = [-16.49, 34.85];
+        let north_shroud_highlight_pos = [-14.9, 9.9];
+        let central_shroud_highlight_pos = [-24.46, 18.5];
+        let south_shroud_highlight_pos = [-35.78, 24.42];
+        let uldah_steps_of_nald_highlight_pos = [-31.98, 16.875];
+        let uldah_steps_of_thal_highlight_pos = [-31.85, 17.2];
+        let hustings_strip_highlight_pos = [-31.91, 17.055];
+        let western_thanalan_highlight_pos = [-21.45, 8.67];
+        let eastern_thanalan_highlight_pos = [-16.27, 33.35];
+        let central_thanalan_highlight_pos = [-22.2, 21.25];
+        let southern_thanalan_highlight_pos = [-30.7, 33];
+        let northern_thanalan_highlight_pos = [-9.65, 24.275];
         let limsa_lominsa_upper_decks_name_icon = `./icons/zone_names/LimsaLominsaUpperDecks.png`;
         let limsa_lominsa_lower_decks_name_icon = `./icons/zone_names/LimsaLominsaLowerDecks.png`;
         let middle_la_noscea_name_icon = `./icons/zone_names/MiddleLaNoscea.png`;
@@ -386,9 +448,6 @@ class RegionMapCont extends Component {
         let central_thanalan_name_icon = `./icons/zone_names/CentralThanalan.png`;
         let southern_thanalan_name_icon = `./icons/zone_names/SouthernThanalan.png`;
         let northern_thanalan_name_icon = `./icons/zone_names/NorthernThanalan.png`;
-        // let la_noscea_highlight_pos = [-23.46, 9.375];
-        // let thanalan_highlight_pos = [-30.51, 22.375];
-        // let the_black_shroud_highlight_pos = [-19.2, 28.45];
         let limsa_lominsa_upper_decks_legend_icons = createZoneLegend(this.props.quest_starters, 'Limsa Lominsa Upper Decks');
         let limsa_lominsa_lower_decks_legend_icons = createZoneLegend(this.props.quest_starters, 'Limsa Lominsa Lower Decks');
         let middle_la_noscea_legend_icons = createZoneLegend(this.props.quest_starters, 'Middle La Noscea');
@@ -411,28 +470,50 @@ class RegionMapCont extends Component {
         let central_thanalan_legend_icons = createZoneLegend(this.props.quest_starters, 'Central Thanalan');
         let southern_thanalan_legend_icons = createZoneLegend(this.props.quest_starters, 'Southern Thanalan');
         let northern_thanalan_legend_icons = createZoneLegend(this.props.quest_starters, 'Northern Thanalan');
-        let limsa_lominsa_upper_decks_overlay = createHoverOverlay('Limsa Lominsa Upper Decks', limsa_lominsa_upper_decks_name_icon);
-        let limsa_lominsa_lower_decks_overlay = createHoverOverlay('Limsa Lominsa Lower Decks', limsa_lominsa_lower_decks_name_icon);
-        let middle_la_noscea_overlay = createHoverOverlay('Middle La Noscea', middle_la_noscea_name_icon);
-        let lower_la_noscea_overlay = createHoverOverlay('Lower La Noscea', lower_la_noscea_name_icon);
-        let eastern_la_noscea_overlay = createHoverOverlay('Eastern La Noscea', eastern_la_noscea_name_icon);
-        let western_la_noscea_overlay = createHoverOverlay('Western La Noscea', western_la_noscea_name_icon);
-        let upper_la_noscea_overlay = createHoverOverlay('Upper La Noscea', upper_la_noscea_name_icon);
-        let outer_la_noscea_overlay = createHoverOverlay('Outer La Noscea', outer_la_noscea_name_icon);
-        let old_gridania_overlay = createHoverOverlay('Old Gridania', old_gridania_name_icon);
-        let new_gridania_overlay = createHoverOverlay('New Gridania', new_gridania_name_icon);
-        let east_shroud_overlay = createHoverOverlay('East Shroud', east_shroud_name_icon);
-        let north_shroud_overlay = createHoverOverlay('North Shroud', north_shroud_name_icon);
-        let central_shroud_overlay = createHoverOverlay('Central Shroud', central_shroud_name_icon);
-        let south_shroud_overlay = createHoverOverlay('South Shroud', south_shroud_name_icon);
-        let uldah_steps_of_nald_overlay = createHoverOverlay(`Ul'dah - Steps of Nald`, uldah_steps_of_nald_name_icon);
-        let uldah_steps_of_thal_overlay = createHoverOverlay(`Ul'dah - Steps of Thal`, uldah_steps_of_thal_name_icon);
-        let hustings_strip_overlay = createHoverOverlay('Hustings Strip', hustings_strip_name_icon);
-        let western_thanalan_overlay = createHoverOverlay('Western Thanalan', western_thanalan_name_icon);
-        let eastern_thanalan_overlay = createHoverOverlay('Eastern Thanalan', eastern_thanalan_name_icon);
-        let central_thanalan_overlay = createHoverOverlay('Central Thanalan', central_thanalan_name_icon);
-        let southern_thanalan_overlay = createHoverOverlay('Southern Thanalan', southern_thanalan_name_icon);
-        let northern_thanalan_overlay = createHoverOverlay('Northern Thanalan', northern_thanalan_name_icon);
+        let limsa_lominsa_upper_decks_overlay = createHoverOverlay('Limsa Lominsa Upper Decks', limsa_lominsa_upper_decks_name_icon,
+            limsa_lominsa_upper_decks_icon, limsa_lominsa_upper_decks_highlight_pos);
+        let limsa_lominsa_lower_decks_overlay = createHoverOverlay('Limsa Lominsa Lower Decks', limsa_lominsa_lower_decks_name_icon,
+            limsa_lominsa_lower_decks_icon, limsa_lominsa_lower_decks_highlight_pos);
+        let middle_la_noscea_overlay = createHoverOverlay('Middle La Noscea', middle_la_noscea_name_icon, middle_la_noscea_icon,
+            middle_la_noscea_highlight_pos);
+        let lower_la_noscea_overlay = createHoverOverlay('Lower La Noscea', lower_la_noscea_name_icon, lower_la_noscea_icon,
+            lower_la_noscea_highlight_pos);
+        let eastern_la_noscea_overlay = createHoverOverlay('Eastern La Noscea', eastern_la_noscea_name_icon, eastern_la_noscea_icon,
+            eastern_la_noscea_highlight_pos);
+        let western_la_noscea_overlay = createHoverOverlay('Western La Noscea', western_la_noscea_name_icon, western_la_noscea_icon,
+            western_la_noscea_highlight_pos);
+        let upper_la_noscea_overlay = createHoverOverlay('Upper La Noscea', upper_la_noscea_name_icon, upper_la_noscea_icon,
+            upper_la_noscea_highlight_pos);
+        let outer_la_noscea_overlay = createHoverOverlay('Outer La Noscea', outer_la_noscea_name_icon, outer_la_noscea_icon,
+            outer_la_noscea_highlight_pos);
+        let old_gridania_overlay = createHoverOverlay('Old Gridania', old_gridania_name_icon, old_gridania_icon,
+            old_gridania_highlight_pos);
+        let new_gridania_overlay = createHoverOverlay('New Gridania', new_gridania_name_icon, new_gridania_icon,
+            new_gridania_highlight_pos);
+        let east_shroud_overlay = createHoverOverlay('East Shroud', east_shroud_name_icon, east_shroud_icon,
+            east_shroud_highlight_pos);
+        let north_shroud_overlay = createHoverOverlay('North Shroud', north_shroud_name_icon, north_shroud_icon,
+            north_shroud_highlight_pos);
+        let central_shroud_overlay = createHoverOverlay('Central Shroud', central_shroud_name_icon, central_shroud_icon,
+            central_shroud_highlight_pos);
+        let south_shroud_overlay = createHoverOverlay('South Shroud', south_shroud_name_icon, south_shroud_icon,
+            south_shroud_highlight_pos);
+        let uldah_steps_of_nald_overlay = createHoverOverlay(`Ul'dah - Steps of Nald`, uldah_steps_of_nald_name_icon,
+            uldah_steps_of_nald_icon, uldah_steps_of_nald_highlight_pos);
+        let uldah_steps_of_thal_overlay = createHoverOverlay(`Ul'dah - Steps of Thal`, uldah_steps_of_thal_name_icon,
+            uldah_steps_of_thal_icon, uldah_steps_of_thal_highlight_pos);
+        let hustings_strip_overlay = createHoverOverlay('Hustings Strip', hustings_strip_name_icon, hustings_strip_icon,
+            hustings_strip_highlight_pos);
+        let western_thanalan_overlay = createHoverOverlay('Western Thanalan', western_thanalan_name_icon, western_thanalan_icon,
+            western_thanalan_highlight_pos);
+        let eastern_thanalan_overlay = createHoverOverlay('Eastern Thanalan', eastern_thanalan_name_icon, eastern_thanalan_icon,
+            eastern_thanalan_highlight_pos);
+        let central_thanalan_overlay = createHoverOverlay('Central Thanalan', central_thanalan_name_icon, central_thanalan_icon,
+            central_thanalan_highlight_pos);
+        let southern_thanalan_overlay = createHoverOverlay('Southern Thanalan', southern_thanalan_name_icon, southern_thanalan_icon,
+            southern_thanalan_highlight_pos);
+        let northern_thanalan_overlay = createHoverOverlay('Northern Thanalan', northern_thanalan_name_icon, northern_thanalan_icon,
+            northern_thanalan_highlight_pos);
         let la_noscea_zone_legend_icons = [limsa_lominsa_upper_decks_legend_icons, limsa_lominsa_lower_decks_legend_icons, 
             middle_la_noscea_legend_icons, lower_la_noscea_legend_icons, eastern_la_noscea_legend_icons,
             western_la_noscea_legend_icons, upper_la_noscea_legend_icons, outer_la_noscea_legend_icons];

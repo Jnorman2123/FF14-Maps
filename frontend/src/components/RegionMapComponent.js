@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 
 class RegionMapComponent extends Component {
     render() {
-        console.log(this.props);
         let zone_marker = null;
         let zone_legend_icons = null;
         let hover_overlays = null;
@@ -36,6 +35,10 @@ class RegionMapComponent extends Component {
                     })
                 })};
                 {hover_overlays.map(overlay => overlay)};
+                {this.props.props.highlighted_markers.map(marker => {
+                    return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
+                    zIndexOffset={50} opacity={1} />
+                })}
                 <Marker key={Math.random()} icon={zone_marker.icon} position={zone_marker.position} zIndexOffset={1000}/>
                 {this.props.props.navigate && <Navigate to={this.props.props.navigate_link} replace={true} />}
             </MapContainer>
