@@ -95,7 +95,7 @@ class ToggleContainer extends Component {
 
     render() {
         return (
-            <Container className='bg-primary' >
+            <div> 
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Class/Job</h5>
                 </Row>
@@ -134,7 +134,7 @@ class ToggleContainer extends Component {
                         return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
                     })}    
                 </Row>  
-            </Container>
+            </div>
         )
     }
 }

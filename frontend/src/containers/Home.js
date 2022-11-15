@@ -13,26 +13,22 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Container fluid>
+                <WorldNav />
+                <Container fluid >
                     <Row>
-                        <WorldNav />
-                    </Row>
-                    <Row>
-                        <Col className='bg-dark'>
+                        <Col className='bg-primary'>
                             <ToggleContainer setClassActive={this.props.setClassActive} 
                             setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} />         
                         </Col>
                         <Col md={6} >
                             <Outlet />
                         </Col>
-                        <Col className='bg-dark'>
+                        <Col className='bg-primary' style={{overflowY: 'scroll', maxHeight: '800px'}} >
                             <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
                         </Col>
                     </Row>
-                    <Row>
-                        <ToggledQuestsContainer />
-                    </Row>
-                </Container>       
+                </Container>     
+                <ToggledQuestsContainer />  
             </div>
         ) 
     }

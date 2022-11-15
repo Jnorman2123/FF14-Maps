@@ -11,7 +11,7 @@ import QuestInfo from '../components/QuestInfo';
 class QuestInfoContainer extends Component {
 
     renderQuestInfo = (toggled_quests) => {
-        return <Container className='bg-primary'>
+        return <div>
             {toggled_quests.map(quest => {
                 let quest_reward = this.props.rewards.rewards.filter(reward => reward.id === quest.quest_reward);
                 let quest_classes = [];
@@ -93,7 +93,7 @@ class QuestInfoContainer extends Component {
                     </Card>
                 </Accordion>
             })}
-        </Container>
+        </div>
         
     }
 
