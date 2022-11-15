@@ -94,17 +94,17 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>                
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>                 */}
                 </Row>  
                 <br/>   
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.healer_jobs}/> 
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.magical_ranged_dps_jobs}/>                
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.healer_jobs}/>  */}
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.magical_ranged_dps_jobs}/>                 */}
                 </Row> 
                 <br/>            
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.melee_dps_jobs}/>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.physical_ranged_dps_jobs}/>                
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.melee_dps_jobs}/> */}
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.physical_ranged_dps_jobs}/>                 */}
                 </Row>   
                 <br/>   
                 <Row>
