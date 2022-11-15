@@ -75,10 +75,10 @@ class WorldNav extends Component {
 const mapStateToProps = (storeData) => ({
     zones: storeData.storeData.zones,
     original_regions: storeData.storeData.original_regions,
-    heavensward_regions: storeData.storeData.heavensward_regions,
-    stormblood_regions: storeData.storeData.stormblood_regions,
-    shadowbringers_regions: storeData.storeData.shadowbringers_regions,
-    endwalker_regions: storeData.storeData.endwalker_regions,
+    // heavensward_regions: storeData.storeData.heavensward_regions,
+    // stormblood_regions: storeData.storeData.stormblood_regions,
+    // shadowbringers_regions: storeData.storeData.shadowbringers_regions,
+    // endwalker_regions: storeData.storeData.endwalker_regions,
 })
 
 export default connect(mapStateToProps)(WorldNav);

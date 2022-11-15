@@ -27,17 +27,25 @@ class ToggleContainer extends Component {
 
         switch (selection) {
             case this.state.base_classes:
-                return selectionName = 'Base Classes';
+                selectionName = 'Base Classes';
+                break;
             case this.state.tank_jobs:
-                return selectionName = 'Tank Jobs';
+                selectionName = 'Tank Jobs';
+                break;
             case this.state.healer_jobs: 
-                return selectionName = 'Healer Jobs';
+                selectionName = 'Healer Jobs';
+                break;
             case this.state.melee_dps_jobs: 
-                return selectionName = 'Melee Dps Jobs'; 
+                selectionName = 'Melee Dps Jobs'; 
+                break;
             case this.state.physical_ranged_dps_jobs: 
-                return selectionName = 'Physical Ranged Dps Jobs'; 
+                selectionName = 'Physical Ranged Dps Jobs'; 
+                break;
             case this.state.magical_ranged_dps_jobs: 
-                return selectionName = 'Magical Ranged Dps Jobs';    
+                selectionName = 'Magical Ranged Dps Jobs'; 
+                break;
+            default:
+                break;   
         }
         
         return selectionName;
@@ -45,8 +53,8 @@ class ToggleContainer extends Component {
 
     renderDropdowns = (selection) => {
         let selection_name = this.setSelectionName(selection);
-        return <Dropdown autoClose='outside'>
-                    <Dropdown.Toggle id='dropdown-basic'>{selection_name} </Dropdown.Toggle>
+        return <Dropdown autoClose='outside' >
+                    <Dropdown.Toggle id='dropdown-basic' >{selection_name} </Dropdown.Toggle>
                         <ButtonGroup>
                             <Dropdown.Menu>    
                                 {selection.map(t => {

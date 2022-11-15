@@ -6,6 +6,7 @@ import QuestInfoContainer from './QuestInfoContainer';
 import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
+import ToggledQuestsContainer from './ToggledQuestsContainer';
 
 class Home extends Component {
 
@@ -27,6 +28,9 @@ class Home extends Component {
                         <Col className='bg-dark'>
                             <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
                         </Col>
+                    </Row>
+                    <Row>
+                        <ToggledQuestsContainer />
                     </Row>
                 </Container>       
             </div>
