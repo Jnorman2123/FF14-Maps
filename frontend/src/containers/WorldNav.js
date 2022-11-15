@@ -27,7 +27,7 @@ class WorldNav extends Component {
         }
         if (expansion === this.props.original_regions) {
             return expansion.map(r => {
-                return <NavDropdown key={r} title={<Link to={`/${r.split(' ').join('').toLowerCase()}`} >{r}</Link>} 
+                return <NavDropdown key={r} title={r} 
                 id='basic-nav-dropdown'>
                     {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
@@ -62,10 +62,10 @@ class WorldNav extends Component {
             <Col md={{span: 6, offset: 3}}>
                 <Navbar bg='light' >
                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
-                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                    {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' />
+                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
                 </Navbar>
             </Col>
         )
