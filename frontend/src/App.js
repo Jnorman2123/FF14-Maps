@@ -185,7 +185,7 @@ class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
-          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} />} >
+          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={active_quests} />} >
             <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 

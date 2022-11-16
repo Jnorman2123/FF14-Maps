@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import ToggleDropdown from '../components/ToggleDropdown';
+import ToggledQuestsContainer from './ToggledQuestsContainer';
 import ButtonToggle from '../components/ButtonToggle';
 import { connect } from 'react-redux';
 
@@ -133,7 +133,11 @@ class ToggleContainer extends Component {
                     {this.props.quest_levels.map(l => {
                         return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
                     })}    
-                </Row>  
+                </Row> 
+                <br/> 
+                <Row>
+                    <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} />
+                </Row>
             </div>
         )
     }

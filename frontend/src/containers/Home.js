@@ -6,7 +6,6 @@ import QuestInfoContainer from './QuestInfoContainer';
 import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
-import ToggledQuestsContainer from './ToggledQuestsContainer';
 
 class Home extends Component {
 
@@ -16,9 +15,10 @@ class Home extends Component {
                 <WorldNav />
                 <Container fluid >
                     <Row>
-                        <Col className='bg-primary'>
+                        <Col className='bg-primary' >
                             <ToggleContainer setClassActive={this.props.setClassActive} 
-                            setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} />         
+                            setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
+                            active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} />         
                         </Col>
                         <Col md={6} >
                             <Outlet />
@@ -28,7 +28,6 @@ class Home extends Component {
                         </Col>
                     </Row>
                 </Container>     
-                <ToggledQuestsContainer />  
             </div>
         ) 
     }

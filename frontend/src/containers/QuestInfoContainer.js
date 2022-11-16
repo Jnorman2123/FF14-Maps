@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 import Accordion from 'react-bootstrap/esm/Accordion';
 import Card from 'react-bootstrap/esm/Card';
-import Container from 'react-bootstrap/esm/Container';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import { connect } from 'react-redux';
@@ -11,8 +9,10 @@ import QuestInfo from '../components/QuestInfo';
 class QuestInfoContainer extends Component {
 
     renderQuestInfo = (toggled_quests) => {
+        let i = 0;
         return <div>
             {toggled_quests.map(quest => {
+                i++;
                 let quest_reward = this.props.rewards.rewards.filter(reward => reward.id === quest.quest_reward);
                 let quest_classes = [];
                 let quest_steps = this.props.steps.steps.filter(step => step.quest_step === quest.id);
@@ -29,10 +29,10 @@ class QuestInfoContainer extends Component {
                     }
                     return optional_reward_items;
                 })
-                return <Accordion key={quest.quest_name} flush>
+                return <Accordion key={quest.quest_name} flush >
                     <Card>
                         <Card.Header className='text-center bg-primary'>
-                            <Accordion.Button as={Card.Header} eventKey='0'>
+                            <Accordion.Button as={Card.Header} eventKey={i}>
                                 {quest.quest_name}
                             </Accordion.Button>
                         </Card.Header>
