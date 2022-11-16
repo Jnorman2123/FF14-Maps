@@ -108,14 +108,14 @@ class App extends Component {
     })
   }
 
-  toggleQuest = (marker, quest_col) => {
-    if (!this.state.toggled_quests.includes(marker.quest) && quest_col.includes(marker.quest)) {
+  toggleQuest = (quest, quest_col) => {
+    if (!this.state.toggled_quests.includes(quest) && quest_col.includes(quest)) {
         this.setState({
-            toggled_quests: [...this.state.toggled_quests, marker.quest],
+            toggled_quests: [...this.state.toggled_quests, quest],
         })
     } else {
         this.setState({
-            toggled_quests: this.state.toggled_quests.filter(q => q !== marker.quest),
+            toggled_quests: this.state.toggled_quests.filter(q => q !== quest),
         })
     }
   }
@@ -185,7 +185,8 @@ class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
-          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={active_quests} />} >
+          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={active_quests} 
+          toggleQuest={this.toggleQuest}/>} >
             <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 

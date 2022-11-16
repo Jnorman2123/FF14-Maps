@@ -136,7 +136,8 @@ class ToggleContainer extends Component {
                 </Row> 
                 <br/> 
                 <Row>
-                    <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} />
+                    <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} 
+                    toggleQuest={this.props.toggleQuest}/>
                 </Row>
             </div>
         )

@@ -26,7 +26,8 @@ class ToggledQuestsContainer extends Component {
                                     <p>{aq.quest_name}</p>
                                 </Col>
                                 <Col>
-                                    <Button key={aq.name} id='toggle-check' type='checkbox' variant={theme} name={aq.name} >
+                                    <Button key={aq.name} id='toggle-check' type='checkbox' variant={theme} name={aq.name} 
+                                    onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} >
                                             Active                                   
                                     </Button>
                                 </Col>

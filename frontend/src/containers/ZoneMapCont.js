@@ -33,7 +33,7 @@ class ZoneMapCont extends Component {
                     icon={color_icon} />
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
-                    icon={icon} eventHandlers={{ click: () => this.props.toggleQuest(marker, 
+                    icon={icon} eventHandlers={{ click: () => this.props.toggleQuest(marker.quest, 
                     this.props.active_quests) }} >
                         <Tooltip>
                             <h6 className='text-center'>{marker.quest.quest_name}</h6>
@@ -49,7 +49,7 @@ class ZoneMapCont extends Component {
                     icon={color_icon} />
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
-                    icon={icon} eventHandlers={{ click: () => this.props.toggleQuest(marker, 
+                    icon={icon} eventHandlers={{ click: () => this.props.toggleQuest(marker.quest, 
                     this.props.active_quests) }} >
                         <Tooltip>
                             <h6 className='text-center'>{marker.quest.quest_name}</h6>
@@ -73,7 +73,7 @@ class ZoneMapCont extends Component {
                     icon={icon} />
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
-                    icon={step_icon} eventHandlers={{ click: () => this.props.toggleQuest(marker, 
+                    icon={step_icon} eventHandlers={{ click: () => this.props.toggleQuest(marker.quest, 
                     this.props.active_quests) }} >
                         <Tooltip>
                             <h6 className='text-center'>{marker.quest.quest_name}</h6>
