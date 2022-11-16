@@ -7,6 +7,7 @@ import Accordion from 'react-bootstrap/esm/Accordion';
 
 class ToggledQuestsContainer extends Component {
     render() {
+        let theme = 'danger'
         return (
             <Container style={{overflowY: 'scroll', maxHeight: '325px'}} >
                 <Accordion >
@@ -15,12 +16,17 @@ class ToggledQuestsContainer extends Component {
                     </Accordion.Header>
                     <Accordion.Body className='bg-secondary'>
                         {this.props.active_quests.map(aq => {
+                            if (this.props.toggled_quests.includes(aq)) {
+                                theme = 'primary';
+                            } else {
+                                theme = 'danger';
+                            }
                             return <Row>
                                 <Col md={9} >
                                     <p>{aq.quest_name}</p>
                                 </Col>
                                 <Col>
-                                    <Button key={aq.name} id='toggle-check' type='checkbox' name={aq.name} >
+                                    <Button key={aq.name} id='toggle-check' type='checkbox' variant={theme} name={aq.name} >
                                             Active                                   
                                     </Button>
                                 </Col>
