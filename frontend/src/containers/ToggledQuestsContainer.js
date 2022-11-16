@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/esm/Accordion';
-import ButtonToggle from '../components/ButtonToggle';
-import { connect } from 'react-redux';
 
 class ToggledQuestsContainer extends Component {
     render() {
-        console.log(this.props)
         return (
             <Container style={{overflowY: 'scroll', maxHeight: '325px'}} >
                 <Accordion >
@@ -19,7 +15,16 @@ class ToggledQuestsContainer extends Component {
                     </Accordion.Header>
                     <Accordion.Body className='bg-secondary'>
                         {this.props.active_quests.map(aq => {
-                            return <p>{aq.quest_name}</p>
+                            return <Row>
+                                <Col md={9} >
+                                    <p>{aq.quest_name}</p>
+                                </Col>
+                                <Col>
+                                    <Button key={aq.name} id='toggle-check' type='checkbox' name={aq.name} >
+                                            Active                                   
+                                    </Button>
+                                </Col>
+                            </Row>
                         })}
                     </Accordion.Body>
                 </Accordion>
