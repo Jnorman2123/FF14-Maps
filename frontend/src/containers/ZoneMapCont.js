@@ -133,54 +133,45 @@ class ZoneMapCont extends Component {
         })
 
         active_quest_marker_data.map(q => {
-            console.log(q)
             let index = 0;
             let steps = q[0].quest_npcs.slice(1, -1).map(s => npcs.filter(n => n.id === s)[0]);
             let starter = npcs.filter(npc => npc.id === q[0].quest_npcs[0]);
             let turn_in = npcs.filter(npc => npc.id === q[0].quest_npcs[q[0].quest_npcs.length -1]);
             if (starter[0] !== undefined) {
-                map_markers.push({npc: starter[0], quest: q[0], start_icon: q[2], bg_color: q[4], 
-                    active_start_icon: q[5], z: q[6] });
+                map_markers.push({loc: [starter[0].npc_location_x, starter[0].npc_location_y], marker: 
+                {npc: starter[0], quest: q[0], start_icon: q[2], bg_color: q[4], active_start_icon: q[5], z: q[6]}});
             }
             if (turn_in[0] !== undefined && this.props.toggled_quests.includes(q[0])) {
-                map_markers.push({npc: turn_in[0], quest: q[0], turn_in_icon: q[3], bg_color: q[4], z: q[6] });
+                map_markers.push({loc: [starter[0].npc_location_x, starter[0].npc_location_y], marker:
+                {npc: turn_in[0], quest: q[0], turn_in_icon: q[3], bg_color: q[4], z: q[6]}});
             }
-            console.log(steps);
             steps.map(s => {
                 if (s !== undefined && this.props.toggled_quests.includes(q[0]) && q[0].id !== undefined) {
                     index ++;
-                    map_markers.push({npc: s, quest: q[0], quest_type_icon: q[1],
-                    quest_step_icon: `./icons/third_layer/Step${index}Icon.png`, bg_color: q[4], z: q[6] });
+                    map_markers.push({loc: [starter[0].npc_location_x, starter[0].npc_location_y], marker:
+                    {npc: s, quest: q[0], quest_type_icon: q[1], quest_step_icon: `./icons/third_layer/Step${index}Icon.png`, 
+                    bg_color: q[4], z: q[6]}});
                 }
-                console.log(map_markers);
                 return map_markers;
             })
             return map_markers;
         })
-
+        console.log(map_markers);
         let clustered_markers = [];
         if (map_markers.length !== 0) {
-            clustered_markers = map_markers.reduce(function (acc, obj) {
-                let key = [obj.npc['npc_location_x'], obj.npc['npc_location_y']];
-                if (!acc[key]) {
-                    acc[key] = [];
+            clustered_markers = map_markers.reduce((npc_locs, {loc, marker}) => {
+                if (!npc_locs[loc]) {
+                    npc_locs[loc] = [];
                 }
-                acc[key].push(obj);
-                return acc;
-            });
+                npc_locs[loc].push(marker);
+                return npc_locs;
+            }, {});
         }
-        delete clustered_markers.bg_color;
-        delete clustered_markers.npc;
-        delete clustered_markers.quest;
-        delete clustered_markers.start_icon;
-        delete clustered_markers.active_start_icon;
-        delete clustered_markers.z;
-        delete clustered_markers.turn_in_icon;
+        console.log(clustered_markers);
 
         let unclustered_markers = [];
         Object.entries(clustered_markers).map(([key, value]) => {
             if (value.length > 1) {
-                console.log(value);
                 let offset = 0;
                 value.map(marker => {
                     let new_marker = {};
