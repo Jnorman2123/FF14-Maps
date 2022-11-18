@@ -27,7 +27,7 @@ class ZoneMapCont extends Component {
                         start = marker.start_icon;
                     }
                 icon = new L.Icon  ({iconUrl: start, iconSize: [35, 35]});
-                return <LayerGroup >
+                return <LayerGroup key={Math.random()} >
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
                     icon={color_icon} />
@@ -43,7 +43,7 @@ class ZoneMapCont extends Component {
                 </LayerGroup>
             } else if (marker.turn_in_icon) {
                 icon = new L.Icon  ({iconUrl: marker.turn_in_icon, iconSize: [35, 35]});
-                return <LayerGroup >
+                return <LayerGroup key={Math.random()} >
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
                     icon={color_icon} />
@@ -61,7 +61,7 @@ class ZoneMapCont extends Component {
                 icon = new L.Icon  ({iconUrl: marker.quest_type_icon, iconSize: [35, 35]});
                 step_icon = new L.Icon  ({iconUrl: marker.quest_step_icon, iconSize: [35, 35]});
                 let container_icon = new L.Icon ({iconUrl: './icons/first_layer/IconContainer.png', iconSize: [35, 35]})
-                return <LayerGroup >
+                return <LayerGroup key={Math.random()} >
                     <Marker key={Math.random()} 
                     position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
                     icon={color_icon} />
@@ -133,8 +133,9 @@ class ZoneMapCont extends Component {
         })
 
         active_quest_marker_data.map(q => {
+            console.log(q)
             let index = 0;
-            let steps = q[0].quest_npcs.slice(1, -1).map(s => npcs.filter(n => n.id ===s)[0]);
+            let steps = q[0].quest_npcs.slice(1, -1).map(s => npcs.filter(n => n.id === s)[0]);
             let starter = npcs.filter(npc => npc.id === q[0].quest_npcs[0]);
             let turn_in = npcs.filter(npc => npc.id === q[0].quest_npcs[q[0].quest_npcs.length -1]);
             if (starter[0] !== undefined) {
@@ -144,13 +145,15 @@ class ZoneMapCont extends Component {
             if (turn_in[0] !== undefined && this.props.toggled_quests.includes(q[0])) {
                 map_markers.push({npc: turn_in[0], quest: q[0], turn_in_icon: q[3], bg_color: q[4], z: q[6] });
             }
+            console.log(steps);
             steps.map(s => {
-                index ++;
-                if (s !== undefined && this.props.toggled_quests.includes(q[0])) {
+                if (s !== undefined && this.props.toggled_quests.includes(q[0]) && q[0].id !== undefined) {
+                    index ++;
                     map_markers.push({npc: s, quest: q[0], quest_type_icon: q[1],
                     quest_step_icon: `./icons/third_layer/Step${index}Icon.png`, bg_color: q[4], z: q[6] });
                 }
-                return s;
+                console.log(map_markers);
+                return map_markers;
             })
             return map_markers;
         })
@@ -172,10 +175,12 @@ class ZoneMapCont extends Component {
         delete clustered_markers.start_icon;
         delete clustered_markers.active_start_icon;
         delete clustered_markers.z;
+        delete clustered_markers.turn_in_icon;
 
         let unclustered_markers = [];
         Object.entries(clustered_markers).map(([key, value]) => {
             if (value.length > 1) {
+                console.log(value);
                 let offset = 0;
                 value.map(marker => {
                     let new_marker = {};

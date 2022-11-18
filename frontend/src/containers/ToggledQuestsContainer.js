@@ -21,13 +21,13 @@ class ToggledQuestsContainer extends Component {
                             } else {
                                 theme = 'danger';
                             }
-                            return <Row>
+                            return <Row key={aq.quest_name} >
                                 <Col md={9} >
                                     <p>{aq.quest_name}</p>
                                 </Col>
                                 <Col>
-                                    <Button key={aq.name} id='toggle-check' type='checkbox' variant={theme} name={aq.name} 
-                                    onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} >
+                                    <Button key={aq.quest_name} id='toggle-check' type='checkbox' variant={theme} 
+                                    name={aq.quest_name} onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} >
                                             Active                                   
                                     </Button>
                                 </Col>

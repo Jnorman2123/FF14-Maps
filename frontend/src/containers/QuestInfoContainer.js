@@ -29,10 +29,10 @@ class QuestInfoContainer extends Component {
                     }
                     return optional_reward_items;
                 })
-                return <Accordion key={quest.quest_name} flush >
+                return <Accordion key={Math.random()} flush >
                     <Card>
                         <Card.Header className='text-center bg-primary'>
-                            <Accordion.Button as={Card.Header} eventKey={i}>
+                            <Accordion.Button as={Card.Header} eventkey={i}>
                                 {quest.quest_name}
                             </Accordion.Button>
                         </Card.Header>
@@ -42,7 +42,7 @@ class QuestInfoContainer extends Component {
                                 <Col>Quest Class(es): 
                                     <ul>
                                         {quest_classes[0].map(qc => {
-                                            return <li>{qc.job_name}</li>
+                                            return <li key={Math.random()} >{qc.job_name}</li>
                                         })}
                                     </ul>
                                 </Col>
@@ -50,15 +50,15 @@ class QuestInfoContainer extends Component {
                                 <Col>Quest Level: {quest.quest_level}</Col>
                             </Row>
                             <Row>
-                                <h8>Previous Quest: {quest.previous_quest}</h8>
-                                <h8>Next Quest: {quest.next_quest}</h8>
+                                <h6>Previous Quest: {quest.previous_quest}</h6>
+                                <h6>Next Quest: {quest.next_quest}</h6>
                             </Row>
                             <Row>
                                 <h4 className='text-center'>Quest Steps</h4>
                                 <Col> 
                                     <ul>
                                         {quest_steps.map(step => {
-                                            return <li>{step.step_description}</li>
+                                            return <li key={step.step_description} >{step.step_description}</li>
                                         })}
                                     </ul>
                                 </Col>
@@ -74,7 +74,7 @@ class QuestInfoContainer extends Component {
                                         <h5>Guaranteed Items</h5>
                                         <ul>
                                             {guaranteed_reward_items.map(ri => {
-                                                return <li>{ri[0].item_name}: {ri[0].item_quantity}</li>
+                                                return <li key={Math.random()} >{ri[0].item_name}: {ri[0].item_quantity}</li>
                                             })}
                                         </ul>
                                     </Col>
@@ -82,7 +82,7 @@ class QuestInfoContainer extends Component {
                                         <h5>Optional Items</h5>
                                         <ul>
                                             {optional_reward_items.map(ri => {
-                                                return <li>{ri[0].item_name}: {ri[0].item_quantity}</li>
+                                                return <li key={Math.random()} >{ri[0].item_name}: {ri[0].item_quantity}</li>
                                             })}
                                         </ul>
                                     </Col>
