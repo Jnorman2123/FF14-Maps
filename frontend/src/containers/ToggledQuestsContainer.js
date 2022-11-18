@@ -17,17 +17,24 @@ class ToggledQuestsContainer extends Component {
                     <Accordion.Body className='bg-secondary'>
                         {this.props.active_quests.map(aq => {
                             if (this.props.toggled_quests.includes(aq)) {
-                                theme = 'primary';
+                                theme = 'success';
                             } else {
                                 theme = 'danger';
                             }
                             return <Row key={aq.quest_name} >
+                                <Col md={1}>
+                                    <Button key={Math.random()} id='toggle-check' type='checkbox' variant='primary' 
+                                    name='Delete' size='sm' >
+                                        X                                   
+                                    </Button>
+                                </Col>
                                 <Col md={9} >
                                     <p>{aq.quest_name}</p>
                                 </Col>
-                                <Col>
+                                <Col md={1}>
                                     <Button key={aq.quest_name} id='toggle-check' type='checkbox' variant={theme} 
-                                    name={aq.quest_name} onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} >
+                                    name={aq.quest_name} onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
+                                    size='sm'>
                                             Active                                   
                                     </Button>
                                 </Col>

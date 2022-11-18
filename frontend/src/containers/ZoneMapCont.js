@@ -142,13 +142,13 @@ class ZoneMapCont extends Component {
                 {npc: starter[0], quest: q[0], start_icon: q[2], bg_color: q[4], active_start_icon: q[5], z: q[6]}});
             }
             if (turn_in[0] !== undefined && this.props.toggled_quests.includes(q[0])) {
-                map_markers.push({loc: [starter[0].npc_location_x, starter[0].npc_location_y], marker:
+                map_markers.push({loc: [turn_in[0].npc_location_x, turn_in[0].npc_location_y], marker:
                 {npc: turn_in[0], quest: q[0], turn_in_icon: q[3], bg_color: q[4], z: q[6]}});
             }
             steps.map(s => {
                 if (s !== undefined && this.props.toggled_quests.includes(q[0]) && q[0].id !== undefined) {
                     index ++;
-                    map_markers.push({loc: [starter[0].npc_location_x, starter[0].npc_location_y], marker:
+                    map_markers.push({loc: [s.npc_location_x, s.npc_location_y], marker:
                     {npc: s, quest: q[0], quest_type_icon: q[1], quest_step_icon: `./icons/third_layer/Step${index}Icon.png`, 
                     bg_color: q[4], z: q[6]}});
                 }
@@ -203,15 +203,6 @@ class ZoneMapCont extends Component {
                 unclustered_markers={unclustered_markers} legend_icon={legend_icon} renderMarkers={this.renderMarkers}/>
             )
         }
-        // return (    
-        //     <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
-        //     minZoom={this.props.minZoom} maxZoom={this.props.maxZoom} maxBounds={this.props.bounds} 
-        //     maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '825px', width: '100%'}} >
-        //         <ImageOverlay url={`./maps/${mapName}.jpg`} bounds={this.props.bounds} opacity={1} />
-        //         {this.renderMarkers(unclustered_markers)}
-        //         <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={legend_icon} />
-        //     </MapContainer>
-        // );
     }
 }
 
