@@ -49,6 +49,7 @@ class App extends Component {
       navigate: false,
       navigate_link: '',
       toggled_quests: [],
+      active_quests: [],
     }
   }
 
@@ -71,6 +72,39 @@ class App extends Component {
     })
   }
 
+  setActiveQuests = () => {
+    let quests = this.props.quests.quests;
+    let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
+    let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
+    let active_quest_levels = this.props.quest_levels.filter(ql => ql.active === true).map(ql => {
+      let lvl_ranges = ql.name.split('-');
+        return [parseInt(lvl_ranges[0]), parseInt(lvl_ranges[1])]
+    });
+    let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
+    let active_quests = [];
+
+    if (quests !== []) {
+      quests.map(q => {
+        if (active_quest_types.includes(q.quest_type)) {
+            q.quest_class.map(qc => {
+                if (active_jobs.includes(qc) || qc === 30) {
+                    active_quest_levels.map(ql => {
+                        if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
+                        && !active_quests.includes(q)) {
+                            active_quests.push(q);
+                        }
+                        return ql;
+                    })
+                }
+                return qc;
+            })
+        }
+        return q;
+      });
+    }
+    console.log(active_quests);
+    this.setState({active_quests: active_quests});
+  }
   
   setClassActive = (event) => {
     let class_name = event.target.name;
@@ -82,6 +116,7 @@ class App extends Component {
         }
         return c.active
     })
+    this.setActiveQuests();
   }
 
   setTypeActive = (event) => {
@@ -94,6 +129,7 @@ class App extends Component {
         }
         return c.active
     })
+    this.setActiveQuests();
   }
 
   setLevelActive = (event) => {
@@ -106,6 +142,7 @@ class App extends Component {
         }
         return c.active
     })
+    this.setActiveQuests();
   }
 
   toggleQuest = (quest, quest_col) => {
@@ -120,14 +157,24 @@ class App extends Component {
     }
   }
 
+  deleteQuest = (quest, quest_col) => {
+    console.log(quest_col);
+    let new_active_quests = [];
+    new_active_quests = quest_col.filter(q => q !== quest);
+    quest_col = new_active_quests;
+    console.log(quest_col);
+    return quest_col;
+  }
+
   render() {
+    console.log(this.state.active_quests);
 
     let setQuestType = (quests, type) => {
       return quests.filter(q => q.quest_type === type)
     }
 
     let setQuestStarters = (type) => {
-        let quests = setQuestType(active_quests, type).map(aq => {
+        let quests = setQuestType(this.state.active_quests, type).map(aq => {
             let starter_npc = npcs.filter(npc => npc.id === aq.quest_npcs[0]);
             return starter_npc[0];
         });
@@ -144,35 +191,36 @@ class App extends Component {
     } 
 
     let npcs = this.props.npcs.npcs;
-    let quests = this.props.quests.quests;
-    let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
-    let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
-    let active_quest_levels = this.props.quest_levels.filter(ql => ql.active === true).map(ql => {
-      let lvl_ranges = ql.name.split('-');
-        return [parseInt(lvl_ranges[0]), parseInt(lvl_ranges[1])]
-    });
-    let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
-    let active_quests = [];
+    // let quests = this.props.quests.quests;
+    // let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
+    // let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
+    // let active_quest_levels = this.props.quest_levels.filter(ql => ql.active === true).map(ql => {
+    //   let lvl_ranges = ql.name.split('-');
+    //     return [parseInt(lvl_ranges[0]), parseInt(lvl_ranges[1])]
+    // });
+    // let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
+    // let active_quests = [];
     
-    if (quests !== []) {
-      quests.map(q => {
-        if (active_quest_types.includes(q.quest_type)) {
-            q.quest_class.map(qc => {
-                if (active_jobs.includes(qc) || qc === 30) {
-                    active_quest_levels.map(ql => {
-                        if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
-                        && !active_quests.includes(q)) {
-                            active_quests.push(q);
-                        }
-                        return active_quests;
-                    })
-                }
-                return active_quests;
-            })
-        }
-        return active_quests;
-      });
-    }
+    
+    // if (quests !== []) {
+    //   quests.map(q => {
+    //     if (active_quest_types.includes(q.quest_type)) {
+    //         q.quest_class.map(qc => {
+    //             if (active_jobs.includes(qc) || qc === 30) {
+    //                 active_quest_levels.map(ql => {
+    //                     if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
+    //                     && !active_quests.includes(q)) {
+    //                         active_quests.push(q);
+    //                     }
+    //                     return active_quests;
+    //                 })
+    //             }
+    //             return active_quests;
+    //         })
+    //     }
+    //     return active_quests;
+    //   });
+    // }
 
     let quest_starters = {
       class_starters: setQuestStarters('Class'),
@@ -185,33 +233,33 @@ class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
-          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={active_quests} 
-          toggleQuest={this.toggleQuest}/>} >
+          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={this.state.active_quests} 
+          toggleQuest={this.toggleQuest} deleteQuest={this.deleteQuest} setActiveQuests={this.setActiveQuests} />} >
             <Route index element={<Info />}/>
             <Route path='/world' element={<WorldMapCont mapName='World' 
             bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
-            center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={active_quests} 
+            center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={this.state.active_quests} 
             setStartersLength={setStartersLength} createIcon={createIcon} setQuestType={setQuestType} 
             quest_starters={quest_starters} />} />
             {this.props.region_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
               element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
               zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} active_quests={active_quests} setStartersLength={setStartersLength} 
+              revertLat={this.revertLat} active_quests={this.state.active_quests} setStartersLength={setStartersLength} 
               createIcon={createIcon} setQuestType={setQuestType} quest_starters={quest_starters} />} />
             })}
             {this.props.inside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
               zoom={5.3} minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
+              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
               toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={true} />} />
             })}
             {this.props.outside_zone_names.map(n => {
               return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
               element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
               zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={active_quests} 
+              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
               toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={false} />} />
             })}
             </Route>

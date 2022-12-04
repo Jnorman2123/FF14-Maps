@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/esm/Accordion';
 
 class ToggledQuestsContainer extends Component {
+    
     render() {
         let theme = 'danger'
         return (
@@ -24,7 +25,7 @@ class ToggledQuestsContainer extends Component {
                             return <Row key={aq.quest_name} >
                                 <Col md={1}>
                                     <Button key={Math.random()} id='toggle-check' type='checkbox' variant='primary' 
-                                    name='Delete' size='sm' >
+                                    name='Delete' size='sm' onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} >
                                         X                                   
                                     </Button>
                                 </Col>

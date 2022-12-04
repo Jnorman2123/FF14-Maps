@@ -156,7 +156,7 @@ class ZoneMapCont extends Component {
             })
             return map_markers;
         })
-        console.log(map_markers);
+
         let clustered_markers = [];
         if (map_markers.length !== 0) {
             clustered_markers = map_markers.reduce((npc_locs, {loc, marker}) => {
@@ -167,7 +167,6 @@ class ZoneMapCont extends Component {
                 return npc_locs;
             }, {});
         }
-        console.log(clustered_markers);
 
         let unclustered_markers = [];
         Object.entries(clustered_markers).map(([key, value]) => {

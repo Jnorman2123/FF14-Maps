@@ -19,7 +19,8 @@ class Home extends Component {
                             <ToggleContainer setClassActive={this.props.setClassActive} 
                             setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
                             active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 
-                            toggleQuest={this.props.toggleQuest}/>         
+                            toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
+                            setActiveQuests={this.props.setActiveQuests} />         
                         </Col>
                         <Col md={6} >
                             <Outlet />
