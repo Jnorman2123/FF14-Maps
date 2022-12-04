@@ -158,12 +158,7 @@ class App extends Component {
   }
 
   deleteQuest = (quest, quest_col) => {
-    console.log(quest_col);
-    let new_active_quests = [];
-    new_active_quests = quest_col.filter(q => q !== quest);
-    quest_col = new_active_quests;
-    console.log(quest_col);
-    return quest_col;
+    this.setState({active_quests: quest_col.filter(q => q !== quest)})
   }
 
   render() {
@@ -191,37 +186,6 @@ class App extends Component {
     } 
 
     let npcs = this.props.npcs.npcs;
-    // let quests = this.props.quests.quests;
-    // let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
-    // let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
-    // let active_quest_levels = this.props.quest_levels.filter(ql => ql.active === true).map(ql => {
-    //   let lvl_ranges = ql.name.split('-');
-    //     return [parseInt(lvl_ranges[0]), parseInt(lvl_ranges[1])]
-    // });
-    // let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
-    // let active_quests = [];
-    
-    
-    // if (quests !== []) {
-    //   quests.map(q => {
-    //     if (active_quest_types.includes(q.quest_type)) {
-    //         q.quest_class.map(qc => {
-    //             if (active_jobs.includes(qc) || qc === 30) {
-    //                 active_quest_levels.map(ql => {
-    //                     if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
-    //                     && !active_quests.includes(q)) {
-    //                         active_quests.push(q);
-    //                     }
-    //                     return active_quests;
-    //                 })
-    //             }
-    //             return active_quests;
-    //         })
-    //     }
-    //     return active_quests;
-    //   });
-    // }
-
     let quest_starters = {
       class_starters: setQuestStarters('Class'),
       main_starters: setQuestStarters('Main Story'),
