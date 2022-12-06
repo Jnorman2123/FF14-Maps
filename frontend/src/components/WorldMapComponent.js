@@ -5,8 +5,8 @@ import { Navigate } from 'react-router-dom';
 
 class WorldMapComponent extends Component {
     render() {
-        let zone_marker = this.props.props.zone_marker;
-        console.log(this.props);
+        console.log(this.props.props[1]);
+        let zone_marker = this.props.props[0];
         return (
             <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}
                 crs={L.CRS.Simple} maxBoundsViscosity='1' scrollWheelZoom={false} maxZoom={this.props.zoom}
@@ -27,11 +27,11 @@ class WorldMapComponent extends Component {
                 })};
                 {this.props.hover_overlays.map(overlay => overlay)};
                 <Marker key={Math.random()} icon={zone_marker.icon} position={zone_marker.position} zIndexOffset={1000}/>
-                {this.props.props.highlighted_markers.map(mar => {
+                {this.props.props[1].map(mar => {
                     return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={0} 
                     opacity={1} interactive={false} />
                 })};
-                {this.props.props.navigate && <Navigate to={this.props.props.navigate_link} replace={true} />}
+                {this.props.props[2] && <Navigate to={this.props.props[3]} replace={true} />}
             </MapContainer>
         )
     }

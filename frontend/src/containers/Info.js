@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 class Info extends Component {
     render() {
         return (
-            <div>
-                <Link to={`/world`}>
-                    Navigate to World Map
-                </Link>
-            </div>
+            <Container fluid>
+                <Row className='text-center'>
+                    <Link to={`/world`}>
+                        Navigate to World Map
+                    </Link>
+                </Row>
+            </Container>
         )
     }
 }
