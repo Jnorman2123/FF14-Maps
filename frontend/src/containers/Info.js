@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Info extends Component {
     render() {
         return (
             <div>
-                <h6>Info will go here</h6>
+                <Link to={`/world`}>
+                    Navigate to World Map
+                </Link>
             </div>
         )
     }

@@ -162,7 +162,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.active_quests);
 
     let setQuestType = (quests, type) => {
       return quests.filter(q => q.quest_type === type)
