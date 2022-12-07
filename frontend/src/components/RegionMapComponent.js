@@ -5,20 +5,21 @@ import { Navigate } from 'react-router-dom';
 
 class RegionMapComponent extends Component {
     render() {
+        console.log(this.props.props);
         let zone_marker = null;
         let zone_legend_icons = null;
         let hover_overlays = null;
 
         if (this.props.mapName === 'LaNoscea') {
-            zone_marker = this.props.props.la_noscea_zone_marker;
+            zone_marker = this.props.props[0];
             zone_legend_icons = this.props.la_noscea_zone_legend_icons;
             hover_overlays = this.props.la_noscea_hover_overlays;
         } else if (this.props.mapName === 'TheBlackShroud') {
-            zone_marker = this.props.props.the_black_shroud_zone_marker;
+            zone_marker = this.props.props[1];
             zone_legend_icons = this.props.the_black_shroud_zone_legend_icons;
             hover_overlays = this.props.the_black_shroud_hover_overlays;
         } else {
-            zone_marker = this.props.props.thanalan_zone_marker;
+            zone_marker = this.props.props[2];
             zone_legend_icons = this.props.thanalan_zone_legend_icons;
             hover_overlays = this.props.thanalan_hover_overlays;
         }
@@ -35,7 +36,7 @@ class RegionMapComponent extends Component {
                     })
                 })};
                 {hover_overlays.map(overlay => overlay)};
-                {this.props.props.highlighted_markers.map(marker => {
+                {this.props.props[3].map(marker => {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
                     zIndexOffset={50} opacity={1} />
                 })}

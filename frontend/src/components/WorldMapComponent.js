@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 
 class WorldMapComponent extends Component {
     render() {
-        console.log(this.props.props[1]);
         let zone_marker = this.props.props[0];
         return (
             <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}

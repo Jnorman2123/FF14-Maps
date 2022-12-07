@@ -6,33 +6,12 @@ import Container from 'react-bootstrap/esm/Container';
 import WorldMapComponent from '../components/WorldMapComponent';
 import { useNavigate } from 'react-router-dom';
 
-// function ZoneLegend(props) {
-//     const [zoomLevel, setZoomLevel] = useState(props.props.zoom);
-//     const mapEvents = useMapEvents({
-//         zoomend: () => {
-//             setZoomLevel(mapEvents.getZoom());
-//         },
-//     });
-
 function WorldMapCont(props) {
     const [zone_marker, setZoneMarker] = useState({icon: new L.Icon({iconUrl: `./icons/region_names/SelectRegion.png`, 
         iconSize: [205.7, 34.85]}), position: [-7.4, 21.5]},);
     const [highlighted_markers, setHighlightedMarkers] = useState([]);
-    const [navigate, setNavigate] = useState(false);
-    const [navigate_link, setNavigateLink] = useState('');
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         zone_marker: 
-    //         highlighted_markers: [],
-    //         navigate: false,
-    //         navigate_link: '',
-    //     }
-    // };
-    console.log(highlighted_markers)
     const addMarker = (pos, icon) => {
         let marker = {icon: icon, position: pos};
-        console.log(marker)
         setHighlightedMarkers([...highlighted_markers, marker]);
     };
 
@@ -166,7 +145,7 @@ function WorldMapCont(props) {
     return (
         <Container>
             <WorldMapComponent mapName={props.mapName} bounds={props.bounds} center={props.center} 
-            zoom={props.zoom} props={[zone_marker, highlighted_markers, navigate, navigate_link]} 
+            zoom={props.zoom} props={[zone_marker, highlighted_markers]} 
             createHoverOverlay={createHoverOverlay} la_noscea_legend_icons={la_noscea_legend_icons} 
             thanalan_legend_icons={thanalan_legend_icons} the_black_shroud_legend_icons={the_black_shroud_legend_icons} 
             hover_overlays={hover_overlays} />
