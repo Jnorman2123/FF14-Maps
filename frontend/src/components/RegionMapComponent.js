@@ -5,23 +5,16 @@ import { Navigate } from 'react-router-dom';
 
 class RegionMapComponent extends Component {
     render() {
-        console.log(this.props.props);
         let zone_marker = null;
-        let zone_legend_icons = null;
-        let hover_overlays = null;
+        let zone_legend_icons = [];
+        let hover_overlays = [];
 
         if (this.props.mapName === 'LaNoscea') {
             zone_marker = this.props.props[0];
-            zone_legend_icons = this.props.la_noscea_zone_legend_icons;
-            hover_overlays = this.props.la_noscea_hover_overlays;
         } else if (this.props.mapName === 'TheBlackShroud') {
             zone_marker = this.props.props[1];
-            zone_legend_icons = this.props.the_black_shroud_zone_legend_icons;
-            hover_overlays = this.props.the_black_shroud_hover_overlays;
         } else {
             zone_marker = this.props.props[2];
-            zone_legend_icons = this.props.thanalan_zone_legend_icons;
-            hover_overlays = this.props.thanalan_hover_overlays;
         }
 
         return (
@@ -29,16 +22,25 @@ class RegionMapComponent extends Component {
                 minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '800px', width: '100%'}}>
                 <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} />
+                {this.props.legend_icon_groups.map(group => {
+                    return Object.entries(group).map(([key, value]) => {
+                        if (key !== 'hover_overlay') {
+                            return <Marker key={Math.random()} icon={value.icon} position={value.position} 
+                                zIndexOffset={value.z_offset} />
+                        } else {
+                            return value;
+                        }
+                    })
+                })};
                 {zone_legend_icons.map(legend_icons => {
                     return legend_icons.map(marker => {
-                        return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
-                        zIndexOffset={marker.z_offset} />
+                        
                     })
                 })};
                 {hover_overlays.map(overlay => overlay)};
                 {this.props.props[3].map(marker => {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
-                    zIndexOffset={50} opacity={1} />
+                    zIndexOffset={50}/>
                 })}
                 <Marker key={Math.random()} icon={zone_marker.icon} position={zone_marker.position} zIndexOffset={1000}/>
                 {this.props.props.navigate && <Navigate to={this.props.props.navigate_link} replace={true} />}

@@ -1,6 +1,6 @@
 import { CLASSES, QUEST_TYPES, QUEST_LEVELS, INSIDE_ZONE_NAMES, OUTSIDE_ZONE_NAMES, REGION_NAMES,
-        ZONES, ORIGINAL_REGIONS, HEAVENSWARD_REGIONS, STORMBLOOD_REGIONS, ENDWALKER_REGIONS, 
-        SHADOWBRINGERS_REGIONS, WORLD_MAP_ATTRIBUTES, LA_NOSCEA_MAP_ATTRIBUTES,
+        LA_NOSCEA_ZONE_NAMES, THE_BLACK_SHROUD_ZONE_NAMES, THANALAN_ZONE_NAMES, ZONES, ORIGINAL_REGIONS, HEAVENSWARD_REGIONS, 
+        STORMBLOOD_REGIONS, ENDWALKER_REGIONS, SHADOWBRINGERS_REGIONS, WORLD_MAP_ATTRIBUTES, LA_NOSCEA_MAP_ATTRIBUTES,
         THE_BLACK_SHROUD_MAP_ATTRIBUTES, THANALAN_MAP_ATTRIBUTES, LEGEND_ICON_ATTRIBUTES} from "./dataTypes";
 
 export const initialData = {
@@ -44,6 +44,12 @@ export const initialData = {
         'Amh Araeng', 'Il Mheg', "The Rak'tika Greatwood", 'The Tempest', 'Garlemald', 'Thavnair', 'Mare Lamentorum', 'Ultima Thule', 
         'Elpis'
     ],
+    [LA_NOSCEA_ZONE_NAMES] : ['Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'Middle La Noscea', 'Lower La Noscea', 
+        'Eastern La Noscea', 'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea'],
+    [THE_BLACK_SHROUD_ZONE_NAMES] : ['New Gridania', 'Old Gridania', 'Central Shroud', 'East Shroud', 'South Shroud', 
+        'North Shroud'],
+    [THANALAN_ZONE_NAMES] : ["Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip', 'Western Thanalan', 
+        'Eastern Thanalan', 'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan'],
     [REGION_NAMES] : [
         'La Noscea', 'The Black Shroud', 'Thanalan', 'Heavensward', 'Stormblood', 'Shadowbringers', 'Endwalker'
     ],
@@ -86,35 +92,188 @@ export const initialData = {
     },
     [LA_NOSCEA_MAP_ATTRIBUTES] : {
         la_noscea_name_pos: [0,10],
-        limsa_lominsa_upper_decks_legend_pos: [-36, 15],
-        limsa_lominsa_lower_decks_legend_pos: [-30, 5.5],
-        middle_la_noscea_legend_pos: [-17.75, 25.25],
-        lower_la_noscea_legend_pos: [-30, 36.5],
-        eastern_la_noscea_legend_pos: [-12, 34],
-        western_la_noscea_legend_pos: [-23.5, 10.5],
-        upper_la_noscea_legend_pos: [-13, 12],
-        outer_la_noscea_legend_pos: [-6, 11.5],
+        limsa_lominsa_upper_decks_attributes: {
+            legend_pos: [-36, 15],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-33.5, 15],
+            highlight_pos: [-29.05, 15.05],
+            highlight_size: [92.04, 141.96]
+        },
+        limsa_lominsa_lower_decks_attributes: {
+            legend_pos: [-30, 5.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-30, 9],
+            highlight_pos: [-30.6, 13.37],
+            highlight_size: [138.06, 93.6]
+        },
+        middle_la_noscea_attributes: {
+            legend_pos: [-17.75, 25.25],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-20.25, 25.25],
+            highlight_pos: [-22.44, 21.255],
+            highlight_size: [166.14, 193.44]
+        },
+        lower_la_noscea_attributes: {
+            legend_pos: [-30, 36.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-30, 33],
+            highlight_pos: [-33.5, 27.47],
+            highlight_size: [168.63, 243.32]
+        },
+        eastern_la_noscea_attributes: {
+            legend_pos: [-12, 34],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-14.5, 34],
+            highlight_pos: [-19.32, 34.1],
+            highlight_size: [227.075, 187.55]
+        },
+        western_la_noscea_attributes: {
+            legend_pos: [-23.5, 10.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-21, 10.5],
+            highlight_pos: [-18.05, 9.05],
+            highlight_size: [255.84, 210.6]
+        },
+        upper_la_noscea_attributes: {
+            legend_pos: [-13, 12],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-13, 15.5],
+            highlight_pos: [-12.39, 20.91],
+            highlight_size: [198.66, 93.17]
+        },
+        outer_la_noscea_attributes: {
+            legend_pos: [-6, 11.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-6, 15],
+            highlight_pos: [-6.02, 19.2],
+            highlight_size: [154.44, 137.28]
+        } 
     },
-    
     [THE_BLACK_SHROUD_MAP_ATTRIBUTES] : {
         the_black_shroud_name_pos: [0,0],
-        old_gridania_legend_pos: [-13.5, 17.25],
-        new_gridania_legend_pos: [-19.75, 25.25],
-        east_shroud_legend_pos: [-25, 35.5],
-        north_shroud_legend_pos: [-21, 8.5],
-        central_shroud_legend_pos: [-28.5, 14],
-        south_shroud_legend_pos: [-38.5, 27],
+        old_gridania_attributes: {
+            legend_pos: [-13.5, 17.25],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-13.5, 20.75],
+            highlight_pos: [-12.73, 24.88],
+            highlight_size: [134.16, 92.82]
+        },
+        new_gridania_attributes: {
+            legend_pos: [-19.75, 25.25],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-17.25, 25.25],
+            highlight_pos: [-15.37, 25.9],
+            highlight_size: [95.16, 69.42]
+        },
+        east_shroud_attributes: {
+            legend_pos: [-25, 35.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-22.5, 35.5],
+            highlight_pos: [-16.49, 34.85],
+            highlight_size: [217.62, 196.56]
+        },
+        north_shroud_attributes: {
+            legend_pos: [-21, 8.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-18.5, 8.5],
+            highlight_pos: [-14.9, 9.9],
+            highlight_size: [177.06, 133.38]
+        },
+        central_shroud_attributes: {
+            legend_pos: [-28.5, 14],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-26, 14],
+            highlight_pos: [-24.46, 18.5],
+            highlight_size: [199.68, 167.7]
+        },
+        south_shroud_attributes: {
+            legend_pos: [-38.5, 27],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-36, 27],
+            highlight_pos: [-35.78, 24.42],
+            highlight_size: [201.24, 195.78]
+        }
     },
     [THANALAN_MAP_ATTRIBUTES] : {
         thanalan_name_pos: [0,0],
-        uldah_steps_of_nald_legend_pos: [-33, 10],
-        uldah_steps_of_thal_legend_pos: [-32, 24],
-        hustings_strip_legend_pos: [-37.5, 17],
-        western_thanalan_legend_pos: [-18, 12.5],
-        eastern_thanalan_legend_pos: [-10.5, 32.5],
-        central_thanalan_legend_pos: [-23.5, 27],
-        southern_thanalan_legend_pos: [-32.5, 38],
-        northern_thanalan_legend_pos: [-12, 18.5],
+        uldah_steps_of_nald_attributes: {
+            legend_pos: [-33, 10],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-33, 13.5],
+            highlight_pos: [-31.98, 16.875],
+            highlight_size: [113.88, 91.26]
+        },
+        uldah_steps_of_thal_attributes: {
+            legend_pos: [-32, 24],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-32, 20.5],
+            highlight_pos: [-31.85, 17.2],
+            highlight_size: [113.88, 86.58]
+        },
+        hustings_strip_attributes: {
+            legend_pos: [-37.5, 17],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-35, 17],
+            highlight_pos: [-31.91, 17.055],
+            highlight_size: [118.56, 91.26]
+        },
+        western_thanalan_attributes: {
+            legend_pos: [-18, 12.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-18, 9],
+            highlight_pos: [-21.45, 8.67],
+            highlight_size: [204.82, 217.14]
+        },
+        eastern_thanalan_attributes: {
+            legend_pos: [-10.5, 32.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+            arrow_size: [59.5, 42.5],
+            arrow_pos: [-13, 32.5],
+            highlight_pos: [-16.27, 33.35],
+            highlight_size: [212.16, 175.5]
+        },
+        central_thanalan_attributes: {
+            legend_pos: [-23.5, 27],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-23.5, 23.5],
+            highlight_pos: [-22.2, 21.25],
+            highlight_size: [164.3, 216.225]
+        },
+        southern_thanalan_attributes: {
+            legend_pos: [-32.5, 38],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-32.5, 34.5],
+            highlight_pos: [-30.7, 33],
+            highlight_size: [219.325, 311.55]
+        },
+        northern_thanalan_attributes: {
+            legend_pos: [-12, 18.5],
+            arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+            arrow_size: [42.5, 59.5],
+            arrow_pos: [-12, 22],
+            highlight_pos: [-9.65, 24.275],
+            highlight_size: [127.1, 203.825]
+        },   
     },
     [LEGEND_ICON_ATTRIBUTES] : {
         legend_size: [121.5, 90.5],

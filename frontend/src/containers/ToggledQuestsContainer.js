@@ -10,7 +10,7 @@ class ToggledQuestsContainer extends Component {
     render() {
         let theme = 'danger'
         return (
-            <Container style={{overflowY: 'scroll', maxHeight: '325px'}} >
+            <Container style={{overflowY: 'scroll', maxHeight: '275px'}} >
                 <Accordion >
                     <Accordion.Header className='bg-primary text-center' >
                         Toggled Quests

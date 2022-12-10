@@ -102,7 +102,7 @@ class ToggleContainer extends Component {
                 <br/>
                 <Row>
                     <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/>
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>                 */}
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>*/}
                 </Row>  
                 <br/>   
                 <Row>
@@ -136,7 +136,8 @@ class ToggleContainer extends Component {
                 </Row> 
                 <br/> 
                 <Row>
-                    <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} className='btn-secondary'>
+                    <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
+                        className='btn-secondary'>
                         Refresh Active Quests 
                     </Button>
                 </Row>
