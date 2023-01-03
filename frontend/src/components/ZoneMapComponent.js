@@ -24,7 +24,8 @@ function ZoneMapComponent(props) {
         <MapContainer crs={L.CRS.Simple} center={props.center} zoom={props.zoom} 
         minZoom={props.minZoom} maxZoom={props.maxZoom} maxBounds={props.bounds} 
         maxBoundsViscosity='1' scrollWheelZoom={true} style={{height: '800px', width: '100%'}} >
-            <ImageOverlay url={`./maps/${props.mapName}.jpg`} bounds={props.bounds} opacity={1} />
+            <ImageOverlay url={`./maps/${props.mapName}.jpg`} bounds={props.bounds} opacity={1} 
+            attribution='@ 2010-2013 SQUARE ENIX CO., LTD. All Rights Reserved'/>
             {props.renderMarkers(props.unclustered_markers)}
             <ZoneLegend props={props} />
         </MapContainer>
