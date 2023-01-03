@@ -25,7 +25,7 @@ class Home extends Component {
                         <Col md={6} >
                             <Outlet />
                         </Col>
-                        <Col className='bg-primary' style={{overflowY: 'scroll', maxHeight: '800px'}} >
+                        <Col className='bg-primary' style={{overflowY: 'scroll', maxHeight: '825px'}} >
                             <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
                         </Col>
                     </Row>

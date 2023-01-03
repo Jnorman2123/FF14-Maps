@@ -9,6 +9,7 @@ import QuestInfo from '../components/QuestInfo';
 class QuestInfoContainer extends Component {
 
     renderQuestInfo = (toggled_quests) => {
+        let npcs = this.props.npcs.npcs;
         let i = 0;
         return <div>
             {toggled_quests.map(quest => {
@@ -58,7 +59,10 @@ class QuestInfoContainer extends Component {
                                 <Col> 
                                     <ul>
                                         {quest_steps.map(step => {
-                                            return <li key={step.step_description} >{step.step_description}</li>
+                                            let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
+                                            let split_zone_name = full_zone_name.split('(');
+                                            return <li key={step.step_description} >{`${step.step_description} 
+                                            (${split_zone_name[0]})`}</li>
                                         })}
                                     </ul>
                                 </Col>

@@ -12,7 +12,7 @@ class ToggledQuestsContainer extends Component {
         return (
             <Accordion >
                 <Accordion.Header className='bg-primary text-center' >
-                    Toggled Quests
+                    Active Quests
                 </Accordion.Header>
                 <Accordion.Body className='bg-secondary'>
                     <Container style={{overflowY: 'scroll', maxHeight: '275px'}} >
