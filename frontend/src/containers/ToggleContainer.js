@@ -134,17 +134,11 @@ class ToggleContainer extends Component {
                         return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
                     })}    
                 </Row> 
-                <br/> 
-                <Row>
-                    <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
-                        className='btn-secondary'>
-                        Refresh Active Quests 
-                    </Button>
-                </Row>
                 <br/>
                 <Row>
                     <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} 
-                    toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} />
+                    toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
+                    setActiveQuests={this.props.setActiveQuests}/>
                 </Row>
             </div>
         )

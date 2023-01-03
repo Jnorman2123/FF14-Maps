@@ -10,12 +10,18 @@ class ToggledQuestsContainer extends Component {
     render() {
         let theme = 'danger'
         return (
-            <Container style={{overflowY: 'scroll', maxHeight: '275px'}} >
-                <Accordion >
-                    <Accordion.Header className='bg-primary text-center' >
-                        Toggled Quests
-                    </Accordion.Header>
-                    <Accordion.Body className='bg-secondary'>
+            <Accordion >
+                <Accordion.Header className='bg-primary text-center' >
+                    Toggled Quests
+                </Accordion.Header>
+                <Accordion.Body className='bg-secondary'>
+                    <Container style={{overflowY: 'scroll', maxHeight: '275px'}} >
+                        <Row>
+                            <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
+                                className='btn-secondary'>
+                                Refresh Active Quests 
+                            </Button>
+                        </Row>
                         {this.props.active_quests.map(aq => {
                             if (this.props.toggled_quests.includes(aq)) {
                                 theme = 'success';
@@ -41,9 +47,9 @@ class ToggledQuestsContainer extends Component {
                                 </Col>
                             </Row>
                         })}
-                    </Accordion.Body>
-                </Accordion>
-            </Container>
+                    </Container>
+                </Accordion.Body>
+            </Accordion>
         )
     }
 }

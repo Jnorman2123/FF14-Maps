@@ -53,6 +53,7 @@ class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Step
         fields = ("id", "step_description", "quest_step", "step_npc")
+        extra_kwargs = {'step_npc': {'html_cutoff': 5000}}
 
         def to_representation(self, instance):
             data = super().to_representation(instance)
