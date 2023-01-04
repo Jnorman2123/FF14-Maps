@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { MapContainer, Marker, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
-import { Navigate } from 'react-router-dom';
 
 class WorldMapComponent extends Component {
     render() {
@@ -30,7 +29,6 @@ class WorldMapComponent extends Component {
                     return <Marker key={Math.random()} icon={mar.icon} position={mar.position} zIndexOffset={0} 
                     opacity={1} interactive={false} />
                 })};
-                {this.props.props[2] && <Navigate to={this.props.props[3]} replace={true} />}
             </MapContainer>
         )
     }
