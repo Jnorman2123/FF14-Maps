@@ -73,6 +73,7 @@ class App extends Component {
   }
 
   setActiveQuests = () => {
+    let bg_colors = this.props.bg_colors;
     let quests = this.props.quests.quests;
     let active_classes = this.props.classes.filter(c => c.active === true).map(c => c.name);
     let active_quest_types = this.props.quest_types.filter(qt => qt.active === true).map(qt => qt.name);
@@ -82,6 +83,7 @@ class App extends Component {
     });
     let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
     let active_quests = [];
+    let i = 0;
 
     if (quests !== []) {
       quests.map(q => {
@@ -91,7 +93,12 @@ class App extends Component {
                     active_quest_levels.map(ql => {
                         if (q.quest_level >= ql[0] && q.quest_level <= ql[1]
                         && !active_quests.includes(q)) {
+                            q.bg_color = bg_colors[i];
                             active_quests.push(q);
+                            i ++;
+                            if (i >= bg_colors.length) {
+                              i = 0;
+                            }
                         }
                         return ql;
                     })
@@ -245,6 +252,7 @@ const mapStateToProps = (storeData) => {
       quests: storeData.quests,
       jobs: storeData.jobs,
       npcs: storeData.npcs,
+      bg_colors: storeData.storeData.quest_icon_bg_colors,
   }
 }
 

@@ -89,7 +89,6 @@ class ZoneMapCont extends Component {
         let mapName = this.props.mapName.split(' ').join('');
         let map_markers = [];
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName));
-        let bg_colors = this.props.bg_colors;
         let npc_ids = npcs.map(n => n.id);
         let i = 0;
         let active_quest_marker_data = [];
@@ -112,11 +111,9 @@ class ZoneMapCont extends Component {
             let turn_in_icon = '';
             let active_start_icon = '';
             let quest_type = '';
-            let bg_color = bg_colors[i].split(' ').join('');
             i++;
+            let bg_color = aq.bg_color.split(' ').join('');
             let bg_color_icon = `./icons/second_layer/${bg_color}Bg.png`;
-            
-
             if (aq.quest_type === 'Main Story') {
                 quest_type = 'MainStory';
             } else if (aq.quest_type === 'Class') {
@@ -209,7 +206,6 @@ class ZoneMapCont extends Component {
 
 const mapStateToProps = (storeData) => ({
     npcs: storeData.npcs,
-    bg_colors: storeData.storeData.quest_icon_bg_colors,
 })
 
 export default connect(mapStateToProps)(ZoneMapCont);
