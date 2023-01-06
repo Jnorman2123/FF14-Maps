@@ -292,8 +292,9 @@ export const initialData = {
     },
     [QUEST_ICON_BG_COLORS] : [
         'Blue', 'Cyan', 'Red', 'Yellow', 'Green', 'Orange', 'Purple', 'Pink', 'Brown', 'Dark Cyan', 'Dark Red', 'Violet', 
-        'Magenta', 'Light Yellow', 'Lime Green', 'Dark Blue', 'Light Magenta', 'Vivid Orange', 'Vivid Cyan',
-        'Pale Yellow', 'Dark Pink', 'Dark Green', 'Vivid Violet', 'Light Pink', 'Forest Green', 'Black', 'White' 
+        'Magenta', 'Light Yellow', 'Lime Green', 'Dark Blue', 'Dark Green',  'Light Pink', 'Forest Green', 'Black', 'White' 
     ]
 }
+
+// 'Vivid Orange', 'Vivid Cyan', 'Pale Yellow','Dark Pink','Vivid Violet',
 

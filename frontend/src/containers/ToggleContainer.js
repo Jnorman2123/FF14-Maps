@@ -93,6 +93,17 @@ class ToggleContainer extends Component {
         </Button>
     }
 
+    renderClassButton = (c) => {
+        let isActive = false;
+        let icon_name = null;
+        c.active ? isActive = true : isActive = false;
+        c.active ? icon_name = c.name + 'Active' : icon_name = c.name;
+        
+        return <Button id='toggle-check' type='checkbox' key={c.name} name={c.name} onClick={this.props.setClassActive} >
+            <img src={`../icons/class_icons/${icon_name}.png`} name={c.name} />
+        </Button>
+    }
+
     render() {
         return (
             <div> 
@@ -101,7 +112,10 @@ class ToggleContainer extends Component {
                 </Row>
                 <br/>
                 <Row>
-                    <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/>
+                    {this.state.base_classes.map(c => {
+                        return <ButtonToggle key={c.name} renderButton={this.renderClassButton} selection={c} />
+                    })}
+                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/> */}
                     {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>*/}
                 </Row>  
                 <br/>   

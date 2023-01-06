@@ -109,7 +109,6 @@ class App extends Component {
         return q;
       });
     }
-    console.log(active_quests);
     this.setState({active_quests: active_quests});
   }
   

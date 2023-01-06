@@ -90,7 +90,6 @@ class ZoneMapCont extends Component {
         let map_markers = [];
         let npcs = this.props.npcs.npcs.filter(npc => npc.npc_zone.includes(this.props.mapName));
         let npc_ids = npcs.map(n => n.id);
-        let i = 0;
         let active_quest_marker_data = [];
         let in_zone_quests = [];
         let marker_z = 50;
@@ -111,7 +110,6 @@ class ZoneMapCont extends Component {
             let turn_in_icon = '';
             let active_start_icon = '';
             let quest_type = '';
-            i++;
             let bg_color = aq.bg_color.split(' ').join('');
             let bg_color_icon = `./icons/second_layer/${bg_color}Bg.png`;
             if (aq.quest_type === 'Main Story') {
