@@ -6,7 +6,6 @@ import { Navigate } from 'react-router-dom';
 class RegionMapComponent extends Component {
     render() {
         let zone_marker = null;
-        let zone_legend_icons = [];
         let hover_overlays = [];
 
         if (this.props.mapName === 'LaNoscea') {
@@ -31,11 +30,6 @@ class RegionMapComponent extends Component {
                         } else {
                             return value;
                         }
-                    })
-                })};
-                {zone_legend_icons.map(legend_icons => {
-                    return legend_icons.map(marker => {
-                        
                     })
                 })};
                 {hover_overlays.map(overlay => overlay)};
