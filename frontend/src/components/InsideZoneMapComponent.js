@@ -1,21 +1,7 @@
-import React, { useState } from 'react';
-import { MapContainer, ImageOverlay, Marker, useMapEvents } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
-
-function ZoneLegend(props) {
-    const [zoomLevel, setZoomLevel] = useState(props.props.zoom);
-    const mapEvents = useMapEvents({
-        zoomend: () => {
-            setZoomLevel(mapEvents.getZoom());
-        },
-    });
-
-    if (zoomLevel === 5.3) {
-        return <Marker key={'zone legend'} position={[-18.65, 4.55]} icon={props.props.legend_icon} />
-    } else {
-        return null;
-    }
-}
+import InsideZoneLegend from './InsideZoneLegend';
 
 function InsideZoneMapComponent(props) {
     
@@ -26,7 +12,7 @@ function InsideZoneMapComponent(props) {
             <ImageOverlay attribution='@ 2010-2013 SQUARE ENIX CO., LTD. All Rights Reserved' 
             url={`./maps/${props.mapName}.jpg`} bounds={props.bounds} opacity={1} />
             {props.renderMarkers(props.unclustered_markers)}
-            <ZoneLegend props={props} />
+            <InsideZoneLegend props={props} />
         </MapContainer>
     );
 }

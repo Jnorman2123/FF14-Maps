@@ -10,10 +10,10 @@ function ZoneLegend(props) {
         },
     });
 
-    if (zoomLevel === 4.25) {
+    if (zoomLevel === 5.3) {
         return <>
-            <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={props.props.legend_icon} />
-            <Marker key={'back button'} position={[-4, 4]} icon={props.props.back_button_icon} />
+            <Marker key={'zone legend'} position={[-18.65, 4.55]} icon={props.props.legend_icon} />
+            <Marker key={'back button'} position={[-2.5, 2.5]} icon={props.props.back_button_icon} />
         </>
     } else {
         return null;
