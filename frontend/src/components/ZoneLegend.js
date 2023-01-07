@@ -16,7 +16,7 @@ function ZoneLegend(props) {
     if (zoomLevel === 4.25) {
         return <>
             <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={props.props.legend_icon} />
-            <Marker key={'back button'} position={[-4, 4]} icon={props.props.back_button_icon} eventHandlers={{
+            <Marker key={'back button'} position={[-39, 39]} icon={props.props.back_button_icon} eventHandlers={{
                 click: () => {
                     nav(-1);
                 }

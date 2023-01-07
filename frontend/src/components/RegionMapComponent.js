@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MapContainer, Marker, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
 import { Navigate } from 'react-router-dom';
+import RegionBackButton from './RegionBackButton';
 
 class RegionMapComponent extends Component {
     render() {
@@ -39,6 +40,7 @@ class RegionMapComponent extends Component {
                 })}
                 <Marker key={Math.random()} icon={zone_marker.icon} position={zone_marker.position} zIndexOffset={1000}/>
                 {this.props.props.navigate && <Navigate to={this.props.props.navigate_link} replace={true} />}
+                <RegionBackButton />
             </MapContainer>
         )
     }
