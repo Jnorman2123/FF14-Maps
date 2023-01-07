@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
-import ToggleDropdown from '../components/ToggleDropdown';
+import Image from 'react-bootstrap/Image';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import ToggledQuestsContainer from './ToggledQuestsContainer';
 import ButtonToggle from '../components/ButtonToggle';
 import { connect } from 'react-redux';
@@ -22,86 +22,38 @@ class ToggleContainer extends Component {
         }
     }
 
-    setSelectionName = (selection) => {
-        let selectionName = '';
-
-        switch (selection) {
-            case this.state.base_classes:
-                selectionName = 'Base Classes';
-                break;
-            case this.state.tank_jobs:
-                selectionName = 'Tank Jobs';
-                break;
-            case this.state.healer_jobs: 
-                selectionName = 'Healer Jobs';
-                break;
-            case this.state.melee_dps_jobs: 
-                selectionName = 'Melee Dps Jobs'; 
-                break;
-            case this.state.physical_ranged_dps_jobs: 
-                selectionName = 'Physical Ranged Dps Jobs'; 
-                break;
-            case this.state.magical_ranged_dps_jobs: 
-                selectionName = 'Magical Ranged Dps Jobs'; 
-                break;
-            default:
-                break;   
-        }
-        
-        return selectionName;
-    }
-
-    renderDropdowns = (selection) => {
-        let selection_name = this.setSelectionName(selection);
-        return <Dropdown autoClose='outside' >
-                    <Dropdown.Toggle id='dropdown-basic' >{selection_name} </Dropdown.Toggle>
-                        <ButtonGroup>
-                            <Dropdown.Menu>    
-                                {selection.map(t => {
-                                    let theme = '';
-                                    t.active ? theme = 'btn-primary' : theme = 'btn-secondary';
-                                    return <Dropdown.Item key={t.name} >
-                                        <Button key={t.name} id='toggle-check' className={theme} type='checkbox' name={t.name}
-                                        onClick={this.props.setClassActive}>
-                                            {t.name}                                   
-                                        </Button>
-                                    </Dropdown.Item>
-                                })}
-                            </Dropdown.Menu> 
-                        </ButtonGroup>
-                </Dropdown> 
-    }
-
-    renderButtons = (selection) => {
+    renderButton = (item, type) => {
+        let icon_name = null;
         let setActive = null;
-        let isActive = false;
-        let theme = '';
-
-        if (selection.name === 'Main Story' || selection.name === 'Class' || selection.name === 'Side'
-        || selection.name === 'Hunting Log') {
+        let icon_group = null;
+        let width = null;
+        let padding = null;
+        if (type === 'quest class') {
+            setActive = this.props.setClassActive;
+            icon_group = 'class_icons';
+            width = 75;
+            padding = 2;
+        } else if (type === 'quest type') {
             setActive = this.props.setTypeActive;
+            icon_group = 'quest_type_icons';
+            width = 75;
+            padding = 2;
+            item.name = item.name.split(' ').join('');
         } else {
             setActive = this.props.setLevelActive;
+            icon_group = 'quest_level_icons';
+            width = 50;
+            padding = 1;
         }
 
-        selection.active ? isActive = true : isActive = false;
-        selection.active ? theme = 'btn-primary' : theme = 'btn-secondary';
+        item.active ? icon_name = item.name + 'Active' : icon_name = item.name;
         
-        return <Button id='toggle-check' type='checkbox' name={selection.name} onClick={setActive} 
-        className={theme} active={isActive} >
-            {selection.name}
-        </Button>
-    }
-
-    renderClassButton = (c) => {
-        let isActive = false;
-        let icon_name = null;
-        c.active ? isActive = true : isActive = false;
-        c.active ? icon_name = c.name + 'Active' : icon_name = c.name;
-        
-        return <Button id='toggle-check' type='checkbox' key={c.name} name={c.name} onClick={this.props.setClassActive} >
-            <img src={`../icons/class_icons/${icon_name}.png`} name={c.name} />
-        </Button>
+        return <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >{item.name}</Tooltip>} >
+            <Button id='toggle-check' type='checkbox' key={item.name} name={item.name} onClick={setActive} 
+            style={{width: width, padding: padding}}>
+                <Image fluid='true' src={`../icons/${icon_group}/${icon_name}.png`} name={item.name} />
+            </Button>
+        </OverlayTrigger>
     }
 
     render() {
@@ -110,42 +62,25 @@ class ToggleContainer extends Component {
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Class/Job</h5>
                 </Row>
-                <br/>
                 <Row>
                     {this.state.base_classes.map(c => {
-                        return <ButtonToggle key={c.name} renderButton={this.renderClassButton} selection={c} />
+                        return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
                     })}
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.base_classes}/> */}
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.tank_jobs}/>*/}
-                </Row>  
-                <br/>   
-                <Row>
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.healer_jobs}/>  */}
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.magical_ranged_dps_jobs}/>                 */}
-                </Row> 
-                <br/>            
-                <Row>
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.melee_dps_jobs}/> */}
-                    {/* <ToggleDropdown renderDropdown={this.renderDropdowns} selection={this.state.physical_ranged_dps_jobs}/>                 */}
-                </Row>   
-                <br/>   
+                </Row>         
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Type</h5>
                 </Row>
-                <br/>
                 <Row>
                     {this.props.quest_types.map(t => {
-                        return <ButtonToggle key={t.name} renderButton={this.renderButtons} selection={t} />
+                        return <ButtonToggle key={t.name} renderButton={this.renderButton} selection={t} type='quest type' />
                     })}   
-                </Row>   
-                <br/>
+                </Row>  
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Level</h5>
                 </Row> 
-                <br/>    
                 <Row>
                     {this.props.quest_levels.map(l => {
-                        return <ButtonToggle key={l.name} renderButton={this.renderButtons} selection={l} />
+                        return <ButtonToggle key={l.name} renderButton={this.renderButton} selection={l} type='quest level' />
                     })}    
                 </Row> 
                 <br/>

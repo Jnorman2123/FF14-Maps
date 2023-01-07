@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 
 class ButtonToggle extends Component {
     render() {
-        return <Col>{this.props.renderButton(this.props.selection)}</Col>
+        return <Col>{this.props.renderButton(this.props.selection, this.props.type)}</Col>
     }
 }
 

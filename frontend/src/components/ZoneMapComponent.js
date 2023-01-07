@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
-import { MapContainer, ImageOverlay, Marker, useMapEvents } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
+import ZoneLegend from './ZoneLegend';
 
-function ZoneLegend(props) {
-    const [zoomLevel, setZoomLevel] = useState(props.props.zoom);
-    
-    const mapEvents = useMapEvents({
-        zoomend: () => {
-            setZoomLevel(mapEvents.getZoom());
-        },
-    });
 
-    if (zoomLevel === 4.25) {
-        return <Marker key={'zone legend'} position={[-36.25, 8.4]} icon={props.props.legend_icon} />
-    } else {
-        return null;
-    }
-}
 
 function ZoneMapComponent(props) {
     
