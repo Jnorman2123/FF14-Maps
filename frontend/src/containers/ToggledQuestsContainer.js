@@ -4,11 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/esm/Accordion';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Image from 'react-bootstrap/esm/Image';
 
 class ToggledQuestsContainer extends Component {
     
     render() {
-        let theme = 'danger'
+        let toggled_quests = this.props.toggled_quests;
+        let image = 'ToggleQuestOn';
+        let tooltip_message = 'Toggle quest steps on';
         return (
             <Accordion >
                 <Accordion.Header className='bg-primary text-center' >
@@ -16,18 +21,25 @@ class ToggledQuestsContainer extends Component {
                 </Accordion.Header>
                 <Accordion.Body className='bg-secondary'>
                     <Container style={{overflowY: 'scroll', maxHeight: '275px'}} >
-                        <Row>
-                            <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
-                                className='btn-secondary'>
-                                Refresh Active Quests 
-                            </Button>
+                        <Row className='justify-content-end'>
+                            <OverlayTrigger placement='top' overlay={
+                            <Tooltip id="button-tooltip-2" >Refresh Available Quest List</Tooltip>} >
+                                <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
+                                    style={{width: 50, padding: 1}} >
+                                    <Image fluid='true' src='../icons/available_quest_icons/RefreshAvailableQuestList.png' 
+                                    name='refresh' />
+                                </Button>
+                            </OverlayTrigger>
                         </Row>
                         {this.props.active_quests.map(aq => {
-                            if (this.props.toggled_quests.includes(aq)) {
-                                theme = 'success';
+                            if (toggled_quests.includes(aq)) {
+                                image = '/ToggleQuestOff';
+                                tooltip_message = 'Toggle quest steps off';
                             } else {
-                                theme = 'danger';
+                                image = 'ToggleQuestOn';
+                                tooltip_message = 'Toggle quest steps on';
                             }
+
                             return <Row key={aq.quest_name} >
                                 <Col md={1}>
                                     <Button key={Math.random()} id='toggle-check' type='checkbox' variant='primary' 
@@ -39,11 +51,15 @@ class ToggledQuestsContainer extends Component {
                                     <p>{aq.quest_name}</p>
                                 </Col>
                                 <Col md={1}>
-                                    <Button key={aq.quest_name} id='toggle-check' type='checkbox' variant={theme} 
-                                    name={aq.quest_name} onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                                    size='sm'>
-                                            Active                                   
-                                    </Button>
+                                    <OverlayTrigger placement='top' overlay={
+                                    <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
+                                        <Button key={aq.quest_name} id='toggle-check' type='checkbox' name={aq.quest_name} 
+                                        onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
+                                        style={{width: 50, padding: 1}} >
+                                            <Image fluid='true' src={`../icons/available_quest_icons/${image}.png`} 
+                                            name='toggle steps' />                                   
+                                        </Button>
+                                    </OverlayTrigger>
                                 </Col>
                             </Row>
                         })}

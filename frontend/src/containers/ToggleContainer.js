@@ -26,24 +26,18 @@ class ToggleContainer extends Component {
         let icon_name = null;
         let setActive = null;
         let icon_group = null;
-        let width = null;
-        let padding = null;
+        let width = 50;
+        let padding = 1;
         if (type === 'quest class') {
             setActive = this.props.setClassActive;
             icon_group = 'class_icons';
-            width = 75;
-            padding = 2;
         } else if (type === 'quest type') {
             setActive = this.props.setTypeActive;
             icon_group = 'quest_type_icons';
-            width = 75;
-            padding = 2;
             item.name = item.name.split(' ').join('');
         } else {
             setActive = this.props.setLevelActive;
             icon_group = 'quest_level_icons';
-            width = 50;
-            padding = 1;
         }
 
         item.active ? icon_name = item.name + 'Active' : icon_name = item.name;
@@ -62,7 +56,7 @@ class ToggleContainer extends Component {
                 <Row>
                     <h5 className='text-center'>Toggle Quests by Class/Job</h5>
                 </Row>
-                <Row>
+                <Row className='justify-content-left'>
                     {this.state.base_classes.map(c => {
                         return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
                     })}
