@@ -291,10 +291,13 @@ export const initialData = {
         right_num_offset: 1.75
     },
     [QUEST_ICON_BG_COLORS] : [
-        'Blue', 'Cyan', 'Red', 'Yellow', 'Green', 'Orange', 'Purple', 'Pink', 'Brown', 'Dark Cyan', 'Dark Red', 'Violet', 
-        'Magenta', 'Light Yellow', 'Lime Green', 'Dark Blue', 'Dark Green',  'Light Pink', 'Forest Green', 'Black', 'White' 
+        'Aqua', 'Avocado', 'Burgundy', 'Canary', 'CandyAppleRed', 'DeepSaffron', 'ElectricBlue', 'ElectricGreen', 
+        'ElectricIndigo', 'FashionFuschia', 'FieldDrab', 'Azure', 'MalachiteGreen', 'Folly', 'ImperialPurple', 
+        'MediumSpring', 'FrenchPink', 'Arsenic', 'MetallicSunburst', 'MidnightGreen', 'Fuschia', 'PaleViolet', 'Red', 
+        'Heliotrope', 'ResolutionBlue', 'ScreamingGreen', 'SeaGreen', 'PhilippineGray', 'SpringFrost', 'Sunny', 'SunsetOrange', 
+        'Turquoise', 'VenetianRed', 'VioletBlue', 'Viridian', 'VividOranePeel', 'LightYellow' 
     ]
 }
 
-// 'Vivid Orange', 'Vivid Cyan', 'Pale Yellow','Dark Pink','Vivid Violet',
+// 
 

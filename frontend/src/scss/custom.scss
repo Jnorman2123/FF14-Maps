@@ -1,0 +1,84 @@
+$red: #ff0102;
+$vividorangepeel: #ffa200;
+$electricgreen: #1dff00;
+$mediumspringgreen: #00ff9e;
+$seagreen: #00ffd2;
+$aqua: #01ffff;
+$azure: #0197ff;
+$electricultramarine: #2901ff;
+$electricindigo: #6701ff;
+$fuschia: #ff00ff;
+$fashionfuschia: #e90091;
+$folly: #ff005c;
+$sunsetorange: #ff5752;
+$deepsaffron: #ff9226;
+$sunny: #ffff7b;
+$springfrost: #84ff2c;
+$screaminggreen: #54ff64;
+$malachitegreen: #61ff87;
+$turquoise: #52ffdc;
+$electricblue: #70eeff;
+$violetblue: #7175d7;
+$paleviolet: #c385ff;
+$frenchpink: #f864a3;
+$heliotrope: #e071ed;
+$canary: #ffff9a;
+$venetianred: #c15b00;
+$avocado: #4b8200;
+$candyapplered: #a20000;
+$viridian: #008051;
+$midnightgreen: #004851;
+$resolutionblue: #001c8d;
+$imperialpurple: #4c0043;
+$burgundy: #81002b;
+$metallicsunburst: #9e8646;
+$fielddrab: #624f1a;
+$lightyellow: #ffffe5;
+$philippinegray: #8d8d8d;
+$arsenic: #424242;
+
+$theme-colors: (
+    'red': $red,
+    'vividorangepeel': $vividorangepeel,
+    'electricgreen': $electricgreen,
+    'mediumspringgreen': $mediumspringgreen,
+    'seagreen': $seagreen,
+    'aqua': $aqua,
+    'azure': $azure,
+    'electricultramarine': $electricultramarine,
+    'electricindigo': $electricindigo,
+    'fuschia': $fuschia,
+    'fashionfuschia': $fashionfuschia,
+    'folly': $folly,
+    'sunsetorange': $sunsetorange,
+    'deepsaffron': $deepsaffron,
+    'sunny': $sunny,
+    'springfrost': $springfrost,
+    'screaminggreen': $screaminggreen,
+    'malachitegreen': $malachitegreen,
+    'turquoise': $turquoise,
+    'electricblue': $electricblue,
+    'violetblue': $violetblue,
+    'paleviolet': $paleviolet,
+    'frenchpink': $frenchpink,
+    'heliotrope': $heliotrope,
+    'canary': $canary,
+    'venetianred': $venetianred,
+    'avocado': $avocado,
+    'candyapplered': $candyapplered,
+    'viridian': $viridian,
+    'midnightgreen': $midnightgreen,
+    'resolutionblue': $resolutionblue,
+    'imperialpurple': $imperialpurple,
+    'burgundy': $burgundy,
+    'metallicsunburst': $metallicsunburst,
+    'fielddrab': $fielddrab,
+    'lightyellow': $lightyellow,
+    'philippinegray': $philippinegray,
+    'arsenic': $arsenic,
+);
+
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+
+

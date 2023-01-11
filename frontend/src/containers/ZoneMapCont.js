@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Marker, LayerGroup, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import { connect } from 'react-redux';
-import '../App.css';
+import '../App.scss';
 import InsideZoneMapComponent from '../components/InsideZoneMapComponent';
 import ZoneMapComponent from '../components/ZoneMapComponent';
 
@@ -110,7 +110,7 @@ class ZoneMapCont extends Component {
             let turn_in_icon = '';
             let active_start_icon = '';
             let quest_type = '';
-            let bg_color = aq.bg_color.split(' ').join('');
+            let bg_color = aq.bg_color;
             let bg_color_icon = `./icons/second_layer/${bg_color}Bg.png`;
             if (aq.quest_type === 'Main Story') {
                 quest_type = 'MainStory';
