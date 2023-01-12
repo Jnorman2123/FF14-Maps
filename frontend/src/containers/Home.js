@@ -16,10 +16,11 @@ class Home extends Component {
                 <WorldNav />
                 <Container fluid >
                     <Row>
-                        <Col className='bg-primary' style={{padding: 0}}>
-                            <Card>
-                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle' />
-                                <Card.ImgOverlay style={{padding: 0}}>
+                        <Col className='bg-primary' style={{padding: 0, height: '825px'}}>
+                            <Card style={{height: '100%'}}>
+                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle' 
+                                style={{height: '100%'}}/>
+                                <Card.ImgOverlay style={{padding: 0}} >
                                     <ToggleContainer setClassActive={this.props.setClassActive} 
                                     setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
                                     active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 

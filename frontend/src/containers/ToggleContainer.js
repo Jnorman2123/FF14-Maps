@@ -8,6 +8,7 @@ import ToggledQuestsContainer from './ToggledQuestsContainer';
 import ButtonToggle from '../components/ButtonToggle';
 import { connect } from 'react-redux';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 
 class ToggleContainer extends Component {
 
@@ -53,41 +54,46 @@ class ToggleContainer extends Component {
 
     render() {
         return (
-            <> 
-                <Card className='text-center'>
-                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
-                    <Card.ImgOverlay>
+            <Container style={{padding: 0, height: '100%'}}> 
+                <Card className='text-center' >
+                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image'/>
+                    <Card.ImgOverlay >
                         <h5>Toggle Quests by Class</h5>
                     </Card.ImgOverlay>
                 </Card>
-                <Row className='justify-content-left'>
+                <Row className='justify-content-center' style={{padding: 5}}>
                     {this.state.base_classes.map(c => {
                         return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
                     })}
                 </Row>         
-                <Row>
-                    <h5 className='text-center'>Toggle Quests by Type</h5>
-                </Row>
-                <Row>
+                <Card className='text-center'>
+                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
+                    <Card.ImgOverlay>
+                        <h5>Toggle Quests by Type</h5>
+                    </Card.ImgOverlay>
+                </Card>
+                <Row className='justify-content-center' style={{padding: 5}}>
                     {this.props.quest_types.map(t => {
                         return <ButtonToggle key={t.name} renderButton={this.renderButton} selection={t} type='quest type' />
                     })}   
                 </Row>  
-                <Row>
-                    <h5 className='text-center'>Toggle Quests by Level</h5>
-                </Row> 
-                <Row>
+                <Card className='text-center'>
+                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
+                    <Card.ImgOverlay>
+                        <h5>Toggle Quests by Level</h5>
+                    </Card.ImgOverlay>
+                </Card>
+                <Row className='justify-content-center' style={{padding: 5}}>
                     {this.props.quest_levels.map(l => {
                         return <ButtonToggle key={l.name} renderButton={this.renderButton} selection={l} type='quest level' />
                     })}    
                 </Row> 
-                <br/>
                 <Row>
                     <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} 
                     toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
                     setActiveQuests={this.props.setActiveQuests}/>
                 </Row>
-            </>
+            </Container>
         )
     }
 }
