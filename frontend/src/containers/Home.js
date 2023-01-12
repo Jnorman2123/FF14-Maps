@@ -6,6 +6,7 @@ import QuestInfoContainer from './QuestInfoContainer';
 import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
 
 class Home extends Component {
 
@@ -15,12 +16,17 @@ class Home extends Component {
                 <WorldNav />
                 <Container fluid >
                     <Row>
-                        <Col className='bg-primary' >
-                            <ToggleContainer setClassActive={this.props.setClassActive} 
-                            setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
-                            active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 
-                            toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
-                            setActiveQuests={this.props.setActiveQuests} />         
+                        <Col className='bg-primary' style={{padding: 0}}>
+                            <Card>
+                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle' />
+                                <Card.ImgOverlay style={{padding: 0}}>
+                                    <ToggleContainer setClassActive={this.props.setClassActive} 
+                                    setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
+                                    active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 
+                                    toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
+                                    setActiveQuests={this.props.setActiveQuests} />
+                                </Card.ImgOverlay>
+                            </Card>  
                         </Col>
                         <Col md={6} >
                             <Outlet />

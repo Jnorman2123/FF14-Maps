@@ -19,7 +19,7 @@ class ToggledQuestsContainer extends Component {
                 <Accordion.Header style={{backgroundColor: 'custom'}} >
                     Active Quests
                 </Accordion.Header>
-                <Accordion.Body className='bg-electricindigo' style={{padding: 0}}>
+                <Accordion.Body className='bg-clear' style={{padding: 0}}>
                     <Container style={{overflowY: 'scroll', maxHeight: '425px', padding: 12, backgroundColor: 'custom'}} >
                         <Row style={{padding: 0, backgroundColor: 'custom'}}>
                             <Col></Col>
@@ -27,7 +27,7 @@ class ToggledQuestsContainer extends Component {
                                 <OverlayTrigger placement='top' overlay={
                                 <Tooltip id="button-tooltip-2" >Refresh List</Tooltip>} >
                                     <Button id='toggle-check' type='checkbox' name='refresh' onClick={this.props.setActiveQuests} 
-                                        style={{width: 40, padding: 0, backgroundColor: 'custom'}} >
+                                        style={{width: 40, padding: 0}} className='bg-clear'>
                                         <Image fluid='true' src='../icons/available_quest_icons/RefreshAvailableQuestList.png' 
                                         name='refresh' />
                                     </Button>
@@ -43,22 +43,22 @@ class ToggledQuestsContainer extends Component {
                                 tooltip_message = 'Toggle quest steps on';
                             }
 
-                            return <Row key={aq.quest_name} style={{backgroundColor: 'MalachiteGreen'}} >
-                                <Col md='auto' className='bg-danger' style={{padding: 5}}>
+                            return <Row key={aq.quest_name} className='bg-clear' >
+                                <Col md='auto' className='bg-clear' style={{padding: 5}}>
                                     <OverlayTrigger placement='top' overlay={
                                     <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
                                         <Button key={aq.quest_name} id='toggle-check' type='checkbox' name={aq.quest_name} 
                                         onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                                        style={{width: 32.5, padding: 0}} className='bg-danger border-danger'>
+                                        style={{width: 32.5, padding: 0}} className='bg-clear'>
                                             <Image fluid='true' src={`../icons/available_quest_icons/${image}.png`} 
                                             name='toggle steps' />                                   
                                         </Button>
                                     </OverlayTrigger>
                                 </Col>
-                                <Col style={{backgroundColor: 'custom'}} >
+                                <Col className='bg-clear' >
                                     <h5>{aq.quest_name}</h5>
                                 </Col>
-                                <Col md='auto' className='primary' >
+                                <Col md='auto' className='bg-clear' >
                                     <OverlayTrigger placement='top' overlay={
                                     <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
                                         <Button key={Math.random()} id='toggle-check' type='checkbox' name='Delete' 

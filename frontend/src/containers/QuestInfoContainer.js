@@ -20,7 +20,6 @@ class QuestInfoContainer extends Component {
                 let guaranteed_reward_items = [];
                 let optional_reward_items = [];
                 let bg_color = quest.bg_color.toLowerCase();
-                console.log(bg_color)
                 quest.quest_class.map(qc => {
                     return quest_classes.push(this.props.jobs.jobs.filter(job => job.id === qc))
                 })

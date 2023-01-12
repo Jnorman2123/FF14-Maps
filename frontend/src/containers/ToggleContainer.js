@@ -7,6 +7,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ToggledQuestsContainer from './ToggledQuestsContainer';
 import ButtonToggle from '../components/ButtonToggle';
 import { connect } from 'react-redux';
+import Card from 'react-bootstrap/Card';
 
 class ToggleContainer extends Component {
 
@@ -52,10 +53,13 @@ class ToggleContainer extends Component {
 
     render() {
         return (
-            <div> 
-                <Row>
-                    <h5 className='text-center'>Toggle Quests by Class/Job</h5>
-                </Row>
+            <> 
+                <Card className='text-center'>
+                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
+                    <Card.ImgOverlay>
+                        <h5>Toggle Quests by Class</h5>
+                    </Card.ImgOverlay>
+                </Card>
                 <Row className='justify-content-left'>
                     {this.state.base_classes.map(c => {
                         return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
@@ -83,7 +87,7 @@ class ToggleContainer extends Component {
                     toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
                     setActiveQuests={this.props.setActiveQuests}/>
                 </Row>
-            </div>
+            </>
         )
     }
 }
