@@ -21,6 +21,7 @@ class ToggleContainer extends Component {
             melee_dps_jobs: this.props.classes.slice(17, 22),
             physical_ranged_dps_jobs: this.props.classes.slice(22, 25),
             magical_ranged_dps_jobs: this.props.classes.slice(25),
+            hovered: false,
         }
     }
 
@@ -42,11 +43,27 @@ class ToggleContainer extends Component {
             icon_group = 'quest_level_icons';
         }
 
-        item.active ? icon_name = item.name + 'Active' : icon_name = item.name;
+        if (item.active) {
+            icon_name = item.name + 'Active';
+        } else {
+            if (this.state.hovered) {
+                icon_name = 'Arcanist';
+            } else {
+                icon_name = item.name;
+            }
+        }
+
         
         return <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >{item.name}</Tooltip>} >
-            <Button id='toggle-check' type='checkbox' key={item.name} name={item.name} onClick={setActive} 
-            style={{width: width, padding: padding}}>
+            <Button id='toggle-check' active='false' type='checkbox' key={item.name} name={item.name} onClick={setActive} 
+            style={{width: width, padding: padding, boxShadow: 'none'}} className='border-0' 
+            onMouseEnter={() => {
+                this.setState({hovered: true});
+            }}
+            onMouseLeave={() => {
+                this.setState({hovered: false});
+            }}
+            >
                 <Image fluid='true' src={`../icons/${icon_group}/${icon_name}.png`} name={item.name} />
             </Button>
         </OverlayTrigger>
@@ -54,10 +71,10 @@ class ToggleContainer extends Component {
 
     render() {
         return (
-            <Container style={{padding: 0, height: '100%'}}> 
-                <Card className='text-center' >
+            <Container style={{padding: 0, height: '100%'}} > 
+                <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image'/>
-                    <Card.ImgOverlay >
+                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
                         <h5>Toggle Quests by Class</h5>
                     </Card.ImgOverlay>
                 </Card>
@@ -66,9 +83,9 @@ class ToggleContainer extends Component {
                         return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
                     })}
                 </Row>         
-                <Card className='text-center'>
+                <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
-                    <Card.ImgOverlay>
+                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
                         <h5>Toggle Quests by Type</h5>
                     </Card.ImgOverlay>
                 </Card>
@@ -77,9 +94,9 @@ class ToggleContainer extends Component {
                         return <ButtonToggle key={t.name} renderButton={this.renderButton} selection={t} type='quest type' />
                     })}   
                 </Row>  
-                <Card className='text-center'>
+                <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
-                    <Card.ImgOverlay>
+                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
                         <h5>Toggle Quests by Level</h5>
                     </Card.ImgOverlay>
                 </Card>

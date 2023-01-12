@@ -15,9 +15,7 @@ function CustomToggle({ children, eventKey }) {
   
     return (
       <button
-        type="button"
-        onClick={decoratedOnClick}
-      >
+        type="button" onClick={decoratedOnClick} style={{padding: 0}} className='border-0'>
         {children}
       </button>
     );
@@ -30,26 +28,28 @@ class ToggledQuestsContainer extends Component {
         let image = 'ToggleQuestOn';
         let tooltip_message = 'Toggle quest steps on';
         return (
-            <Accordion>
-                <Card className='text-center' >
+            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}}>
+                <Card>
                     <CustomToggle eventKey="0">
-                        <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image' />
-                        <Card.ImgOverlay><h5>Available Quests</h5></Card.ImgOverlay>
+                        <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
+                        <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
+                            <h5>Available Quests</h5>
+                        </Card.ImgOverlay>
                     </CustomToggle>
                 </Card>
                 <Accordion.Collapse eventKey="0" style={{padding: 0}}>
-                    <Card style={{padding: 0, height: '325px'}}>
+                    <Card style={{padding: 0, height: '320px'}}>
                         <Card.Img src='../icons/ui_components/AvailableQuestsBg.jpg' alt='bg image' style={{height: '100%'}}/>
                         <Card.ImgOverlay style={{padding: 0}}>
-                            <Container style={{overflowY: 'scroll', height: '325px', padding: 12}} >
+                            <Container style={{overflowY: 'scroll', maxHeight: '99%', padding: 12}} >
                                 <Row style={{padding: 0}}>
                                     <Col></Col>
                                     <Col md='auto'>
                                         <OverlayTrigger placement='top' overlay={
                                         <Tooltip id="button-tooltip-2" >Refresh List</Tooltip>} >
                                             <Button id='toggle-check' type='checkbox' name='refresh' 
-                                                onClick={this.props.setActiveQuests} 
-                                                style={{width: 40, padding: 0}}>
+                                                onClick={this.props.setActiveQuests} active='false'
+                                                style={{width: 40, padding: 0, boxShadow: 'none'}} className='border-0' >
                                                 <Image fluid='true' 
                                                 src='../icons/available_quest_icons/RefreshAvailableQuestList.png' 
                                                 name='refresh' />
@@ -72,7 +72,8 @@ class ToggledQuestsContainer extends Component {
                                             <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
                                                 <Button key={aq.quest_name} id='toggle-check' type='checkbox' name={aq.quest_name} 
                                                 onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                                                style={{width: 32.5, padding: 0}}>
+                                                style={{width: 32.5, padding: 0, boxShadow: 'none'}} className='border-0'
+                                                active='false'>
                                                     <Image fluid src={`../icons/available_quest_icons/${image}.png`} 
                                                     name='toggle steps' />                                   
                                                 </Button>
@@ -86,7 +87,8 @@ class ToggledQuestsContainer extends Component {
                                             <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
                                                 <Button key={Math.random()} id='toggle-check' type='checkbox' name='Delete' 
                                                 onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} 
-                                                style={{width: 35, padding: 1}} >
+                                                style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
+                                                active='false'>
                                                     <Image fluid src={`../icons/available_quest_icons/DeleteQuest.png`} 
                                                     name='toggle steps' />                                  
                                                 </Button>

@@ -16,7 +16,7 @@ class Home extends Component {
                 <WorldNav />
                 <Container fluid >
                     <Row>
-                        <Col className='bg-primary' style={{padding: 0, height: '825px'}}>
+                        <Col className='bg-beige' style={{padding: 0, height: '825px'}}>
                             <Card style={{height: '100%'}}>
                                 <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle' 
                                 style={{height: '100%'}}/>
