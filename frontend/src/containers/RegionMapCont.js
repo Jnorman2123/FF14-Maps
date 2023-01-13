@@ -176,7 +176,7 @@ function RegionMapCont(props) {
     }
 
     return (
-        <Container>
+        <Container style={{padding: 0}}>
             <RegionMapComponent mapName={mapName} bounds={props.bounds} center={props.center} 
                 zoom={props.zoom} props={[la_noscea_zone_marker, the_black_shroud_zone_marker, thanalan_zone_marker, 
                 highlighted_markers]} legend_icon_groups={legend_icon_groups} />

@@ -46,75 +46,83 @@ class QuestInfoContainer extends Component {
                     return optional_reward_items;
                 })
 
-                return <Accordion key={Math.random()} style={{padding: 5}}>
-                    <Card className={`bg-${bg_color}`} style={{padding: 10}}>
-                        <CustomToggle eventKey={i}>
+                return <Accordion key={Math.random()} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}>
+                    <Card className={`bg-${bg_color}`} style={{padding: 5}}>
+                        <CustomToggle  eventKey={i}>
                             <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
                             <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                                <h5>{quest.quest_name}</h5>
+                                <h5 className='text-headertext' >{quest.quest_name}</h5>
                             </Card.ImgOverlay>
                         </CustomToggle>
                     </Card>
-                        <Accordion.Collapse eventKey={i} >
+                        <Accordion.Collapse eventKey={i} style={{paddingLeft: 5, paddingRight: 5}}>
                             <Card>
-                                <Card.Img src='../icons/ui_components/QuestInfoBg.jpg' alt='bg image'/>
-                                <Card.ImgOverlay style={{overflowY: 'scroll', maxHeight: '800px'}}>
+                                <Row>
+                                    <h4 className='text-center text-accordiontext'>Quest Details</h4>
+                                    <Col><h6 className='text-accordiontext' >Quest Class(es):</h6> 
+                                        <ul>
+                                            {quest_classes[0].map(qc => {
+                                                return <li key={Math.random()} className='text-accordiontext' >
+                                                    {qc.job_name}
+                                                    </li>
+                                            })}
+                                        </ul>
+                                    </Col>
+                                    <Col><h6 className='text-accordiontext' >Quest Type: {quest.quest_type}</h6></Col>
+                                    <Col><h6 className='text-accordiontext' >Quest Level: {quest.quest_level}</h6></Col>
+                                </Row>
+                                <Row>
+                                    <h6 className='text-accordiontext' >Previous Quest: {quest.previous_quest}</h6>
+                                    <h6 className='text-accordiontext' >Next Quest: {quest.next_quest}</h6>
+                                </Row>
+                                <Row>
+                                    <h4 className='text-center text-accordiontext'>Quest Steps</h4>
+                                    <Col> 
+                                        <ul>
+                                            {quest_steps.map(step => {
+                                                let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
+                                                let split_zone_name = full_zone_name.split('(');
+                                                return <li key={step.step_description} className='text-accordiontext' >
+                                                    {`${step.step_description} (${split_zone_name[0]})`}
+                                                </li>
+                                            })}
+                                        </ul>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <h4 className='text-center text-accordiontext'>Quest Rewards</h4>
                                     <Row>
-                                        <h4 className='text-center'>Quest Details</h4>
-                                        <Col>Quest Class(es): 
+                                        <Col><h6 className='text-accordiontext' >
+                                            Experience: {quest_reward[0].reward_experience}
+                                            </h6></Col>
+                                        <Col><h6 className='text-accordiontext' >
+                                            Gil: {quest_reward[0].reward_gil}
+                                            </h6></Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <h5 className='text-accordiontext' >Guaranteed Items</h5>
                                             <ul>
-                                                {quest_classes[0].map(qc => {
-                                                    return <li key={Math.random()} >{qc.job_name}</li>
+                                                {guaranteed_reward_items.map(ri => {
+                                                    return <li key={Math.random()} className='text-accordiontext' >
+                                                        {ri[0].item_name}: {ri[0].item_quantity}
+                                                    </li>
                                                 })}
                                             </ul>
                                         </Col>
-                                        <Col>Quest Type: {quest.quest_type}</Col>
-                                        <Col>Quest Level: {quest.quest_level}</Col>
-                                    </Row>
-                                    <Row>
-                                        <h6>Previous Quest: {quest.previous_quest}</h6>
-                                        <h6>Next Quest: {quest.next_quest}</h6>
-                                    </Row>
-                                    <Row>
-                                        <h4 className='text-center'>Quest Steps</h4>
-                                        <Col> 
+                                        <Col>
+                                            <h5 className='text-accordiontext' >Optional Items</h5>
                                             <ul>
-                                                {quest_steps.map(step => {
-                                                    let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
-                                                    let split_zone_name = full_zone_name.split('(');
-                                                    return <li key={step.step_description} >{`${step.step_description} 
-                                                    (${split_zone_name[0]})`}</li>
+                                                {optional_reward_items.map(ri => {
+                                                    return <li key={Math.random()} className='text-accordiontext' >
+                                                        {ri[0].item_name}: {ri[0].item_quantity}
+                                                    </li>
                                                 })}
                                             </ul>
                                         </Col>
+                                        <Col></Col>
                                     </Row>
-                                    <Row>
-                                        <h4 className='text-center'>Quest Rewards</h4>
-                                        <Row>
-                                            <Col>Experience: {quest_reward[0].reward_experience}</Col>
-                                            <Col>Gil: {quest_reward[0].reward_gil}</Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <h5>Guaranteed Items</h5>
-                                                <ul>
-                                                    {guaranteed_reward_items.map(ri => {
-                                                        return <li key={Math.random()} >{ri[0].item_name}: {ri[0].item_quantity}</li>
-                                                    })}
-                                                </ul>
-                                            </Col>
-                                            <Col>
-                                                <h5>Optional Items</h5>
-                                                <ul>
-                                                    {optional_reward_items.map(ri => {
-                                                        return <li key={Math.random()} >{ri[0].item_name}: {ri[0].item_quantity}</li>
-                                                    })}
-                                                </ul>
-                                            </Col>
-                                            <Col></Col>
-                                        </Row>
-                                    </Row>
-                                </Card.ImgOverlay>
+                                </Row>
                             </Card>
                         </Accordion.Collapse>
                 </Accordion>

@@ -143,7 +143,7 @@ function WorldMapCont(props) {
     let hover_overlays = [la_noscea_overlay, thanalan_overlay, the_black_shroud_overlay]
 
     return (
-        <Container>
+        <Container style={{padding: 0}}>
             <WorldMapComponent mapName={props.mapName} bounds={props.bounds} center={props.center} 
             zoom={props.zoom} props={[zone_marker, highlighted_markers]} la_noscea_legend_icons={la_noscea_legend_icons} 
             thanalan_legend_icons={thanalan_legend_icons} the_black_shroud_legend_icons={the_black_shroud_legend_icons} 

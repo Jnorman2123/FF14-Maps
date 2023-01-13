@@ -28,14 +28,14 @@ class Home extends Component {
                                 </Card.ImgOverlay>
                             </Card>  
                         </Col>
-                        <Col md={6} >
+                        <Col md={6} style={{padding: 0}}>
                             <Outlet />
                         </Col>
-                        <Col className='bg-beige' style={{overflowY: 'scroll', height: '825px', padding: 0}} >
-                            <Card style={{height: '100%'}}>
+                        <Col className='bg-questinfobg' style={{overflowY: 'scroll', height: '825px', padding: 0}} >
+                            <Card style={{height: '100%'}}> 
                                 <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
                                 style={{height: '100%'}}/>
-                                <Card.ImgOverlay style={{padding: 0}} >
+                                <Card.ImgOverlay style={{padding: 0, height: '100%'}} >
                                     <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
                                 </Card.ImgOverlay>
                             </Card>

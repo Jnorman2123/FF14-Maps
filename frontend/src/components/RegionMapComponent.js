@@ -20,7 +20,8 @@ class RegionMapComponent extends Component {
         return (
             <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
-                maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '825px', width: '100%'}}>
+                maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '825px', width: '100%'}}
+                className='bg-darkbg'>
                 <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} 
                 attribution='@ 2010-2013 SQUARE ENIX CO., LTD. All Rights Reserved'/>
                 {this.props.legend_icon_groups.map(group => {
@@ -32,8 +33,8 @@ class RegionMapComponent extends Component {
                             return value;
                         }
                     })
-                })};
-                {hover_overlays.map(overlay => overlay)};
+                })}
+                {hover_overlays.map(overlay => overlay)}
                 {this.props.props[3].map(marker => {
                     return <Marker key={Math.random()} icon={marker.icon} position={marker.position} 
                     zIndexOffset={50}/>
