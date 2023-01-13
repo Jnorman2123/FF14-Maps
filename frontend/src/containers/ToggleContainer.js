@@ -22,12 +22,12 @@ class ToggleContainer extends Component {
             physical_ranged_dps_jobs: this.props.classes.slice(22, 25),
             magical_ranged_dps_jobs: this.props.classes.slice(25),
             hovered: false,
+            button_name: '',
         }
     }
 
     renderButton = (item, type) => {
         let icon_name = null;
-        // let hover_img = null;
         let setActive = null;
         let icon_group = null;
         let width = 50;
@@ -44,17 +44,21 @@ class ToggleContainer extends Component {
             icon_group = 'quest_level_icons';
         }
 
-        item.active ? icon_name = item.name + 'Active' : icon_name = item.name;
+        if (item.active) {
+            icon_name = item.name + 'Active';
+        } else {
+            if (this.state.hovered && this.state.button_name === item.name) {
+                icon_name = item.name + 'Hover';
+            } else {
+                icon_name = item.name;
+            }
+        }
 
-        // this.state.hovered ? hover_img = <Image fluid src='../icons/class_icons/Hover.png' /> : hover_img = null;
-        
-
-        
         return <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >{item.name}</Tooltip>} >
             <Button id='toggle-check' active='false' type='checkbox' key={item.name} name={item.name} onClick={setActive} 
             style={{width: width, padding: padding, boxShadow: 'none'}} className='border-0' 
-            onMouseEnter={() => {
-                this.setState({hovered: true});
+            onMouseEnter={(event) => {
+                this.setState({hovered: true, button_name: event.target.name});
             }}
             onMouseLeave={() => {
                 this.setState({hovered: false});
