@@ -21,9 +21,9 @@ class RegionMapComponent extends Component {
             <MapContainer crs={L.CRS.Simple} center={this.props.center} zoom={this.props.zoom} 
                 minZoom={this.props.zoom} maxZoom={this.props.zoom} maxBounds={this.props.bounds} 
                 maxBoundsViscosity='1' scrollWheelZoom={false} style={{height: '825px', width: '100%'}}
-                className='bg-darkbg'>
+                className='bg-lightbg'>
                 <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} 
-                attribution='@ 2010-2013 SQUARE ENIX CO., LTD. All Rights Reserved'/>
+                attribution='@ 2010-2023 SQUARE ENIX CO., LTD. All Rights Reserved'/>
                 {this.props.legend_icon_groups.map(group => {
                     return Object.entries(group).map(([key, value]) => {
                         if (key !== 'hover_overlay') {

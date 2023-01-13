@@ -8,7 +8,7 @@ class WorldMapComponent extends Component {
         return (
             <MapContainer maxBounds={this.props.bounds} center={this.props.center} zoom={this.props.zoom}
                 crs={L.CRS.Simple} maxBoundsViscosity='1' scrollWheelZoom={false} maxZoom={this.props.zoom}
-                minZoom={this.props.zoom} style={{height: '825px', width: '100%'}} className='bg-darkbg'>
+                minZoom={this.props.zoom} style={{height: '825px', width: '100%'}} className='bg-lightbg'>
                 
                 <ImageOverlay url={`./maps/${this.props.mapName}.jpg`} bounds={this.props.bounds} opacity={1} />
                 {this.props.la_noscea_legend_icons.map(marker => {
