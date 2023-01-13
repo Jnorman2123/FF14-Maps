@@ -18,8 +18,7 @@ class Home extends Component {
                     <Row>
                         <Col className='bg-beige' style={{padding: 0, height: '825px'}}>
                             <Card style={{height: '100%'}}>
-                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle' 
-                                style={{height: '100%'}}/>
+                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle'style={{height: '100%'}}/>
                                 <Card.ImgOverlay style={{padding: 0}} >
                                     <ToggleContainer setClassActive={this.props.setClassActive} 
                                     setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
@@ -32,8 +31,14 @@ class Home extends Component {
                         <Col md={6} >
                             <Outlet />
                         </Col>
-                        <Col className='bg-primary' style={{overflowY: 'scroll', maxHeight: '825px'}} >
-                            <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
+                        <Col className='bg-beige' style={{overflowY: 'scroll', height: '825px', padding: 0}} >
+                            <Card style={{height: '100%'}}>
+                                <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
+                                style={{height: '100%'}}/>
+                                <Card.ImgOverlay style={{padding: 0}} >
+                                    <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
+                                </Card.ImgOverlay>
+                            </Card>
                         </Col>
                     </Row>
                 </Container>     

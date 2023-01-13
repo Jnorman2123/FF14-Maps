@@ -36,7 +36,10 @@ $fielddrab: #624f1a;
 $lightyellow: #ffffe5;
 $philippinegray: #8d8d8d;
 $arsenic: #424242;
-$clear: #1c00ff00;
+$lightbg: #ffffe4;
+$darkbg: #ffebad;
+$headertext: #fffce5;
+$accordiontext: #844f16;
 
 $theme-colors: (
     'red': $red,
@@ -77,7 +80,11 @@ $theme-colors: (
     'lightyellow': $lightyellow,
     'philippinegray': $philippinegray,
     'arsenic': $arsenic,
-    'clear': $clear,
+    'lightbg': $lightbg,
+    'darkbg': $darkbg,
+    'headertext': $headertext,
+    'accordiontext': $accordiontext,
+
 );
 
 @import "./node_modules/bootstrap/scss/bootstrap";

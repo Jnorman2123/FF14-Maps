@@ -27,6 +27,7 @@ class ToggleContainer extends Component {
 
     renderButton = (item, type) => {
         let icon_name = null;
+        // let hover_img = null;
         let setActive = null;
         let icon_group = null;
         let width = 50;
@@ -43,15 +44,10 @@ class ToggleContainer extends Component {
             icon_group = 'quest_level_icons';
         }
 
-        if (item.active) {
-            icon_name = item.name + 'Active';
-        } else {
-            if (this.state.hovered) {
-                icon_name = 'Arcanist';
-            } else {
-                icon_name = item.name;
-            }
-        }
+        item.active ? icon_name = item.name + 'Active' : icon_name = item.name;
+
+        // this.state.hovered ? hover_img = <Image fluid src='../icons/class_icons/Hover.png' /> : hover_img = null;
+        
 
         
         return <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >{item.name}</Tooltip>} >
@@ -64,18 +60,18 @@ class ToggleContainer extends Component {
                 this.setState({hovered: false});
             }}
             >
-                <Image fluid='true' src={`../icons/${icon_group}/${icon_name}.png`} name={item.name} />
+                <Image fluid src={`../icons/${icon_group}/${icon_name}.png`} name={item.name} />
             </Button>
         </OverlayTrigger>
     }
 
     render() {
         return (
-            <Container style={{padding: 0, height: '100%'}} > 
+            <Container style={{padding: 0}} > 
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image'/>
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h5>Toggle Quests by Class</h5>
+                        <h5 className='text-headertext' >Toggle Quests by Class</h5>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
@@ -86,7 +82,7 @@ class ToggleContainer extends Component {
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h5>Toggle Quests by Type</h5>
+                        <h5 className='text-headertext' >Toggle Quests by Type</h5>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
@@ -97,7 +93,7 @@ class ToggleContainer extends Component {
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h5>Toggle Quests by Level</h5>
+                        <h5 className='text-headertext' >Toggle Quests by Level</h5>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
