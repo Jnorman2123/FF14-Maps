@@ -47,13 +47,13 @@ class ToggledQuestsContainer extends Component {
         refresh_image = 'RefreshAvailableQuestList';
 
         return (
-            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} onClick={() => {
-                this.setState({accordion_expand: !this.state.accordion_expand})
-            }} >
+            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} >
                 <Card>
                     <CustomToggle eventKey="0">
                         <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
-                        <Card.ImgOverlay className='d-flex'>
+                        <Card.ImgOverlay className='d-flex' onClick={() => {
+                            this.setState({accordion_expand: !this.state.accordion_expand})
+                        }}>
                             <Col md={10} style={{padding: 0}} >
                                 <h5 className='text-headertext'>Available Quests</h5>
                             </Col>

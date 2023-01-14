@@ -57,13 +57,14 @@ class QuestInfoContainer extends Component {
                 this.state.accordion_expand &&  this.state.accordion_id === quest.quest_name ? 
                 accordion_expand_icon = 'Collapse' : accordion_expand_icon = 'Expand';
 
-                return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} onClick={(event) => {
-                    this.setState({accordion_expand: !this.state.accordion_expand, accordion_id: event.target.id}); 
-                }}>
+                return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} >
                     <Card className={`bg-${bg_color}`} style={{padding: 5}}>
                         <CustomToggle  eventKey={i} >
                             <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
-                            <Card.ImgOverlay className='d-flex justify-content-center align-items-center' id={quest.quest_name}>
+                            <Card.ImgOverlay className='d-flex justify-content-center align-items-center' id={quest.quest_name}
+                            onClick={(event) => {
+                                this.setState({accordion_expand: !this.state.accordion_expand, accordion_id: event.target.id}); 
+                            }}>
                                 <Col md={10} style={{padding: 0}} id={quest.quest_name}>
                                     <h5 id={quest.quest_name} className='text-headertext'>{quest.quest_name}</h5>
                                 </Col>
