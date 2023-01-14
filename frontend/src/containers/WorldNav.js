@@ -8,6 +8,8 @@ import RegionDropdown from '../components/RegionDropdown';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Image from 'react-bootstrap/esm/Image';
+import OverlayTrigger from 'react-bootstrap/esm/OverlayTrigger';
+import Tooltip from 'react-bootstrap/esm/Tooltip';
 
 class WorldNav extends Component {
 
@@ -65,12 +67,16 @@ class WorldNav extends Component {
             <Container fluid>
                 <Row> 
                     <Col>
-                        <Link to='/'>
-                            <Image src='../icons/nav_icons/HomeButton.png' />
-                        </Link>
-                        <Link to='/world'>
-                            <Image src='../icons/nav_icons/WorldButton.png' />
-                        </Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >Navigate to Home Page</Tooltip>} >
+                            <Link to='/'>
+                                <Image src='../icons/nav_icons/HomeButton.png' style={{width: 50}} />
+                            </Link>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >Navigate to World Map</Tooltip>} >
+                            <Link to='/world'>
+                                <Image src='../icons/nav_icons/WorldButton.png' style={{width: 50}}/>
+                            </Link>
+                        </OverlayTrigger>
                     </Col>
                     <Col md={6} >
                         <Navbar bg='light' className="justify-content-center">

@@ -185,7 +185,7 @@ class ZoneMapCont extends Component {
         })
 
         let legend_icon = new L.Icon ({iconUrl: `./icons/ZoneLegend.png`, iconSize: [280, 209]});
-        let back_button_icon = new L.Icon ({iconUrl: `./icons/BackButton.png`, iconSize: [64, 64]});
+        let back_button_icon = new L.Icon ({iconUrl: `./icons/nav_icons/BackButton.png`, iconSize: [64, 64]});
 
         if (this.props.inside) {
             return (
