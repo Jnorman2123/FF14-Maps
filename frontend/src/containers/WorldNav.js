@@ -12,6 +12,13 @@ import OverlayTrigger from 'react-bootstrap/esm/OverlayTrigger';
 import Tooltip from 'react-bootstrap/esm/Tooltip';
 
 class WorldNav extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hovered: false,
+            button_name: '',
+        }
+    }
 
     capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -63,18 +70,40 @@ class WorldNav extends Component {
     }
 
     render() {
+        let home_icon = 'HomeButton';
+        let world_icon = 'WorldButton';
+
+        this.state.hovered && this.state.button_name === 'home' ? home_icon = 'HomeButtonHover' : home_icon = 'HomeButton';
+        this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
+
         return (
             <Container fluid>
                 <Row> 
                     <Col>
-                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >Navigate to Home Page</Tooltip>} >
-                            <Link to='/'>
-                                <Image src='../icons/nav_icons/HomeButton.png' style={{width: 50}} />
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                            Navigate to Home Page
+                            </Tooltip>} >
+                            <Link to='/'
+                            onMouseEnter={(event) => {
+                                this.setState({hovered: true, button_name: event.target.name});
+                            }}
+                            onMouseLeave={() => {
+                                this.setState({hovered: false});
+                            }}>
+                                <Image src={`../icons/nav_icons/${home_icon}.png`} style={{width: 50}} name='home' />
                             </Link>
                         </OverlayTrigger>
-                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >Navigate to World Map</Tooltip>} >
-                            <Link to='/world'>
-                                <Image src='../icons/nav_icons/WorldButton.png' style={{width: 50}}/>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                            Navigate to World Map
+                            </Tooltip>} >
+                            <Link to='/world'
+                            onMouseEnter={(event) => {
+                                this.setState({hovered: true, button_name: event.target.name});
+                            }}
+                            onMouseLeave={() => {
+                                this.setState({hovered: false});
+                            }}>
+                                <Image src={`../icons/nav_icons/${world_icon}.png`} style={{width: 50}} name='world' />
                             </Link>
                         </OverlayTrigger>
                     </Col>
