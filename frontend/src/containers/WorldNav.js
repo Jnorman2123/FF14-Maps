@@ -68,6 +68,9 @@ class WorldNav extends Component {
                         <Link to='/'>
                             <Image src='../icons/nav_icons/HomeButton.png' />
                         </Link>
+                        <Link to='/world'>
+                            <Image src='../icons/nav_icons/WorldButton.png' />
+                        </Link>
                     </Col>
                     <Col md={6} >
                         <Navbar bg='light' className="justify-content-center">
