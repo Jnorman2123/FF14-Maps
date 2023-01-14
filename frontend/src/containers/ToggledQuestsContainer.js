@@ -29,6 +29,7 @@ class ToggledQuestsContainer extends Component {
             delete_hover: false,
             toggle_hover: false,
             button_name: '',
+            accordion_expand: false,
         }
     }
     
@@ -38,12 +39,17 @@ class ToggledQuestsContainer extends Component {
         let delete_image = 'DeleteQuest'
         let refresh_image = 'RefreshAvailableQuestList'
         let tooltip_message = 'Toggle quest steps on';
+        let accordion_expand_icon = 'Expand';
+
+        this.state.accordion_expand ? accordion_expand_icon = 'Collapse' : accordion_expand_icon = 'Expand';
 
         this.state.refresh_hover ? refresh_image = 'RefreshAvailableQuestListHover' : 
         refresh_image = 'RefreshAvailableQuestList';
 
         return (
-            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}}>
+            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} onClick={() => {
+                this.setState({accordion_expand: !this.state.accordion_expand})
+            }} >
                 <Card>
                     <CustomToggle eventKey="0">
                         <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
@@ -51,10 +57,10 @@ class ToggledQuestsContainer extends Component {
                             <Col md={10} style={{padding: 0}} >
                                 <h5 className='text-headertext'>Available Quests</h5>
                             </Col>
-                            <Col>
-                                <span>+</span>
+                            <Col className='d-flex justify-content-center'>
+                                <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
+                                style={{width: 30, height: 30}} />
                             </Col>
-                            
                         </Card.ImgOverlay>
                     </CustomToggle>
                 </Card>
