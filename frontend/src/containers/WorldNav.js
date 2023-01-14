@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import RegionDropdown from '../components/RegionDropdown';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Image from 'react-bootstrap/esm/Image';
 
 class WorldNav extends Component {
 
@@ -63,7 +64,11 @@ class WorldNav extends Component {
         return (
             <Container fluid>
                 <Row> 
-                    <Col>hey</Col>
+                    <Col>
+                        <Link to='/'>
+                            <Image src='../icons/nav_icons/HomeButton.png' />
+                        </Link>
+                    </Col>
                     <Col md={6} >
                         <Navbar bg='light' className="justify-content-center">
                             <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
