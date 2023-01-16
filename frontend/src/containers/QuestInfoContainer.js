@@ -15,7 +15,8 @@ function CustomToggle({ children, eventKey }) {
   
     return (
       <button
-        type="button" onClick={decoratedOnClick} style={{padding: 0}} className='border-0'>
+        type="button" onClick={decoratedOnClick} style={{padding: 0}} className='border-0
+        d-flex justify-content-center align-items-center'>
         {children}
       </button>
     );
@@ -57,10 +58,12 @@ class QuestInfoContainer extends Component {
                 this.state.expanded_accordions.includes(quest) ? accordion_expand_icon = 'Collapse' : 
                 accordion_expand_icon = 'Expand';
 
-                return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} >
+                return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} 
+                >
                     <Card className={`bg-${bg_color}`} style={{padding: 5}}>
-                        <CustomToggle  eventKey={i}  >
-                            <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image' />
+                        <CustomToggle  eventKey={i}>
+                            <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image' 
+                            style={{height: '100%'}} />
                             <Card.ImgOverlay className='d-flex justify-content-center align-items-center'
                             onClick={() => {
                                 if (this.state.expanded_accordions.includes(quest)) {
@@ -69,12 +72,12 @@ class QuestInfoContainer extends Component {
                                     this.setState({expanded_accordions: [...this.state.expanded_accordions, quest]}); 
                                 }   
                             }}>
-                                <Col md={10} style={{padding: 0}}>
-                                    <h4 className='text-headertext'>{quest.quest_name}</h4>
+                                <Col md={10} className='quest_info_header text-headertext'>
+                                    {quest.quest_name}
                                 </Col>
                                 <Col className='d-flex justify-content-center'>
-                                    <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
-                                    style={{width: 30, height: 30}} />
+                                    <Image src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
+                                    style={{width: '1.5vw', height: '1.5vw'}} />
                                 </Col>
                             </Card.ImgOverlay>
                         </CustomToggle>
