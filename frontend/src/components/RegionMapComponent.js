@@ -5,6 +5,17 @@ import { Navigate } from 'react-router-dom';
 import RegionBackButton from './RegionBackButton';
 
 class RegionMapComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hovered: false,
+        }
+    }
+
+    setHovered = (hovered) => {
+        this.setState({hovered: hovered});
+    }
+
     render() {
         let zone_marker = null;
         let hover_overlays = [];
@@ -41,7 +52,7 @@ class RegionMapComponent extends Component {
                 })}
                 <Marker key={Math.random()} icon={zone_marker.icon} position={zone_marker.position} zIndexOffset={1000}/>
                 {this.props.props.navigate && <Navigate to={this.props.props.navigate_link} replace={true} />}
-                <RegionBackButton />
+                <RegionBackButton setHovered={this.setHovered} hovered={this.state.hovered} />
             </MapContainer>
         )
     }

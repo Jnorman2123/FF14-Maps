@@ -11,7 +11,12 @@ class ZoneMapCont extends Component {
         super(props);
         this.state = {
             unclustered_markers: [],
+            hovered: false,
         }
+    }
+
+    setHovered = (hovered) => {
+        this.setState({hovered: hovered});
     }
 
     renderMarkers = (markers) => {
@@ -186,20 +191,23 @@ class ZoneMapCont extends Component {
 
         let legend_icon = new L.Icon ({iconUrl: `./icons/ZoneLegend.png`, iconSize: [280, 209]});
         let back_button_icon = new L.Icon ({iconUrl: `./icons/nav_icons/BackButton.png`, iconSize: [64, 64]});
+        if (this.state.hovered) {
+            back_button_icon = new L.Icon ({iconUrl: `./icons/nav_icons/BackButtonHover.png`, iconSize: [64, 64]});
+        }
 
         if (this.props.inside) {
             return (
                 <InsideZoneMapComponent center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom} 
                 maxZoom={this.props.maxZoom} maxBounds={this.props.maxBounds} mapName={mapName} bounds={this.props.bounds}
                 unclustered_markers={unclustered_markers} legend_icon={legend_icon} renderMarkers={this.renderMarkers}
-                back_button_icon={back_button_icon} />
+                back_button_icon={back_button_icon} setHovered={this.setHovered} />
             )
         } else {
             return (
                 <ZoneMapComponent center={this.props.center} zoom={this.props.zoom} minZoom={this.props.minZoom} 
                 maxZoom={this.props.maxZoom} maxBounds={this.props.maxBounds} mapName={mapName} bounds={this.props.bounds}
                 unclustered_markers={unclustered_markers} legend_icon={legend_icon} renderMarkers={this.renderMarkers}
-                back_button_icon={back_button_icon} />
+                back_button_icon={back_button_icon} setHovered={this.setHovered} />
             )
         }
     }

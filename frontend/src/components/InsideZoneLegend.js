@@ -19,7 +19,13 @@ function ZoneLegend(props) {
             <Marker key={'back button'} position={[-20, 20]} icon={props.props.back_button_icon} eventHandlers={{
                 click: () => {
                     nav(-1);
-                }
+                },
+                mouseover: () => {
+                    props.props.setHovered(true);
+                },
+                mouseout: () => {
+                    props.props.setHovered(false);
+                },
             }}/>
         </>
     } else {
