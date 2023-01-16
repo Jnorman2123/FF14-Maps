@@ -15,7 +15,8 @@ function CustomToggle({ children, eventKey }) {
   
     return (
       <button
-        type="button" onClick={decoratedOnClick} style={{padding: 0}} className='border-0'>
+        type="button" onClick={decoratedOnClick} style={{padding: 0}} className='border-0
+        d-flex justify-content-center align-items-center'>
         {children}
       </button>
     );
@@ -50,16 +51,17 @@ class ToggledQuestsContainer extends Component {
             <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} >
                 <Card>
                     <CustomToggle eventKey="0">
-                        <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
-                        <Card.ImgOverlay className='d-flex' onClick={() => {
+                        <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'
+                        style={{height: '100%'}}/>
+                        <Card.ImgOverlay className='d-flex justify-content-center align-items-center' onClick={() => {
                             this.setState({accordion_expand: !this.state.accordion_expand})
                         }}>
-                            <Col md={10} style={{padding: 0}} >
-                                <h4 className='text-headertext'>Available Quests</h4>
+                            <Col md={10} className='available-quests-header text-headertext' >
+                                Available Quests
                             </Col>
                             <Col className='d-flex justify-content-center'>
                                 <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
-                                style={{width: 30, height: 30}} />
+                                style={{width: '1.25vw', height: '1.25vw'}} />
                             </Col>
                         </Card.ImgOverlay>
                     </CustomToggle>

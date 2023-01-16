@@ -72,12 +72,12 @@ class QuestInfoContainer extends Component {
                                     this.setState({expanded_accordions: [...this.state.expanded_accordions, quest]}); 
                                 }   
                             }}>
-                                <Col md={10} className='quest_info_header text-headertext'>
+                                <Col md={10} className='quest-info-header text-headertext'>
                                     {quest.quest_name}
                                 </Col>
                                 <Col className='d-flex justify-content-center'>
                                     <Image src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
-                                    style={{width: '1.5vw', height: '1.5vw'}} />
+                                    style={{width: '1.25vw', height: '1.25vw'}} />
                                 </Col>
                             </Card.ImgOverlay>
                         </CustomToggle>

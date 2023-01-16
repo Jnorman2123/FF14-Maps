@@ -75,7 +75,7 @@ class ToggleContainer extends Component {
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image'/>
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext' >Select Your Class</h4>
+                        <h4 className='text-headertext toggle-header' >Select Your Class</h4>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
@@ -86,7 +86,7 @@ class ToggleContainer extends Component {
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext' >Select Quest Type</h4>
+                        <h4 className='text-headertext toggle-header' >Select Quest Type</h4>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
@@ -97,7 +97,7 @@ class ToggleContainer extends Component {
                 <Card>
                     <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
                     <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext' >Select Quest Level</h4>
+                        <h4 className='text-headertext toggle-header' >Select Quest Level</h4>
                     </Card.ImgOverlay>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
