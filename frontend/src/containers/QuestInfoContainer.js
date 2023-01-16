@@ -8,6 +8,7 @@ import QuestInfo from '../components/QuestInfo';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
+import { Link } from 'react-router-dom';
 
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey);
@@ -29,7 +30,6 @@ class QuestInfoContainer extends Component {
     }
 
     renderQuestInfo = (toggled_quests) => {
-        console.log(this.state.expanded_accordions)
         let npcs = this.props.npcs.npcs;
         let accordion_expand_icon = 'Expand';
         let i = 0;
@@ -106,8 +106,11 @@ class QuestInfoContainer extends Component {
                                             {quest_steps.map(step => {
                                                 let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
                                                 let split_zone_name = full_zone_name.split('(');
+                                                let link_name = split_zone_name[0].split(' ').join('').toLowerCase();
                                                 return <li key={step.step_description} className='text-accordiontext' >
-                                                    {`${step.step_description} (${split_zone_name[0]})`}
+                                                    {`${step.step_description}`} <Link to={`/${link_name}`}>
+                                                        {`(${split_zone_name[0]})`}
+                                                    </Link>
                                                 </li>
                                             })}
                                         </ul>
