@@ -24,12 +24,12 @@ class QuestInfoContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            accordion_expand: false,
-            accordion_id: '',
+            expanded_accordions: [],
         }
     }
 
     renderQuestInfo = (toggled_quests) => {
+        console.log(this.state.expanded_accordions)
         let npcs = this.props.npcs.npcs;
         let accordion_expand_icon = 'Expand';
         let i = 0;
@@ -54,29 +54,33 @@ class QuestInfoContainer extends Component {
                     return optional_reward_items;
                 })
 
-                this.state.accordion_expand &&  this.state.accordion_id === quest.quest_name ? 
-                accordion_expand_icon = 'Collapse' : accordion_expand_icon = 'Expand';
+                this.state.expanded_accordions.includes(quest) ? accordion_expand_icon = 'Collapse' : 
+                accordion_expand_icon = 'Expand';
 
                 return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} >
                     <Card className={`bg-${bg_color}`} style={{padding: 5}}>
-                        <CustomToggle  eventKey={i} >
-                            <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'/>
-                            <Card.ImgOverlay className='d-flex justify-content-center align-items-center' id={quest.quest_name}
-                            onClick={(event) => {
-                                this.setState({accordion_expand: !this.state.accordion_expand, accordion_id: event.target.id}); 
+                        <CustomToggle  eventKey={i}  >
+                            <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image' />
+                            <Card.ImgOverlay className='d-flex justify-content-center align-items-center'
+                            onClick={() => {
+                                if (this.state.expanded_accordions.includes(quest)) {
+                                    this.setState({expanded_accordions: this.state.expanded_accordions.filter(ea => ea !== quest)})
+                                } else {
+                                    this.setState({expanded_accordions: [...this.state.expanded_accordions, quest]}); 
+                                }   
                             }}>
-                                <Col md={10} style={{padding: 0}} id={quest.quest_name}>
-                                    <h5 id={quest.quest_name} className='text-headertext'>{quest.quest_name}</h5>
+                                <Col md={10} style={{padding: 0}}>
+                                    <h4 className='text-headertext'>{quest.quest_name}</h4>
                                 </Col>
-                                <Col className='d-flex justify-content-center' id={quest.quest_name}>
+                                <Col className='d-flex justify-content-center'>
                                     <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
-                                    style={{width: 30, height: 30}} id={quest.quest_name} />
+                                    style={{width: 30, height: 30}} />
                                 </Col>
                             </Card.ImgOverlay>
                         </CustomToggle>
                     </Card>
                         <Accordion.Collapse eventKey={i} style={{paddingLeft: 5, paddingRight: 5}}>
-                            <Card>
+                            <Card className='bg-lightbg'>
                                 <Row>
                                     <h4 className='text-center text-accordiontext'>Quest Details</h4>
                                     <Col><h6 className='text-accordiontext' >Quest Class(es):</h6> 

@@ -55,7 +55,7 @@ class ToggledQuestsContainer extends Component {
                             this.setState({accordion_expand: !this.state.accordion_expand})
                         }}>
                             <Col md={10} style={{padding: 0}} >
-                                <h5 className='text-headertext'>Available Quests</h5>
+                                <h4 className='text-headertext'>Available Quests</h4>
                             </Col>
                             <Col className='d-flex justify-content-center'>
                                 <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
@@ -75,7 +75,7 @@ class ToggledQuestsContainer extends Component {
                                     <Tooltip id="button-tooltip-2" >Refresh List</Tooltip>} >
                                         <Button id='toggle-check' type='checkbox' name='refresh' 
                                             onClick={this.props.setActiveQuests} active='false'
-                                            style={{width: 40, padding: 0, boxShadow: 'none'}} className='border-0'
+                                            style={{width: 30, padding: 0, boxShadow: 'none'}} className='border-0'
                                             onMouseEnter={() => {
                                                 this.setState({refresh_hover: true});
                                             }}
@@ -111,7 +111,7 @@ class ToggledQuestsContainer extends Component {
                                             <Button key={aq.quest_name} id='toggle-check' type='checkbox' 
                                             name={aq.quest_name} 
                                             onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                                            style={{width: 32.5, padding: 0, boxShadow: 'none'}} className='border-0'
+                                            style={{width: 25, padding: 0, boxShadow: 'none'}} className='border-0'
                                             active='false'
                                             onMouseEnter={(event) => {
                                                 this.setState({toggle_hover: true, button_name: event.target.name});

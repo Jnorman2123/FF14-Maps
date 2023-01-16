@@ -41,6 +41,7 @@ $darkbg: #ffebad;
 $headertext: #fffce5;
 $accordiontext: #844f16;
 $questinfobg: #d0bd8b;
+$navbarbg: #c4821f;
 
 $theme-colors: (
     'red': $red,
@@ -86,6 +87,7 @@ $theme-colors: (
     'headertext': $headertext,
     'accordiontext': $accordiontext,
     'questinfobg': $questinfobg,
+    'navbarbg': $navbarbg,
 );
 
 @import "./node_modules/bootstrap/scss/bootstrap";
