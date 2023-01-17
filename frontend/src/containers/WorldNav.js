@@ -39,7 +39,7 @@ class WorldNav extends Component {
         }
         if (expansion === this.props.original_regions) {
             return expansion.map(r => {
-                return <Col className='d-flex justify-content-center align-items-center'>
+                return <Col key={r} className='d-flex justify-content-center align-items-center'>
                     <NavDropdown  key={r} title={r} id='basic-nav-dropdown' style={{padding: 0}} >
                         {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                             let split_name = zone.split(' ');
@@ -82,13 +82,13 @@ class WorldNav extends Component {
 
         return (
             <Container fluid >
-                <Row> 
+                <Row > 
                     <Col className='bg-darkbg' md={3} sm={2} >
                         
                     </Col>
-                    <Col md={6} sm={8} className='bg-navbarbg'>
+                    <Col md={6} sm={8} className='bg-navbarbg' >
                         <Navbar>
-                            <Container fluid style={{padding: 0}}>
+                            <Container fluid style={{padding: 0}} >
                                 <Col md={2} x={2} xs={2} className='d-flex justify-content-center align-items-center'>
                                     <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
                                         Navigate to Home Page
@@ -101,7 +101,7 @@ class WorldNav extends Component {
                                             this.setState({hovered: false});
                                         }}>
                                             <Image src={`../icons/nav_icons/${home_icon}.png`} 
-                                            style={{width: '3vw', paddingRight: '.25vw'}} 
+                                            style={{width: '2.5vw', paddingRight: '.25vw'}} 
                                             name='home' />
                                         </Link>
                                     </OverlayTrigger>
@@ -116,7 +116,7 @@ class WorldNav extends Component {
                                             this.setState({hovered: false});
                                         }}>
                                             <Image src={`../icons/nav_icons/${world_icon}.png`} 
-                                            style={{width: '3vw', paddingLeft: '.25vw'}} 
+                                            style={{width: '2.5vw', paddingLeft: '.25vw'}} 
                                             name='world' />
                                         </Link>
                                     </OverlayTrigger>

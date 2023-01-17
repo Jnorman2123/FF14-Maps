@@ -30,17 +30,88 @@ class ToggledQuestsContainer extends Component {
             delete_hover: false,
             toggle_hover: false,
             button_name: '',
-            accordion_expand: false,
+            accordion_expand: true,
+        }
+    }
+
+    renderAvailableQuests = (quests) => {
+        let toggled_quests = this.props.toggled_quests;
+        let toggle_image = 'ToggleQuestOn';
+        let delete_image = 'DeleteQuest';
+        let tooltip_message = 'Toggle quest steps on';
+
+
+        if (quests.length === 0) {
+            return <Row className='text-accordiontext quest-info-header text-center'>
+                <Col>No Quests Meet Toggle Criteria</Col>
+            </Row>
+        }  else {
+            return quests.map(aq => {
+                if (toggled_quests.includes(aq)) {
+                    this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle` 
+                    ? toggle_image = 'ToggleQuestOffHover' : toggle_image = 'ToggleQuestOff';
+                    tooltip_message = 'Toggle quest steps off';
+                } else {
+                    this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle`
+                    ? toggle_image = 'ToggleQuestOnHover' : toggle_image = 'ToggleQuestOn';
+                    tooltip_message = 'Toggle quest steps on';
+                }
+
+                this.state.delete_hover && this.state.button_name === `${aq.quest_name} delete`
+                ? delete_image = 'DeleteQuestHover' : delete_image = 'DeleteQuest';
+
+                return <Row key={aq.quest_name} style={{padding: 2}}>
+                    <Col md='auto' style={{padding: 0}}>
+                        <OverlayTrigger placement='top' overlay={
+                        <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
+                            <Button key={aq.quest_name} id='toggle-check' type='checkbox' 
+                            name={aq.quest_name} 
+                            onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
+                            style={{width: 25, padding: 0, boxShadow: 'none'}} className='border-0'
+                            active='false'
+                            onMouseEnter={(event) => {
+                                this.setState({toggle_hover: true, button_name: event.target.name});
+                            }}
+                            onMouseLeave={() => {
+                                this.setState({toggle_hover: false})
+                            }}
+                            >
+                                <Image fluid src={`../icons/available_quest_icons/${toggle_image}.png`} 
+                                name={`${aq.quest_name} toggle`} />                                   
+                            </Button>
+                        </OverlayTrigger>
+                    </Col>
+                    <Col className='text-accordiontext quest-info-header'>
+                        {aq.quest_name}
+                    </Col>
+                    <Col md='auto' >
+                        <OverlayTrigger placement='top' overlay={
+                        <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
+                            <Button key={Math.random()} id='toggle-check' type='checkbox' 
+                            name={aq.quest_name} 
+                            onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} 
+                            style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
+                            active='false'
+                            onMouseEnter={(event) => {
+                                this.setState({delete_hover: true, button_name: event.target.name});
+                            }}
+                            onMouseLeave={() => {
+                                this.setState({delete_hover: false})
+                            }}>
+                                <Image fluid src={`../icons/available_quest_icons/${delete_image}.png`} 
+                                name={`${aq.quest_name} delete`} />                                  
+                            </Button>
+                        </OverlayTrigger>
+                    </Col>
+                </Row>
+            })
         }
     }
     
     render() {
-        let toggled_quests = this.props.toggled_quests;
-        let toggle_image = 'ToggleQuestOn';
-        let delete_image = 'DeleteQuest'
+        
         let refresh_image = 'RefreshAvailableQuestList'
-        let tooltip_message = 'Toggle quest steps on';
-        let accordion_expand_icon = 'Expand';
+        let accordion_expand_icon = 'Collapse';
 
         this.state.accordion_expand ? accordion_expand_icon = 'Collapse' : accordion_expand_icon = 'Expand';
 
@@ -48,7 +119,7 @@ class ToggledQuestsContainer extends Component {
         refresh_image = 'RefreshAvailableQuestList';
 
         return (
-            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} >
+            <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} defaultActiveKey='0'>
                 <Card>
                     <CustomToggle eventKey="0">
                         <Card.Img src='../icons/ui_components/AvailableQuestsHeader.jpg' alt='header image'
@@ -56,6 +127,7 @@ class ToggledQuestsContainer extends Component {
                         <Card.ImgOverlay className='d-flex justify-content-center align-items-center' onClick={() => {
                             this.setState({accordion_expand: !this.state.accordion_expand})
                         }}>
+                            <Col></Col>
                             <Col md={10} className='available-quests-header text-headertext' >
                                 Available Quests
                             </Col>
@@ -92,65 +164,7 @@ class ToggledQuestsContainer extends Component {
                                     </OverlayTrigger>
                                 </Col>
                             </Row>
-                            {this.props.active_quests.map(aq => {
-                                if (toggled_quests.includes(aq)) {
-                                    this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle` 
-                                    ? toggle_image = 'ToggleQuestOffHover' : toggle_image = 'ToggleQuestOff';
-                                    tooltip_message = 'Toggle quest steps off';
-                                } else {
-                                    this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle`
-                                    ? toggle_image = 'ToggleQuestOnHover' : toggle_image = 'ToggleQuestOn';
-                                    tooltip_message = 'Toggle quest steps on';
-                                }
-
-                                this.state.delete_hover && this.state.button_name === `${aq.quest_name} delete`
-                                ? delete_image = 'DeleteQuestHover' : delete_image = 'DeleteQuest';
-
-                                return <Row key={aq.quest_name} style={{padding: 2}}>
-                                    <Col md='auto' style={{padding: 0}}>
-                                        <OverlayTrigger placement='top' overlay={
-                                        <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
-                                            <Button key={aq.quest_name} id='toggle-check' type='checkbox' 
-                                            name={aq.quest_name} 
-                                            onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                                            style={{width: 25, padding: 0, boxShadow: 'none'}} className='border-0'
-                                            active='false'
-                                            onMouseEnter={(event) => {
-                                                this.setState({toggle_hover: true, button_name: event.target.name});
-                                            }}
-                                            onMouseLeave={() => {
-                                                this.setState({toggle_hover: false})
-                                            }}
-                                            >
-                                                <Image fluid src={`../icons/available_quest_icons/${toggle_image}.png`} 
-                                                name={`${aq.quest_name} toggle`} />                                   
-                                            </Button>
-                                        </OverlayTrigger>
-                                    </Col>
-                                    <Col className='text-accordiontext quest-info-header'>
-                                        {aq.quest_name}
-                                    </Col>
-                                    <Col md='auto' >
-                                        <OverlayTrigger placement='top' overlay={
-                                        <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
-                                            <Button key={Math.random()} id='toggle-check' type='checkbox' 
-                                            name={aq.quest_name} 
-                                            onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} 
-                                            style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
-                                            active='false'
-                                            onMouseEnter={(event) => {
-                                                this.setState({delete_hover: true, button_name: event.target.name});
-                                            }}
-                                            onMouseLeave={() => {
-                                                this.setState({delete_hover: false})
-                                            }}>
-                                                <Image fluid src={`../icons/available_quest_icons/${delete_image}.png`} 
-                                                name={`${aq.quest_name} delete`} />                                  
-                                            </Button>
-                                        </OverlayTrigger>
-                                    </Col>
-                                </Row>
-                            })}
+                            {this.renderAvailableQuests(this.props.active_quests)}
                         </Container>
                     </Card>
                 </Accordion.Collapse>

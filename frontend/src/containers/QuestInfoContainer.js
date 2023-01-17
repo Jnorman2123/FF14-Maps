@@ -72,6 +72,7 @@ class QuestInfoContainer extends Component {
                                     this.setState({expanded_accordions: [...this.state.expanded_accordions, quest]}); 
                                 }   
                             }}>
+                                <Col></Col>
                                 <Col md={10} className='quest-info-header text-headertext'>
                                     {quest.quest_name}
                                 </Col>
