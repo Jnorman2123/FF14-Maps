@@ -16,7 +16,7 @@ class Home extends Component {
                 <WorldNav />
                 <Container fluid >
                     <Row>
-                        <Col className='bg-beige' style={{padding: 0, height: '825px'}}>
+                        <Col className='bg-beige' style={{padding: 0, height: '825px'}} md={3} sm={2} xs={12}>
                             <Card style={{height: '100%'}}>
                                 <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle'style={{height: '100%'}}/>
                                 <Card.ImgOverlay style={{padding: 0}} >
@@ -28,10 +28,11 @@ class Home extends Component {
                                 </Card.ImgOverlay>
                             </Card>  
                         </Col>
-                        <Col md={6} style={{padding: 0}}>
+                        <Col md={6} sm={8} xs={12} style={{padding: 0}}>
                             <Outlet />
                         </Col>
-                        <Col className='bg-questinfobg' style={{overflowY: 'scroll', height: '825px', padding: 0}} >
+                        <Col className='bg-questinfobg' style={{overflowY: 'scroll', height: '825px', padding: 0}} xs={12}
+                        sm={2} md={3} >
                             <Card style={{height: '100%'}}> 
                                 <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
                                 style={{height: '100%'}}/>

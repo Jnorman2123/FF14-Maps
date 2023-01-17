@@ -127,8 +127,8 @@ class ToggledQuestsContainer extends Component {
                                             </Button>
                                         </OverlayTrigger>
                                     </Col>
-                                    <Col >
-                                        <h5 className='text-accordiontext' >{aq.quest_name}</h5>
+                                    <Col className='text-accordiontext quest-info-header'>
+                                        {aq.quest_name}
                                     </Col>
                                     <Col md='auto' >
                                         <OverlayTrigger placement='top' overlay={

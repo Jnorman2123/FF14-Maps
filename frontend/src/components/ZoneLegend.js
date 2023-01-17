@@ -26,7 +26,6 @@ function ZoneLegend(props) {
                 mouseout: () => {
                     props.props.setHovered(false);
                 },
-                
             }}/>
         </>
     } else {
