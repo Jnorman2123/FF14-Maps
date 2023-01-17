@@ -81,16 +81,16 @@ class WorldNav extends Component {
         this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
 
         return (
-            <Container fluid >
-                <Row > 
+            <Container fluid style={{height: 90}}>
+                <Row style={{height: '100%'}}> 
                     <Col className='bg-darkbg' md={3} sm={2} >
                         
                     </Col>
-                    <Col md={6} sm={8} className='bg-navbarbg' >
-                        <Navbar>
-                            <Container fluid style={{padding: 0}} >
-                                <Col md={2} x={2} xs={2} className='d-flex justify-content-center align-items-center'>
-                                    <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                    <Col md={6} sm={8} className='bg-navbarbg'>
+                        <Navbar style={{height: '100%'}} >
+                            <Container fluid >
+                                <Col md={2} x={2} xs={2} >
+                                    <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
                                         Navigate to Home Page
                                         </Tooltip>} >
                                         <Link to='/'
@@ -105,7 +105,7 @@ class WorldNav extends Component {
                                             name='home' />
                                         </Link>
                                     </OverlayTrigger>
-                                    <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                                    <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
                                         Navigate to World Map
                                         </Tooltip>} >
                                         <Link to='/world'

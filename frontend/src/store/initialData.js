@@ -18,8 +18,8 @@ export const initialData = {
         
       ],
     [QUEST_TYPES] : [
-        {name: 'Main Story', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
-        {name: 'Hunting Log', active: false},
+        {name: 'MainStory', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
+        {name: 'HuntingLog', active: false},
     ],
     [QUEST_LEVELS] : [
         {name: '1-5', active: false}, {name: '6-10', active: false}, {name: '11-15', active: false}, {name: '16-20', active: false}, 

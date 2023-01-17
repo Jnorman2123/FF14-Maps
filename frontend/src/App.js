@@ -84,10 +84,10 @@ class App extends Component {
     let active_jobs = this.props.jobs.jobs.filter(j => active_classes.includes(j.job_name)).map(j => j.id);
     let active_quests = [];
     let i = 0;
-
     if (quests !== []) {
       quests.map(q => {
-        if (active_quest_types.includes(q.quest_type)) {
+        let quest_type = q.quest_type.split(' ').join('');
+        if (active_quest_types.includes(quest_type)) {
             q.quest_class.map(qc => {
                 if (active_jobs.includes(qc) || qc === 30) {
                     active_quest_levels.map(ql => {

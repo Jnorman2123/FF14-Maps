@@ -36,7 +36,7 @@ class ToggledQuestsContainer extends Component {
 
     renderAvailableQuests = (quests) => {
         let toggled_quests = this.props.toggled_quests;
-        let toggle_image = 'ToggleQuestOn';
+        let toggle_image = '';
         let delete_image = 'DeleteQuest';
         let tooltip_message = 'Toggle quest steps on';
 
