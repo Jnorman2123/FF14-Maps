@@ -295,7 +295,7 @@ export const initialData = {
         'ElectricIndigo', 'FashionFuschia', 'FieldDrab', 'Azure', 'MalachiteGreen', 'Folly', 'ImperialPurple', 
         'MediumSpring', 'FrenchPink', 'Arsenic', 'MetallicSunburst', 'MidnightGreen', 'Fuschia', 'PaleViolet', 'Red', 
         'Heliotrope', 'ResolutionBlue', 'ScreamingGreen', 'SeaGreen', 'PhilippineGray', 'SpringFrost', 'Sunny', 'SunsetOrange', 
-        'Turquoise', 'VenetianRed', 'VioletBlue', 'Viridian', 'VividOranePeel', 'LightYellow' 
+        'Turquoise', 'VenetianRed', 'VioletBlue', 'Viridian', 'VividOrangePeel', 'LightYellow' 
     ]
 }
 

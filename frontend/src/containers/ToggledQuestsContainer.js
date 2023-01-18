@@ -36,6 +36,7 @@ class ToggledQuestsContainer extends Component {
 
     renderAvailableQuests = (quests) => {
         let toggled_quests = this.props.toggled_quests;
+        let quest_type = '';
         let toggle_image = '';
         let delete_image = 'DeleteQuest';
         let tooltip_message = 'Toggle quest steps on';
@@ -47,13 +48,16 @@ class ToggledQuestsContainer extends Component {
             </Row>
         }  else {
             return quests.map(aq => {
+                quest_type = aq.quest_type.split(' ').join('_').toLowerCase().concat('_icons') ;
+                console.log(aq)
+
                 if (toggled_quests.includes(aq)) {
                     this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle` 
-                    ? toggle_image = 'ToggleQuestOffHover' : toggle_image = 'ToggleQuestOff';
+                    ? toggle_image = `${aq.bg_color}` : toggle_image = `${aq.bg_color}Active`;
                     tooltip_message = 'Toggle quest steps off';
                 } else {
                     this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle`
-                    ? toggle_image = 'ToggleQuestOnHover' : toggle_image = 'ToggleQuestOn';
+                    ? toggle_image = `${aq.bg_color}Hover` : toggle_image = `${aq.bg_color}`;
                     tooltip_message = 'Toggle quest steps on';
                 }
 
@@ -76,7 +80,7 @@ class ToggledQuestsContainer extends Component {
                                 this.setState({toggle_hover: false})
                             }}
                             >
-                                <Image fluid src={`../icons/available_quest_icons/${toggle_image}.png`} 
+                                <Image fluid src={`../icons/available_quest_icons/${quest_type}/${toggle_image}.png`} 
                                 name={`${aq.quest_name} toggle`} />                                   
                             </Button>
                         </OverlayTrigger>
