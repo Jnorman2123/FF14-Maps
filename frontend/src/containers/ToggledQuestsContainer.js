@@ -49,11 +49,10 @@ class ToggledQuestsContainer extends Component {
         }  else {
             return quests.map(aq => {
                 quest_type = aq.quest_type.split(' ').join('_').toLowerCase().concat('_icons') ;
-                console.log(aq)
 
                 if (toggled_quests.includes(aq)) {
                     this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle` 
-                    ? toggle_image = `${aq.bg_color}` : toggle_image = `${aq.bg_color}Active`;
+                    ? toggle_image = `${aq.bg_color}Active` : toggle_image = `${aq.bg_color}Active`;
                     tooltip_message = 'Toggle quest steps off';
                 } else {
                     this.state.toggle_hover && this.state.button_name === `${aq.quest_name} toggle`
