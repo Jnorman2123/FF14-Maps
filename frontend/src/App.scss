@@ -81,14 +81,26 @@ body {
   font-weight: 600;
 }
 
+.navbar {
+  height: '100%';
+}
+
 @media screen and (max-width: 576px) {
   .toggle-header {
-    font-size: 5vw
+    font-size: 5vw;
+    font-weight: 600;
+  }
+  .navbar {
+    height: '33%';
   }
 }
 
 @media screen and (max-width: 768px) {
   .toggle-header {
-    font-size: 5vw
+    font-size: 5vw;
+    font-weight: 600;
+  }
+  .nav-bar {
+    height: '33%';
   }
 }

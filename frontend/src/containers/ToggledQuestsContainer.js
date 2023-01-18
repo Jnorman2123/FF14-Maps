@@ -70,7 +70,7 @@ class ToggledQuestsContainer extends Component {
                             <Button key={aq.quest_name} id='toggle-check' type='checkbox' 
                             name={aq.quest_name} 
                             onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
-                            style={{width: 25, padding: 0, boxShadow: 'none'}} className='border-0'
+                            style={{width: 30, padding: 0, boxShadow: 'none'}} className='border-0'
                             active='false'
                             onMouseEnter={(event) => {
                                 this.setState({toggle_hover: true, button_name: event.target.name});

@@ -81,12 +81,12 @@ class WorldNav extends Component {
         this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
 
         return (
-            <Container fluid style={{height: 90}}>
-                <Row style={{height: '100%'}}> 
-                    <Col className='bg-darkbg' md={3} sm={2} >
+            <Container fluid style={{height: 90}} className='flex-d justify-contents-center align-items-center'>
+                <Row style={{height: '100%'}}  > 
+                    <Col className='bg-darkbg navbar' md={3} sm={12}>
                         
                     </Col>
-                    <Col md={6} sm={8} className='bg-navbarbg'>
+                    <Col md={6} sm={12} className='bg-navbarbg navbar '>
                         <Navbar style={{height: '100%'}} >
                             <Container fluid >
                                 <Col md={2} x={2} xs={2} >
@@ -129,7 +129,7 @@ class WorldNav extends Component {
                             </Container>
                         </Navbar>
                     </Col>
-                    <Col className='bg-darkbg' md={3} sm={2} >hi</Col>
+                    <Col className='bg-darkbg navbar' md={3} sm={12}>hi</Col>
                 </Row>
             </Container>
         )

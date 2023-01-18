@@ -37,7 +37,8 @@ class Home extends Component {
                                 <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
                                 style={{height: '100%'}}/>
                                 <Card.ImgOverlay style={{padding: 0, height: '100%'}} >
-                                    <QuestInfoContainer toggled_quests={this.props.toggled_quests} />
+                                    <QuestInfoContainer toggled_quests={this.props.toggled_quests} 
+                                    toggleQuest={this.props.toggleQuest}/>
                                 </Card.ImgOverlay>
                             </Card>
                         </Col>

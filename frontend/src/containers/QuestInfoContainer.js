@@ -9,6 +9,9 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey);
@@ -27,10 +30,13 @@ class QuestInfoContainer extends Component {
         super(props);
         this.state = {
             expanded_accordions: [],
+            delete_hover: false,
+            button_name: '',
         }
     }
 
     renderQuestInfo = (toggled_quests) => {
+        let delete_image = 'DeleteQuest';
         let npcs = this.props.npcs.npcs;
         let accordion_expand_icon = 'Expand';
         let i = 0;
@@ -57,6 +63,9 @@ class QuestInfoContainer extends Component {
 
                 this.state.expanded_accordions.includes(quest) ? accordion_expand_icon = 'Collapse' : 
                 accordion_expand_icon = 'Expand';
+
+                this.state.delete_hover && this.state.button_name === `${quest.quest_name} delete`
+                ? delete_image = 'DeleteQuestHover' : delete_image = 'DeleteQuest';
 
                 return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} 
                 >
@@ -151,7 +160,29 @@ class QuestInfoContainer extends Component {
                                                 })}
                                             </ul>
                                         </Col>
-                                        <Col></Col>
+                                        <Col md='auto' >
+                                            <OverlayTrigger placement='top' overlay={
+                                            <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
+                                                <Button key={Math.random()} id='toggle-check' type='checkbox' 
+                                                name={quest.quest_name} 
+                                                onClick={() => {
+                                                    this.setState({expanded_accordions: 
+                                                    this.state.expanded_accordions.filter(q => q !== quest)});
+                                                    this.props.toggleQuest(quest, toggled_quests);
+                                                }} 
+                                                style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
+                                                active='false'
+                                                onMouseEnter={(event) => {
+                                                    this.setState({delete_hover: true, button_name: event.target.name});
+                                                }}
+                                                onMouseLeave={() => {
+                                                    this.setState({delete_hover: false})
+                                                }}>
+                                                    <Image fluid src={`../icons/available_quest_icons/${delete_image}.png`} 
+                                                    name={`${quest.quest_name} delete`} />                                  
+                                                </Button>
+                                            </OverlayTrigger>
+                                        </Col>
                                     </Row>
                                 </Row>
                             </Card>
