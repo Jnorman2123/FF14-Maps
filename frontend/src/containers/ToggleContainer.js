@@ -73,10 +73,7 @@ class ToggleContainer extends Component {
         return (
             <Container style={{padding: 0}} > 
                 <Card>
-                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image'/>
-                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext toggle-header' >Select Your Class</h4>
-                    </Card.ImgOverlay>
+                    <Card.Img src='../icons/ui_components/SelectClassHeader.jpg' alt='header image'/>
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
                     {this.state.base_classes.map(c => {
@@ -84,10 +81,7 @@ class ToggleContainer extends Component {
                     })}
                 </Row>         
                 <Card>
-                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
-                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext toggle-header' >Select Quest Type</h4>
-                    </Card.ImgOverlay>
+                    <Card.Img src='../icons/ui_components/SelectQuestHeader.jpg' alt='header image' />
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
                     {this.props.quest_types.map(t => {
@@ -95,10 +89,7 @@ class ToggleContainer extends Component {
                     })}   
                 </Row>  
                 <Card>
-                    <Card.Img src='../icons/ui_components/ToggleHeader.jpg' alt='header image' />
-                    <Card.ImgOverlay className='d-flex justify-content-center align-items-center'>
-                        <h4 className='text-headertext toggle-header' >Select Quest Level</h4>
-                    </Card.ImgOverlay>
+                    <Card.Img src='../icons/ui_components/SelectLevelHeader.jpg' alt='header image' />
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
                     {this.props.quest_levels.map(l => {
@@ -108,7 +99,8 @@ class ToggleContainer extends Component {
                 <Row>
                     <ToggledQuestsContainer toggled_quests={this.props.toggled_quests} active_quests={this.props.active_quests} 
                     toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
-                    setActiveQuests={this.props.setActiveQuests}/>
+                    setActiveQuests={this.props.setActiveQuests} classes={this.props.classes} 
+                    quest_levels={this.props.quest_levels} quest_types={this.props.quest_types} />
                 </Row>
             </Container>
         )

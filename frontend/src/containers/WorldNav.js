@@ -39,25 +39,21 @@ class WorldNav extends Component {
         }
         if (expansion === this.props.original_regions) {
             return expansion.map(r => {
-                return <Col key={r} className='d-flex justify-content-center align-items-center'>
-                    <NavDropdown  key={r} title={r} id='basic-nav-dropdown' style={{padding: 0}} >
-                        {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
-                            let split_name = zone.split(' ');
-                            let splice_index = split_name.findIndex(l => l.includes('('));
-                            split_name.splice(splice_index);
-                            return <NavDropdown.Item as='div' key={zone}>
-                                <Link to={`/${split_name.join('').toLowerCase()}`}>
-                                    {zone}
-                                </Link>
-                            </NavDropdown.Item>
-                        })}
-                    </NavDropdown>
-                </Col>
+                return <NavDropdown key={r} title={r} id='basic-nav-dropdown' style={{paddingLeft: 15, paddingRight: 15}}>
+                    {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
+                        let split_name = zone.split(' ');
+                        let splice_index = split_name.findIndex(l => l.includes('('));
+                        split_name.splice(splice_index);
+                        return <NavDropdown.Item as='div' key={zone}>
+                            <Link to={`/${split_name.join('').toLowerCase()}`}>
+                                {zone}
+                            </Link>
+                        </NavDropdown.Item>
+                    })}
+                </NavDropdown>
             })
         }  else {
-            return <Col >
-                <NavDropdown className='text-quest-info-header' key={region} title={this.capitalize(region)} 
-                id='basic-nav-dropdown'>
+            return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
                     {expansion.map(r => this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
@@ -69,7 +65,6 @@ class WorldNav extends Component {
                         </NavDropdown.Item>
                     }))}
                 </NavDropdown>
-            </Col>
         }
     }
 
@@ -81,55 +76,47 @@ class WorldNav extends Component {
         this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
 
         return (
-            <Container fluid style={{height: 90}} className='flex-d justify-contents-center align-items-center'>
-                <Row style={{height: '100%'}}  > 
-                    <Col className='bg-darkbg navbar' md={3} sm={12}>
-                        
+            <Container fluid >
+                <Row> 
+                    <Col className='bg-darkbg' style={{paddingLeft: 0, paddingRight: 22.5}}>
+                        <Image src='../icons/ui_components/HelperQuestLogo.jpg' style={{height: 100, width: 240}} />
                     </Col>
-                    <Col md={6} sm={12} className='bg-navbarbg navbar '>
-                        <Navbar style={{height: '100%'}} >
-                            <Container fluid >
-                                <Col md={2} x={2} xs={2} >
-                                    <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
-                                        Navigate to Home Page
-                                        </Tooltip>} >
-                                        <Link to='/'
-                                        onMouseEnter={(event) => {
-                                            this.setState({hovered: true, button_name: event.target.name});
-                                        }}
-                                        onMouseLeave={() => {
-                                            this.setState({hovered: false});
-                                        }}>
-                                            <Image src={`../icons/nav_icons/${home_icon}.png`} 
-                                            style={{width: '2.5vw', paddingRight: '.25vw'}} 
-                                            name='home' />
-                                        </Link>
-                                    </OverlayTrigger>
-                                    <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
-                                        Navigate to World Map
-                                        </Tooltip>} >
-                                        <Link to='/world'
-                                        onMouseEnter={(event) => {
-                                            this.setState({hovered: true, button_name: event.target.name});
-                                        }}
-                                        onMouseLeave={() => {
-                                            this.setState({hovered: false});
-                                        }}>
-                                            <Image src={`../icons/nav_icons/${world_icon}.png`} 
-                                            style={{width: '2.5vw', paddingLeft: '.25vw'}} 
-                                            name='world' />
-                                        </Link>
-                                    </OverlayTrigger>
-                                </Col>
-                                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
-                                    {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
-                                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
-                                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-                                    <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
-                            </Container>
+                    <Col md={6} className='bg-navbarbg'>
+                        <Navbar>
+                            <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                                Navigate to Home Page
+                                </Tooltip>} >
+                                <Link to='/'
+                                onMouseEnter={(event) => {
+                                    this.setState({hovered: true, button_name: event.target.name});
+                                }}
+                                onMouseLeave={() => {
+                                    this.setState({hovered: false});
+                                }}>
+                                    <Image src={`../icons/nav_icons/${home_icon}.png`} style={{width: 40, paddingRight: 5}} name='home' />
+                                </Link>
+                            </OverlayTrigger>
+                            <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
+                                Navigate to World Map
+                                </Tooltip>} >
+                                <Link to='/world'
+                                onMouseEnter={(event) => {
+                                    this.setState({hovered: true, button_name: event.target.name});
+                                }}
+                                onMouseLeave={() => {
+                                    this.setState({hovered: false});
+                                }}>
+                                    <Image src={`../icons/nav_icons/${world_icon}.png`} style={{width: 40, paddingLeft: 5}} name='world' />
+                                </Link>
+                            </OverlayTrigger>
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
+                            {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
+                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
                         </Navbar>
                     </Col>
-                    <Col className='bg-darkbg navbar' md={3} sm={12}>hi</Col>
+                    <Col className='bg-darkbg'>hi</Col>
                 </Row>
             </Container>
         )

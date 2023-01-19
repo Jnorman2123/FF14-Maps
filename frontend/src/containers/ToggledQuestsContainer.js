@@ -36,16 +36,91 @@ class ToggledQuestsContainer extends Component {
 
     renderAvailableQuests = (quests) => {
         let toggled_quests = this.props.toggled_quests;
+        let quest_classes = this.props.classes;
+        let quest_levels = this.props.quest_levels;
+        let quest_types = this.props.quest_types;
+        let active_quest_classes = quest_classes.filter(c => c.active).length;
+        let active_quest_levels = quest_levels.filter(c => c.active).length;
+        let active_quest_types = quest_types.filter(c => c.active).length;
         let quest_type = '';
         let toggle_image = '';
         let delete_image = 'DeleteQuest';
         let tooltip_message = 'Toggle quest steps on';
-
+        let start_message = null;
+        let quest_type_warning = null;
+        let quest_class_warning = null;
+        let quest_level_warning = null;
+        let no_quests_warning = null;
 
         if (quests.length === 0) {
-            return <Row className='text-accordiontext quest-info-header text-center'>
-                <Col>No Quests Meet Toggle Criteria</Col>
-            </Row>
+            if (active_quest_types === 0 && active_quest_levels === 0 && active_quest_classes === 0) {
+                start_message = <Row className='text-accordiontext quest-info-header text-center'>
+                    <Col>Make Your Selections, Traveler</Col>
+                </Row>;
+            }
+            if (active_quest_types !== 0) {
+                if (active_quest_levels === 0) {
+                    quest_level_warning = <Row className='text-accordiontext quest-info-header text-center'>
+                        <Col>No Quest Level Selected</Col>
+                    </Row>;
+                }
+                if (quest_types[1].active && active_quest_classes === 0) {
+                    quest_class_warning = <Row className='text-accordiontext quest-info-header text-center'> 
+                        <Col>No Quest Class Selected</Col>
+                    </Row>;
+                }
+            }
+            if (active_quest_levels !== 0) {
+                if (active_quest_types === 0) {
+                    if (active_quest_classes === 0) {
+                        quest_class_warning = <Row className='text-accordiontext quest-info-header text-center'> 
+                            <Col>No Quest Class Selected</Col>
+                        </Row>;
+                    }
+                    quest_type_warning = <Row className='text-accordiontext quest-info-header text-center'>
+                        <Col>No Quest Type Selected</Col>
+                    </Row>;
+                }
+                if (quest_types[1].active && active_quest_classes === 0) {
+                    quest_class_warning = <Row className='text-accordiontext quest-info-header text-center'> 
+                        <Col>No Quest Class Selected</Col>
+                    </Row>;
+                }
+                if (quest_types[3].active) {
+                    no_quests_warning = <Row className='text-accordiontext quest-info-header text-center'> 
+                        <Col>No Quests Meet Your Criteria</Col>
+                    </Row>;
+                }
+            }
+            if (active_quest_classes !== 0) {
+                if (active_quest_levels === 0) {
+                    quest_level_warning = <Row className='text-accordiontext quest-info-header text-center'>
+                        <Col>No Quest Level Selected</Col>
+                    </Row>;
+                } 
+                if (active_quest_types === 0) {
+                    quest_type_warning = <Row className='text-accordiontext quest-info-header text-center'>
+                        <Col>No Quest Type Selected</Col>
+                    </Row>;
+                }
+            }
+            if (active_quest_classes !== 0 && active_quest_types !== 0 && active_quest_levels !== 0) {
+                no_quests_warning = <Row className='text-accordiontext quest-info-header text-center'>
+                    <Col>No Quests Meet Your Criteria</Col>
+                </Row>;
+            }
+            return <>
+                <br></br>
+                <br></br>
+                {start_message}
+                {no_quests_warning}
+                {quest_type_warning}
+                {quest_class_warning}
+                {quest_level_warning}
+                <br></br>
+                <br></br>
+            </>
+
         }  else {
             return quests.map(aq => {
                 quest_type = aq.quest_type.split(' ').join('_').toLowerCase().concat('_icons') ;
@@ -87,13 +162,13 @@ class ToggledQuestsContainer extends Component {
                     <Col className='text-accordiontext quest-info-header'>
                         {aq.quest_name}
                     </Col>
-                    <Col md='auto' >
+                    <Col md='auto'>
                         <OverlayTrigger placement='top' overlay={
                         <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
                             <Button key={Math.random()} id='toggle-check' type='checkbox' 
                             name={aq.quest_name} 
                             onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} 
-                            style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
+                            style={{width: 35, padding: 0, boxShadow: 'none'}}  className='border-0'
                             active='false'
                             onMouseEnter={(event) => {
                                 this.setState({delete_hover: true, button_name: event.target.name});
@@ -131,8 +206,7 @@ class ToggledQuestsContainer extends Component {
                             this.setState({accordion_expand: !this.state.accordion_expand})
                         }}>
                             <Col></Col>
-                            <Col md={10} className='available-quests-header text-headertext' >
-                                Available Quests
+                            <Col md={10} >
                             </Col>
                             <Col className='d-flex justify-content-center'>
                                 <Image fluid src={`../icons/ui_components/${accordion_expand_icon}.png`} atl='toggle accordion' 
@@ -143,9 +217,10 @@ class ToggledQuestsContainer extends Component {
                 </Card>
                 <Accordion.Collapse eventKey="0" style={{paddingRight: 10, paddingLeft: 10}} >
                     <Card style={{padding: 0}}>
-                        <Container style={{overflowY: 'scroll', maxHeight: '300px', padding: 12, position: 'relative'}} 
+                        <Container style={{overflowY: 'scroll', maxHeight: '300px', paddingLeft: 12, paddingRight: 12, 
+                        position: 'relative'}} 
                         className='bg-lightbg'>
-                            <Row style={{padding: 0}}>
+                            <Row className='bg-darkbg' style={{padding: 0}}>
                                 <Col></Col>
                                 <Col md='auto'>
                                     <OverlayTrigger placement='top' overlay={
