@@ -200,7 +200,6 @@ class ToggledQuestsContainer extends Component {
 
         this.state.refresh_hover ? refresh_image = 'RefreshAvailableQuestListHover' : 
         refresh_image = 'RefreshAvailableQuestList';
-        console.log(this.props.active_quests)
 
         return (
             <Accordion style={{paddingLeft: 25, paddingRight: 25, paddingTop: 10}} defaultActiveKey='0'>
