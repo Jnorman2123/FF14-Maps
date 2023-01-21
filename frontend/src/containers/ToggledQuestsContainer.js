@@ -81,6 +81,11 @@ class ToggledQuestsContainer extends Component {
                         <Col>Select a Quest Type.</Col>
                     </Row>;
                 }
+                if (quest_types[0].active) {
+                    no_quests_warning = <Row className='text-accordiontext available-quests-warning text-center'> 
+                        <Col>No Quests Meet Your Criteria.</Col>
+                    </Row>;
+                }
                 if (quest_types[1].active && active_quest_classes === 0) {
                     quest_class_warning = <Row className='text-accordiontext available-quests-warning text-center'> 
                         <Col>Select a Quest Class.</Col>
