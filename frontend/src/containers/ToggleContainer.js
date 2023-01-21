@@ -72,15 +72,15 @@ class ToggleContainer extends Component {
     render() {
         return (
             <Container style={{padding: 0}} > 
-                <Card>
-                    <Card.Img src='../icons/ui_components/SelectClassHeader.jpg' alt='header image'/>
+                <Card className='border-0'>
+                    <Card.Img src='../icons/ui_components/SelectClassHeader.jpg' alt='header image' />
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
                     {this.state.base_classes.map(c => {
                         return <ButtonToggle key={c.name} renderButton={this.renderButton} selection={c} type='quest class' />
                     })}
                 </Row>         
-                <Card>
+                <Card className='border-0'>
                     <Card.Img src='../icons/ui_components/SelectQuestHeader.jpg' alt='header image' />
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>
@@ -88,7 +88,7 @@ class ToggleContainer extends Component {
                         return <ButtonToggle key={t.name} renderButton={this.renderButton} selection={t} type='quest type' />
                     })}   
                 </Row>  
-                <Card>
+                <Card className='border-0'>
                     <Card.Img src='../icons/ui_components/SelectLevelHeader.jpg' alt='header image' />
                 </Card>
                 <Row className='justify-content-center' style={{padding: 5}}>

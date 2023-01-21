@@ -76,7 +76,7 @@ class WorldNav extends Component {
         this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
 
         return (
-            <Container fluid >
+            <Container fluid style={{paddingTop: 0, paddingBottom: 0}}>
                 <Row> 
                     <Col className='bg-darkbg' style={{paddingLeft: 0, paddingRight: 22.5}}>
                         <Image src='../icons/ui_components/HelperQuestLogo.jpg' style={{height: 100, width: 240}} />
