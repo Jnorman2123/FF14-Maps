@@ -212,7 +212,7 @@ class ToggledQuestsContainer extends Component {
                 </Card>
                 <Accordion.Collapse eventKey="0" style={{paddingRight: 10, paddingLeft: 10}} >
                     <Card style={{padding: 0}}>
-                        <Container style={{overflowY: 'scroll', maxHeight: '300px', paddingLeft: 12, paddingRight: 12, 
+                        <Container style={{overflowY: 'scroll', maxHeight: '370px', paddingLeft: 12, paddingRight: 12, 
                         position: 'relative'}} 
                         className='bg-lightbg'>
                             <Row className='bg-darkbg' style={{padding: 0}}>
