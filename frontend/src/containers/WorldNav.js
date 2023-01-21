@@ -78,43 +78,49 @@ class WorldNav extends Component {
         return (
             <Container fluid style={{paddingTop: 0, paddingBottom: 0}}>
                 <Row> 
-                    <Col className='bg-darkbg' style={{paddingLeft: 0, paddingRight: 22.5}}>
-                        <Image src='../icons/ui_components/HelperQuestLogo.jpg' style={{height: 100, width: 240}} />
+                    <Col className='bg-darkbg' style={{padding: 0}}>
+                        <Image src='../icons/ui_components/HelperQuestLogo.jpg' />
                     </Col>
                     <Col md={6} className='bg-navbarbg'>
-                        <Navbar>
-                            <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
-                                Navigate to Home Page
-                                </Tooltip>} >
-                                <Link to='/'
-                                onMouseEnter={(event) => {
-                                    this.setState({hovered: true, button_name: event.target.name});
-                                }}
-                                onMouseLeave={() => {
-                                    this.setState({hovered: false});
-                                }}>
-                                    <Image src={`../icons/nav_icons/${home_icon}.png`} style={{width: 40, paddingRight: 5}} name='home' />
-                                </Link>
-                            </OverlayTrigger>
-                            <OverlayTrigger placement='bottom' overlay={<Tooltip id="button-tooltip-2" >
-                                Navigate to World Map
-                                </Tooltip>} >
-                                <Link to='/world'
-                                onMouseEnter={(event) => {
-                                    this.setState({hovered: true, button_name: event.target.name});
-                                }}
-                                onMouseLeave={() => {
-                                    this.setState({hovered: false});
-                                }}>
-                                    <Image src={`../icons/nav_icons/${world_icon}.png`} style={{width: 40, paddingLeft: 5}} name='world' />
-                                </Link>
-                            </OverlayTrigger>
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
-                            {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-                            <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
-                        </Navbar>
+                        <Row style={{height: 44}}></Row>
+                        <Row style={{height: 44}}></Row>
+                        <Row>
+                            <Navbar>
+                                <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
+                                    Navigate to Home Page
+                                    </Tooltip>} >
+                                    <Link to='/'
+                                    onMouseEnter={(event) => {
+                                        this.setState({hovered: true, button_name: event.target.name});
+                                    }}
+                                    onMouseLeave={() => {
+                                        this.setState({hovered: false});
+                                    }}>
+                                        <Image src={`../icons/nav_icons/${home_icon}.png`} style={{width: 40, paddingRight: 5}}
+                                         name='home' />
+                                    </Link>
+                                </OverlayTrigger>
+                                <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
+                                    Navigate to World Map
+                                    </Tooltip>} >
+                                    <Link to='/world'
+                                    onMouseEnter={(event) => {
+                                        this.setState({hovered: true, button_name: event.target.name});
+                                    }}
+                                    onMouseLeave={() => {
+                                        this.setState({hovered: false});
+                                    }}>
+                                        <Image src={`../icons/nav_icons/${world_icon}.png`} style={{width: 40, paddingLeft: 5}}
+                                         name='world' />
+                                    </Link>
+                                </OverlayTrigger>
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
+                                {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
+                            </Navbar>
+                        </Row>
                     </Col>
                     <Col className='bg-darkbg'>hi</Col>
                 </Row>
