@@ -66,6 +66,14 @@ body {
   color: #fff;
 }
 
+@font-face {
+  font-family: 'GothicCentury';
+  src: local('GothicCentury'), url(./fonts/GothicCentury.ttf) format('truetype');}
+
+.gothic-century {
+  font-family: GothicCentury;
+}
+
 .quest-info-header {
   font-size: 1vw;
   font-weight: 600;
@@ -110,3 +118,6 @@ body {
     height: '33%';
   }
 }
+
+
+

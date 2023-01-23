@@ -111,7 +111,7 @@ class QuestInfoContainer extends Component {
                                 <Row>
                                     <h4 className='text-center text-accordiontext'>Quest Steps</h4>
                                     <Col> 
-                                        <ul>
+                                        <ol>
                                             {quest_steps.map(step => {
                                                 let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
                                                 let split_zone_name = full_zone_name.split('(');
@@ -122,7 +122,7 @@ class QuestInfoContainer extends Component {
                                                     </Link>
                                                 </li>
                                             })}
-                                        </ul>
+                                        </ol>
                                     </Col>
                                 </Row>
                                 <Row>

@@ -148,8 +148,7 @@ class ToggledQuestsContainer extends Component {
                         <OverlayTrigger placement='top' overlay={
                         <Tooltip id="button-tooltip-2" >{tooltip_message}</Tooltip>}>
                             <Button key={aq.quest_name} id='toggle-check' type='checkbox' 
-                            name={aq.quest_name} 
-                            onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
+                            name={aq.quest_name} onClick={() => this.props.toggleQuest(aq, this.props.active_quests)} 
                             style={{width: 30, padding: 0, boxShadow: 'none'}} className='border-0'
                             active='false'
                             onMouseEnter={(event) => {
@@ -164,7 +163,7 @@ class ToggledQuestsContainer extends Component {
                             </Button>
                         </OverlayTrigger>
                     </Col>
-                    <Col className='text-accordiontext quest-info-header'>
+                    <Col className='text-accordiontext quest-info-header gothic-century'>
                         {aq.quest_name}
                     </Col>
                     <Col md='auto'>
