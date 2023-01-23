@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
+import Accordion from 'react-bootstrap/Accordion';
 
 
 class QuestInfo extends Component {
     render() {
         return (
-            <Container style={{padding: 0}}>
+            <Accordion flush style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}>
                 {this.props.renderQuestInfo(this.props.toggled_quests)}
-            </Container>    
+            </Accordion>  
         )
     }
 }

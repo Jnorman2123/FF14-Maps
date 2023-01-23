@@ -29,7 +29,7 @@ class QuestInfoContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            expanded_accordions: [],
+            expanded_accordion: null,
             delete_hover: false,
             button_name: '',
         }
@@ -39,7 +39,7 @@ class QuestInfoContainer extends Component {
         let delete_image = 'DeleteQuest';
         let npcs = this.props.npcs.npcs;
         let accordion_expand_icon = 'Plus';
-        let i = 0;
+        let i = -1;
         return <div>
             {toggled_quests.map(quest => {
                 i++;
@@ -61,14 +61,13 @@ class QuestInfoContainer extends Component {
                     return optional_reward_items;
                 })
 
-                this.state.expanded_accordions.includes(quest) ? accordion_expand_icon = 'Minus' : 
+                this.state.expanded_accordion === quest ? accordion_expand_icon = 'Minus' : 
                 accordion_expand_icon = 'Plus';
 
                 this.state.delete_hover && this.state.button_name === `${quest.quest_name} delete`
                 ? delete_image = 'DeleteQuestHover' : delete_image = 'DeleteQuest';
 
-                return <Accordion key={i} style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}} 
-                >
+                return <div key={i} >
                     <Card className={`bg-${bg_color}`} style={{padding: 5}}>
                         <CustomToggle  eventKey={i}>
                             <Card.Img src={`../icons/ui_components/QuestInfoHeader${accordion_expand_icon}.jpg`} 
@@ -76,11 +75,11 @@ class QuestInfoContainer extends Component {
                             style={{height: '100%'}} />
                             <Card.ImgOverlay className='d-flex justify-content-center align-items-center'
                             onClick={() => {
-                                if (this.state.expanded_accordions.includes(quest)) {
-                                    this.setState({expanded_accordions: this.state.expanded_accordions.filter(ea => ea !== quest)})
+                                if (this.state.expanded_accordion === quest) {
+                                    this.setState({expanded_accordion: null})
                                 } else {
-                                    this.setState({expanded_accordions: [...this.state.expanded_accordions, quest]}); 
-                                }   
+                                    this.setState({expanded_accordion: quest});
+                                }
                             }}>
                                 <Col className='quest-info-header text-headertext'>
                                     {quest.quest_name}
@@ -164,9 +163,7 @@ class QuestInfoContainer extends Component {
                                             <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
                                                 <Button key={Math.random()} id='toggle-check' type='checkbox' 
                                                 name={quest.quest_name} 
-                                                onClick={() => {
-                                                    this.setState({expanded_accordions: 
-                                                    this.state.expanded_accordions.filter(q => q !== quest)});
+                                                onClick={() => {;
                                                     this.props.toggleQuest(quest, toggled_quests);
                                                 }} 
                                                 style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
@@ -186,7 +183,7 @@ class QuestInfoContainer extends Component {
                                 </Row>
                             </Card>
                         </Accordion.Collapse>
-                </Accordion>
+                    </div>
             })}
         </div>
         

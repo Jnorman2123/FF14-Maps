@@ -172,7 +172,7 @@ class ToggledQuestsContainer extends Component {
                             <Button key={Math.random()} id='toggle-check' type='checkbox' 
                             name={aq.quest_name} 
                             onClick={() => this.props.deleteQuest(aq, this.props.active_quests)} 
-                            style={{width: 30, paddingBottom: 1, paddingTop: 0, paddingLeft: 0, paddingRight: 0,
+                            style={{width: 30, padding: 0,
                                 boxShadow: 'none'}}  className='border-0'
                             active='false'
                             onMouseEnter={(event) => {
