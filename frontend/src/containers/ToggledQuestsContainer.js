@@ -61,12 +61,12 @@ class ToggledQuestsContainer extends Component {
             if (active_quest_types !== 0) {
                 if (active_quest_levels === 0) {
                     quest_level_warning = <Row className='text-accordiontext available-quests-warning text-center'>
-                        <Col>Select a Quest Level.</Col>
+                        <Col>Select Your Level.</Col>
                     </Row>;
                 }
                 if (quest_types[1].active && active_quest_classes === 0) {
                     quest_class_warning = <Row className='text-accordiontext available-quests-warning text-center'> 
-                        <Col>Select a Quest Class.</Col>
+                        <Col>Select Your Class.</Col>
                     </Row>;
                 }
             }
@@ -74,11 +74,11 @@ class ToggledQuestsContainer extends Component {
                 if (active_quest_types === 0) {
                     if (active_quest_classes === 0) {
                         quest_class_warning = <Row className='text-accordiontext available-quests-warning text-center'> 
-                            <Col>Select a Quest Class.</Col>
+                            <Col>Select Your Class.</Col>
                         </Row>;
                     }
                     quest_type_warning = <Row className='text-accordiontext available-quests-warning text-center'>
-                        <Col>Select a Quest Type.</Col>
+                        <Col>Select Your Quest.</Col>
                     </Row>;
                 }
                 if (quest_types[0].active) {
@@ -88,7 +88,7 @@ class ToggledQuestsContainer extends Component {
                 }
                 if (quest_types[1].active && active_quest_classes === 0) {
                     quest_class_warning = <Row className='text-accordiontext available-quests-warning text-center'> 
-                        <Col>Select a Quest Class.</Col>
+                        <Col>Select Your Class.</Col>
                     </Row>;
                 }
                 if (quest_types[3].active) {
@@ -100,12 +100,12 @@ class ToggledQuestsContainer extends Component {
             if (active_quest_classes !== 0) {
                 if (active_quest_levels === 0) {
                     quest_level_warning = <Row className='text-accordiontext available-quests-warning text-center'>
-                        <Col>Select a Quest Level.</Col>
+                        <Col>Select Your Level.</Col>
                     </Row>;
                 } 
                 if (active_quest_types === 0) {
                     quest_type_warning = <Row className='text-accordiontext available-quests-warning text-center'>
-                        <Col>Select a Quest Type.</Col>
+                        <Col>Select Your Quest.</Col>
                     </Row>;
                 }
             }
