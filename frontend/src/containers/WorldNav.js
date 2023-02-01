@@ -39,13 +39,19 @@ class WorldNav extends Component {
         }
         if (expansion === this.props.original_regions) {
             return expansion.map(r => {
+                let region_link = r.split(' ').join('').toLowerCase();
                 return <NavDropdown key={r} title={r} id='basic-nav-dropdown' style={{paddingLeft: 15, paddingRight: 15}}>
+                    <NavDropdown.Item as='div' key={r}>
+                        <Link to={`/${region_link}`} >
+                            {r} Region
+                        </Link>
+                    </NavDropdown.Item>
                     {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
                         let split_name = zone.split(' ');
                         let splice_index = split_name.findIndex(l => l.includes('('));
                         split_name.splice(splice_index);
                         return <NavDropdown.Item as='div' key={zone}>
-                            <Link to={`/${split_name.join('').toLowerCase()}`}>
+                            <Link to={`/${split_name.join('').toLowerCase()}`} >
                                 {zone}
                             </Link>
                         </NavDropdown.Item>
