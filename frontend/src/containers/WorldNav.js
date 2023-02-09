@@ -84,7 +84,7 @@ class WorldNav extends Component {
         return (
             <Container fluid style={{paddingTop: 0, paddingBottom: 0}}>
                 <Row> 
-                    <Col className='bg-darkbg' style={{padding: 0}}>
+                    <Col md={3} className='bg-darkbg' style={{padding: 0}}>
                         <Image src='../icons/ui_components/HelperQuestLogo.jpg' />
                     </Col>
                     <Col md={6} className='bg-navbarbg'>
@@ -128,7 +128,7 @@ class WorldNav extends Component {
                             </Navbar>
                         </Row>
                     </Col>
-                    <Col className='bg-darkbg'>hi</Col>
+                    <Col md={3} className='bg-darkbg'>hi</Col>
                 </Row>
             </Container>
         )

@@ -186,7 +186,7 @@ class QuestInfoContainer extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={{span: 1, offset: 11}}  >
+                                <Col md={{span: 1, offset: 10}}>
                                     <OverlayTrigger placement='top' overlay={
                                     <Tooltip id="button-tooltip-2" >Remove Quest</Tooltip>}>
                                         <Button key={Math.random()} id='toggle-check' type='checkbox' 
