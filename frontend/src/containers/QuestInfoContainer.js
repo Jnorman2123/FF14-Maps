@@ -14,6 +14,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 function CustomToggle({ children, eventKey }) {
+
     const decoratedOnClick = useAccordionButton(eventKey);
   
     return (
@@ -40,7 +41,7 @@ class QuestInfoContainer extends Component {
         let npcs = this.props.npcs.npcs;
         let accordion_expand_icon = 'Plus';
         let i = -1;
-        return <div>
+        return <Accordion key={i}>
             {toggled_quests.map(quest => {
                 i++;
                 let quest_reward = this.props.rewards.rewards.filter(reward => reward.id === quest.quest_reward);
@@ -68,14 +69,14 @@ class QuestInfoContainer extends Component {
                 this.state.delete_hover && this.state.button_name === `${quest.quest_name} delete`
                 ? delete_image = 'DeleteQuestHover' : delete_image = 'DeleteQuest';
 
-                return <div key={i} >
+                return <div>
                     <Card className={`bg-${bg_color}`} style={{padding: 5}}>
-                        <CustomToggle  eventKey={i}>
+                        <CustomToggle eventKey={i}>
                             <Card.Img src={`../icons/ui_components/QuestInfoHeader${accordion_expand_icon}.jpg`} 
                             alt='header image' 
                             style={{height: '100%'}} />
                             <Card.ImgOverlay className='d-flex justify-content-center align-items-center'
-                            onClick={() => {
+                            onClick={(event) => {
                                 if (this.state.expanded_accordion === quest) {
                                     this.setState({expanded_accordion: null});
                                 } else {
@@ -193,6 +194,9 @@ class QuestInfoContainer extends Component {
                                         name={quest.quest_name} 
                                         onClick={() => {;
                                             this.props.toggleQuest(quest, toggled_quests);
+                                            if (this.state.expanded_accordion === quest) {
+                                                this.setState({expanded_accordion: null});
+                                            }
                                         }} 
                                         style={{width: 35, padding: 1, boxShadow: 'none'}}  className='border-0'
                                         active='false'
@@ -212,7 +216,7 @@ class QuestInfoContainer extends Component {
                     </Accordion.Collapse>
                 </div>
             })}
-        </div>
+        </Accordion>
         
     }
 
