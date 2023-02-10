@@ -28,7 +28,7 @@ class Home extends Component {
                                 </Card.ImgOverlay>
                             </Card>  
                         </Col>
-                        <Col md={6} sm={12} xs={12} style={{padding: 0}}>
+                        <Col md={6} sm={12} xs={12} style={{padding: 0}} className='bg-lightbg'>
                             <Outlet />
                         </Col>
                         <Col className='bg-questinfobg' style={{overflowY: 'scroll', height: '825px', padding: 0}} xs={12}

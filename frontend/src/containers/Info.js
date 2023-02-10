@@ -23,15 +23,15 @@ class Info extends Component {
         : world_map_button = '../home_page/WorldButton.jpg';
 
         return (
-            <Container style={{padding: 0}}>
+            <Container style={{padding: 0, width: 900}} >
                 <Row>
                     <Image style={{height: 650}} src='../home_page/HomePageTop.jpg' />
                 </Row>
                 <Row>
-                    <Col className='bg-primary' style={{paddingTop: 0, paddingLeft: 12, paddingRight: 0}}>
+                    <Col style={{paddingTop: 0, paddingLeft: 12, paddingRight: 0}}>
                         <Image style={{height: 175, width: '100%'}} src='../home_page/HomePageTriston.jpg' />
                     </Col>
-                    <Col md={2} className='bg-warning' style={{padding: 0}}>
+                    <Col md={2} style={{padding: 0}}>
                         <OverlayTrigger placement='left' overlay={<Tooltip id="button-tooltip-2" >
                             Navigate to World Map
                             </Tooltip>} >
@@ -46,7 +46,7 @@ class Info extends Component {
                             </Link>
                         </OverlayTrigger>
                     </Col>
-                    <Col style={{paddingLeft: 0, paddingTop: 0, paddingRight: 12}} className='bg-danger'>
+                    <Col style={{paddingLeft: 0, paddingTop: 0, paddingRight: 12}} >
                         <Image style={{height: 175, width: '100%'}} src='../home_page/HomePageEadin.jpg' />
                     </Col>
                 </Row>
