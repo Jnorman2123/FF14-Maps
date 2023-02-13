@@ -43,6 +43,7 @@ $accordiontext: #844f16;
 $questinfobg: #d0bd8b;
 $navbarbg: #c4821f;
 $refreshbarbg: #fee4b8;
+$homepagebg: #fff2cf;
 
 $theme-colors: (
     'red': $red,
@@ -90,7 +91,12 @@ $theme-colors: (
     'questinfobg': $questinfobg,
     'navbarbg': $navbarbg,
     'refreshbarbg': $refreshbarbg,
+    'homepagebg': $homepagebg,
 );
+
+.dropdown-toggle::after {
+    display: none !important;
+}
 
 @import "./node_modules/bootstrap/scss/bootstrap";
 

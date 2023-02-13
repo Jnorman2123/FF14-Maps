@@ -23,16 +23,17 @@ class Info extends Component {
         : world_map_button = '../home_page/WorldButton.jpg';
 
         return (
-            <Container style={{padding: 0, width: 900}} >
+            <Container style={{padding: 0, width: '90%'}}>
+                <br></br>
                 <Row>
-                    <Image style={{height: 650}} src='../home_page/HomePageTop.jpg' />
+                    <Image style={{height: '100%', padding: 0}} src='../home_page/HomePageTop.jpg' />
                 </Row>
                 <Row>
-                    <Col style={{paddingTop: 0, paddingLeft: 12, paddingRight: 0}}>
-                        <Image style={{height: 175, width: '100%'}} src='../home_page/HomePageTriston.jpg' />
+                    <Col style={{padding: 0}}>
+                        <Image style={{height: '100%', width: '100%'}} src='../home_page/HomePageTriston.jpg' />
                     </Col>
                     <Col md={2} style={{padding: 0}}>
-                        <OverlayTrigger placement='left' overlay={<Tooltip id="button-tooltip-2" >
+                        <OverlayTrigger placement='left' overlay={<Tooltip id="button-tooltip-2">
                             Navigate to World Map
                             </Tooltip>} >
                             <Link to='/world'
@@ -42,12 +43,12 @@ class Info extends Component {
                             onMouseLeave={() => {
                                 this.setState({hovered: false});
                             }}>
-                                <Image src={world_map_button} style={{height: 175, width: '100%'}} name='world' />
+                                <Image src={world_map_button} style={{height: '100%', width: '100%'}} name='world' />
                             </Link>
                         </OverlayTrigger>
                     </Col>
-                    <Col style={{paddingLeft: 0, paddingTop: 0, paddingRight: 12}} >
-                        <Image style={{height: 175, width: '100%'}} src='../home_page/HomePageEadin.jpg' />
+                    <Col style={{padding: 0}} >
+                        <Image style={{height: '100%', width: '100%'}} src='../home_page/HomePageEadin.jpg' />
                     </Col>
                 </Row>
             </Container>
