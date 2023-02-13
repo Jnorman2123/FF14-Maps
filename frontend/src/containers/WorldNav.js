@@ -42,8 +42,8 @@ class WorldNav extends Component {
             return expansion.map(r => {
                 let region_nav_icon = `../nav_bar/${r.split(' ').join('')}NavTab.png`
                 let region_link = r.split(' ').join('').toLowerCase();
-                return <NavDropdown key={r} title={<Image src={region_nav_icon} />} id='basic-nav-dropdown' 
-                style={{padding: 0}} >
+                return <NavDropdown key={r} title={<Image src={region_nav_icon} style={{width: '8vw', height: 30}} />} 
+                id='basic-nav-dropdown' style={{padding: 0}} >
                     <NavDropdown.Item as='div' key={r} className='bg-homepagebg'>
                         <Link to={`/${region_link}`} >
                             {r} Region
@@ -88,19 +88,16 @@ class WorldNav extends Component {
             <Container fluid style={{paddingTop: 0, paddingBottom: 0}}>
                 <Row> 
                     <Col md={3} className='bg-darkbg' style={{padding: 0}}>
-                        <Image src='../nav_bar/logos/HelperQuestLogo1.jpg' />
+                        <Image src={this.props.logo_url} style={{width: '100%', height: 140}} />
                     </Col>
-                    <Col md={6} className='bg-navbarbg' style={{padding: 0, height: 140}}>
+                    <Col md={6} className='bg-navbarbg' style={{padding: 0, }}>
                         <Card className='border-0' style={{height: '100%'}} > 
                             <Card.Img src='../nav_bar/NavBarMiddle.jpg' alt='toggle'
                             style={{height: '100%'}}/>
-                            <Card.ImgOverlay style={{paddingLeft: 10, paddingBottom: 0, height: '100%'}} 
+                            <Card.ImgOverlay style={{paddingLeft: 10, paddingBottom: 0}} 
                             className='d-flex align-items-end'>
-                                <Row style={{height: 44}}></Row>
-                                <Row style={{height: 44}}></Row>
                                 <Row >
-                                    <Navbar  style={{padding: 0}}>
-                                        <Col md={1}></Col>
+                                    <Navbar  style={{padding: 0}} className='d-flex align-items-end'>
                                         <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
                                             Navigate to Home Page
                                             </Tooltip>} >
@@ -112,7 +109,7 @@ class WorldNav extends Component {
                                                 this.setState({hovered: false});
                                             }}>
                                                 <Image src={`../icons/nav_icons/${home_icon}.png`} 
-                                                style={{width: 40, paddingRight: 5}} name='home' />
+                                                style={{width: '2.5vw', paddingRight: 5}} name='home' />
                                             </Link>
                                         </OverlayTrigger>
                                         <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
@@ -126,7 +123,7 @@ class WorldNav extends Component {
                                                 this.setState({hovered: false});
                                             }}>
                                                 <Image src={`../icons/nav_icons/${world_icon}.png`} 
-                                                style={{width: 40, paddingLeft: 5}} name='world' />
+                                                style={{width: '2.5vw', paddingLeft: 5}} name='world' />
                                             </Link>
                                         </OverlayTrigger>
                                         <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
@@ -140,7 +137,7 @@ class WorldNav extends Component {
                         </Card>
                     </Col>
                     <Col md={3} className='bg-darkbg' style={{padding: 0}}>
-                        <Image src='../nav_bar/NavBarRight.jpg' />
+                        <Image src='../nav_bar/NavBarRight.jpg' style={{width: '100%', height: 140}}/>
                     </Col>
                 </Row>
             </Container>

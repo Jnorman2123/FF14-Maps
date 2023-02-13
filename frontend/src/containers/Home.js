@@ -10,10 +10,36 @@ import Card from 'react-bootstrap/Card';
 
 class Home extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            logo_number: 1
+        }
+    }
+
+    changeLogo = () => {
+        let logo_url = `../nav_bar/logos/HelperQuestLogo${this.state.logo_number}.jpg`;
+        return logo_url;
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            if (this.state.logo_number >= 41) {
+                this.setState({logo_number: 0});
+            }
+            this.setState({
+                logo_number: this.state.logo_number + 1
+            })
+        }, 5000);
+    }
+
     render() {
+
+        let logo_url = this.changeLogo();
+
         return (
             <div>
-                <WorldNav />
+                <WorldNav logo_url={logo_url} />
                 <Container fluid >
                     <Row>
                         <Col className='bg-beige' style={{padding: 0, height: '825px'}} md={3} sm={12} xs={12}>
