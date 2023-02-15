@@ -7,6 +7,18 @@ import ToggleContainer from './ToggleContainer';
 import WorldNav from './WorldNav';
 import { Outlet } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
+import { useMediaQuery} from 'react-responsive';
+import Image from 'react-bootstrap/esm/Image';
+
+const Default = ({children}) => {
+    let isDefault = useMediaQuery({minWidth: 768});
+    return isDefault ? children : null;
+}
+
+const Mobile = ({children}) => {
+    let isMobile = useMediaQuery({maxWidth: 767});
+    return isMobile ? children : null;
+}
 
 class Home extends Component {
 
@@ -36,40 +48,48 @@ class Home extends Component {
     render() {
 
         let logo_url = this.changeLogo();
+        
 
         return (
-            <div>
-                <WorldNav logo_url={logo_url} />
-                <Container fluid >
-                    <Row>
-                        <Col className='bg-beige' style={{padding: 0, height: '825px'}} md={3} sm={12} xs={12}>
-                            <Card style={{height: '100%'}}>
-                                <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle'style={{height: '100%'}}/>
-                                <Card.ImgOverlay style={{padding: 0}} >
-                                    <ToggleContainer setClassActive={this.props.setClassActive} 
-                                    setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
-                                    active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 
-                                    toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
-                                    setActiveQuests={this.props.setActiveQuests} />
-                                </Card.ImgOverlay>
-                            </Card>  
-                        </Col>
-                        <Col md={6} sm={12} xs={12} style={{padding: 0}} className='bg-homepagebg'>
-                            <Outlet />
-                        </Col>
-                        <Col className='bg-questinfobg' style={{height: '825px', padding: 0}} xs={12}
-                        sm={12} md={3} >
-                            <Card style={{height: '100%'}}> 
-                                <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
-                                style={{height: '100%'}}/>
-                                <Card.ImgOverlay style={{padding: 0, height: '100%'}} >
-                                    <QuestInfoContainer toggled_quests={this.props.toggled_quests} 
-                                    toggleQuest={this.props.toggleQuest}/>
-                                </Card.ImgOverlay>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>     
+            <div className='bg-homepagebg'>
+                <Default>
+                    <WorldNav logo_url={logo_url} />
+                    <Container fluid >
+                        <Row>
+                            <Col className='bg-beige' style={{padding: 0, height: '825px'}} md={3} sm={12} xs={12}>
+                                <Card style={{height: '100%'}}>
+                                    <Card.Img src='../icons/ui_components/ToggleContainerBg.jpg' alt='toggle'style={{height: '100%'}}/>
+                                    <Card.ImgOverlay style={{padding: 0}} >
+                                        <ToggleContainer setClassActive={this.props.setClassActive} 
+                                        setLevelActive={this.props.setLevelActive} setTypeActive={this.props.setTypeActive} 
+                                        active_quests={this.props.active_quests} toggled_quests={this.props.toggled_quests} 
+                                        toggleQuest={this.props.toggleQuest} deleteQuest={this.props.deleteQuest} 
+                                        setActiveQuests={this.props.setActiveQuests} />
+                                    </Card.ImgOverlay>
+                                </Card>  
+                            </Col>
+                            <Col md={6} sm={12} xs={12} style={{padding: 0}} className='bg-homepagebg'>
+                                <Outlet />
+                            </Col>
+                            <Col className='bg-questinfobg' style={{height: '825px', padding: 0}} xs={12}
+                            sm={12} md={3} >
+                                <Card style={{height: '100%'}}> 
+                                    <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
+                                    style={{height: '100%'}}/>
+                                    <Card.ImgOverlay style={{padding: 0, height: '100%'}} >
+                                        <QuestInfoContainer toggled_quests={this.props.toggled_quests} 
+                                        toggleQuest={this.props.toggleQuest}/>
+                                    </Card.ImgOverlay>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>     
+                </Default>
+                <Mobile>
+                    <Container>
+                        <Image src='../home_page/MobileUnderConstruction.jpg' style={{padding: 0, width: '100%'}}/>
+                    </Container>
+                </Mobile>
             </div>
         ) 
     }
