@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Image from 'react-bootstrap/esm/Image';
 import OverlayTrigger from 'react-bootstrap/esm/OverlayTrigger';
 import Tooltip from 'react-bootstrap/esm/Tooltip';
+import Card from 'react-bootstrap/Card';
 
 class Info extends Component {
 
@@ -19,21 +20,17 @@ class Info extends Component {
     render() {
         let world_map_button = ' ';
 
-        this.state.hovered ? world_map_button = '../home_page/WorldButtonHover.jpg' 
-        : world_map_button = '../home_page/WorldButton.jpg';
+        this.state.hovered ? world_map_button = '../home_page/WorldButtonHover.png' 
+        : world_map_button = '../home_page/WorldButton.png';
 
         return (
-            <Container style={{padding: 0, width: '90%'}}>
-                <br></br>
-                <Row>
-                    <Image style={{height: '100%', padding: 0}} src='../home_page/HomePageTop.jpg' />
-                </Row>
-                <Row>
-                    <Col style={{padding: 0}}>
-                        <Image style={{height: '100%', width: '100%'}} src='../home_page/HomePageTriston.jpg' />
-                    </Col>
-                    <Col md={2} style={{padding: 0}}>
-                        <OverlayTrigger placement='left' overlay={<Tooltip id="button-tooltip-2">
+            <Container style={{padding: 0, width: '100%', height: '100%'}} 
+                className='d-flex align-items-center justify-content-center'>
+                <Card className='border-0' style={{width: '90%'}}>
+                <Card.Img src='../home_page/HomePageComic.jpg' alt='toggle' />
+                    <Card.ImgOverlay style={{padding: 0}} className='d-flex align-items-end justify-content-center'>
+                    <Col style={{padding: 0}} className='d-flex align-items-end justify-content-center'>
+                        <OverlayTrigger placement='left' overlay={<Tooltip id="button-tooltip-2" >
                             Navigate to World Map
                             </Tooltip>} >
                             <Link to='/world'
@@ -43,14 +40,13 @@ class Info extends Component {
                             onMouseLeave={() => {
                                 this.setState({hovered: false});
                             }}>
-                                <Image src={world_map_button} style={{height: '100%', width: '100%'}} name='world' />
+                                <Image src={world_map_button} name='world' style={{width: '9.5vw'}} />
                             </Link>
                         </OverlayTrigger>
                     </Col>
-                    <Col style={{padding: 0}} >
-                        <Image style={{height: '100%', width: '100%'}} src='../home_page/HomePageEadin.jpg' />
-                    </Col>
-                </Row>
+                    </Card.ImgOverlay>
+                </Card>
+                
             </Container>
         )
     }

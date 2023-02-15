@@ -57,7 +57,7 @@ class Home extends Component {
                         <Col md={6} sm={12} xs={12} style={{padding: 0}} className='bg-homepagebg'>
                             <Outlet />
                         </Col>
-                        <Col className='bg-questinfobg' style={{overflowY: 'scroll', height: '825px', padding: 0}} xs={12}
+                        <Col className='bg-questinfobg' style={{height: '825px', padding: 0}} xs={12}
                         sm={12} md={3} >
                             <Card style={{height: '100%'}}> 
                                 <Card.Img src='../icons/ui_components/QuestInfoContainerBg.jpg' alt='toggle'
