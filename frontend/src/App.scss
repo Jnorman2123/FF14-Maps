@@ -96,17 +96,22 @@ body {
 }
 
 .quest-detail-headers {
-  font-size: 25px;
+  font-size: 1.4vw;
   font-weight: 600;
 }
 
 .quest-detail-subheaders {
-  font-size: 17px;
+  font-size: .9vw;
   font-weight: 550;
 }
 .quest-detail-item-headers {
-  font-size: 20px;
+  font-size: 1.15vw;
   font-weight: 575;
+}
+
+.quest-detail-text {
+  font-size: .8vw;
+  font-weight: 450;
 }
 
 .navbar {

@@ -100,7 +100,7 @@ class QuestInfoContainer extends Component {
                                         <div>Quest Class(es)</div>
                                     </Row>
                                     <Row className='text-center' >
-                                        <ul>
+                                        <ul className='quest-detail-text'>
                                             {quest_classes[0].map(qc => {
                                                 return <li key={Math.random()} >
                                                     {qc.job_name}
@@ -113,7 +113,7 @@ class QuestInfoContainer extends Component {
                                     <Row className='quest-detail-subheaders text-center'>
                                         <div>Quest Type</div>
                                     </Row>
-                                    <Row className='text-center'>
+                                    <Row className='text-center quest-detail-text'>
                                         <div>{quest.quest_type}</div>
                                     </Row>
                                 </Col>
@@ -121,7 +121,7 @@ class QuestInfoContainer extends Component {
                                     <Row className='quest-detail-subheaders text-center'>
                                         <div>Quest Level</div>
                                     </Row>
-                                    <Row className='text-center'>
+                                    <Row className='text-center quest-detail-text'>
                                         <div>{quest.quest_level}</div>
                                     </Row>
                                 </Col>
@@ -140,7 +140,7 @@ class QuestInfoContainer extends Component {
                                             let full_zone_name = npcs.filter(npc => npc.id === step.step_npc)[0].npc_zone;
                                             let split_zone_name = full_zone_name.split('(');
                                             let link_name = split_zone_name[0].split(' ').join('').toLowerCase();
-                                            return <li key={step.step_description} className='' >
+                                            return <li key={step.step_description} className='quest-detail-text' >
                                                 {`${step.step_description}`} <Link to={`/${link_name}`}>
                                                     {`(${split_zone_name[0]})`}
                                                 </Link>
@@ -167,7 +167,7 @@ class QuestInfoContainer extends Component {
                                     </Row>
                                     <ul style={{padding: 5}}>
                                         {guaranteed_reward_items.map(ri => {
-                                            return <li key={Math.random()} >
+                                            return <li key={Math.random()} className='quest-detail-text'>
                                                 {ri.item_name}: {ri.item_quantity}
                                             </li>
                                         })}
@@ -179,7 +179,7 @@ class QuestInfoContainer extends Component {
                                     </Row>
                                     <ul style={{padding: 5}}>
                                         {optional_reward_items.map(ri => {
-                                            return <li key={Math.random()} >
+                                            return <li key={Math.random()} className='quest-detail-text'>
                                                 {ri.item_name}: {ri.item_quantity}
                                             </li>
                                         })}
