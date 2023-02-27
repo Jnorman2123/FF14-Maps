@@ -223,7 +223,7 @@ class QuestInfoContainer extends Component {
     render() {
 
         return (
-            <Container style={{padding: 0, height: '100%'}} >
+            <Container style={{overflowY: 'scroll', padding: 0, height: '100%'}} >
                 <Image style={{width: '100%'}} src='../icons/ui_components/QuestJournalHeader.jpg' alt='quest journal header' />
                 <QuestInfo renderQuestInfo={this.renderQuestInfo} toggled_quests={this.props.toggled_quests} />
             </Container>

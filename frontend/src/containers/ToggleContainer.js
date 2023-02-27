@@ -30,7 +30,7 @@ class ToggleContainer extends Component {
         let icon_name = null;
         let setActive = null;
         let icon_group = null;
-        let width = 50;
+        let width = '2.5vw';
         let padding = 1;
         if (type === 'quest class') {
             setActive = this.props.setClassActive;
