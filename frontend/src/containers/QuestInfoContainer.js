@@ -36,6 +36,12 @@ class QuestInfoContainer extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.toggled_quests !== this.props.toggled_quests) {
+            this.setState({expanded_accordion: null});
+        }
+    }
+
     renderQuestInfo = (toggled_quests) => {
         let delete_image = 'DeleteQuest';
         let npcs = this.props.npcs.npcs;
