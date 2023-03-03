@@ -16,6 +16,8 @@ import { fetchSteps } from './store/actions/steps/stepActions';
 import { fetchRewards } from './store/actions/rewards/rewardActions';
 import { fetchJobs } from './store/actions/jobs/jobActions';
 import { updateClass, updateQuestLevel, updateQuestType } from './store/actions/filters/filterActionCreators';
+import Favicon from 'react-favicon';
+import { HelmetProvider } from 'react-helmet-async';
 
 class App extends Component {
 
@@ -199,42 +201,45 @@ class App extends Component {
     };
     
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
-          setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={this.state.active_quests} 
-          toggleQuest={this.toggleQuest} deleteQuest={this.deleteQuest} setActiveQuests={this.setActiveQuests} />} >
-            <Route index element={<Info />}/>
-            <Route path='/world' element={<WorldMapCont mapName='World' 
-            bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
-            center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={this.state.active_quests} 
-            setStartersLength={setStartersLength} createIcon={createIcon} setQuestType={setQuestType} 
-            quest_starters={quest_starters} />} />
-            {this.props.region_names.map(n => {
-              return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
-              element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
-              zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} active_quests={this.state.active_quests} setStartersLength={setStartersLength} 
-              createIcon={createIcon} setQuestType={setQuestType} quest_starters={quest_starters} />} />
-            })}
-            {this.props.inside_zone_names.map(n => {
-              return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
-              zoom={5.3} minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
-              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={true} />} />
-            })}
-            {this.props.outside_zone_names.map(n => {
-              return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
-              element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
-              zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
-              revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
-              toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={false} />} />
-            })}
-            </Route>
-          <Route path='*' element={<div><p>There is nothing here.</p></div>} />
-        </Routes>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <Favicon url='./tab_icons/favicon.ico' /> 
+          <Routes>
+            <Route path='/' element={<Home setClassActive={this.setClassActive} setLevelActive={this.setLevelActive} 
+            setTypeActive={this.setTypeActive} toggled_quests={this.state.toggled_quests} active_quests={this.state.active_quests} 
+            toggleQuest={this.toggleQuest} deleteQuest={this.deleteQuest} setActiveQuests={this.setActiveQuests} />} >
+              <Route index element={<Info />}/>
+              <Route path='/world' element={<WorldMapCont mapName='World' 
+              bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))}zoom={4.25} minZoom={4} maxZoom={4} 
+              center={this.revertLat(20.95, 20.95)} revertLat={this.revertLat} active_quests={this.state.active_quests} 
+              setStartersLength={setStartersLength} createIcon={createIcon} setQuestType={setQuestType} 
+              quest_starters={quest_starters} />} />
+              {this.props.region_names.map(n => {
+                return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`}
+                element={<RegionMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
+                zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")} 
+                revertLat={this.revertLat} active_quests={this.state.active_quests} setStartersLength={setStartersLength} 
+                createIcon={createIcon} setQuestType={setQuestType} quest_starters={quest_starters} />} />
+              })}
+              {this.props.inside_zone_names.map(n => {
+                return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
+                element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(21.4, 21.4))} 
+                zoom={5.3} minZoom={5.3} maxZoom={7} center={this.revertLat(10.7, 10.7)} mapUrl={n.split(" ").join("")} 
+                revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
+                toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={true} />} />
+              })}
+              {this.props.outside_zone_names.map(n => {
+                return <Route key={n} path={`${n.split(" ").join('').toLowerCase()}`} 
+                element={<ZoneMapCont mapName={n} bounds={new LatLngBounds(this.revertLat(1,1), this.revertLat(41.9, 41.9))} 
+                zoom={4.25} minZoom={4.25} maxZoom={7} center={this.revertLat(20.95, 20.95)} mapUrl={n.split(" ").join("")}
+                revertLat={this.revertLat} setQuestId={this.setQuestId} active_quests={this.state.active_quests} 
+                toggled_quests={this.state.toggled_quests} toggleQuest={this.toggleQuest} inside={false} />} />
+              })}
+              </Route>
+            <Route path='*' element={<div><p>There is nothing here.</p></div>} />
+          </Routes>
+        </BrowserRouter>
+      </HelmetProvider>  
     );
   } 
 }
