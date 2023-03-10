@@ -1,0 +1,145 @@
+@import "../src/scss/custom.scss";
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+
+.customMarker {
+  background-image: url(../public/icons/cluster_icons/ClusterIcon.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.customMarkerActive {
+  background-image: url(../public/icons/cluster_icons/ClusterIconActive.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.customMarker span {
+  display: block;
+  margin-top: 5px;
+  margin-left: 13px;
+  color: #fff;
+}
+
+@font-face {
+  font-family: 'GothicCentury';
+  src: local('GothicCentury'), url(../src/fonts/GothicCentury.ttf) format('truetype');}
+
+.gothic-century {
+  font-family: GothicCentury;
+}
+
+.quest-info-header {
+  font-size: 1vw;
+  font-weight: 600;
+}
+
+.toggle-header {
+  font-size: 1.25vw;
+  font-weight: 600;
+}
+
+.available-quests-header {
+  font-size: 1.25vw;
+  font-weight: 600;
+}
+
+.available-quests-warning {
+  font-size: .9vw;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.quest-detail-headers {
+  font-size: 1.4vw;
+  font-weight: 600;
+}
+
+.quest-detail-subheaders {
+  font-size: .9vw;
+  font-weight: 550;
+}
+.quest-detail-item-headers {
+  font-size: 1.15vw;
+  font-weight: 575;
+}
+
+.quest-detail-text {
+  font-size: .8vw;
+  font-weight: 450;
+}
+
+.navbar {
+  height: '100%';
+}
+
+@media screen and (max-width: 576px) {
+  .toggle-header {
+    font-size: 5vw;
+    font-weight: 600;
+  }
+  .navbar {
+    height: '33%';
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .toggle-header {
+    font-size: 5vw;
+    font-weight: 600;
+  }
+  .nav-bar {
+    height: '33%';
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    display: none;
+  }
+}
