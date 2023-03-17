@@ -9,6 +9,7 @@ export interface DataStoreState {
   laNosceaZoneNames: string[],
   theBlackShroudZoneNames: string[],
   thanalanZoneNames: string[],
+  regionNames: string[],
 }
 
 const initialState: DataStoreState = {
@@ -56,6 +57,9 @@ const initialState: DataStoreState = {
   thanalanZoneNames: [
     "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip', 'Western Thanalan', 'Eastern Thanalan', 
     'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan'
+  ],
+  regionNames: [
+    'La Noscea', 'The Black Shroud', 'Thanalan', 'Heavensward', 'Stormblood', 'Shadowbringers', 'Endwalker'
   ]
 }
 
@@ -74,5 +78,6 @@ export const getOutsideZoneNamesState = (state: { dataStore: DataStoreState }) =
 export const getLaNosceaZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaZoneNames
 export const getTheBlackShroudZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudZoneNames
 export const getThanalanZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanZoneNames
+export const getRegionNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.regionNames
 
 export default dataStoreSlice.reducer

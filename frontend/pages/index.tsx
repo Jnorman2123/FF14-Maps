@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { getClassesState, getQuestTypesState, getQuestLevelsState, getInsideZoneNamesState,
-getOutsideZoneNamesState, getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState } 
-from "../store/slices/dataStoreSlice";
+getOutsideZoneNamesState, getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState,
+getRegionNamesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import { useGetItemsQuery } from "@/store/services/helperquest";
 
@@ -15,7 +15,8 @@ const Home: NextPage = () => {
   const laNosceaZoneNamesArray = useSelector(getLaNosceaZoneNamesState)
   const theBlackShroudZoneNamesArray = useSelector(getTheBlackShroudZoneNamesState)
   const thanalanZoneNamesArray = useSelector(getThanalanZoneNamesState)
-  console.log(thanalanZoneNamesArray)
+  const regionNamesArray = useSelector(getRegionNamesState)
+  console.log(regionNamesArray)
   return (
     <>
       <ul>
