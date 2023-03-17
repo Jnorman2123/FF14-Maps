@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface DataStoreState {
   classes: object[],
-  questTypes: object[]
+  questTypes: object[],
+  questLevels: object[],
 }
 
 const initialState: DataStoreState = {
@@ -21,6 +22,10 @@ const initialState: DataStoreState = {
   questTypes: [
     {name: 'MainStory', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
     {name: 'HuntingLog', active: false},
+  ],
+  questLevels: [
+    {name: '1-5', active: false}, {name: '6-10', active: false}, {name: '11-15', active: false}, {name: '16-20', active: false}, 
+    {name: '21-25', active: false}, {name: '26-30', active: false},
   ]
 }
 
@@ -33,5 +38,6 @@ export const dataStoreSlice = createSlice({
 
 export const getClassesState = (state: { dataStore: DataStoreState }) => state.dataStore.classes
 export const getQuestTypesState = (state: { dataStore: DataStoreState }) => state.dataStore.questTypes
+export const getQuestLevelsState = (state: { dataStore: DataStoreState }) => state.dataStore.questLevels
 
 export default dataStoreSlice.reducer
