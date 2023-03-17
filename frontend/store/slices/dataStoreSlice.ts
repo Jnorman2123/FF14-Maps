@@ -16,6 +16,7 @@ export interface DataStoreState {
   laNosceaMapAttributes: object,
   theBlackShroudMapAttributes: object,
   thanalanMapAttributes: object,
+  legendIconAttributes: object,
 }
 
 const initialState: DataStoreState = {
@@ -278,6 +279,21 @@ const initialState: DataStoreState = {
         highlight_size: [127.1, 203.825]
     },   
   },
+  legendIconAttributes: {
+    legend_size: [121.5, 90.5],
+    vert_arrow_size: [59.5, 42.5],
+    hor_arrow_size: [42.5, 59.5],
+    legend_num_size: [30.5, 25],
+    legend_z_offset: 500,
+    arrow_z_offset: 250,
+    legend_num_z_offset: 1000,
+    vert_arrow_offset: 2.5,
+    hor_arrow_offset: 3.5,
+    top_num_offset: 0.9,
+    bot_num_offset: -0.75,
+    left_num_offset: -0.5,
+    right_num_offset: 1.75
+  },
 }
 
 export const dataStoreSlice = createSlice({
@@ -302,5 +318,6 @@ export const getWorldMapAttributesState = (state: { dataStore: DataStoreState })
 export const getLaNosceaMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaMapAttributes
 export const getTheBlackShroudMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudMapAttributes
 export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanMapAttributes
+export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 
 export default dataStoreSlice.reducer

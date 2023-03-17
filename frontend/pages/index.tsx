@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { getThanalanMapAttributesState } from "../store/slices/dataStoreSlice";
+import { getLegendIconAttributesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const thanalanMapAttributes = useSelector(getThanalanMapAttributesState)
+  const LegendIconAttributes = useSelector(getLegendIconAttributesState)
   return (
     <>
       <ul>
-        {Object.keys(thanalanMapAttributes)}
+        {Object.keys(LegendIconAttributes)}
       </ul>
     </>
     
