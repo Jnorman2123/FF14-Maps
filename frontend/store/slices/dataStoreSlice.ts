@@ -17,6 +17,7 @@ export interface DataStoreState {
   theBlackShroudMapAttributes: object,
   thanalanMapAttributes: object,
   legendIconAttributes: object,
+  questIconBgColors: string[],
 }
 
 const initialState: DataStoreState = {
@@ -294,6 +295,13 @@ const initialState: DataStoreState = {
     left_num_offset: -0.5,
     right_num_offset: 1.75
   },
+  questIconBgColors: [
+    'Aqua', 'Avocado', 'Burgundy', 'Canary', 'CandyAppleRed', 'DeepSaffron', 'ElectricBlue', 'ElectricGreen', 
+    'ElectricIndigo', 'FashionFuschia', 'FieldDrab', 'Azure', 'MalachiteGreen', 'Folly', 'ImperialPurple', 
+    'MediumSpring', 'FrenchPink', 'Arsenic', 'MetallicSunburst', 'MidnightGreen', 'Fuschia', 'PaleViolet', 'Red', 
+    'Heliotrope', 'ResolutionBlue', 'ScreamingGreen', 'SeaGreen', 'PhilippineGray', 'SpringFrost', 'Sunny', 'SunsetOrange', 
+    'Turquoise', 'VenetianRed', 'VioletBlue', 'Viridian', 'VividOrangePeel', 'LightYellow' 
+  ],
 }
 
 export const dataStoreSlice = createSlice({
@@ -319,5 +327,6 @@ export const getLaNosceaMapAttributesState = (state: { dataStore: DataStoreState
 export const getTheBlackShroudMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudMapAttributes
 export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanMapAttributes
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
+export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 
 export default dataStoreSlice.reducer
