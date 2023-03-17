@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Define a type for the slice state
 export interface ClassesState {
   array: object[]
 }
 
-// Define the initial state using that type
 const initialState: ClassesState = {
   array: [
     {name: 'Gladiator', active: false}, {name: 'Marauder', active: false}, {name: 'Archer', active: false},
