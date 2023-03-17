@@ -15,6 +15,7 @@ export interface DataStoreState {
   worldMapAttributes: object,
   laNosceaMapAttributes: object,
   theBlackShroudMapAttributes: object,
+  thanalanMapAttributes: object,
 }
 
 const initialState: DataStoreState = {
@@ -210,6 +211,73 @@ const initialState: DataStoreState = {
         highlight_size: [201.24, 195.78]
     }
   },
+  thanalanMapAttributes: {
+    thanalan_name_pos: [0,0],
+    uldah_steps_of_nald_attributes: {
+        legend_pos: [-33, 10],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-33, 13.5],
+        highlight_pos: [-31.98, 16.875],
+        highlight_size: [113.88, 91.26]
+    },
+    uldah_steps_of_thal_attributes: {
+        legend_pos: [-32, 24],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-32, 20.5],
+        highlight_pos: [-31.85, 17.2],
+        highlight_size: [113.88, 86.58]
+    },
+    hustings_strip_attributes: {
+        legend_pos: [-37.5, 17],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-35, 17],
+        highlight_pos: [-31.91, 17.055],
+        highlight_size: [118.56, 91.26]
+    },
+    western_thanalan_attributes: {
+        legend_pos: [-18, 12.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-18, 9],
+        highlight_pos: [-21.45, 8.67],
+        highlight_size: [204.82, 217.14]
+    },
+    eastern_thanalan_attributes: {
+        legend_pos: [-10.5, 32.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-13, 32.5],
+        highlight_pos: [-16.27, 33.35],
+        highlight_size: [212.16, 175.5]
+    },
+    central_thanalan_attributes: {
+        legend_pos: [-23.5, 27],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-23.5, 23.5],
+        highlight_pos: [-22.2, 21.25],
+        highlight_size: [164.3, 216.225]
+    },
+    southern_thanalan_attributes: {
+        legend_pos: [-32.5, 38],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-32.5, 34.5],
+        highlight_pos: [-30.7, 33],
+        highlight_size: [219.325, 311.55]
+    },
+    northern_thanalan_attributes: {
+        legend_pos: [-12, 18.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-12, 22],
+        highlight_pos: [-9.65, 24.275],
+        highlight_size: [127.1, 203.825]
+    },   
+  },
 }
 
 export const dataStoreSlice = createSlice({
@@ -233,5 +301,6 @@ export const getOriginalRegionsState = (state: { dataStore: DataStoreState }) =>
 export const getWorldMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.worldMapAttributes
 export const getLaNosceaMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaMapAttributes
 export const getTheBlackShroudMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudMapAttributes
+export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanMapAttributes
 
 export default dataStoreSlice.reducer

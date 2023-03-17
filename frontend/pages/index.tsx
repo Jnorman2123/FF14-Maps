@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { getTheBlackShroudMapAttributesState } from "../store/slices/dataStoreSlice";
+import { getThanalanMapAttributesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const theBlackShroudMapAttributes = useSelector(getTheBlackShroudMapAttributesState)
+  const thanalanMapAttributes = useSelector(getThanalanMapAttributesState)
   return (
     <>
       <ul>
-        {Object.keys(theBlackShroudMapAttributes)}
+        {Object.keys(thanalanMapAttributes)}
       </ul>
     </>
     
