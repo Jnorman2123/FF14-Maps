@@ -5,6 +5,7 @@ export interface DataStoreState {
   questTypes: object[],
   questLevels: object[],
   insideZoneNames: string[],
+  outsideZoneNames: string[],
 }
 
 const initialState: DataStoreState = {
@@ -33,6 +34,15 @@ const initialState: DataStoreState = {
     'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip',  
     'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
     'Kugane', 'Crystarium', 'Old Sharlayan', 'Labyrinthos', 'Radz-at-Han',
+  ],
+  outsideZoneNames: [
+    'Middle La Noscea', 'Lower La Noscea', 'Eastern La Noscea', 'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea',
+    'Central Shroud', 'East Shroud', 'South Shroud', 'North Shroud', 'Western Thanalan', 'Eastern Thanalan', 
+    'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan', 'Coerthas Central Highlands', 'Coerthas Western Highlands', 
+    'Mor Dhona', "The Sea of Clouds", "Azys Lla", 'The Dravanian Forelands', 'The Dravanian Hinterlands', 'The Churning Mists',
+    'The Fringes', 'The Peaks', 'The Lochs', 'The Ruby Sea', 'Yanxia', 'The Azim Steppe', 'Lakeland', 'Eulmore', 'Kholusia', 
+    'Amh Araeng', 'Il Mheg', "The Rak'tika Greatwood", 'The Tempest', 'Garlemald', 'Thavnair', 'Mare Lamentorum', 'Ultima Thule', 
+    'Elpis'
   ]
 }
 
@@ -47,5 +57,6 @@ export const getClassesState = (state: { dataStore: DataStoreState }) => state.d
 export const getQuestTypesState = (state: { dataStore: DataStoreState }) => state.dataStore.questTypes
 export const getQuestLevelsState = (state: { dataStore: DataStoreState }) => state.dataStore.questLevels
 export const getInsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.insideZoneNames
+export const getOutsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.outsideZoneNames
 
 export default dataStoreSlice.reducer

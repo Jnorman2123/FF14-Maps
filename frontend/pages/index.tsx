@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { getClassesState, getQuestTypesState, getQuestLevelsState, getInsideZoneNamesState
- } from "../store/slices/dataStoreSlice";
+import { getClassesState, getQuestTypesState, getQuestLevelsState, getInsideZoneNamesState,
+getOutsideZoneNamesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import { useGetItemsQuery } from "@/store/services/helperquest";
 
@@ -10,7 +10,8 @@ const Home: NextPage = () => {
   const questTypesArray = useSelector(getQuestTypesState);
   const questLevelsArray = useSelector(getQuestLevelsState);
   const insideZoneNamesArray = useSelector(getInsideZoneNamesState)
-  console.log(insideZoneNamesArray)
+  const outsideZoneNamesArray = useSelector(getOutsideZoneNamesState)
+  console.log(outsideZoneNamesArray)
   return (
     <>
       <ul>
