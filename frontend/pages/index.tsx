@@ -1,14 +1,13 @@
 import type { NextPage } from "next";
-import { getQuestIconBgColorsState } from "../store/slices/dataStoreSlice";
+import { getSeoMessagesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
-import { useGetItemsQuery } from "@/store/services/helperquest";
 
 const Home: NextPage = () => {
-  const QuestIconBgColorsArray = useSelector(getQuestIconBgColorsState);
+  const SeoMessagesArray = useSelector(getSeoMessagesState);
   return (
     <>
       <ul>
-        {QuestIconBgColorsArray.map((c: any) => {
+        {SeoMessagesArray.map((c: any) => {
           return <li key={c} >{c}</li>
         })}
       </ul>

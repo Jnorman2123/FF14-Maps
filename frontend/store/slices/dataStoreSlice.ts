@@ -18,6 +18,7 @@ export interface DataStoreState {
   thanalanMapAttributes: object,
   legendIconAttributes: object,
   questIconBgColors: string[],
+  seoMessages: string[],
 }
 
 const initialState: DataStoreState = {
@@ -302,6 +303,30 @@ const initialState: DataStoreState = {
     'Heliotrope', 'ResolutionBlue', 'ScreamingGreen', 'SeaGreen', 'PhilippineGray', 'SpringFrost', 'Sunny', 'SunsetOrange', 
     'Turquoise', 'VenetianRed', 'VioletBlue', 'Viridian', 'VividOrangePeel', 'LightYellow' 
   ],
+  seoMessages: [
+    'Quest smarter and level faster in Final Fantasy 14 Online. Find quests by level, class and type. See start points, steps, turn ins, NPCs, and rewards on maps.',
+    'Find quest information on maps for Final Fantasy 14 Online with HelperQuest.com. Plan your gameplay and quest smarter with our easy-to-use guide.',
+    'HelperQuest.com helps you find quests on maps for Final Fantasy 14 Online. No more confusing text guides. Plan and play smarter with our visual guide.',
+    'Quest smarter with HelperQuest.com, a visual guide for Final Fantasy 14 Online. Find quests on maps and plan your gameplay with ease.',
+    'Get help for Final Fantasy 14 Online with our easy-to-read maps. Find quests by level, class and type. See start points, steps, turn ins, NPCs, and rewards.',
+    'Need help with Final Fantasy 14 Online? Find quest information like start points and turn ins on easy-to-read maps. Plan out your gameplay and quest smarter.',
+    'HelperQuest.com is a quest guide for Final Fantasy 14 Online that provides quest information on maps. Find quests based on your level, class and type.',
+    'HelperQuest.com: The ultimate quest guide for Final Fantasy 14 online. Find quests based on your level, class and type. See them visually on maps and plan your gameplay.',
+    'Looking for a better way to complete quests in Final Fantasy 14 online? Try HelperQuest.com, the quest guide that shows you everything visually on maps. No more confusing text!',
+    'With HelperQuest.com, you can find and complete quests in Final Fantasy 14 online faster and easier. Choose your level, class and type of quest and see them on maps with details.',
+    'Find the best quests for your level and class in Final Fantasy 14 online with HelperQuest.com. The quest guide that lets you see quest locations, steps, descriptions and rewards on maps.',
+    'No more wasting time on quests in Final Fantasy 14 online. Use HelperQuest.com to find quests that suit your level, class and type. See them on maps with all the information you need.',
+    'HelperQuest.com is the ultimate tool for Final Fantasy 14 online players. It helps you find quests based on your preferences and shows you where to go and what to do on maps.',
+    'Questing in Final Fantasy 14 online has never been easier with HelperQuest.com. The quest guide that shows you everything visually on maps. Choose your level, class and type of quest and start playing.',
+    'Want to level up faster in Final Fantasy 14 online? Use HelperQuest.com to find the best quests for your level and class. See them on maps with detailed information and complete them efficiently.',
+    'Don’t get lost or frustrated with quests in Final Fantasy 14 online. Use HelperQuest.com to find quests that match your level, class and type. See them visually on maps with all the details you need.',
+    'HelperQuest.com is the best quest guide for Final Fantasy 14 online players. It helps you find quests based on your criteria and shows you where to go and what to do on maps.',
+    'Questing in Final Fantasy 14 online can be fun and easy with HelperQuest.com. The quest guide that shows you everything visually on maps. Select your level, class and type of quest and enjoy playing.',
+    'Level up faster in Final Fantasy 14 online with HelperQuest.com. The quest guide that helps you find the best quests for your level and class. See them on maps with detailed information and rewards.',
+    'Don’t waste time or get confused with quests in Final Fantasy 14 online. Use HelperQuest.com to find quests that suit your preferences and see them visually on maps with all the information you need.',
+    'HelperQuest.com is the ultimate solution for questing in Final Fantasy 14 online. It helps you find quests based on your level, class and type of quest and shows you where to go and what to do on maps.',
+    'Find quests for Final Fantasy 14 Online with HelperQuest, a quest guide that shows you where to go and what to do on maps. Find quests by level, class and type!'
+  ]
 }
 
 export const dataStoreSlice = createSlice({
@@ -328,5 +353,6 @@ export const getTheBlackShroudMapAttributesState = (state: { dataStore: DataStor
 export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanMapAttributes
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
+export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
 
 export default dataStoreSlice.reducer
