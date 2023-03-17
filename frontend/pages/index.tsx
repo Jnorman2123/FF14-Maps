@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { getWorldMapAttributesState } from "../store/slices/dataStoreSlice";
+import { getLaNosceaMapAttributesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const worldMapAttributes = useSelector(getWorldMapAttributesState)
+  const laNosceaMapAttributes = useSelector(getLaNosceaMapAttributesState)
   return (
     <>
       <ul>
-        {Object.keys(worldMapAttributes)}
+        {Object.keys(laNosceaMapAttributes)}
       </ul>
     </>
     

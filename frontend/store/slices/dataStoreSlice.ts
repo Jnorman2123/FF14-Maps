@@ -13,6 +13,7 @@ export interface DataStoreState {
   zones: string[],
   originalRegions: string[],
   worldMapAttributes: object,
+  laNosceaMapAttributes: object,
 }
 
 const initialState: DataStoreState = {
@@ -89,7 +90,74 @@ const initialState: DataStoreState = {
     la_noscea_legend_pos: [-32, 9],
     thanalan_legend_pos: [-31, 29.5],
     the_black_shroud_legend_pos: [-18, 36],
-  }
+  },
+  laNosceaMapAttributes: {
+    la_noscea_name_pos: [0,10],
+    limsa_lominsa_upper_decks_attributes: {
+        legend_pos: [-36, 15],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-33.5, 15],
+        highlight_pos: [-29.05, 15.05],
+        highlight_size: [92.04, 141.96]
+    },
+    limsa_lominsa_lower_decks_attributes: {
+        legend_pos: [-30, 5.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-30, 9],
+        highlight_pos: [-30.6, 13.37],
+        highlight_size: [138.06, 93.6]
+    },
+    middle_la_noscea_attributes: {
+        legend_pos: [-17.75, 25.25],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-20.25, 25.25],
+        highlight_pos: [-22.44, 21.255],
+        highlight_size: [166.14, 193.44]
+    },
+    lower_la_noscea_attributes: {
+        legend_pos: [-30, 36.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-30, 33],
+        highlight_pos: [-33.5, 27.47],
+        highlight_size: [168.63, 243.32]
+    },
+    eastern_la_noscea_attributes: {
+        legend_pos: [-12, 34],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-14.5, 34],
+        highlight_pos: [-19.32, 34.1],
+        highlight_size: [227.075, 187.55]
+    },
+    western_la_noscea_attributes: {
+        legend_pos: [-23.5, 10.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-21, 10.5],
+        highlight_pos: [-18.05, 9.05],
+        highlight_size: [255.84, 210.6]
+    },
+    upper_la_noscea_attributes: {
+        legend_pos: [-13, 12],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-13, 15.5],
+        highlight_pos: [-12.39, 20.91],
+        highlight_size: [198.66, 93.17]
+    },
+    outer_la_noscea_attributes: {
+        legend_pos: [-6, 11.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-6, 15],
+        highlight_pos: [-6.02, 19.2],
+        highlight_size: [154.44, 137.28]
+    } 
+  },
 }
 
 export const dataStoreSlice = createSlice({
@@ -111,5 +179,6 @@ export const getRegionNamesState = (state: { dataStore: DataStoreState }) => sta
 export const getZonesState = (state: { dataStore: DataStoreState }) => state.dataStore.zones
 export const getOriginalRegionsState = (state: { dataStore: DataStoreState }) => state.dataStore.originalRegions
 export const getWorldMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.worldMapAttributes
+export const getLaNosceaMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaMapAttributes
 
 export default dataStoreSlice.reducer
