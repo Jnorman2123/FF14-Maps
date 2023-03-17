@@ -1,18 +1,16 @@
 import type { NextPage } from "next";
-import { getSeoMessagesState } from "../store/slices/dataStoreSlice";
-import { useSelector } from "react-redux";
+import { useGetJobsQuery } from "@/store/services/helperquest";
 
 const Home: NextPage = () => {
-  const SeoMessagesArray = useSelector(getSeoMessagesState);
+  const jobsArray = useGetJobsQuery('jobs');
+  console.log(jobsArray.data)
+  
   return (
-    <>
       <ul>
-        {SeoMessagesArray.map((c: any) => {
-          return <li key={c} >{c}</li>
+        {jobsArray.data.map((c: any) => {
+          return <li key={c.job_name} >{c.job_name}</li>
         })}
       </ul>
-    </>
-    
   );
 };
 

@@ -9,19 +9,23 @@ export const helperquestApi = createApi({
     getItems: builder.query({
       query: () => 'items',
     }),
+    getQuests: builder.query({
+      query: () => 'quests',
+    }),
+    getNpcs: builder.query({
+      query: () => 'npcs',
+    }),
+    getRewards: builder.query({
+      query: () => 'rewards',
+    }),
+    getSteps: builder.query({
+      query: () => 'steps',
+    }),
+    getJobs: builder.query({
+      query: () => 'jobs',
+    }),
   }),
 })
 
-// const proxy = createProxyMiddleware({
-//   target: "https://api.helperquest.com/",
-//   changeOrigin: true,
-// });
-
-// // add the proxy middleware to your server
-// const app = express();
-// app.use("https://api.helperquest.com/", proxy);
-
-// // start the server
-// app.listen(3000);
-
-export const { useGetItemsQuery } = helperquestApi
+export const { useGetItemsQuery, useGetQuestsQuery, useGetNpcsQuery, useGetRewardsQuery, useGetStepsQuery, 
+  useGetJobsQuery } = helperquestApi
