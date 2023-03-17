@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface ClassesState {
-  array: object[]
+export interface DataStoreState {
+  classes: object[]
 }
 
-const initialState: ClassesState = {
-  array: [
+const initialState: DataStoreState = {
+  classes: [
     {name: 'Gladiator', active: false}, {name: 'Marauder', active: false}, {name: 'Archer', active: false},
     {name: 'Lancer', active: false}, {name: 'Pugilist', active: false}, {name: 'Rogue', active: false}, 
     {name: 'Conjurer', active: false}, {name: 'Arcanist', active: false}, {name: 'Thaumaturge', active: false},
@@ -20,13 +20,13 @@ const initialState: ClassesState = {
   ],
 }
 
-export const classesSlice = createSlice({
-  name: 'classes',
+export const dataStoreSlice = createSlice({
+  name: 'dataStore',
   initialState,
   reducers: {},
 })
 
 
-export const getClassesState = (state: { classes: ClassesState }) => state.classes.array
+export const getClassesState = (state: { dataStore: DataStoreState }) => state.dataStore.classes
 
-export default classesSlice.reducer
+export default dataStoreSlice.reducer

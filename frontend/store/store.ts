@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import classesSlice from './slices/classesSlice';
+import dataStoreSlice from './slices/dataStoreSlice';
 import questTypesSlice from './slices/questTypesSlice';
 import { helperquestApi } from './services/helperquest';
 import { useDispatch as useDispatchBase, useSelector as useSelectorBase } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
-    classes: classesSlice,
+    dataStore: dataStoreSlice,
     questTypes: questTypesSlice,
     [helperquestApi.reducerPath]: helperquestApi.reducer,
   },
