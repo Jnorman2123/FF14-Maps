@@ -11,6 +11,7 @@ export interface DataStoreState {
   thanalanZoneNames: string[],
   regionNames: string[],
   zones: string[],
+  originalRegions: string[],
 }
 
 const initialState: DataStoreState = {
@@ -79,6 +80,9 @@ const initialState: DataStoreState = {
     'Il Mheg (Norvandt)', "The Rak'tika Greatwood (Norvandt)", 'The Tempest (Norvandt)', 'Old Sharlayan (The Northern Empty)', 
     'Labyrinthos (The Northern Empty)', 'Garlemald (Ilsabard)', 'Radz-at-Han (Ilsabard)', 'Thavnair (Ilsabard)', 
     'Mare Lamentorum (The Sea of Stars)', 'Ultima Thule (The Sea of Stars)', 'Elpis (The World Unsundered)'
+  ], 
+  originalRegions: [
+    "La Noscea", "The Black Shroud", "Thanalan"
   ]
 }
 
@@ -99,5 +103,6 @@ export const getTheBlackShroudZoneNamesState = (state: { dataStore: DataStoreSta
 export const getThanalanZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.thanalanZoneNames
 export const getRegionNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.regionNames
 export const getZonesState = (state: { dataStore: DataStoreState }) => state.dataStore.zones
+export const getOriginalRegionsState = (state: { dataStore: DataStoreState }) => state.dataStore.originalRegions
 
 export default dataStoreSlice.reducer

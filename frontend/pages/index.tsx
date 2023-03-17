@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { getZonesState } from "../store/slices/dataStoreSlice";
+import { getOriginalRegionsState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const zonesArray = useSelector(getZonesState)
+  const originalRegionsArray = useSelector(getOriginalRegionsState)
   return (
     <>
       <ul>
-        {zonesArray.map((c: any) => {
+        {originalRegionsArray.map((c: any) => {
           return <li key={c} >{c}</li>
         })}
       </ul>
