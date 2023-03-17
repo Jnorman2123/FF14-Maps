@@ -12,6 +12,7 @@ export interface DataStoreState {
   regionNames: string[],
   zones: string[],
   originalRegions: string[],
+  worldMapAttributes: object,
 }
 
 const initialState: DataStoreState = {
@@ -83,7 +84,12 @@ const initialState: DataStoreState = {
   ], 
   originalRegions: [
     "La Noscea", "The Black Shroud", "Thanalan"
-  ]
+  ],
+  worldMapAttributes: {
+    la_noscea_legend_pos: [-32, 9],
+    thanalan_legend_pos: [-31, 29.5],
+    the_black_shroud_legend_pos: [-18, 36],
+  }
 }
 
 export const dataStoreSlice = createSlice({
@@ -104,5 +110,6 @@ export const getThanalanZoneNamesState = (state: { dataStore: DataStoreState }) 
 export const getRegionNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.regionNames
 export const getZonesState = (state: { dataStore: DataStoreState }) => state.dataStore.zones
 export const getOriginalRegionsState = (state: { dataStore: DataStoreState }) => state.dataStore.originalRegions
+export const getWorldMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.worldMapAttributes
 
 export default dataStoreSlice.reducer

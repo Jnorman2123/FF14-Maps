@@ -1,15 +1,13 @@
 import type { NextPage } from "next";
-import { getOriginalRegionsState } from "../store/slices/dataStoreSlice";
+import { getWorldMapAttributesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const originalRegionsArray = useSelector(getOriginalRegionsState)
+  const worldMapAttributes = useSelector(getWorldMapAttributesState)
   return (
     <>
       <ul>
-        {originalRegionsArray.map((c: any) => {
-          return <li key={c} >{c}</li>
-        })}
+        {Object.keys(worldMapAttributes)}
       </ul>
     </>
     
