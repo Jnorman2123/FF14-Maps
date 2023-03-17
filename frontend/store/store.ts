@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dataStoreSlice from './slices/dataStoreSlice';
-import questTypesSlice from './slices/questTypesSlice';
 import { helperquestApi } from './services/helperquest';
 import { useDispatch as useDispatchBase, useSelector as useSelectorBase } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
     dataStore: dataStoreSlice,
-    questTypes: questTypesSlice,
     [helperquestApi.reducerPath]: helperquestApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

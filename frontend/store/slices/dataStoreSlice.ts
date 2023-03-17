@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface DataStoreState {
-  classes: object[]
+  classes: object[],
+  questTypes: object[]
 }
 
 const initialState: DataStoreState = {
@@ -16,8 +17,11 @@ const initialState: DataStoreState = {
     {name: 'Reaper', active: false}, {name: 'Bard', active: false}, {name: 'Machinist', active: false}, 
     {name: 'Dancer', active: false}, {name: 'Black Mage', active: false}, {name: 'Summoner', active: false}, 
     {name: 'Red Mage', active: false}, {name: 'Blue Mage', active: false},  
-    
   ],
+  questTypes: [
+    {name: 'MainStory', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
+    {name: 'HuntingLog', active: false},
+  ]
 }
 
 export const dataStoreSlice = createSlice({
@@ -28,5 +32,6 @@ export const dataStoreSlice = createSlice({
 
 
 export const getClassesState = (state: { dataStore: DataStoreState }) => state.dataStore.classes
+export const getQuestTypesState = (state: { dataStore: DataStoreState }) => state.dataStore.questTypes
 
 export default dataStoreSlice.reducer
