@@ -4,6 +4,7 @@ export interface DataStoreState {
   classes: object[],
   questTypes: object[],
   questLevels: object[],
+  insideZoneNames: string[],
 }
 
 const initialState: DataStoreState = {
@@ -26,6 +27,12 @@ const initialState: DataStoreState = {
   questLevels: [
     {name: '1-5', active: false}, {name: '6-10', active: false}, {name: '11-15', active: false}, {name: '16-20', active: false}, 
     {name: '21-25', active: false}, {name: '26-30', active: false},
+  ],
+  insideZoneNames: [
+    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks',  
+    'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip',  
+    'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
+    'Kugane', 'Crystarium', 'Old Sharlayan', 'Labyrinthos', 'Radz-at-Han',
   ]
 }
 
@@ -39,5 +46,6 @@ export const dataStoreSlice = createSlice({
 export const getClassesState = (state: { dataStore: DataStoreState }) => state.dataStore.classes
 export const getQuestTypesState = (state: { dataStore: DataStoreState }) => state.dataStore.questTypes
 export const getQuestLevelsState = (state: { dataStore: DataStoreState }) => state.dataStore.questLevels
+export const getInsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.insideZoneNames
 
 export default dataStoreSlice.reducer
