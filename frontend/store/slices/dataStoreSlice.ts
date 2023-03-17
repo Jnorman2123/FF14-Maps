@@ -6,6 +6,7 @@ export interface DataStoreState {
   questLevels: object[],
   insideZoneNames: string[],
   outsideZoneNames: string[],
+  laNosceaZoneNames: string[],
 }
 
 const initialState: DataStoreState = {
@@ -43,6 +44,10 @@ const initialState: DataStoreState = {
     'The Fringes', 'The Peaks', 'The Lochs', 'The Ruby Sea', 'Yanxia', 'The Azim Steppe', 'Lakeland', 'Eulmore', 'Kholusia', 
     'Amh Araeng', 'Il Mheg', "The Rak'tika Greatwood", 'The Tempest', 'Garlemald', 'Thavnair', 'Mare Lamentorum', 'Ultima Thule', 
     'Elpis'
+  ],
+  laNosceaZoneNames: [
+    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'Middle La Noscea', 'Lower La Noscea', 
+    'Eastern La Noscea', 'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea'
   ]
 }
 
@@ -58,5 +63,6 @@ export const getQuestTypesState = (state: { dataStore: DataStoreState }) => stat
 export const getQuestLevelsState = (state: { dataStore: DataStoreState }) => state.dataStore.questLevels
 export const getInsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.insideZoneNames
 export const getOutsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.outsideZoneNames
+export const getLaNosceaZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaZoneNames
 
 export default dataStoreSlice.reducer
