@@ -7,6 +7,7 @@ export interface DataStoreState {
   insideZoneNames: string[],
   outsideZoneNames: string[],
   laNosceaZoneNames: string[],
+  theBlackShroudZoneNames: string[],
 }
 
 const initialState: DataStoreState = {
@@ -31,9 +32,8 @@ const initialState: DataStoreState = {
     {name: '21-25', active: false}, {name: '26-30', active: false},
   ],
   insideZoneNames: [
-    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks',  
-    'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip',  
-    'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
+    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", 
+    "Ul'dah - Steps of Thal", 'Hustings Strip', 'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
     'Kugane', 'Crystarium', 'Old Sharlayan', 'Labyrinthos', 'Radz-at-Han',
   ],
   outsideZoneNames: [
@@ -46,8 +46,11 @@ const initialState: DataStoreState = {
     'Elpis'
   ],
   laNosceaZoneNames: [
-    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'Middle La Noscea', 'Lower La Noscea', 
-    'Eastern La Noscea', 'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea'
+    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'Middle La Noscea', 'Lower La Noscea', 'Eastern La Noscea', 
+    'Western La Noscea', 'Upper La Noscea', 'Outer La Noscea'
+  ],
+  theBlackShroudZoneNames: [
+    'New Gridania', 'Old Gridania', 'Central Shroud', 'East Shroud', 'South Shroud', 'North Shroud'
   ]
 }
 
@@ -64,5 +67,6 @@ export const getQuestLevelsState = (state: { dataStore: DataStoreState }) => sta
 export const getInsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.insideZoneNames
 export const getOutsideZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.outsideZoneNames
 export const getLaNosceaZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaZoneNames
+export const getTheBlackShroudZoneNamesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudZoneNames
 
 export default dataStoreSlice.reducer
