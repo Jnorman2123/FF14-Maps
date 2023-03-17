@@ -14,6 +14,7 @@ export interface DataStoreState {
   originalRegions: string[],
   worldMapAttributes: object,
   laNosceaMapAttributes: object,
+  theBlackShroudMapAttributes: object,
 }
 
 const initialState: DataStoreState = {
@@ -158,6 +159,57 @@ const initialState: DataStoreState = {
         highlight_size: [154.44, 137.28]
     } 
   },
+  theBlackShroudMapAttributes: {
+    the_black_shroud_name_pos: [0,0],
+    old_gridania_attributes: {
+        legend_pos: [-13.5, 17.25],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrow_size: [42.5, 59.5],
+        arrow_pos: [-13.5, 20.75],
+        highlight_pos: [-12.73, 24.88],
+        highlight_size: [134.16, 92.82]
+    },
+    new_gridania_attributes: {
+        legend_pos: [-19.75, 25.25],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-17.25, 25.25],
+        highlight_pos: [-15.37, 25.9],
+        highlight_size: [95.16, 69.42]
+    },
+    east_shroud_attributes: {
+        legend_pos: [-25, 35.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-22.5, 35.5],
+        highlight_pos: [-16.49, 34.85],
+        highlight_size: [217.62, 196.56]
+    },
+    north_shroud_attributes: {
+        legend_pos: [-21, 8.5],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-18.5, 8.5],
+        highlight_pos: [-14.9, 9.9],
+        highlight_size: [177.06, 133.38]
+    },
+    central_shroud_attributes: {
+        legend_pos: [-28.5, 14],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-26, 14],
+        highlight_pos: [-24.46, 18.5],
+        highlight_size: [199.68, 167.7]
+    },
+    south_shroud_attributes: {
+        legend_pos: [-38.5, 27],
+        arrow_icon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrow_size: [59.5, 42.5],
+        arrow_pos: [-36, 27],
+        highlight_pos: [-35.78, 24.42],
+        highlight_size: [201.24, 195.78]
+    }
+  },
 }
 
 export const dataStoreSlice = createSlice({
@@ -180,5 +232,6 @@ export const getZonesState = (state: { dataStore: DataStoreState }) => state.dat
 export const getOriginalRegionsState = (state: { dataStore: DataStoreState }) => state.dataStore.originalRegions
 export const getWorldMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.worldMapAttributes
 export const getLaNosceaMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.laNosceaMapAttributes
+export const getTheBlackShroudMapAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.theBlackShroudMapAttributes
 
 export default dataStoreSlice.reducer

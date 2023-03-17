@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { getLaNosceaMapAttributesState } from "../store/slices/dataStoreSlice";
+import { getTheBlackShroudMapAttributesState } from "../store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
 const Home: NextPage = () => {
-  const laNosceaMapAttributes = useSelector(getLaNosceaMapAttributesState)
+  const theBlackShroudMapAttributes = useSelector(getTheBlackShroudMapAttributesState)
   return (
     <>
       <ul>
-        {Object.keys(laNosceaMapAttributes)}
+        {Object.keys(theBlackShroudMapAttributes)}
       </ul>
     </>
     
