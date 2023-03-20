@@ -2,6 +2,7 @@ import type { MyPage } from "./components/types";
 import { useGetQuestsQuery, useGetRewardsQuery, useGetItemsQuery, useGetJobsQuery, useGetNpcsQuery, 
 useGetStepsQuery } from "@/store/services/helperquest";
 import Quest from './containers/quest'
+import type { TypeQuest, TypeReward, TypeNpc, TypeItem,  TypeJob, TypeStep } from "./components/types";
 import Reward from "./containers/reward";
 import { useState } from 'react';
 
@@ -13,62 +14,12 @@ const Home: MyPage = () => {
   const [toggleQuests, setToggledQuests] = useState([]);
   const [activeQuests, setActiveQuests] = useState([]);
 
-  interface Quest {
-    id: number,
-    name: string,
-    previousQuest: string,
-    level: number,
-    type: string,
-    class: number[],
-    nextQuest: string,
-    npcs: number[],
-    reward: number
-  }
-
-  interface Reward {
-    id: number,
-    questName: string,
-    experience: number,
-    gil: number,
-    items: number[],
-    other: string,
-  }
-
-  interface Npc {
-    id: number,
-    name: string,
-    type: string,
-    zone: string,
-    locationX: number,
-    locationY: number,
-    soldItems: number[]
-  }
-
-  interface Item {
-    id: number,
-    name: string,
-    quantity: number,
-    optional: boolean,
-  }
-
-  interface Step {
-    id: number,
-    description: string,
-    quest: number,
-    npc: number
-  }
-
-  interface Job {
-    id: number,
-    name: string,
-  }
-
-  let quests: Quest[] = [];
-  let rewards: Reward[] = [];
-  let npcs: Npc[] = [];
-  let items: Item[] = [];
-  let jobs: Job[] = [];
-  let steps: Step[] = [];
+  let quests: TypeQuest[] = [];
+  let rewards: TypeReward[] = [];
+  let npcs: TypeNpc[] = [];
+  let items: TypeItem[] = [];
+  let jobs: TypeJob[] = [];
+  let steps: TypeStep[] = [];
 
   const setQuests = () => {
     const { data, error, isLoading } = useGetQuestsQuery('quests');

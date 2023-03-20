@@ -11,3 +11,10 @@ export type MyAppProps = AppProps & {
         Layout: LayoutKeys;
     }
 }
+
+export type TypeQuest = object;
+export type TypeReward = object;
+export type TypeItem = object;
+export type TypeNpc = object;
+export type TypeStep = object;
+export type TypeJob = object;
