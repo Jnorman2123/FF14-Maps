@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from "next/link";
-import { Image, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Image, Container, Nav, Navbar, NavDropdown, Col, Row, OverlayTrigger, Card, Tooltip } from 'react-bootstrap';
 import { getOriginalRegionsState, getZonesState } from '../../store/slices/dataStoreSlice'
 // import RegionDropdown from '../components/RegionDropdown';
 
@@ -13,9 +13,9 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
     const [hovered, setHovered] = useState(false);
     const [buttonName, setButtonName] = useState('');
 
-    const capitalize = (str: string) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    // const capitalize = (str: string) => {
+    //     return str.charAt(0).toUpperCase() + str.slice(1);
+    // }
 
     const renderNavDropdowns = (region: string) => {
         let expansion = useSelector(getOriginalRegionsState);
@@ -29,7 +29,7 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav' >
                         <Nav className='me-auto' >
-                            <NavDropdown title={<Image src={region_nav_icon}/>} id='basc-nav-dropdown' >
+                            <NavDropdown title={<Image src={region_nav_icon} width='100vw' />} id='basc-nav-dropdown' >
                                 <NavDropdown.Item href={region_link} >{r} Region</NavDropdown.Item>
                                 {zones.filter(zone => zone.includes(r)).map(zone => {
                                     let split_name = zone.split(' ');
@@ -44,45 +44,8 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            return <div className='dropdown' key={r} >
-                <button className='dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' 
-                aria-haspopup="true" aria-expanded="false">
-                    <Image src={region_nav_icon} alt='nav-bar-title' width={100} height={100} /> 
-                </button>
-                <div className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                    <a className='dropdown-item' href={region_link}>{r} Region</a>
-                    {zones.filter(zone => zone.includes(r)).map(zone => {
-                        let split_name = zone.split(' ');
-                        let splice_index = split_name.findIndex(l => l.includes('('));
-                        split_name.splice(splice_index);
-                        return <div className='dropdown-item' key={zone}>
-                            <Link href={`/${split_name.join('').toLowerCase()}`} >
-                                {zone}
-                            </Link>
-                        </div>
-                    })}
-                </div>
-            </div>
-            // return <div class='dropdown' key={r}>
-                
-            // id='basic-nav-dropdown' style={{padding: 0}} >
-            //     <div class='dropdown-item' key={r}>
-            //         <Link to={`/${region_link}`} >
-            //             {r} Region
-            //         </Link>
-            //     </div>
-            //     {this.props.zones.filter(zone => zone.includes(r)).map(zone => {
-            //         let split_name = zone.split(' ');
-            //         let splice_index = split_name.findIndex(l => l.includes('('));
-            //         split_name.splice(splice_index);
-            //         return <div class='dropdown-item' key={zone}>
-            //             <Link to={`/${split_name.join('').toLowerCase()}`} >
-            //                 {zone}
-            //             </Link>
-            //         </div>
-            //     })}
-            // </div>
         })
+
         // if (region === "original") {
         //     expansion = original_regions
         // } else if (region === "heavensward") {
@@ -113,99 +76,67 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
         // }
     }
 
-    return (
-        <h1>{renderNavDropdowns('original')}</h1>
-    )
+    let home_icon = 'HomeButton';
+    let world_icon = 'WorldButton';
 
-    
+    hovered && buttonName === 'home' ? home_icon = 'HomeButtonHover' : home_icon = 'HomeButton';
+    hovered && buttonName === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
+
+    return (
+        <Container fluid style={{padding: 0}}>
+            <Card className='border-0' style={{width: '100%', padding: 0}}> 
+                <Card.Img src='../nav_bar/NavBar.jpg' alt='toggle' style={{padding: 0, width: '100%'}} />
+                <Card.ImgOverlay style={{padding: 0, width: '100%', height: '100%'}} className='d-flex align-items-end'>
+                    <Row  style={{width: '100%', padding: 0}} >
+                        <Col md={3} style={{width: '25%', padding: 0}}>
+                            <Image src='../nav_bar/logos/HelperQuest_Logo.png' style={{width: '100%'}}/>
+                        </Col>
+                        <Col md={6} className='d-flex align-items-end' style={{paddingLeft: 30}}>
+                            <Navbar className='d-flex align-items-end' style={{padding: 0}}>
+                                <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
+                                    Navigate to Home Page
+                                    </Tooltip>} >
+                                    <Link href='/'
+                                    onMouseEnter={() => {
+                                        setHovered(true);
+                                        setButtonName('home');
+                                    }}
+                                    onMouseLeave={() => {
+                                        setHovered(false);
+                                        setButtonName('');
+                                    }}>
+                                        <Image src={`../icons/nav_icons/${home_icon}.png`} 
+                                        style={{width: '2.5vw', paddingRight: 5}} />
+                                    </Link>
+                                </OverlayTrigger>
+                                <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
+                                    Navigate to World Map
+                                    </Tooltip>} >
+                                    <Link href='/world'
+                                    onMouseEnter={() => {
+                                        setHovered(true);
+                                        setButtonName('world');
+                                    }}
+                                    onMouseLeave={() => {
+                                        setHovered(false);
+                                        setButtonName('world');
+                                    }}>
+                                        <Image src={`../icons/nav_icons/${world_icon}.png`} 
+                                        style={{width: '2.5vw', paddingLeft: 5}} />
+                                    </Link>
+                                </OverlayTrigger>
+                                {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' /> */}
+                                {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
+                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
+                            </Navbar>
+                        </Col>
+                    </Row>
+                </Card.ImgOverlay>
+            </Card>
+        </Container>
+    ) 
 }
 
 export default WorldNav
-
-// import React, { Component } from 'react';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-// import Container from 'react-bootstrap/Container';
-// import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
-
-// import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import Image from 'react-bootstrap/Image';
-// import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-// import Tooltip from 'react-bootstrap/Tooltip';
-// import Card from 'react-bootstrap/Card';
-
-// class WorldNav extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             hovered: false,
-//             button_name: '',
-//         }
-//     }
-
-//     
-
-//     
-
-//     render() {
-//         let home_icon = 'HomeButton';
-//         let world_icon = 'WorldButton';
-
-//         this.state.hovered && this.state.button_name === 'home' ? home_icon = 'HomeButtonHover' : home_icon = 'HomeButton';
-//         this.state.hovered && this.state.button_name === 'world' ? world_icon = 'WorldButtonHover' : world_icon = 'WorldButton';
-
-//         return (
-//             <Container fluid style={{padding: 0}}>
-//                 <Card className='border-0' style={{width: '100%', padding: 0}}> 
-//                     <Card.Img src='../nav_bar/NavBar.jpg' alt='toggle' style={{padding: 0, width: '100%'}} />
-//                     <Card.ImgOverlay style={{padding: 0, width: '100%', height: '100%'}} className='d-flex align-items-end'>
-//                         <Row  style={{width: '100%', padding: 0}} >
-//                             <Col md={3} style={{width: '25%', padding: 0}}>
-//                                 <Image src='../nav_bar/logos/HelperQuest_Logo.png' style={{width: '100%'}}/>
-//                             </Col>
-//                             <Col md={6} className='d-flex align-items-end' style={{paddingLeft: 30}}>
-//                                 <Navbar className='d-flex align-items-end' style={{padding: 0}}>
-//                                     <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
-//                                         Navigate to Home Page
-//                                         </Tooltip>} >
-//                                         <Link to='/'
-//                                         onMouseEnter={(event) => {
-//                                             this.setState({hovered: true, button_name: event.target.name});
-//                                         }}
-//                                         onMouseLeave={() => {
-//                                             this.setState({hovered: false});
-//                                         }}>
-//                                             <Image src={`../icons/nav_icons/${home_icon}.png`} 
-//                                             style={{width: '2.5vw', paddingRight: 5}} name='home' />
-//                                         </Link>
-//                                     </OverlayTrigger>
-//                                     <OverlayTrigger placement='top' overlay={<Tooltip id="button-tooltip-2" >
-//                                         Navigate to World Map
-//                                         </Tooltip>} >
-//                                         <Link to='/world'
-//                                         onMouseEnter={(event) => {
-//                                             this.setState({hovered: true, button_name: event.target.name});
-//                                         }}
-//                                         onMouseLeave={() => {
-//                                             this.setState({hovered: false});
-//                                         }}>
-//                                             <Image src={`../icons/nav_icons/${world_icon}.png`} 
-//                                             style={{width: '2.5vw', paddingLeft: 5}} name='world' />
-//                                         </Link>
-//                                     </OverlayTrigger>
-//                                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' />
-//                                     {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
-//                                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
-//                                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-//                                     <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
-//                                 </Navbar>
-//                             </Col>
-//                         </Row>
-//                     </Card.ImgOverlay>
-//                 </Card>
-//             </Container>
-//         )
-//     }
-// }
