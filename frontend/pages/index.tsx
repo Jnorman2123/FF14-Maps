@@ -1,12 +1,12 @@
-import type { NextPage } from "next";
+import type { MyPage } from "./components/types";
 import { useGetQuestsQuery, useGetRewardsQuery, useGetItemsQuery, useGetJobsQuery, useGetNpcsQuery, 
 useGetStepsQuery } from "@/store/services/helperquest";
 import Quest from './containers/quest'
 import Reward from "./containers/reward";
 import { useState } from 'react';
 
-const Home: NextPage = () => {
-  
+const Home: MyPage = () => {
+
   const [questId, setQuestId] = useState(null);
   const [navigate, setNavigate] = useState(false);
   const [navigateLink, setNavigateLink] = useState('');
@@ -142,3 +142,4 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+Home.Layout = 'Main';
