@@ -1,22 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
+import '../styles/custom.scss';
 import { MyAppProps } from "./components/types";
 import { Layouts } from "./components/layouts";
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
-import {  useEffect } from 'react';
+import { SSRProvider } from 'react-bootstrap';
 
 function MyApp({ Component, pageProps }: MyAppProps) {
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, [])
   const Layout = Layouts[Component.Layout] ?? ((page) => page);
 
   return (
     <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SSRProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SSRProvider>
     </Provider>
   );
 }
