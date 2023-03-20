@@ -3,8 +3,15 @@ import { useGetQuestsQuery, useGetRewardsQuery, useGetItemsQuery, useGetJobsQuer
 useGetStepsQuery } from "@/store/services/helperquest";
 import Quest from './containers/quest'
 import Reward from "./containers/reward";
+import { useState } from 'react';
 
 const Home: NextPage = () => {
+  
+  const [questId, setQuestId] = useState(null);
+  const [navigate, setNavigate] = useState(false);
+  const [navigateLink, setNavigateLink] = useState('');
+  const [toggleQuests, setToggledQuests] = useState([]);
+  const [activeQuests, setActiveQuests] = useState([]);
 
   interface Quest {
     id: number,
