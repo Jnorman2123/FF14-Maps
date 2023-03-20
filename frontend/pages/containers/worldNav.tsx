@@ -3,13 +3,10 @@ import { useSelector } from 'react-redux';
 import Link from "next/link";
 import { Image, Container, Nav, Navbar, NavDropdown, Col, Row, OverlayTrigger, Card, Tooltip } from 'react-bootstrap';
 import { getOriginalRegionsState, getZonesState } from '../../store/slices/dataStoreSlice'
-// import RegionDropdown from '../components/RegionDropdown';
+import RegionDropdown from '../components/regionDropdown';
 
-interface WorldNavProps {
-    title: string,
-}
 
-const WorldNav: React.FC<WorldNavProps> = ({title}) => {
+const WorldNav: React.FC = () => {
     const [hovered, setHovered] = useState(false);
     const [buttonName, setButtonName] = useState('');
 
@@ -45,35 +42,6 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
                 </Container>
             </Navbar>
         })
-
-        // if (region === "original") {
-        //     expansion = original_regions
-        // } else if (region === "heavensward") {
-        //     expansion = heavensward_regions
-        // } else if (region === 'stormblood') {
-        //     expansion = stormblood_regions
-        // } else if (region === 'shadowbringers') {
-        //     expansion = shadowbringers_regions
-        // } else {
-        //     expansion = endwalker_regions
-        // }
-        // if (expansion === this.props.original_regions) {
-            
-        //     })
-        // }  else {
-        //     return <NavDropdown key={region} title={this.capitalize(region)} id='basic-nav-dropdown'>
-        //             {expansion.map(r => this.props.zones.filter(zone => zone.includes(r)).map(zone => {
-        //                 let split_name = zone.split(' ');
-        //                 let splice_index = split_name.findIndex(l => l.includes('('));
-        //                 split_name.splice(splice_index);
-        //                 return <NavDropdown.Item as='div' key={zone}>
-        //                     <Link to={`/${split_name.join('').toLowerCase()}`}>
-        //                         {zone}
-        //                     </Link>
-        //                 </NavDropdown.Item>
-        //             }))}
-        //         </NavDropdown>
-        // }
     }
 
     let home_icon = 'HomeButton';
@@ -125,11 +93,7 @@ const WorldNav: React.FC<WorldNavProps> = ({title}) => {
                                         style={{width: '2.5vw', paddingLeft: 5}} />
                                     </Link>
                                 </OverlayTrigger>
-                                {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='original' /> */}
-                                {/* <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='heavensward' />
-                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='stormblood' />
-                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='shadowbringers' />
-                                <RegionDropdown renderDropdowns={this.renderNavDropdowns}  region='endwalker' /> */}
+                                <RegionDropdown renderDropdowns={renderNavDropdowns}  region='original' />
                             </Navbar>
                         </Col>
                     </Row>

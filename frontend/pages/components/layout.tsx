@@ -8,7 +8,7 @@ import WorldMapContainer from '../containers/worldMapContainer';
 const Layout = ({children}: PropsWithChildren) => {
     return (
         <>
-            <WorldNav title='World Nav' />
+            <WorldNav />
             <QuestInfoContainer title='Quest Info Container' />
             <ToggleContainer title='Toggle Container' />
             <main>{children}</main>
