@@ -18,3 +18,4 @@ export type TypeItem = object;
 export type TypeNpc = object;
 export type TypeStep = object;
 export type TypeJob = object;
+export type TypeClass = {name: string, active: boolean};

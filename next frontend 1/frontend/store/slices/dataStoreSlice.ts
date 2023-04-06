@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface DataStoreState {
   classes: object[],
@@ -19,6 +19,12 @@ export interface DataStoreState {
   legendIconAttributes: object,
   questIconBgColors: string[],
   seoMessages: string[],
+}
+
+type TPayload = {
+  classes: object[];
+  questTypes: object[];
+  questLevels: object[];
 }
 
 const initialState: DataStoreState = {
@@ -332,7 +338,17 @@ const initialState: DataStoreState = {
 export const dataStoreSlice = createSlice({
   name: 'dataStore',
   initialState,
-  reducers: {},
+  reducers: {
+    updateClass: (state, { payload }: PayloadAction<TPayload>) => {
+      state.classes = payload.classes;
+    },
+    updateQuestType: (state, { payload }: PayloadAction<TPayload>) => {
+      state.questTypes = payload.questTypes;
+    },
+    updateQuestLevel: (state, { payload }: PayloadAction<TPayload>) => {
+      state.questLevels = payload.questLevels;
+    },
+  },
 })
 
 
@@ -354,5 +370,6 @@ export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
+export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer

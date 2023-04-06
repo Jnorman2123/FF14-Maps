@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from "next/link";
 import { Image, Container, Nav, Navbar, NavDropdown, Col, Row, OverlayTrigger, Card, Tooltip } from 'react-bootstrap';
-import { getOriginalRegionsState, getZonesState } from '../../store/slices/dataStoreSlice'
+import { getOriginalRegionsState, getZonesState } from '../../next frontend 1/store/slices/dataStoreSlice'
 import RegionDropdown from '../components/regionDropdown';
 
 
@@ -21,25 +21,23 @@ const WorldNav: React.FC = () => {
             let region_nav_icon = `/nav_bar/${r.split(' ').join('')}NavTab.png`
             let region_link = r.split(' ').join('').toLowerCase();
 
-            return <Navbar key={r} bg='light' expand='lg'>
-                <Container>
-                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
-                    <Navbar.Collapse id='basic-navbar-nav' >
-                        <Nav className='me-auto' >
-                            <NavDropdown title={<Image src={region_nav_icon} width='100vw' />} id='basc-nav-dropdown' >
-                                <NavDropdown.Item href={region_link} >{r} Region</NavDropdown.Item>
-                                {zones.filter(zone => zone.includes(r)).map(zone => {
-                                    let split_name = zone.split(' ');
-                                    let splice_index = split_name.findIndex(l => l.includes('('));
-                                    split_name.splice(splice_index);
-                                    return <NavDropdown.Item key={zone} href={`/${split_name.join('').toLowerCase()}`}>
-                                        {zone}
-                                    </NavDropdown.Item>
-                                })}
-                            </NavDropdown>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
+            return <Navbar key={r} style={{padding: 0}} className='d-flex align-items-end'>
+                <Navbar.Toggle aria-controls='basic-navbar-nav' />
+                <Navbar.Collapse id='basic-navbar-nav' >
+                    <Nav>
+                        <NavDropdown title={<Image src={region_nav_icon} width='100%'/>} id='basic-nav-dropdown'>
+                            <NavDropdown.Item href={region_link} >{r} Region</NavDropdown.Item>
+                            {zones.filter(zone => zone.includes(r)).map(zone => {
+                                let split_name = zone.split(' ');
+                                let splice_index = split_name.findIndex(l => l.includes('('));
+                                split_name.splice(splice_index);
+                                return <NavDropdown.Item key={zone} href={`/${split_name.join('').toLowerCase()}`}>
+                                    {zone}
+                                </NavDropdown.Item>
+                            })}
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
         })
     }
