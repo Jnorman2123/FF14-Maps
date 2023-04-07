@@ -1,3 +1,3 @@
 export default function QuestInfoContainer() {
-    return <div>Quest Info Container</div>
+    return <div className="bg-white text-black col-span-3">Quest Info Container</div>
 }
