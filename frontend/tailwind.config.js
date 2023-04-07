@@ -8,7 +8,11 @@ module.exports = {
   ],
   theme: {
     space: {
-      sm: '1px',
+      borderspace: '1px',
+    },
+    height: {
+      main: '825px',
+      navbar: '140px',
     },
     extend: {
     },
