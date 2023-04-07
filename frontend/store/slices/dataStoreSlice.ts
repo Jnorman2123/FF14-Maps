@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface DataStoreState {
-  classes: object[],
+  classes: {
+    name: string,
+    active: boolean
+  }[],
   questTypes: object[],
   questLevels: object[],
   insideZoneNames: string[],
@@ -339,9 +342,9 @@ export const dataStoreSlice = createSlice({
   name: 'dataStore',
   initialState,
   reducers: {
-    updateClass: (state, { payload }: PayloadAction<TPayload>) => {
-      state.classes = payload.classes;
-    },
+    // updateClass: (state, { payload }: PayloadAction<TPayload>) => {
+    //   state.classes = payload.classes;
+    // },
     updateQuestType: (state, { payload }: PayloadAction<TPayload>) => {
       state.questTypes = payload.questTypes;
     },
@@ -370,6 +373,6 @@ export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
-export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
+// export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
