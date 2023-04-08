@@ -7,18 +7,20 @@ import { MouseEventHandler } from "react";
 export default function ToggleContainer() {
     let classes: TypeClass[] = [];
     let quests: TypeQuest[] = [];
+    let bgColor: string = '';
     const dispatch = useDispatch();
 
-    const updateClass: MouseEventHandler<HTMLButtonElement> = () => {
+    const updateClass: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        console.log(event.target.name)
         let m: TypeClass | undefined;
         if (m?.name !== null) {
-            m = classes.find(c => c.name === 'Marauder');
+            m = classes.find(c => c.name === event.target.name);
         }
         if (m?.active) {
-            dispatch(updateClassByName({name: 'Marauder', active: false}));
+            dispatch(updateClassByName({name: event.target.name, active: false}));
             return classes;
         } else {
-            dispatch(updateClassByName({name: 'Marauder', active: true}));
+            dispatch(updateClassByName({name: event.target.name, active: true}));
             return classes;
         }
         
@@ -35,13 +37,18 @@ export default function ToggleContainer() {
 
     setQuests();
     classes = useSelector(getClassesState);
-    console.log(classes);
 
     return <div className="bg-gray-500 col-span-3 h-full">
-        <button onClick={updateClass}>Update Class</button>
         {classes.map((c: TypeClass) => {
-            return <span key={c.name}>{c.name}</span>
+            if (c.active) {
+                bgColor = 'black';
+            } else {
+                bgColor = 'white';
+            }
+            return <div key={c.name}>
+                <button className={`bg-${bgColor}`} name={c.name} onClick={updateClass}>{c.name}</button>
+                <br></br>
+            </div>
         })}
-        hello
     </div>
 }
