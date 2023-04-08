@@ -5,8 +5,14 @@ export interface DataStoreState {
     name: string,
     active: boolean
   }[],
-  questTypes: object[],
-  questLevels: object[],
+  questTypes: {
+    name: string,
+    active: boolean
+  }[],
+  questLevels: {
+    name: string,
+    active: boolean
+  }[],
   insideZoneNames: string[],
   outsideZoneNames: string[],
   laNosceaZoneNames: string[],
@@ -15,19 +21,213 @@ export interface DataStoreState {
   regionNames: string[],
   zones: string[],
   originalRegions: string[],
-  worldMapAttributes: object,
-  laNosceaMapAttributes: object,
-  theBlackShroudMapAttributes: object,
-  thanalanMapAttributes: object,
-  legendIconAttributes: object,
+  worldMapAttributes: {
+    laNosceaLegendPos: number[],
+    thanalanLegendPos: number[],
+    theBlackShroudLegendPos: number[],
+  },
+  laNosceaMapAttributes: {
+    laNosceaNamePos: number[],
+    limsaLominsaUpperDecksAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    limsaLominsaLowerDecksAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    middleLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    lowerLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    easternLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    westernLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    upperLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    outerLaNosceaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    } 
+  },
+  theBlackShroudMapAttributes: {
+    theBlackShroudNamePos: number[],
+    oldGridaniaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    newGridaniaAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    eastShroudAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    northShroudAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    centralShroudAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    southShroudAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    }
+  },
+  thanalanMapAttributes: {
+    thanalanNamePos: number[],
+    uldahStepsOfNaldAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    uldahStepsOfThalAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    hustingsStripAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    westernThanalanAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    easternThanalanAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    centralThanalanAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    southernThanalanAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },
+    northernThanalanAttributes: {
+      legendPos: number[],
+      arrowIcon: string,
+      arrowSize: number[],
+      arrowPos: number[],
+      highlightPos: number[],
+      highlightSize: number[]
+    },   
+  },
+  legendIconAttributes: {
+    legendSize: number[],
+    vertArrowSize: number[],
+    horArrowSize: number[],
+    legendNumSize: number[],
+    legendZOffset: number,
+    arrowZOffset: number,
+    legendNumZOffset: number,
+    vertArrowOffset: number,
+    horArrowOffset: number,
+    topNumOffset: number,
+    botNumOffset: number,
+    leftNumOffset: number,
+    rightNumOffset:number
+  },
   questIconBgColors: string[],
   seoMessages: string[],
-}
-
-type TPayload = {
-  classes: object[];
-  questTypes: object[];
-  questLevels: object[];
 }
 
 const initialState: DataStoreState = {
@@ -342,15 +542,14 @@ export const dataStoreSlice = createSlice({
   name: 'dataStore',
   initialState,
   reducers: {
-    // updateClass: (state, { payload }: PayloadAction<TPayload>) => {
-    //   state.classes = payload.classes;
-    // },
-    updateQuestType: (state, { payload }: PayloadAction<TPayload>) => {
-      state.questTypes = payload.questTypes;
-    },
-    updateQuestLevel: (state, { payload }: PayloadAction<TPayload>) => {
-      state.questLevels = payload.questLevels;
-    },
+    updateClassByName(state, action) {
+      console.log(state)
+      const { name, active } = action.payload;
+      const index = state.classes.findIndex((c) => c.name === name);
+      if (index !== -1) {
+        state.classes[index].active = active;
+      }
+    }
   },
 })
 
@@ -374,5 +573,6 @@ export const getLegendIconAttributesState = (state: { dataStore: DataStoreState 
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
 // export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
+export const { updateClassByName } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
