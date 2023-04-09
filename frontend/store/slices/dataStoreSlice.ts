@@ -3,15 +3,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface DataStoreState {
   classes: {
     name: string,
-    active: boolean
+    active: boolean,
+    hovered: boolean
   }[],
   questTypes: {
     name: string,
-    active: boolean
+    active: boolean,
+    hovered: boolean
   }[],
   questLevels: {
     name: string,
-    active: boolean
+    active: boolean,
+    hovered: boolean
   }[],
   insideZoneNames: string[],
   outsideZoneNames: string[],
@@ -232,24 +235,30 @@ export interface DataStoreState {
 
 const initialState: DataStoreState = {
   classes: [
-    {name: 'Gladiator', active: false}, {name: 'Marauder', active: false}, {name: 'Archer', active: false},
-    {name: 'Lancer', active: false}, {name: 'Pugilist', active: false}, {name: 'Rogue', active: false}, 
-    {name: 'Conjurer', active: false}, {name: 'Arcanist', active: false}, {name: 'Thaumaturge', active: false},
-    {name: 'Paladin', active: false}, {name: 'Warrior', active: false}, {name: 'Dark Knight', active: false}, 
-    {name: 'Gunbreaker', active: false}, {name: 'White Mage', active: false}, {name: 'Scholar', active: false}, 
-    {name: 'Astrologian', active: false}, {name: 'Sage', active: false}, {name: 'Monk', active: false}, 
-    {name: 'Dragoon', active: false}, {name: 'Ninja', active: false}, {name: 'Samurai', active: false}, 
-    {name: 'Reaper', active: false}, {name: 'Bard', active: false}, {name: 'Machinist', active: false}, 
-    {name: 'Dancer', active: false}, {name: 'Black Mage', active: false}, {name: 'Summoner', active: false}, 
-    {name: 'Red Mage', active: false}, {name: 'Blue Mage', active: false},  
+    {name: 'Gladiator', active: false, hovered: false}, {name: 'Marauder', active: false, hovered: false}, 
+    {name: 'Archer', active: false, hovered: false}, {name: 'Lancer', active: false, hovered: false}, 
+    {name: 'Pugilist', active: false, hovered: false}, {name: 'Rogue', active: false, hovered: false}, 
+    {name: 'Conjurer', active: false, hovered: false}, {name: 'Arcanist', active: false, hovered: false}, 
+    {name: 'Thaumaturge', active: false, hovered: false},
+    // {name: 'Paladin', active: false, hovered: false}, {name: 'Warrior', active: false, hovered: false}, 
+    // {name: 'Dark Knight', active: false, hovered: false}, {name: 'Gunbreaker', active: false, hovered: false}, 
+    // {name: 'White Mage', active: false, hovered: false}, {name: 'Scholar', active: false, hovered: false}, 
+    // {name: 'Astrologian', active: false, hovered: false}, {name: 'Sage', active: false, hovered: false}, 
+    // {name: 'Monk', active: false, hovered: false}, {name: 'Dragoon', active: false, hovered: false}, 
+    // {name: 'Ninja', active: false, hovered: false}, {name: 'Samurai', active: false, hovered: false}, 
+    // {name: 'Reaper', active: false, hovered: false}, {name: 'Bard', active: false, hovered: false}, 
+    // {name: 'Machinist', active: false, hovered: false}, {name: 'Dancer', active: false, hovered: false}, 
+    // {name: 'Black Mage', active: false, hovered: false}, {name: 'Summoner', active: false, hovered: false}, 
+    // {name: 'Red Mage', active: false, hovered: false}, {name: 'Blue Mage', active: false, hovered: false}
   ],
   questTypes: [
-    {name: 'MainStory', active: false}, {name: 'Class', active: false}, {name: 'Side', active: false}, 
-    {name: 'HuntingLog', active: false},
+    {name: 'MainStory', active: false, hovered: false}, {name: 'Class', active: false, hovered: false}, 
+    {name: 'Side', active: false, hovered: false}, {name: 'HuntingLog', active: false, hovered: false},
   ],
   questLevels: [
-    {name: '1-5', active: false}, {name: '6-10', active: false}, {name: '11-15', active: false}, {name: '16-20', active: false}, 
-    {name: '21-25', active: false}, {name: '26-30', active: false},
+    {name: '1-5', active: false, hovered: false}, {name: '6-10', active: false, hovered: false}, 
+    {name: '11-15', active: false, hovered: false}, {name: '16-20', active: false, hovered: false}, 
+    {name: '21-25', active: false, hovered: false}, {name: '26-30', active: false, hovered: false},
   ],
   insideZoneNames: [
     'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", 
@@ -542,12 +551,18 @@ export const dataStoreSlice = createSlice({
   name: 'dataStore',
   initialState,
   reducers: {
-    updateClassByName(state, action) {
-      console.log(state)
+    updateClassActiveByName(state, action) {
       const { name, active } = action.payload;
       const index = state.classes.findIndex((c) => c.name === name);
       if (index !== -1) {
         state.classes[index].active = active;
+      }
+    },
+    updateClassHoveredByName(state, action) {
+      const { name, hovered } = action.payload;
+      const index = state.classes.findIndex((c) => c.name === name);
+      if (index !== -1) {
+        state.classes[index].hovered = hovered;
       }
     }
   },
@@ -573,6 +588,6 @@ export const getLegendIconAttributesState = (state: { dataStore: DataStoreState 
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
 // export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
-export const { updateClassByName } = dataStoreSlice.actions;
+export const { updateClassActiveByName, updateClassHoveredByName } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer

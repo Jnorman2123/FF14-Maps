@@ -44,15 +44,18 @@ export type TypeJob = {
 };
 export type TypeClass = {
     name: string, 
-    active: boolean
+    active: boolean,
+    hovered: boolean
 };
 export type TypeQuestType = {
     name: string,
-    active: boolean
+    active: boolean,
+    hovered: boolean
 };
 export type TypeQuestLevel = {
     name: string,
-    active: boolean
+    active: boolean,
+    hovered: boolean
 };
 export type TypeInsideZoneName = string;
 export type TypeOutsideZoneName = string;
