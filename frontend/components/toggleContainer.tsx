@@ -3,23 +3,24 @@ import { useGetQuestsQuery } from "@/store/services/helperquest";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest } from "@/types";
 import { MouseEventHandler } from "react";
+import Image from "next/image";
 
 export default function ToggleContainer() {
     let classes: TypeClass[] = [];
     let quests: TypeQuest[] = [];
-    let bgColor: string = '';
+    let buttonIcon: string = '';
     const dispatch = useDispatch();
 
     const updateClassActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let classObject: TypeClass | undefined;
         if (classObject?.name !== null) {
-            classObject = classes.find(c => c.name === event.target.name);
+            classObject = classes.find(c => c.name === event.target.alt);
         }
         if (classObject?.active) {
-            dispatch(updateClassActiveByName({name: event.target.name, active: false}));
+            dispatch(updateClassActiveByName({name: event.target.alt, active: false}));
             return classes;
         } else {
-            dispatch(updateClassActiveByName({name: event.target.name, active: true}));
+            dispatch(updateClassActiveByName({name: event.target.alt, active: true}));
             return classes;
         }
         
@@ -28,18 +29,20 @@ export default function ToggleContainer() {
     const updateClassHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let classObject: TypeClass | undefined;
         if (classObject?.name !== null) {
-            classObject = classes.find(c => c.name === event.target.name);
+            classObject = classes.find(c => c.name === event.target.alt);
         }
-        dispatch(updateClassHoveredByName({name: event.target.name, hovered: true}));
+        if (!classObject?.active) {
+            dispatch(updateClassHoveredByName({name: event.target.alt, hovered: true}));
+        }
         return classes;
     }
 
     const updateClassNotHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let classObject: TypeClass | undefined;
         if (classObject?.name !== null) {
-            classObject = classes.find(c => c.name === event.target.name);
+            classObject = classes.find(c => c.name === event.target.alt);
         }
-        dispatch(updateClassHoveredByName({name: event.target.name, hovered: false}));
+        dispatch(updateClassHoveredByName({name: event.target.alt, hovered: false}));
         return classes;
     }
 
@@ -58,19 +61,16 @@ export default function ToggleContainer() {
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {
             if (c.active) {
-                bgColor = 'black';
+                buttonIcon = `${c.name}Active`;
+            } else if (c.hovered && !c.active) {
+                buttonIcon = `${c.name}Hover`;
             } else {
-                bgColor = 'white';
-            }
-            if (c.hovered) {
-                bgColor = 'red';
-            } else {
-                bgColor = 'white';
+                buttonIcon = `${c.name}`;
             }
             return <div key={c.name}>
-                <button className={`bg-${bgColor}`} name={c.name} onClick={updateClassActive} 
+                <button name={c.name} onClick={updateClassActive} 
                 onMouseEnter={updateClassHovered} onMouseLeave={updateClassNotHovered}>
-                    {c.name}
+                    <Image src={`/icons/class_icons/${buttonIcon}.png`} alt={c.name} width={30} height={30} />
                 </button>
                 <br></br>
             </div>
