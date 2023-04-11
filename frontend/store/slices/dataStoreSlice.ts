@@ -573,10 +573,10 @@ export const dataStoreSlice = createSlice({
       }
     },
     updateQuestTypeHoveredByName(state, action) {
-      const { name, active } = action.payload;
+      const { name, hovered } = action.payload;
       const index = state.questTypes.findIndex((qt) => qt.name === name);
       if (index !== -1) {
-        state.questTypes[index].active = active;
+        state.questTypes[index].hovered = hovered;
       }
     },
   },
