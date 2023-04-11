@@ -1,7 +1,7 @@
 import { getClassesState, updateClassActiveByName, updateClassHoveredByName } from "@/store/slices/dataStoreSlice";
 import { useGetQuestsQuery } from "@/store/services/helperquest";
 import { useSelector, useDispatch } from "react-redux";
-import { TypeClass, TypeQuest } from "@/types";
+import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel } from "@/types";
 import { MouseEventHandler } from "react";
 import Image from "next/image";
 

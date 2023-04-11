@@ -564,7 +564,21 @@ export const dataStoreSlice = createSlice({
       if (index !== -1) {
         state.classes[index].hovered = hovered;
       }
-    }
+    },
+    updateQuestTypeActiveByName(state, action) {
+      const { name, active } = action.payload;
+      const index = state.questTypes.findIndex((qt) => qt.name === name);
+      if (index !== -1) {
+        state.questTypes[index].active = active;
+      }
+    },
+    updateQuestTypeHoveredByName(state, action) {
+      const { name, active } = action.payload;
+      const index = state.questTypes.findIndex((qt) => qt.name === name);
+      if (index !== -1) {
+        state.questTypes[index].active = active;
+      }
+    },
   },
 })
 
@@ -588,6 +602,7 @@ export const getLegendIconAttributesState = (state: { dataStore: DataStoreState 
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
 // export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
-export const { updateClassActiveByName, updateClassHoveredByName } = dataStoreSlice.actions;
+export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
+updateQuestTypeHoveredByName } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
