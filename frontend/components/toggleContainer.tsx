@@ -1,5 +1,6 @@
-import { getClassesState, getQuestTypesState, updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
-updateQuestTypeHoveredByName } from "@/store/slices/dataStoreSlice";
+import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
+updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
+updateQuestLevelHoveredByName } from "@/store/slices/dataStoreSlice";
 import { useGetQuestsQuery } from "@/store/services/helperquest";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel } from "@/types";
@@ -9,6 +10,7 @@ import Image from "next/image";
 export default function ToggleContainer() {
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
+    let questLevels: TypeQuestLevel[] = [];
     let quests: TypeQuest[] = [];
     let buttonIcon: string = '';
     const dispatch = useDispatch();
@@ -49,7 +51,6 @@ export default function ToggleContainer() {
     }
 
     const updateQuestTypeActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
-        console.log(event.target)
         let questTypeObject: TypeQuestType | undefined;
         if (questTypeObject?.name !== null) {
             questTypeObject = questTypes.find(qt => qt.name === event.target.alt);
@@ -84,6 +85,41 @@ export default function ToggleContainer() {
         return questTypes;
     }
 
+    const updateQuestLevelActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        let questLevelObject: TypeQuestLevel | undefined;
+        if (questLevelObject?.name !== null) {
+            questLevelObject = questLevels.find(ql => ql.name === event.target.alt);
+        }
+        if (questLevelObject?.active) {
+            dispatch(updateQuestLevelActiveByName({name: event.target.alt, active: false}));
+            return questLevels;
+        } else {
+            dispatch(updateQuestLevelActiveByName({name: event.target.alt, active: true}));
+            return questLevels;
+        }
+        
+    }
+
+    const updateQuestLevelHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        let questLevelObject: TypeQuestLevel | undefined;
+        if (questLevelObject?.name !== null) {
+            questLevelObject = questLevels.find(ql => ql.name === event.target.alt);
+        }
+        if (!questLevelObject?.active) {
+            dispatch(updateQuestLevelHoveredByName({name: event.target.alt, hovered: true}));
+        }
+        return questLevels;
+    }
+
+    const updateQuestLevelNotHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        let questLevelObject: TypeQuestLevel | undefined;
+        if (questLevelObject?.name !== null) {
+            questLevelObject = questLevels.find(ql => ql.name === event.target.alt);
+        }
+        dispatch(updateQuestLevelHoveredByName({name: event.target.alt, hovered: false}));
+        return questLevels;
+    }
+
     const setQuests = () => {
         const { data, error, isLoading } = useGetQuestsQuery('quests');
         if (isLoading) {
@@ -96,6 +132,7 @@ export default function ToggleContainer() {
     setQuests();
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
+    questLevels = useSelector(getQuestLevelsState);
 
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {
@@ -115,7 +152,6 @@ export default function ToggleContainer() {
             </div>
         })}
         {questTypes.map((qt: TypeQuestType) => {
-            console.log(qt)
             if (qt.active) {
                 buttonIcon = `${qt.name}Active`;
             } else if (qt.hovered && !qt.active) {
@@ -127,6 +163,22 @@ export default function ToggleContainer() {
                 <button name={qt.name} onClick={updateQuestTypeActive} 
                 onMouseEnter={updateQuestTypeHovered} onMouseLeave={updateQuestTypeNotHovered}>
                     <Image src={`/icons/quest_type_icons/${buttonIcon}.png`} alt={qt.name} width={30} height={30} />
+                </button>
+                <br></br>
+            </div>
+        })}
+        {questLevels.map((ql: TypeQuestLevel) => {
+            if (ql.active) {
+                buttonIcon = `${ql.name}Active`;
+            } else if (ql.hovered && !ql.active) {
+                buttonIcon = `${ql.name}Hover`;
+            } else {
+                buttonIcon = `${ql.name}`;
+            }
+            return <div key={ql.name}>
+                <button name={ql.name} onClick={updateQuestLevelActive} 
+                onMouseEnter={updateQuestLevelHovered} onMouseLeave={updateQuestLevelNotHovered}>
+                    <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={30} height={30} />
                 </button>
                 <br></br>
             </div>
