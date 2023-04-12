@@ -1,24 +1,30 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
 updateQuestLevelHoveredByName } from "@/store/slices/dataStoreSlice";
-import { useGetQuestsQuery, useGetJobsQuery } from "@/store/services/helperquest";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
 import { MouseEventHandler } from "react";
 import Image from "next/image";
 
-export default function ToggleContainer() {
+interface ToggleContainerProps {
+    quests: TypeQuest[];
+    jobs: TypeJob[];
+}
+
+export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) {
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
-    let quests: TypeQuest[] = [];
-    let jobs: TypeJob[] = [];
     let buttonIcon: string = '';
+    let filteredByJobAndClassArray: TypeQuest[] = [];
     let activeQuestsArray: TypeQuest[] = [];
     let activeClasses: string[] = [];
     let activeQuestTypes: string[] = [];
     let activeQuestLevels: string[] = [];
     let activeJobs: number[] = [];
+    let activeQuestLevelNumbers: [
+        number[]
+    ] = [[]];
     const dispatch = useDispatch();
 
     const updateClassActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
@@ -126,40 +132,33 @@ export default function ToggleContainer() {
         return questLevels;
     }
 
-    const setQuests = () => {
-        const { data, error, isLoading } = useGetQuestsQuery('quests');
-        if (isLoading) {
-        return quests = [];
-        } else {
-        return quests = data
-        }
-    }
-
-    const setJobs = () => {
-        const { data, error, isLoading } = useGetJobsQuery('jobs');
-        if (isLoading) {
-        return jobs = [];
-        } else {
-        return jobs = data
-        }
-    }
-
-    setQuests();
-    setJobs();
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
     questLevels = useSelector(getQuestLevelsState);
     activeClasses = classes.filter((c: TypeClass) => c.active).map((ac: TypeClass) => ac.name);
     activeQuestTypes = questTypes.filter((qt: TypeQuestType) => qt.active).map((aqt: TypeQuestType) => aqt.name);
     activeQuestLevels = questLevels.filter((ql: TypeQuestLevel) => ql.active).map((aql: TypeQuestLevel) => aql.name);
+    activeQuestLevels.map((aql: string) => {
+        let splitAql: number[] = [];
+        splitAql = aql.split('-').map((n: string) => parseInt(n))
+        return activeQuestLevelNumbers.push(splitAql);
+    })
     activeJobs = jobs.filter((j: TypeJob) => activeClasses.includes(j.job_name)).map((aj: TypeJob) => aj.id);
-    console.log(activeJobs)
     
     quests.map((q: TypeQuest) => {
         q.quest_class.map((qc: number) => {
-            if (activeJobs.includes(qc) || qc === 30) {
-                activeQuestsArray.push(q);
+            if ((activeJobs.includes(qc) || qc === 30) && activeQuestTypes.includes(q.quest_type.split(' ').join(''))) {
+                filteredByJobAndClassArray.push(q);
             } 
+        })
+    })
+
+    filteredByJobAndClassArray.map((aq: TypeQuest) => {
+        activeQuestLevelNumbers.slice(1).map((aqln: number[]) => {
+            if (aq.quest_level > aqln[0] && aq.quest_level < aqln[1]) {
+                activeQuestsArray.push(aq);
+            }
+            return activeQuestsArray;
         })
     })
 
