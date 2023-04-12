@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { helperquestApi } from '../services/helperquest';
 
 export interface DataStoreState {
   classes: {
@@ -230,7 +231,7 @@ export interface DataStoreState {
     rightNumOffset:number
   },
   questIconBgColors: string[],
-  seoMessages: string[],
+  seoMessages: string[]
 }
 
 const initialState: DataStoreState = {
@@ -615,7 +616,6 @@ export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
-// export const { updateClass, updateQuestType, updateQuestLevel } = dataStoreSlice.actions;
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
 updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName } = dataStoreSlice.actions;
 

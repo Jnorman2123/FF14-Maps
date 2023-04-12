@@ -11,36 +11,36 @@ export type TypeQuest = {
 };
 export type TypeReward = {
     id: number, 
-    questName: string,
-    experience: number,
-    gil: number,
-    items: number[],
-    other: string
+    reward_quest_name: string,
+    reward_experience: number,
+    reward_gil: number,
+    reward_items: number[],
+    reward_other: string
 };
 export type TypeItem = {
     id: number,
-    name: string,
-    quantity: number,
-    optional: boolean
+    item_name: string,
+    item_quantity: number,
+    item_optional: boolean
 };
 export type TypeNpc = {
     id: number,
-    name: string,
-    type: string,
-    zone: string,
-    locationX: string,
-    locationY: string,
-    soldItems: number[]
+    npc_name: string,
+    npc_type: string,
+    npc_zone: string,
+    npc_location_x: string,
+    npc_location_y: string,
+    npc_sold_items: number[]
 };
 export type TypeStep = {
     id: number,
-    description: string,
-    quest: number,
-    npc: number
+    step_description: string,
+    quest_step: number,
+    step_npc: number
 };
 export type TypeJob = {
     id: number,
-    name: string
+    job_name: string
 };
 export type TypeClass = {
     name: string, 
