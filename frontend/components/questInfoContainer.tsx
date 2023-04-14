@@ -14,13 +14,13 @@ interface QuestInfoContainerProps {
 export default function QuestInfoContainer( {quests, jobs, rewards, npcs, steps, items}: QuestInfoContainerProps ) {
     let toggledQuest: TypeQuest[] = [];
     toggledQuest = useSelector(getToggledQuestState);
-
     if (toggledQuest[0] !== undefined) {
         let questClass: TypeJob | undefined;
         let questSteps: TypeStep[];
         let questReward: TypeReward | undefined;
         let guaranteedItems: TypeItem[] = [];
         let optionalItems: TypeItem[] = [];
+        let stepIndex: number = 0;
         
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
@@ -35,7 +35,7 @@ export default function QuestInfoContainer( {quests, jobs, rewards, npcs, steps,
             }
         })
         
-        return <div className="bg-white text-black col-span-3 h-full">
+        return <div className="bg-white text-black col-span-3 h-full text-center">
             <h1>Quest Info Container</h1>
             <h4>Quest Name</h4>
             <h6>{toggledQuest[0].quest_name}</h6>
@@ -54,11 +54,12 @@ export default function QuestInfoContainer( {quests, jobs, rewards, npcs, steps,
             <h4>Previous Quest: {toggledQuest[0].previous_quest}</h4>
             <h4>Next Quest: {toggledQuest[0].next_quest}</h4>
             <h4>Quest Steps</h4>
-            <ol>
-                {questSteps.map((qs: TypeStep) => {
-                    return <li key={qs.id} >{qs.step_description}</li>
-                })}
-            </ol>
+            <h6>Start - {questSteps[0].step_description}</h6>
+            {questSteps.slice(1, -1).map((qs: TypeStep) => {
+                stepIndex ++;
+                return <h6 key={qs.id} >{stepIndex} - {qs.step_description}</h6>
+            })}
+            <h6>Turn In - {questSteps[questSteps.length - 1].step_description}</h6>
             <h4>Quest Rewards</h4>
             <h6>Experience: {questReward?.reward_experience}</h6>
             <h6>Gil: {questReward?.reward_gil}</h6>
