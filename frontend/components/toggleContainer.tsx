@@ -30,7 +30,6 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('clicked');
         dispatch(updateActiveQuests({aqs: activeQuestsArray}));
     }, [clicked])
 
@@ -172,11 +171,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         })
     })
 
-    console.log(activeClasses);
-    console.log(activeQuestTypes);
-    console.log(activeQuestLevels);
     activeQuests = useSelector(getActiveQuestsState);
-    console.log(activeQuests);
 
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {
@@ -225,6 +220,13 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
                     <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={30} height={30} />
                 </button>
                 <br></br>
+            </div>
+        })}
+        <br></br>
+        <h1>Available Quests</h1>
+        {activeQuests.map((aq: TypeQuest) => {
+            return <div key={aq.quest_name}>
+                <button  onClick={() => console.log(aq.quest_name)}>{aq.quest_name}</button>
             </div>
         })}
     </div>
