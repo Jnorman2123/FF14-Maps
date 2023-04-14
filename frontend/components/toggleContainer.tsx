@@ -1,9 +1,9 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName } from "@/store/slices/dataStoreSlice";
+updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
 
 interface ToggleContainerProps {
@@ -12,6 +12,7 @@ interface ToggleContainerProps {
 }
 
 export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) {
+    const [clicked, setClicked] = useState<boolean>(false);
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
@@ -25,9 +26,16 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     let activeQuestLevelNumbers: [
         number[]
     ] = [[]];
+    let activeQuests: TypeQuest[] = [];
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.log('clicked');
+        dispatch(updateActiveQuests({aqs: activeQuestsArray}));
+    }, [clicked])
+
     const updateClassActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        setClicked(!clicked);
         let classObject: TypeClass | undefined;
         if (classObject?.name !== null) {
             classObject = classes.find(c => c.name === event.target.alt);
@@ -63,6 +71,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     }
 
     const updateQuestTypeActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        setClicked(!clicked);
         let questTypeObject: TypeQuestType | undefined;
         if (questTypeObject?.name !== null) {
             questTypeObject = questTypes.find(qt => qt.name === event.target.alt);
@@ -98,6 +107,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     }
 
     const updateQuestLevelActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        setClicked(!clicked);
         let questLevelObject: TypeQuestLevel | undefined;
         if (questLevelObject?.name !== null) {
             questLevelObject = questLevels.find(ql => ql.name === event.target.alt);
@@ -162,7 +172,11 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         })
     })
 
-    console.log(activeQuestsArray);
+    console.log(activeClasses);
+    console.log(activeQuestTypes);
+    console.log(activeQuestLevels);
+    activeQuests = useSelector(getActiveQuestsState);
+    console.log(activeQuests);
 
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {

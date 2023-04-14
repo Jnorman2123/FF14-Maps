@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { helperquestApi } from '../services/helperquest';
+import { TypeQuest } from '@/types';
 
 export interface DataStoreState {
   classes: {
@@ -231,7 +232,8 @@ export interface DataStoreState {
     rightNumOffset:number
   },
   questIconBgColors: string[],
-  seoMessages: string[]
+  seoMessages: string[],
+  activeQuests: TypeQuest[]
 }
 
 const initialState: DataStoreState = {
@@ -545,7 +547,8 @@ const initialState: DataStoreState = {
     'Don’t waste time or get confused with quests in Final Fantasy 14 online. Use HelperQuest.com to find quests that suit your preferences and see them visually on maps with all the information you need.',
     'HelperQuest.com is the ultimate solution for questing in Final Fantasy 14 online. It helps you find quests based on your level, class and type of quest and shows you where to go and what to do on maps.',
     'Find quests for Final Fantasy 14 Online with HelperQuest, a quest guide that shows you where to go and what to do on maps. Find quests by level, class and type!'
-  ]
+  ],
+  activeQuests: []
 }
 
 export const dataStoreSlice = createSlice({
@@ -594,6 +597,10 @@ export const dataStoreSlice = createSlice({
         state.questLevels[index].hovered = hovered;
       }
     },
+    updateActiveQuests(state, action) {
+      const { aqs } = action.payload;
+      state.activeQuests = aqs;
+    }
   },
 })
 
@@ -616,7 +623,9 @@ export const getThanalanMapAttributesState = (state: { dataStore: DataStoreState
 export const getLegendIconAttributesState = (state: { dataStore: DataStoreState }) => state.dataStore.legendIconAttributes
 export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) => state.dataStore.questIconBgColors
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
+export const getActiveQuestsState = (state: { dataStore: DataStoreState}) => state.dataStore.activeQuests
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
-updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName } = dataStoreSlice.actions;
+updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName, 
+updateActiveQuests } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
