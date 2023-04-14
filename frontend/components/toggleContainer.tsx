@@ -1,17 +1,13 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest } from "@/store/slices/dataStoreSlice";
+updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest,
+getQuestsState, getJobsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
 
-interface ToggleContainerProps {
-    quests: TypeQuest[];
-    jobs: TypeJob[];
-}
-
-export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) {
+export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
@@ -28,9 +24,11 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     ] = [[]];
     let activeQuests: TypeQuest[] = [];
     const dispatch = useDispatch();
+    let quests: TypeQuest[] = useSelector(getQuestsState);
+    let jobs: TypeJob[] = useSelector(getJobsState);
 
     useEffect(() => {
-        dispatch(updateActiveQuests({aqs: activeQuestsArray}));
+        dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
     }, [clicked])
 
     const updateClassActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
@@ -147,7 +145,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
             toggledQuestObject = quests.find(q => q.quest_name === event.target.innerText)
         }
         
-        dispatch(updateToggledQuest({tq: toggledQuestObject}));
+        dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
     }
 
     classes = useSelector(getClassesState);
@@ -161,15 +159,20 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         splitAql = aql.split('-').map((n: string) => parseInt(n))
         return activeQuestLevelNumbers.push(splitAql);
     })
-    activeJobs = jobs.filter((j: TypeJob) => activeClasses.includes(j.job_name)).map((aj: TypeJob) => aj.id);
-    
-    quests.map((q: TypeQuest) => {
-        q.quest_class.map((qc: number) => {
-            if ((activeJobs.includes(qc) || qc === 30) && activeQuestTypes.includes(q.quest_type.split(' ').join(''))) {
-                filteredByJobAndClassArray.push(q);
-            } 
+    if (jobs.length > 0) {
+        activeJobs = jobs.filter((j: TypeJob) => activeClasses.includes(j.job_name)).map((aj: TypeJob) => aj.id);
+    }
+
+    if (quests.length > 0) {
+        quests.map((q: TypeQuest) => {
+            q.quest_class.map((qc: number) => {
+                if ((activeJobs.includes(qc) || qc === 30) && activeQuestTypes.includes(q.quest_type.split(' ').join(''))) {
+                    filteredByJobAndClassArray.push(q);
+                } 
+            })
         })
-    })
+    }
+    
 
     filteredByJobAndClassArray.map((aq: TypeQuest) => {
         activeQuestLevelNumbers.slice(1).map((aqln: number[]) => {

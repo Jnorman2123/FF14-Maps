@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { helperquestApi } from '../services/helperquest';
-import { TypeQuest } from '@/types';
+import { createSlice } from '@reduxjs/toolkit';
+import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep } from '@/types';
 
 export interface DataStoreState {
   classes: {
@@ -235,6 +234,12 @@ export interface DataStoreState {
   seoMessages: string[],
   activeQuests: TypeQuest[],
   toggledQuest: TypeQuest[],
+  quests: TypeQuest[],
+  jobs: TypeJob[],
+  npcs: TypeNpc[],
+  rewards: TypeReward[],
+  steps: TypeStep[],
+  items: TypeItem[],
 }
 
 const initialState: DataStoreState = {
@@ -551,6 +556,12 @@ const initialState: DataStoreState = {
   ],
   activeQuests: [],
   toggledQuest: [],
+  quests: [],
+  jobs: [],
+  npcs: [],
+  items: [],
+  rewards: [],
+  steps: [],
 }
 
 export const dataStoreSlice = createSlice({
@@ -600,12 +611,42 @@ export const dataStoreSlice = createSlice({
       }
     },
     updateActiveQuests(state, action) {
-      const { aqs } = action.payload;
-      state.activeQuests = aqs;
+      const { activeQuestArray } = action.payload;
+      state.activeQuests = activeQuestArray;
     },
     updateToggledQuest(state, action) {
-      const { tq } = action.payload;
-      state.toggledQuest = [tq];
+      const { tQuest } = action.payload;
+      state.toggledQuest = [tQuest];
+    },
+    updateQuests(state, action) {
+      console.log('updating quests');
+      const { questArray } = action.payload;
+      state.quests = questArray;
+    },
+    updateJobs(state, action) {
+      console.log('updating jobs');
+      const { jobArray } = action.payload;
+      state.jobs = jobArray;
+    }, 
+    updateItems(state, action) {
+      console.log('updating items');
+      const { itemArray } = action.payload;
+      state.items = itemArray;
+    },
+    updateRewards(state, action) {
+      console.log('updating rewards');
+      const { rewardArray } = action.payload;
+      state.rewards = rewardArray;
+    },
+    updateNpcs(state, action) {
+      console.log('updating npcs');
+      const { npcArray } = action.payload;
+      state.npcs = npcArray;
+    },
+    updateSteps(state, action) {
+      console.log('updating steps');
+      const { stepArray } = action.payload;
+      state.steps = stepArray;
     }
   },
 })
@@ -631,8 +672,15 @@ export const getQuestIconBgColorsState = (state: { dataStore: DataStoreState }) 
 export const getSeoMessagesState = (state: { dataStore: DataStoreState }) => state.dataStore.seoMessages
 export const getActiveQuestsState = (state: { dataStore: DataStoreState }) => state.dataStore.activeQuests
 export const getToggledQuestState = (state: { dataStore: DataStoreState }) => state.dataStore.toggledQuest
+export const getQuestsState = (state: { dataStore: DataStoreState }) => state.dataStore.quests
+export const getJobsState = (state: { dataStore: DataStoreState }) => state.dataStore.jobs
+export const getItemsState = (state: { dataStore: DataStoreState }) => state.dataStore.items
+export const getNpcsState = (state: { dataStore: DataStoreState }) => state.dataStore.npcs
+export const getRewardsState = (state: { dataStore: DataStoreState }) => state.dataStore.rewards
+export const getStepsState = (state: { dataStore: DataStoreState }) => state.dataStore.steps
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
 updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName, 
-updateActiveQuests, updateToggledQuest } = dataStoreSlice.actions;
+updateActiveQuests, updateToggledQuest, updateQuests, updateItems, updateJobs, updateNpcs, updateRewards,
+updateSteps } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer

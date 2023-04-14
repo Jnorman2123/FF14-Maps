@@ -4,6 +4,9 @@ import ToggleContainer from './toggleContainer';
 import type { TypeQuest, TypeReward, TypeNpc, TypeItem,  TypeJob, TypeStep } from "../types";
 import { useGetQuestsQuery, useGetRewardsQuery, useGetItemsQuery, useGetJobsQuery, useGetNpcsQuery, 
 useGetStepsQuery } from "@/store/services/helperquest";
+import { updateQuests, updateItems, updateJobs, updateNpcs, updateRewards, updateSteps } from '@/store/slices/dataStoreSlice';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 type LayoutProps = {
     children: React.ReactNode
@@ -16,6 +19,16 @@ export default function Layout({ children }: LayoutProps) {
     let npcs: TypeNpc[] = [];
     let items: TypeItem[] = [];
     let steps: TypeStep[] = [];
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(updateQuests({questArray: quests}));
+        dispatch(updateJobs({jobArray: jobs}));
+        dispatch(updateItems({itemArray: items}));
+        dispatch(updateNpcs({npcArray: npcs}));
+        dispatch(updateRewards({rewardArray: rewards}));
+        dispatch(updateSteps({stepArray: steps}));
+    }, [quests, jobs, rewards, npcs, items, steps]);
 
     const setQuests = () => {
         const { data, error, isLoading } = useGetQuestsQuery('quests');
@@ -82,9 +95,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className='space-y-borderspace'>
             <NavBar />
             <div className='grid grid-cols-12 gap-2 h-screen'>
-                <ToggleContainer quests={quests} jobs={jobs} />
+                <ToggleContainer />
                 <main  className='col-span-6 h-main'>{children} </main>
-                <QuestInfoContainer quests={quests} jobs={jobs} rewards={rewards} items={items} npcs={npcs} steps={steps} />
+                <QuestInfoContainer />
             </div>
         </div>
     )

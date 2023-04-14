@@ -1,26 +1,23 @@
-import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeNpc, TypeStep } from "@/types";
-import { getToggledQuestState } from "@/store/slices/dataStoreSlice";
+import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep } from "@/types";
+import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 
-interface QuestInfoContainerProps {
-    quests: TypeQuest[];
-    jobs: TypeJob[];
-    rewards: TypeReward[];
-    npcs: TypeNpc[];
-    steps: TypeStep[];
-    items: TypeItem[];
-}
-
-export default function QuestInfoContainer( {quests, jobs, rewards, npcs, steps, items}: QuestInfoContainerProps ) {
-    let toggledQuest: TypeQuest[] = [];
-    toggledQuest = useSelector(getToggledQuestState);
+export default function QuestInfoContainer() {
+    let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
+    let jobs: TypeJob[] = useSelector(getJobsState);
+    let rewards: TypeReward[] = useSelector(getRewardsState);
+    let steps: TypeStep[] = useSelector(getStepsState);
+    let items: TypeItem[] = useSelector(getItemsState);
+    
     if (toggledQuest[0] !== undefined) {
+        console.log(toggledQuest)
         let questClass: TypeJob | undefined;
         let questSteps: TypeStep[];
         let questReward: TypeReward | undefined;
         let guaranteedItems: TypeItem[] = [];
         let optionalItems: TypeItem[] = [];
         let stepIndex: number = 0;
+        
         
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
