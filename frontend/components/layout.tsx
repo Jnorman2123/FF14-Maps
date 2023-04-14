@@ -84,7 +84,7 @@ export default function Layout({ children }: LayoutProps) {
             <div className='grid grid-cols-12 gap-2 h-screen'>
                 <ToggleContainer quests={quests} jobs={jobs} />
                 <main  className='col-span-6 h-main'>{children} </main>
-                <QuestInfoContainer />
+                <QuestInfoContainer quests={quests} jobs={jobs} rewards={rewards} items={items} npcs={npcs} steps={steps} />
             </div>
         </div>
     )

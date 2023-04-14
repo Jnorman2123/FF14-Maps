@@ -1,7 +1,6 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest, 
-getToggledQuestState } from "@/store/slices/dataStoreSlice";
+updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
@@ -28,7 +27,6 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         number[]
     ] = [[]];
     let activeQuests: TypeQuest[] = [];
-    let toggledQuest: TypeQuest[] = [];
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -183,8 +181,6 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     })
 
     activeQuests = useSelector(getActiveQuestsState);
-    toggledQuest = useSelector(getToggledQuestState);
-    console.log(toggledQuest[0])
 
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {
