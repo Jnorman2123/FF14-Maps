@@ -1,6 +1,7 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState } from "@/store/slices/dataStoreSlice";
+updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest, 
+getToggledQuestState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
@@ -27,6 +28,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         number[]
     ] = [[]];
     let activeQuests: TypeQuest[] = [];
+    let toggledQuest: TypeQuest[] = [];
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -141,6 +143,15 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         return questLevels;
     }
 
+    const toggleQuest: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        let toggledQuestObject: TypeQuest | undefined;
+        if (toggledQuestObject?.quest_name !== null) {
+            toggledQuestObject = quests.find(q => q.quest_name === event.target.innerText)
+        }
+        
+        dispatch(updateToggledQuest({tq: toggledQuestObject}));
+    }
+
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
     questLevels = useSelector(getQuestLevelsState);
@@ -172,6 +183,8 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
     })
 
     activeQuests = useSelector(getActiveQuestsState);
+    toggledQuest = useSelector(getToggledQuestState);
+    console.log(toggledQuest[0])
 
     return <div className="bg-gray-500 col-span-3 h-full">
         {classes.map((c: TypeClass) => {
@@ -226,7 +239,7 @@ export default function ToggleContainer( {quests, jobs}: ToggleContainerProps ) 
         <h1>Available Quests</h1>
         {activeQuests.map((aq: TypeQuest) => {
             return <div key={aq.quest_name}>
-                <button  onClick={() => console.log(aq.quest_name)}>{aq.quest_name}</button>
+                <button onClick={toggleQuest}>{aq.quest_name}</button>
             </div>
         })}
     </div>

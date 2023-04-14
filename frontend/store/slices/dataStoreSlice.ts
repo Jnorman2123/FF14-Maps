@@ -605,7 +605,7 @@ export const dataStoreSlice = createSlice({
     },
     updateToggledQuest(state, action) {
       const { tq } = action.payload;
-      state.toggledQuest = tq;
+      state.toggledQuest = [tq];
     }
   },
 })
