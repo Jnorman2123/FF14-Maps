@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import { TypeNpc, TypeQuest, TypeStep } from '@/types';
+import { TypeNpc, TypeQuest, TypeStep, TypeQuestDetails } from '@/types';
 import { useSelector } from 'react-redux';
-import { getNpcsState, getActiveQuestsState, getStepsState } from '@/store/slices/dataStoreSlice';
+import { getNpcsState, getActiveQuestsState, getStepsState, updateActiveQuestDetails, 
+getActiveQuestDetailsState, 
+getQuestIconBgColorsState} from '@/store/slices/dataStoreSlice';
 
 const ZoneMap = () => {
     const router = useRouter();
@@ -15,6 +17,9 @@ const ZoneMap = () => {
     let steps: TypeStep[] = useSelector(getStepsState);
     let activeInZoneQuests: TypeQuest[] = [];
     let activeInZoneQuestIds: number[] = [];
+    let questColors: string[] = useSelector(getQuestIconBgColorsState);
+    let colorIndex: number = 0;
+    let activeQuestDetails: TypeQuestDetails[] = [];
 
     activeQuests.map((aq: TypeQuest) => {
         aq.quest_npcs.map(npc => {
@@ -23,6 +28,26 @@ const ZoneMap = () => {
                 activeInZoneQuestIds = activeInZoneQuests.map((quest: TypeQuest) => quest.id);
             }
         })
+    })
+
+    const updateActiveQuestDetailArray = () => {
+        activeQuests.map((activeQuest: TypeQuest) => {
+            let questDetails: TypeQuestDetails | undefined;
+            if (questDetails?.questBgColor !== null) {
+
+            }
+        })
+    }
+
+    activeQuests.map((activeQuest: TypeQuest) => {
+        console.log(questColors[colorIndex]);
+        console.log(`/icons/second_layer/${questColors[colorIndex]}Bg.png`);
+        console.log(`/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIcon.png`);
+        if (colorIndex < questColors.length - 1) {
+            colorIndex ++;
+        } else {
+            colorIndex = 0;
+        }
     })
     
 
