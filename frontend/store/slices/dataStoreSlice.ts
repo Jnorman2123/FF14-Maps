@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep, TypeQuestDetails } from '@/types';
+import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep } from '@/types';
 
 export interface DataStoreState {
   classes: {
@@ -240,7 +240,6 @@ export interface DataStoreState {
   rewards: TypeReward[],
   steps: TypeStep[],
   items: TypeItem[],
-  activeQuestDetails: TypeQuestDetails[];
 }
 
 const initialState: DataStoreState = {
@@ -563,7 +562,6 @@ const initialState: DataStoreState = {
   items: [],
   rewards: [],
   steps: [],
-  activeQuestDetails: [],
 }
 
 export const dataStoreSlice = createSlice({
@@ -643,11 +641,6 @@ export const dataStoreSlice = createSlice({
     updateSteps(state, action) {
       const { stepArray } = action.payload;
       state.steps = stepArray;
-    },
-    updateActiveQuestDetails(state, action) {
-      console.log('updating active quest details');
-      const { activeQuestDetailsArray } = action.payload;
-      state.activeQuestDetails = activeQuestDetailsArray;
     }
   },
 })
@@ -679,10 +672,9 @@ export const getItemsState = (state: { dataStore: DataStoreState }) => state.dat
 export const getNpcsState = (state: { dataStore: DataStoreState }) => state.dataStore.npcs
 export const getRewardsState = (state: { dataStore: DataStoreState }) => state.dataStore.rewards
 export const getStepsState = (state: { dataStore: DataStoreState }) => state.dataStore.steps
-export const getActiveQuestDetailsState = (state: { dataStore: DataStoreState }) => state.dataStore.activeQuestDetails
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
 updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName, 
 updateActiveQuests, updateToggledQuest, updateQuests, updateItems, updateJobs, updateNpcs, updateRewards,
-updateSteps, updateActiveQuestDetails } = dataStoreSlice.actions;
+updateSteps } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer

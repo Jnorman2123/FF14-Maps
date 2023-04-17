@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
-import { TypeNpc, TypeQuest, TypeStep, TypeQuestDetails } from '@/types';
+import { TypeNpc, TypeQuest, TypeStep } from '@/types';
 import { useSelector } from 'react-redux';
-import { getNpcsState, getActiveQuestsState, getStepsState, updateActiveQuestDetails, 
-getActiveQuestDetailsState, 
-getQuestIconBgColorsState} from '@/store/slices/dataStoreSlice';
+import { getNpcsState, getActiveQuestsState, getStepsState, getQuestIconBgColorsState} from '@/store/slices/dataStoreSlice';
 
 const ZoneMap = () => {
     const router = useRouter();
@@ -19,7 +17,6 @@ const ZoneMap = () => {
     let activeInZoneQuestIds: number[] = [];
     let questColors: string[] = useSelector(getQuestIconBgColorsState);
     let colorIndex: number = 0;
-    let activeQuestDetails: TypeQuestDetails[] = [];
 
     activeQuests.map((aq: TypeQuest) => {
         aq.quest_npcs.map(npc => {
@@ -30,19 +27,33 @@ const ZoneMap = () => {
         })
     })
 
-    const updateActiveQuestDetailArray = () => {
-        activeQuests.map((activeQuest: TypeQuest) => {
-            let questDetails: TypeQuestDetails | undefined;
-            if (questDetails?.questBgColor !== null) {
-
-            }
-        })
-    }
-
-    activeQuests.map((activeQuest: TypeQuest) => {
+    activeInZoneQuests.map((activeQuest: TypeQuest) => {
+        console.log(activeQuest.quest_npcs);
         console.log(questColors[colorIndex]);
         console.log(`/icons/second_layer/${questColors[colorIndex]}Bg.png`);
         console.log(`/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIcon.png`);
+        if (npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0]) !== undefined) {
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0])?.npc_name);
+            console.log(`/icons/cluster_icons/${activeQuest.quest_type.split(' ').join('')}StartIcon.png`);
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0])?.npc_location_x);
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0])?.npc_location_y);
+        }
+        if (activeQuest.quest_npcs.slice(1,-1).length > 0) {
+            let stepIndex: number = 1;
+            activeQuest.quest_npcs.slice(1,-1).map((questNpc: number) => {
+                console.log(npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_name);
+                console.log(`/icons/third_layer/Step${stepIndex}Icon.png`);
+                console.log(npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_x);
+                console.log(npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_y);
+                stepIndex ++;
+            });
+        }
+        if (npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1]) !== undefined) {
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1])?.npc_name);
+            console.log(`/icons/clusterIcons/${activeQuest.quest_type.split(' ').join('')}TurninIcon.png`);
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1])?.npc_location_x);
+            console.log(npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1])?.npc_location_y);
+        }
         if (colorIndex < questColors.length - 1) {
             colorIndex ++;
         } else {
