@@ -159,11 +159,13 @@ export default function ToggleContainer() {
         splitAql = aql.split('-').map((n: string) => parseInt(n))
         return activeQuestLevelNumbers.push(splitAql);
     })
-    if (jobs.length > 0) {
+    
+    if (jobs !== undefined && jobs.length > 0) {
         activeJobs = jobs.filter((j: TypeJob) => activeClasses.includes(j.job_name)).map((aj: TypeJob) => aj.id);
     }
 
-    if (quests.length > 0) {
+    
+    if (quests !== undefined && quests.length > 0) {
         quests.map((q: TypeQuest) => {
             q.quest_class.map((qc: number) => {
                 if ((activeJobs.includes(qc) || qc === 30) && activeQuestTypes.includes(q.quest_type.split(' ').join(''))) {
@@ -172,11 +174,10 @@ export default function ToggleContainer() {
             })
         })
     }
-    
 
     filteredByJobAndClassArray.map((aq: TypeQuest) => {
         activeQuestLevelNumbers.slice(1).map((aqln: number[]) => {
-            if (aq.quest_level > aqln[0] && aq.quest_level < aqln[1]) {
+            if (aq.quest_level >= aqln[0] && aq.quest_level <= aqln[1] && !activeQuestsArray.includes(aq)) {
                 activeQuestsArray.push(aq);
             }
             return activeQuestsArray;
