@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { TypeNpc, TypeQuest, TypeStep } from '@/types';
 import { useSelector } from 'react-redux';
 import { getNpcsState, getActiveQuestsState, getStepsState, getQuestIconBgColorsState} from '@/store/slices/dataStoreSlice';
+import React from 'react';
+import dynamic from 'next/dynamic';
 
 const ZoneMap = () => {
     const router = useRouter();
@@ -17,6 +19,8 @@ const ZoneMap = () => {
     let activeInZoneQuestIds: number[] = [];
     let questColors: string[] = useSelector(getQuestIconBgColorsState);
     let colorIndex: number = 0;
+
+    const MapWithNoSSR = dynamic(() => import('../../components/ZoneMap'), { ssr: false });
 
     activeQuests.map((aq: TypeQuest) => {
         aq.quest_npcs.map(npc => {
@@ -69,7 +73,10 @@ const ZoneMap = () => {
 
     return <div>
         <h1>Welcome to {zoneName} map!</h1>
-        {npcs.map((npc: TypeNpc) => {
+        <div id='map'>
+            <MapWithNoSSR />
+        </div>
+        {/* {npcs.map((npc: TypeNpc) => {
             let npcSteps: TypeStep[] = steps.filter((step: TypeStep) => 
             step.step_npc === npc.id && activeInZoneQuestIds.includes(step.quest_step));
             if (npcSteps.length > 0) {
@@ -88,7 +95,7 @@ const ZoneMap = () => {
                     }
                 })
             }
-        })}
+        })} */}
     </div>;
 }
 
