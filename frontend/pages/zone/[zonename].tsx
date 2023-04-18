@@ -15,7 +15,6 @@ const ZoneMap = () => {
     let npcIds: number[] = npcs.map((n: TypeNpc) => n.id);
     let activeQuests: TypeQuest[] = useSelector(getActiveQuestsState);
     let activeInZoneQuests: TypeQuest[] = [];
-    let activeInZoneQuestIds: number[] = [];
     let questColors: string[] = useSelector(getQuestIconBgColorsState);
     let colorIndex: number = 0;
     let questDetailArray: TypeQuestDetail[] = [];
@@ -32,19 +31,20 @@ const ZoneMap = () => {
         aq.quest_npcs.map(npc => {
             if (npcIds.includes(npc) && !activeInZoneQuests.includes(aq)) {
                 activeInZoneQuests.push(aq);
-                activeInZoneQuestIds = activeInZoneQuests.map((quest: TypeQuest) => quest.id);
             }
         })
     })
 
     activeInZoneQuests.map((activeQuest: TypeQuest) => {
         let questDetailObject: TypeQuestDetail | undefined = {
+            quest: activeQuest,
             questBgColor: '',
             questBgColorIcon: '',
             questTypeIcon: '',
             questSteps: {
                 questStarter: {
                     starterIcon: '',
+                    activeStarterIcon: '',
                     starterLocX: 0,
                     starterLocY: 0,
                     tooltipDetails: {
@@ -56,6 +56,7 @@ const ZoneMap = () => {
                 questNumberedSteps: [],
                 questTurnIn: {
                     turnInIcon: '',
+                    activeTurnInIcon: '',
                     turnInLocX: 0,
                     turnInLocY: 0,
                     tooltipDetails: {
@@ -71,6 +72,7 @@ const ZoneMap = () => {
         let stepNpc: TypeNpc | undefined;
         let numberedStepNpc: {
             stepIcon: string,
+            activeStepIcon: string,
             stepLocX: number, 
             stepLocY: number,
             tooltipDetails: {
@@ -84,26 +86,6 @@ const ZoneMap = () => {
         let turnInStep: TypeStep | undefined;
         starterNpc = npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0]);
         turnInNpc = npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1]);
-        {/* {npcs.map((npc: TypeNpc) => {
-            let npcSteps: TypeStep[] = steps.filter((step: TypeStep) => 
-            step.step_npc === npc.id && activeInZoneQuestIds.includes(step.quest_step));
-            if (npcSteps.length > 0) {
-                return npcSteps.map((step: TypeStep) => {
-                    let stepQuest: TypeQuest | undefined;
-                    if (stepQuest?.id !== null) {
-                        stepQuest = activeInZoneQuests.find((quest: TypeQuest) => quest.id === step.quest_step)
-                    }
-                    if (stepQuest) {
-                        return <div key={step.step_description}>
-                            <h4>{npc.npc_name}</h4>
-                            <h6>Quest Name: {stepQuest.quest_name}</h6>
-                            <h6>Step Description: {step.step_description}</h6>
-                            <div>---------------------------------------------</div>
-                        </div>
-                    }
-                })
-            }
-        })} */}
 
         if (questDetailObject) {
             questDetailObject.questBgColor = questColors[colorIndex];
@@ -115,6 +97,8 @@ const ZoneMap = () => {
                 && activeQuest.id === step.quest_step);
                 questDetailObject.questSteps.questStarter.starterIcon = 
                 `/icons/cluster_icons/${activeQuest.quest_type.split(' ').join('')}StartIcon.png`;
+                questDetailObject.questSteps.questStarter.activeStarterIcon = 
+                `/icons/cluster_icons/${activeQuest.quest_type.split(' ').join('')}StartIconActive.png`;
                 questDetailObject.questSteps.questStarter.starterLocX = parseFloat(starterNpc.npc_location_x);
                 questDetailObject.questSteps.questStarter.starterLocY = parseFloat(starterNpc.npc_location_y);
                 questDetailObject.questSteps.questStarter.tooltipDetails.npcName = starterNpc.npc_name;
@@ -134,6 +118,7 @@ const ZoneMap = () => {
                         if (numberedStep) {
                             numberedStepNpc = {
                                 stepIcon: `/icons/third_layer/Step${stepIndex}Icon.png`,
+                                activeStepIcon: `/icons/third_layer/Step${stepIndex}IconActive.png`,
                                 stepLocX: parseFloat(stepNpc.npc_location_x),
                                 stepLocY: parseFloat(stepNpc.npc_location_y),
                                 tooltipDetails: {
@@ -154,6 +139,8 @@ const ZoneMap = () => {
                 && activeQuest.id === step.quest_step);
                 questDetailObject.questSteps.questTurnIn.turnInIcon = 
                 `/icons/clusterIcons/${activeQuest.quest_type.split(' ').join('')}TurninIcon.png`;
+                questDetailObject.questSteps.questTurnIn.activeTurnInIcon = 
+                `/icons/clusterIcons/${activeQuest.quest_type.split(' ').join('')}TurninIconActive.png`;
                 questDetailObject.questSteps.questTurnIn.turnInLocX = parseFloat(turnInNpc.npc_location_x);
                 questDetailObject.questSteps.questTurnIn.turnInLocY = parseFloat(turnInNpc.npc_location_y);
                 questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName = turnInNpc.npc_name;
@@ -174,13 +161,6 @@ const ZoneMap = () => {
             questDetailArray.push(questDetailObject);
         }
     })
-    
-
-    console.log(npcs)
-    console.log(activeQuests)
-    console.log(activeInZoneQuests)
-    console.log(questDetailArray)
-    
 
     return <div>
         <h1>Welcome to {zoneName} map!</h1>
