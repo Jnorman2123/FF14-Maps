@@ -15,10 +15,6 @@ const ZoneMap = () => {
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
 
-    const renderMarkers = (questDetailsArray: TypeQuestDetail[]) => {
-        
-    }
-
     return (
         <MapContainer crs={L.CRS.Simple} center={[-20.95, 20.95]} zoom={4.25} minZoom={4.25} maxZoom={7} scrollWheelZoom={true} 
         style={{height: '825px', width: '100%'}} maxBoundsViscosity={1} >
@@ -26,20 +22,19 @@ const ZoneMap = () => {
             {questDetails.map((questDetailObject: TypeQuestDetail) => {
                 let colorIcon = new L.Icon({iconUrl: questDetailObject.questBgColorIcon, iconSize: [35, 35] });
                 if (questDetailObject.questSteps.questStarter.starterIcon !== '') {
-                    console.log('starter');
                     let startIconUrl: string = questDetailObject.questSteps.questStarter.starterIcon;
                     if (toggledQuest && questDetailObject.quest.id === toggledQuest.id) {
                         startIconUrl = questDetailObject.questSteps.questStarter.activeStarterIcon;
                     }
                     let startIcon = new L.Icon({iconUrl: startIconUrl, iconSize: [35, 35]});
                     let startLocX = -questDetailObject.questSteps.questStarter.starterLocX;
-                    let startLocY = questDetailObject.questSteps.questStarter.starterLocY
-                    console.log(startIconUrl);
+                    let startLocY = questDetailObject.questSteps.questStarter.starterLocY;
                     return <LayerGroup key={Math.random()} >
                         <Marker key={Math.random()} position={[startLocX, startLocY]} 
                         icon={colorIcon} />
                         <Marker key={Math.random()} position={[startLocX, startLocY]} 
-                        icon={startIcon} eventHandlers={{ click: () => dispatch(updateToggledQuest({tQuest: questDetailObject.quest}))}} >
+                        icon={startIcon} eventHandlers={{ click: () => 
+                        dispatch(updateToggledQuest({tQuest: questDetailObject.quest}))}} >
                             <Tooltip>
                                 <h6 className='text-center'>
                                     {questDetailObject.questSteps.questStarter.tooltipDetails.npcName}
@@ -50,6 +45,35 @@ const ZoneMap = () => {
                                 <h6 className='text-center'>
                                     {questDetailObject.questSteps.questStarter.tooltipDetails.stepDescription}
                                     </h6>
+                            </Tooltip>
+                        </Marker>
+                    </LayerGroup>
+                }   else if (questDetailObject.questSteps.questTurnIn.turnInIcon !== '') {
+                    let turnInIconUrl: string = questDetailObject.questSteps.questTurnIn.turnInIcon;
+                    if (toggledQuest && questDetailObject.quest.id === toggledQuest.id) {
+                        turnInIconUrl = questDetailObject.questSteps.questTurnIn.activeTurnInIcon;
+                    }
+                    let turnInIcon = new L.Icon({iconUrl: turnInIconUrl, iconSize: [35, 35]});
+                    let turnInLocx = -questDetailObject.questSteps.questTurnIn.turnInLocX;
+                    let turnInLocY = questDetailObject.questSteps.questTurnIn.turnInLocY;
+                    return <LayerGroup key={Math.random()} >
+                        <Marker key={Math.random()} 
+                        position={[turnInLocx, turnInLocY]} 
+                        icon={colorIcon} />
+                        <Marker key={Math.random()} 
+                        position={[turnInLocx, turnInLocY]} 
+                        icon={turnInIcon} eventHandlers={{ click: () => 
+                        dispatch(updateToggledQuest({tQuest: questDetailObject.quest})) }} >
+                            <Tooltip>
+                                <h6 className='text-center'>
+                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName}
+                                </h6>
+                                <h6 className='text-center'>
+                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.questName}
+                                </h6>
+                                <h6 className='text-center'>
+                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.stepDescription}
+                                </h6>
                             </Tooltip>
                         </Marker>
                     </LayerGroup>
@@ -75,23 +99,7 @@ export default ZoneMap;
 //                 }
 //             icon = new L.Icon  ({iconUrl: start, iconSize: [35, 35]});
 
-//         } else if (marker.turn_in_icon) {
-//             icon = new L.Icon  ({iconUrl: marker.turn_in_icon, iconSize: [35, 35]});
-//             return <LayerGroup key={Math.random()} >
-//                 <Marker key={Math.random()} 
-//                 position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
-//                 icon={color_icon} />
-//                 <Marker key={Math.random()} 
-//                 position={this.props.revertLat(marker.npc.npc_location_x, marker.npc.npc_location_y)} 
-//                 icon={icon} eventHandlers={{ click: () => this.props.toggleQuest(marker.quest, 
-//                 this.props.active_quests) }} >
-//                     <Tooltip>
-//                         <h6 className='text-center'>{marker.quest.quest_name}</h6>
-//                         <h6 className='text-center'>{marker.npc.npc_name}</h6>
-//                     </Tooltip>
-//                 </Marker>
-//             </LayerGroup>
-//         } else {
+        //   else {
 //             icon = new L.Icon  ({iconUrl: marker.quest_type_icon, iconSize: [35, 35]});
 //             step_icon = new L.Icon  ({iconUrl: marker.quest_step_icon, iconSize: [35, 35]});
 //             let container_icon = new L.Icon ({iconUrl: './icons/first_layer/IconContainer.png', iconSize: [35, 35]})

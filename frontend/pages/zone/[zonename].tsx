@@ -138,9 +138,9 @@ const ZoneMap = () => {
                 turnInStep = steps.find((step: TypeStep) => step.step_npc === turnInNpc?.id 
                 && activeQuest.id === step.quest_step);
                 questDetailObject.questSteps.questTurnIn.turnInIcon = 
-                `/icons/clusterIcons/${activeQuest.quest_type.split(' ').join('')}TurninIcon.png`;
+                `/icons/cluster_Icons/${activeQuest.quest_type.split(' ').join('')}TurninIcon.png`;
                 questDetailObject.questSteps.questTurnIn.activeTurnInIcon = 
-                `/icons/clusterIcons/${activeQuest.quest_type.split(' ').join('')}TurninIconActive.png`;
+                `/icons/cluster_Icons/${activeQuest.quest_type.split(' ').join('')}TurninIconActive.png`;
                 questDetailObject.questSteps.questTurnIn.turnInLocX = parseFloat(turnInNpc.npc_location_x);
                 questDetailObject.questSteps.questTurnIn.turnInLocY = parseFloat(turnInNpc.npc_location_y);
                 questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName = turnInNpc.npc_name;
