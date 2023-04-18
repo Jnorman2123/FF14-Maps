@@ -2,16 +2,15 @@ import { MapContainer, ImageOverlay, Marker, Popup } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useRouter } from 'next/router';
+import { useSelector } from "react-redux";
+import { getQuestDetailsState } from "@/store/slices/dataStoreSlice";
 
 const ZoneMap = () => {
     const router = useRouter();
     const { asPath } = router;
     let splitPathName: string = asPath.split('/').slice(-1)[0];
     let zoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join('');
-
-    const revertLat = (x: number, y:number) => {
-        return [-y, x];
-    }
+    console.log(useSelector(getQuestDetailsState));
 
     return (
         <MapContainer crs={L.CRS.Simple} center={[-20.95, 20.95]} zoom={4.25} minZoom={4.25} maxZoom={7} scrollWheelZoom={true} 

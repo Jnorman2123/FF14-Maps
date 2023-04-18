@@ -272,3 +272,40 @@ export type TypeLegendIconAttributes = {
 };
 export type TypeIconBgColors = string[];
 export type TypeSeoMessages = string[];
+export type TypeQuestDetail = {
+    questBgColor: string,
+    questBgColorIcon: string,
+    questTypeIcon: string,
+    questSteps: {
+        questStarter: {
+            starterIcon: string,
+            starterLocX: number,
+            starterLocY: number,
+            tooltipDetails: {
+                npcName: string,
+                questName: string,
+                stepDescription: string
+            }
+        },
+        questNumberedSteps: {
+            stepIcon: string,
+            stepLocX: number,
+            stepLocY: number,
+            tooltipDetails: {
+                npcName: string,
+                questName: string,
+                stepDescription: string
+            }
+        }[],
+        questTurnIn: {
+            turnInIcon: string,
+            turnInLocX: number,
+            turnInLocY: number,
+            tooltipDetails: {
+                npcName: string,
+                questName: string,
+                stepDescription: string
+            }
+        }
+    }
+}

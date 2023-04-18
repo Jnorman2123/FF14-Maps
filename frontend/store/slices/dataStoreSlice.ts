@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep } from '@/types';
+import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep, TypeQuestDetail } from '@/types';
 
 export interface DataStoreState {
   classes: {
@@ -240,6 +240,7 @@ export interface DataStoreState {
   rewards: TypeReward[],
   steps: TypeStep[],
   items: TypeItem[],
+  questDetails: TypeQuestDetail[],
 }
 
 const initialState: DataStoreState = {
@@ -562,6 +563,7 @@ const initialState: DataStoreState = {
   items: [],
   rewards: [],
   steps: [],
+  questDetails: []
 }
 
 export const dataStoreSlice = createSlice({
@@ -641,6 +643,10 @@ export const dataStoreSlice = createSlice({
     updateSteps(state, action) {
       const { stepArray } = action.payload;
       state.steps = stepArray;
+    },
+    updateQuestDetails(state, action) {
+      const { questDetailsArray } = action.payload;
+      state.questDetails = questDetailsArray;
     }
   },
 })
@@ -672,9 +678,10 @@ export const getItemsState = (state: { dataStore: DataStoreState }) => state.dat
 export const getNpcsState = (state: { dataStore: DataStoreState }) => state.dataStore.npcs
 export const getRewardsState = (state: { dataStore: DataStoreState }) => state.dataStore.rewards
 export const getStepsState = (state: { dataStore: DataStoreState }) => state.dataStore.steps
+export const getQuestDetailsState = (state: { dataStore: DataStoreState }) => state.dataStore.questDetails
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
 updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName, 
 updateActiveQuests, updateToggledQuest, updateQuests, updateItems, updateJobs, updateNpcs, updateRewards,
-updateSteps } = dataStoreSlice.actions;
+updateSteps, updateQuestDetails } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
