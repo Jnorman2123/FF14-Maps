@@ -10,7 +10,6 @@ export default function QuestInfoContainer() {
     let items: TypeItem[] = useSelector(getItemsState);
     
     if (toggledQuest[0] !== undefined) {
-        console.log(toggledQuest)
         let questClass: TypeJob | undefined;
         let questSteps: TypeStep[];
         let questReward: TypeReward | undefined;
@@ -22,7 +21,7 @@ export default function QuestInfoContainer() {
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
         }
-        questSteps = steps.filter((s: TypeStep) => s.quest_step === toggledQuest[0].id)
+        questSteps = steps.filter((s: TypeStep) => s.quest_step === toggledQuest[0].id);
         questReward?.reward_items.map((ri: number) => {
             let rewardItem = items.find((item: TypeItem) => item.id === ri);
             if (rewardItem?.item_optional) {

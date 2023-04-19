@@ -277,6 +277,7 @@ export type TypeQuestDetail = {
     questBgColor: string,
     questBgColorIcon: string,
     questTypeIcon: string,
+    activeQuestTypeIcon: string,
     questSteps: {
         questStarter: {
             starterIcon: string,
@@ -290,8 +291,10 @@ export type TypeQuestDetail = {
             }
         },
         questNumberedSteps: {
-            stepIcon: string,
-            activeStepIcon: string,
+            stepContainerIcon: string,
+            activeStepContainerIcon: string,
+            stepNumberIcon: string,
+            activeStepNumberIcon: string,
             stepLocX: number,
             stepLocY: number,
             tooltipDetails: {
@@ -312,4 +315,26 @@ export type TypeQuestDetail = {
             }
         }
     }
+};
+export type TypeStarterMarker = {
+    position: number[],
+    colorIcon: string,
+    startIcon: string,
+    activeStartIcon: string,
+};
+export type TypeTurnInMarker = {
+    position: number[],
+    colorIcon: string,
+    turnInIcon: string,
+    activeTurnInIcon: string,
+};
+export type TypeNumberedStepMarker = {
+    position: number[],
+    colorIcon: string,
+    stepContainerIcon: string,
+    activeStepContainerIcon: string,
+    questTypeIcon: string,
+    activeQuestTypeIcon: string,
+    stepNumberIcon: string,
+    activeStepNumberIcon: string
 }

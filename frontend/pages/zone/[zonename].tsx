@@ -41,6 +41,7 @@ const ZoneMap = () => {
             questBgColor: '',
             questBgColorIcon: '',
             questTypeIcon: '',
+            activeQuestTypeIcon: '',
             questSteps: {
                 questStarter: {
                     starterIcon: '',
@@ -71,9 +72,11 @@ const ZoneMap = () => {
         let starterStep: TypeStep | undefined;
         let stepNpc: TypeNpc | undefined;
         let numberedStepNpc: {
-            stepIcon: string,
-            activeStepIcon: string,
-            stepLocX: number, 
+            stepContainerIcon: string,
+            activeStepContainerIcon: string,
+            stepNumberIcon: string,
+            activeStepNumberIcon: string,
+            stepLocX: number,
             stepLocY: number,
             tooltipDetails: {
                 npcName: string,
@@ -91,6 +94,8 @@ const ZoneMap = () => {
             questDetailObject.questBgColor = questColors[colorIndex];
             questDetailObject.questBgColorIcon = `/icons/second_layer/${questColors[colorIndex]}Bg.png`;
             questDetailObject.questTypeIcon = `/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIcon.png`;
+            questDetailObject.activeQuestTypeIcon = 
+            `/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIconActive.png`;
 
             if (starterNpc) {
                 starterStep = steps.find((step: TypeStep) => step.step_npc === starterNpc?.id 
@@ -117,8 +122,10 @@ const ZoneMap = () => {
                         && activeQuest.id === step.quest_step);
                         if (numberedStep) {
                             numberedStepNpc = {
-                                stepIcon: `/icons/third_layer/Step${stepIndex}Icon.png`,
-                                activeStepIcon: `/icons/third_layer/Step${stepIndex}IconActive.png`,
+                                stepContainerIcon: `/icons/first_layer/IconContainer.png`,
+                                activeStepContainerIcon: `/icons/first_layer/ActiveIconContainer.png`,
+                                stepNumberIcon: `/icons/third_layer/Step${stepIndex}Icon.png`,
+                                activeStepNumberIcon: `/icons/third_layer/Step${stepIndex}IconActive.png`,
                                 stepLocX: parseFloat(stepNpc.npc_location_x),
                                 stepLocY: parseFloat(stepNpc.npc_location_y),
                                 tooltipDetails: {
