@@ -170,7 +170,6 @@ const ZoneMap = () => {
     })
 
     return <div>
-        <h1>Welcome to {zoneName} map!</h1>
         <div id='map'>
             <MapWithNoSSR />
         </div>

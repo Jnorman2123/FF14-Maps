@@ -3,7 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestDetailsState, getToggledQuestState, updateToggledQuest } from "@/store/slices/dataStoreSlice";
+import { getQuestDetailsState, getToggledQuestState, updateToggledQuest, 
+getOutsideZoneNamesState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeStarterMarker, TypeTurnInMarker, TypeNumberedStepMarker } from "@/types";
 
 const ZoneMap = () => {
@@ -15,10 +16,26 @@ const ZoneMap = () => {
     const { asPath } = router;
     const dispatch = useDispatch();
     let splitPathName: string = asPath.split('/').slice(-1)[0];
+    let spacedZoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join(' ');
     let zoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join('');
+    let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
     let markerData: any[] = [];
+    let bounds: any;
+    let center: any;
+    let zoom: number;
+    let maxZoom: number = 7;
+
+    if (outsideZoneNames.includes(spacedZoneName)) {
+        bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
+        center = L.latLng([-20.95, 20.95]);
+        zoom = 4.25;
+    } else {
+        bounds = L.latLngBounds([[-1,1], [-21.4, 21.4]]);
+        center = L.latLng([-10.7, 10.7]);
+        zoom = 5.3;
+    }
 
     questDetails.map((questDetailObject: TypeQuestDetail) => {
         let startMarker: TypeStarterMarker | undefined = {
@@ -148,9 +165,9 @@ const ZoneMap = () => {
     });
 
     return (
-        <MapContainer crs={L.CRS.Simple} center={[-20.95, 20.95]} zoom={4.25} minZoom={4.25} maxZoom={7} scrollWheelZoom={true} 
-        style={{height: '825px', width: '100%'}} maxBoundsViscosity={1} >
-            <ImageOverlay url={`/maps/${zoneName}.jpg`} bounds={[[-1,1], [-41.9, 41.9]]} />
+        <MapContainer crs={L.CRS.Simple} center={center} zoom={zoom} minZoom={zoom} maxZoom={maxZoom} scrollWheelZoom={true} 
+        style={{height: '825px', width: '100%'}} maxBounds={bounds} maxBoundsViscosity={1} zoomControl={false}>
+            <ImageOverlay url={`/maps/${zoneName}.jpg`} bounds={bounds} />
             {unclusteredMarkerData.map((markerObject: any) => {
                 let colorIcon = new L.Icon({iconUrl: markerObject.colorIcon, iconSize: [35, 35]});
                 if (markerObject.startIcon) {
