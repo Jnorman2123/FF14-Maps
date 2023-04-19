@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getQuestDetailsState, getToggledQuestState, updateToggledQuest, 
 getOutsideZoneNamesState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeStarterMarker, TypeTurnInMarker, TypeNumberedStepMarker } from "@/types";
+import ZoneLegend from "./ZoneLegend";
 
 const ZoneMap = () => {
     interface ClusteredMarkerData {
@@ -251,6 +252,7 @@ const ZoneMap = () => {
                     </LayerGroup>
                 }
             })}
+            <ZoneLegend />
         </MapContainer>
     )
 }
