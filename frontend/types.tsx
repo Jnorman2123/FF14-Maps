@@ -324,6 +324,7 @@ export type TypeStarterMarker = {
     npcName: string,
     questName: string,
     stepDescription: string,
+    quest: TypeQuest,
 };
 export type TypeTurnInMarker = {
     position: number[],
@@ -333,6 +334,7 @@ export type TypeTurnInMarker = {
     npcName: string,
     questName: string,
     stepDescription: string,
+    quest: TypeQuest,
 };
 export type TypeNumberedStepMarker = {
     position: number[],
@@ -346,4 +348,5 @@ export type TypeNumberedStepMarker = {
     npcName: string,
     questName: string,
     stepDescription: string,
+    quest: TypeQuest,
 }
