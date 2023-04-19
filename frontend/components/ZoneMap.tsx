@@ -21,18 +21,23 @@ const ZoneMap = () => {
     let markerData: any[] = [];
 
     questDetails.map((questDetailObject: TypeQuestDetail) => {
-        console.log(questDetailObject)
         let startMarker: TypeStarterMarker | undefined = {
             position: [],
             colorIcon: '',
             startIcon: '',
             activeStartIcon: '',
+            npcName: '',
+            questName: '',
+            stepDescription: '',
         };
         let turnInMarker: TypeTurnInMarker | undefined = {
             position: [],
             colorIcon: '',
             turnInIcon: '',
             activeTurnInIcon: '',
+            npcName: '',
+            questName: '',
+            stepDescription: '',
         };
         let numberedStepMarker: TypeNumberedStepMarker | undefined = {
             position: [],
@@ -43,31 +48,39 @@ const ZoneMap = () => {
             activeQuestTypeIcon: '',
             stepNumberIcon: '',
             activeStepNumberIcon: '',
+            npcName: '',
+            questName: '',
+            stepDescription: '',
         };
         if (questDetailObject.questSteps.questStarter.starterIcon !== '' && startMarker) {
             let startMarkerLoc: number[] = [
-                -questDetailObject.questSteps.questStarter.starterLocX,
-                questDetailObject.questSteps.questStarter.starterLocY
+                -questDetailObject.questSteps.questStarter.starterLocY,
+                questDetailObject.questSteps.questStarter.starterLocX
             ];
             startMarker = {
                 position: startMarkerLoc,
                 colorIcon: questDetailObject.questBgColorIcon,
                 startIcon: questDetailObject.questSteps.questStarter.starterIcon,
-                activeStartIcon: questDetailObject.questSteps.questStarter.activeStarterIcon
+                activeStartIcon: questDetailObject.questSteps.questStarter.activeStarterIcon,
+                npcName: questDetailObject.questSteps.questStarter.tooltipDetails.npcName,
+                questName: questDetailObject.questSteps.questStarter.tooltipDetails.questName,
+                stepDescription: questDetailObject.questSteps.questStarter.tooltipDetails.stepDescription,
             }
-            console.log(startMarker)
             markerData.push(startMarker);
         }
         if (questDetailObject.questSteps.questTurnIn.turnInIcon !== '' && turnInMarker) {
             let turnInMarkerLoc: number[] = [
-                -questDetailObject.questSteps.questTurnIn.turnInLocX,
-                questDetailObject.questSteps.questTurnIn.turnInLocY
+                -questDetailObject.questSteps.questTurnIn.turnInLocY,
+                questDetailObject.questSteps.questTurnIn.turnInLocX
             ];
             turnInMarker = {
                 position: turnInMarkerLoc,
                 colorIcon: questDetailObject.questBgColorIcon,
                 turnInIcon: questDetailObject.questSteps.questTurnIn.turnInIcon,
-                activeTurnInIcon: questDetailObject.questSteps.questTurnIn.activeTurnInIcon
+                activeTurnInIcon: questDetailObject.questSteps.questTurnIn.activeTurnInIcon,
+                npcName: questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName,
+                questName: questDetailObject.questSteps.questTurnIn.tooltipDetails.questName,
+                stepDescription: questDetailObject.questSteps.questTurnIn.tooltipDetails.stepDescription,
             }
             markerData.push(turnInMarker);
         }
@@ -78,8 +91,8 @@ const ZoneMap = () => {
             }}) => {
             if (numberedStepMarker) {
                 let numberedStepMarkerLoc: number[] = [
-                    -numberedStep.stepLocX,
-                    numberedStep.stepLocY
+                    -numberedStep.stepLocY,
+                    numberedStep.stepLocX
                 ];
                 numberedStepMarker = {
                     position: numberedStepMarkerLoc,
@@ -89,7 +102,10 @@ const ZoneMap = () => {
                     questTypeIcon: questDetailObject.questTypeIcon,
                     activeQuestTypeIcon: questDetailObject.activeQuestTypeIcon,
                     stepNumberIcon: numberedStep.stepNumberIcon,
-                    activeStepNumberIcon: numberedStep.activeStepNumberIcon
+                    activeStepNumberIcon: numberedStep.activeStepNumberIcon,
+                    npcName: numberedStep.tooltipDetails.npcName,
+                    questName: numberedStep.tooltipDetails.questName,
+                    stepDescription: numberedStep.tooltipDetails.stepDescription,
                 }
                 markerData.push(numberedStepMarker);
             }
@@ -108,20 +124,17 @@ const ZoneMap = () => {
         }, {});
     }
 
-    // console.log(markerData);
     let clusteredMarkerData = groupMarkerDataByPosition(markerData, 'position');
-    console.log(clusteredMarkerData);
     let unclusteredMarkerData: any[] = [];
 
     Object.entries(clusteredMarkerData).map(([key, value]: [string, any[]]) => {
-        console.log(value);
         if (value.length > 1) {
             let offset = 0;
             value.map(markerData => {
                 let newMarkerData = {};
-                let newY = parseFloat(markerData.position[1]);
+                let newY = parseFloat(markerData.position[0]);
                 newY += offset;
-                newMarkerData = {...markerData, position: [markerData.position[0], newY]};
+                newMarkerData = {...markerData, position: [newY, markerData.position[1]]};
                 unclusteredMarkerData.push(newMarkerData);
                 offset += 0.2;
                 return unclusteredMarkerData;
@@ -132,93 +145,92 @@ const ZoneMap = () => {
         return unclusteredMarkerData;
     });
 
-    console.log(unclusteredMarkerData);
-    
-        // let unclustered_markers = [];
-        // Object.entries(clustered_markers).map(([key, value]) => {
-            
-        // })
-
     return (
         <MapContainer crs={L.CRS.Simple} center={[-20.95, 20.95]} zoom={4.25} minZoom={4.25} maxZoom={7} scrollWheelZoom={true} 
         style={{height: '825px', width: '100%'}} maxBoundsViscosity={1} >
             <ImageOverlay url={`/maps/${zoneName}.jpg`} bounds={[[-1,1], [-41.9, 41.9]]} />
-            {questDetails.map((questDetailObject: TypeQuestDetail) => {
-                let colorIcon = new L.Icon({iconUrl: questDetailObject.questBgColorIcon, iconSize: [35, 35] });
-                if (questDetailObject.questSteps.questStarter.starterIcon !== '') {
-                    let startIconUrl: string = questDetailObject.questSteps.questStarter.starterIcon;
-                    if (toggledQuest && questDetailObject.quest.id === toggledQuest.id) {
-                        startIconUrl = questDetailObject.questSteps.questStarter.activeStarterIcon;
+            {unclusteredMarkerData.map((markerObject: any) => {
+                let colorIcon = new L.Icon({iconUrl: markerObject.colorIcon, iconSize: [35, 35]});
+                if (markerObject.startIcon) {
+                    let startIconUrl: string = markerObject.startIcon;
+                    if (toggledQuest && markerObject.questName === toggledQuest.quest_name) {
+                        startIconUrl = markerObject.activeStartIcon;
                     }
                     let startIcon = new L.Icon({iconUrl: startIconUrl, iconSize: [35, 35]});
-                    let startLocX = -questDetailObject.questSteps.questStarter.starterLocX;
-                    let startLocY = questDetailObject.questSteps.questStarter.starterLocY;
                     return <LayerGroup key={Math.random()} >
-                        <Marker key={Math.random()} position={[startLocX, startLocY]} icon={colorIcon} />
-                        <Marker key={Math.random()} position={[startLocX, startLocY]} icon={startIcon} 
-                        eventHandlers={{ click: () => dispatch(updateToggledQuest({tQuest: questDetailObject.quest}))}} >
+                        <Marker key={Math.random()} position={markerObject.position} icon={colorIcon} />
+                        <Marker key={Math.random()} position={markerObject.position} icon={startIcon}>
                             <Tooltip>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questStarter.tooltipDetails.npcName}
-                                    </h6>
+                                    {markerObject.npcName}
+                                </h6>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questStarter.tooltipDetails.questName}
-                                    </h6>
+                                    {markerObject.questName}
+                                </h6>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questStarter.tooltipDetails.stepDescription}
-                                    </h6>
+                                    {markerObject.stepDescription}
+                                </h6>
                             </Tooltip>
                         </Marker>
                     </LayerGroup>
-                }   else if (questDetailObject.questSteps.questTurnIn.turnInIcon !== '') {
-                    let turnInIconUrl: string = questDetailObject.questSteps.questTurnIn.turnInIcon;
-                    if (toggledQuest && questDetailObject.quest.id === toggledQuest.id) {
-                        turnInIconUrl = questDetailObject.questSteps.questTurnIn.activeTurnInIcon;
+                }
+                if (markerObject.turnInIcon) {
+                    let turnInIconUrl: string = markerObject.turnInIcon;
+                    if (toggledQuest && markerObject.questName === toggledQuest.quest_name) {
+                        turnInIconUrl = markerObject.activeTurnInIcon;
                     }
                     let turnInIcon = new L.Icon({iconUrl: turnInIconUrl, iconSize: [35, 35]});
-                    let turnInLocx = -questDetailObject.questSteps.questTurnIn.turnInLocX;
-                    let turnInLocY = questDetailObject.questSteps.questTurnIn.turnInLocY;
                     return <LayerGroup key={Math.random()} >
-                        <Marker key={Math.random()} position={[turnInLocx, turnInLocY]} icon={colorIcon} />
-                        <Marker key={Math.random()} position={[turnInLocx, turnInLocY]} icon={turnInIcon}  >
+                        <Marker key={Math.random()} position={markerObject.position} icon={colorIcon} />
+                        <Marker key={Math.random()} position={markerObject.position} icon={turnInIcon}>
                             <Tooltip>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName}
+                                    {markerObject.npcName}
                                 </h6>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.questName}
+                                    {markerObject.questName}
                                 </h6>
                                 <h6 className='text-center'>
-                                    {questDetailObject.questSteps.questTurnIn.tooltipDetails.stepDescription}
+                                    {markerObject.stepDescription}
                                 </h6>
                             </Tooltip>
                         </Marker>
                     </LayerGroup>
-                }  
-                
-                questDetailObject.questSteps.questNumberedSteps.map(
-                    (numberedStep: {stepContainerIcon: string, activeStepContainerIcon: string, stepNumberIcon: string, 
-                    activeStepNumberIcon: string, stepLocX: number, stepLocY: number, tooltipDetails: {
-                        npcName: string, questName: string, stepDescription: string
-                    }}) => {
-                    let stepNumberIconUrl: string = numberedStep.stepNumberIcon;
-                    let stepContainerIconUrl: string = numberedStep.stepContainerIcon;
-                    let questTypeIconUrl: string = questDetailObject.questTypeIcon;
-                    if (toggledQuest && questDetailObject.quest.id === toggledQuest.id) {
-                        stepNumberIconUrl = numberedStep.activeStepNumberIcon;
-                        stepContainerIconUrl = numberedStep.activeStepContainerIcon;
-                        questTypeIconUrl = questDetailObject.activeQuestTypeIcon;
+                }
+                if (markerObject.stepNumberIcon) {
+                    let stepNumberIconUrl: string = markerObject.stepNumberIcon;
+                    let questTypeIconUrl: string = markerObject.questTypeIcon;
+                    let stepContainerIconUrl: string = markerObject.stepContainerIcon;
+                    if (toggledQuest && markerObject.questName === toggledQuest.quest_name) {
+                        stepNumberIconUrl = markerObject.activeStepNumberIcon;
+                        questTypeIconUrl = markerObject.activeQuestTypeIcon;
+                        stepContainerIconUrl = markerObject.activeStepContainerIcon;
                     }
-                    let stepNumberIcon = new L.Icon ({iconUrl: stepNumberIconUrl, iconSize: [35, 35]});
-                    let stepContainerIcon = new L.Icon ({iconUrl: stepContainerIconUrl, iconSize: [35, 35]});
-                    let questTypeIcon = new L.Icon ({iconUrl: questTypeIconUrl, iconSize: [35, 35]});
-                    let stepIconLocX = -numberedStep.stepLocX;
-                    let stepIconLocY = numberedStep.stepLocY;
+                    let stepNumberIcon = new L.Icon({iconUrl: stepNumberIconUrl, iconSize: [35, 35]});
+                    let questTypeIcon = new L.Icon({iconUrl: questTypeIconUrl, iconSize: [35, 35]});
+                    let stepContainerIcon = new L.Icon({iconUrl: stepContainerIconUrl, iconSize: [35, 35]})
                     return <LayerGroup key={Math.random()} >
-                        <Marker key={Math.random()} position={[stepIconLocX, stepIconLocY]} icon={colorIcon} />
-                        <Marker key={Math.random()} position={[stepIconLocX, stepIconLocY]} icon={stepContainerIcon} />
-                        <Marker key={Math.random()} position={[stepIconLocX, stepIconLocY]} icon={questTypeIcon} />
-                        <Marker key={Math.random()} position={[stepIconLocX, stepIconLocY]} icon={stepNumberIcon} >
+                        <Marker key={Math.random()} position={markerObject.position} icon={colorIcon} />
+                        <Marker key={Math.random()} position={markerObject.position} icon={stepContainerIcon} />
+                        <Marker key={Math.random()} position={markerObject.position} icon={questTypeIcon} />
+                        <Marker key={Math.random()} position={markerObject.position} icon={stepNumberIcon}>
+                            <Tooltip>
+                                <h6 className='text-center'>
+                                    {markerObject.npcName}
+                                </h6>
+                                <h6 className='text-center'>
+                                    {markerObject.questName}
+                                </h6>
+                                <h6 className='text-center'>
+                                    {markerObject.stepDescription}
+                                </h6>
+                            </Tooltip>
+                        </Marker>
+                    </LayerGroup>
+                }
+            })}
+
+                        {/* <Marker key={Math.random()} position={[stepIconLocX, stepIconLocY]} icon={stepNumberIcon} >
                             <Tooltip>
                                 <h6 className='text-center'>
                                     {numberedStep.tooltipDetails.npcName}
@@ -230,29 +242,9 @@ const ZoneMap = () => {
                                     {numberedStep.tooltipDetails.stepDescription}
                                 </h6>
                             </Tooltip>
-                        </Marker>
-                    </LayerGroup>
-                })
-            })}
+                        </Marker> */}
         </MapContainer>
     )
 }
 
 export default ZoneMap;
-
-// renderMarkers = (markers) => {
-//     return markers.map(marker => {
-//         let icon = null;
-//         let color_icon = new L.Icon  ({iconUrl: marker.bg_color, iconSize: [35, 35]});
-//         let step_icon = null;
-//         if (marker.start_icon) {
-//             let start = null;
-//                 if (this.props.toggled_quests.includes(marker.quest)) {
-//                     start = marker.active_start_icon;
-//                 } else {
-//                     start = marker.start_icon;
-//                 }
-//             icon = new L.Icon  ({iconUrl: start, iconSize: [35, 35]});
-
-
-// }

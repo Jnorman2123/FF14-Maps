@@ -321,12 +321,18 @@ export type TypeStarterMarker = {
     colorIcon: string,
     startIcon: string,
     activeStartIcon: string,
+    npcName: string,
+    questName: string,
+    stepDescription: string,
 };
 export type TypeTurnInMarker = {
     position: number[],
     colorIcon: string,
     turnInIcon: string,
     activeTurnInIcon: string,
+    npcName: string,
+    questName: string,
+    stepDescription: string,
 };
 export type TypeNumberedStepMarker = {
     position: number[],
@@ -336,5 +342,8 @@ export type TypeNumberedStepMarker = {
     questTypeIcon: string,
     activeQuestTypeIcon: string,
     stepNumberIcon: string,
-    activeStepNumberIcon: string
+    activeStepNumberIcon: string,
+    npcName: string,
+    questName: string,
+    stepDescription: string,
 }
