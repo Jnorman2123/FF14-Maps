@@ -36,128 +36,61 @@ const ZoneMap = () => {
     })
 
     activeInZoneQuests.map((activeQuest: TypeQuest) => {
+        let stepIndex = 0;
         let questDetailObject: TypeQuestDetail | undefined = {
             quest: activeQuest,
             questBgColor: '',
+            stepContainerIcon: '',
+            activeStepContainerIcon: '',
             questBgColorIcon: '',
             questTypeIcon: '',
             activeQuestTypeIcon: '',
-            questSteps: {
-                questStarter: {
-                    starterIcon: '',
-                    activeStarterIcon: '',
-                    starterLocX: 0,
-                    starterLocY: 0,
-                    tooltipDetails: {
-                        npcName: '',
-                        questName: '',
-                        stepDescription: ''
-                    }
-                },
-                questNumberedSteps: [],
-                questTurnIn: {
-                    turnInIcon: '',
-                    activeTurnInIcon: '',
-                    turnInLocX: 0,
-                    turnInLocY: 0,
-                    tooltipDetails: {
-                        npcName: '',
-                        questName: '',
-                        stepDescription: ''
-                    }
-                }
-            }
+            questSteps: [],
         };
-        let starterNpc: TypeNpc | undefined;
-        let starterStep: TypeStep | undefined;
-        let stepNpc: TypeNpc | undefined;
-        let numberedStepNpc: {
-            stepContainerIcon: string,
-            activeStepContainerIcon: string,
-            stepNumberIcon: string,
-            activeStepNumberIcon: string,
-            stepLocX: number,
-            stepLocY: number,
-            tooltipDetails: {
-                npcName: string,
-                questName: string,
-                stepDescription: string
-            }
-        };
-        let numberedStep: TypeStep | undefined;
-        let turnInNpc: TypeNpc | undefined;
-        let turnInStep: TypeStep | undefined;
-        starterNpc = npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[0]);
-        turnInNpc = npcs.find((npc: TypeNpc) => npc.id === activeQuest.quest_npcs[activeQuest.quest_npcs.length - 1]);
 
         if (questDetailObject) {
             questDetailObject.questBgColor = questColors[colorIndex];
+            questDetailObject.stepContainerIcon = `/icons/first_layer/IconContainer.png`;
+            questDetailObject.activeStepContainerIcon = `/icons/first_layer/IconContainerActive.png`;
             questDetailObject.questBgColorIcon = `/icons/second_layer/${questColors[colorIndex]}Bg.png`;
             questDetailObject.questTypeIcon = `/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIcon.png`;
             questDetailObject.activeQuestTypeIcon = 
             `/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIconActive.png`;
 
-            if (starterNpc) {
-                starterStep = steps.find((step: TypeStep) => step.step_npc === starterNpc?.id 
-                && activeQuest.id === step.quest_step);
-                questDetailObject.questSteps.questStarter.starterIcon = 
-                `/icons/cluster_icons/${activeQuest.quest_type.split(' ').join('')}StartIcon.png`;
-                questDetailObject.questSteps.questStarter.activeStarterIcon = 
-                `/icons/cluster_icons/${activeQuest.quest_type.split(' ').join('')}StartIconActive.png`;
-                questDetailObject.questSteps.questStarter.starterLocX = parseFloat(starterNpc.npc_location_x);
-                questDetailObject.questSteps.questStarter.starterLocY = parseFloat(starterNpc.npc_location_y);
-                questDetailObject.questSteps.questStarter.tooltipDetails.npcName = starterNpc.npc_name;
-                questDetailObject.questSteps.questStarter.tooltipDetails.questName = activeQuest.quest_name;
-                if (starterStep) { 
-                    questDetailObject.questSteps.questStarter.tooltipDetails.stepDescription = starterStep?.step_description;
-                }
-            }
-
-            if (activeQuest.quest_npcs.slice(1,-1).length > 0) {
-                let stepIndex: number = 1;
-                activeQuest.quest_npcs.slice(1,-1).map((questNpc: number) => {
-                    stepNpc = npcs.find((npc: TypeNpc) => npc.id === questNpc);
-                    if (stepNpc) {
-                        numberedStep = steps.find((step: TypeStep) => step.step_npc === stepNpc?.id 
-                        && activeQuest.id === step.quest_step);
-                        if (numberedStep) {
-                            numberedStepNpc = {
-                                stepContainerIcon: `/icons/first_layer/IconContainer.png`,
-                                activeStepContainerIcon: `/icons/first_layer/ActiveIconContainer.png`,
-                                stepNumberIcon: `/icons/third_layer/Step${stepIndex}Icon.png`,
-                                activeStepNumberIcon: `/icons/third_layer/Step${stepIndex}IconActive.png`,
-                                stepLocX: parseFloat(stepNpc.npc_location_x),
-                                stepLocY: parseFloat(stepNpc.npc_location_y),
-                                tooltipDetails: {
-                                    npcName: stepNpc.npc_name,
-                                    questName: activeQuest.quest_name,
-                                    stepDescription: numberedStep?.step_description,
-                                }
-                            }
+            activeQuest.quest_npcs.map((questNpc: number) => {
+                let stepIcon = '';
+                let activeStepIcon = ''
+                let npcLocX = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_x;
+                let npcLocY = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_y;
+                let npcName = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_name;
+                let stepDescription = steps.find((step: TypeStep) => step.step_npc === questNpc)?.step_description;
+                if (npcLocY && npcLocX && stepDescription && npcName) {
+                    let npcPosition = [-parseFloat(npcLocY), parseFloat(npcLocX)];
+                    if (stepIndex === 0) {
+                        stepIcon = `/icons/third_layer/StartIcon.png`;
+                        activeStepIcon = `/icons/third_layer/StartIconActive.png`;
+                    } else if (stepIndex > 0 && stepIndex < (activeQuest.quest_npcs.length - 1)) {
+                        stepIcon = `/icons/third_layer/Step${stepIndex}Icon.png`;
+                        activeStepIcon = `/icons/third_layer/Step${stepIndex}IconActive.png`;
+                    } else {
+                        stepIcon = `/icons/third_layer/TurnInIcon.png`;
+                        activeStepIcon = `/icons/third_layer/TurnInIconActive.png`;
+                    }
+                    let questStepObject = {
+                        stepIcon: stepIcon,
+                        activeStepIcon: activeStepIcon,
+                        npcPosition: npcPosition,
+                        tooltipDetails: {
+                            npcName: npcName,
+                            questName: activeQuest.quest_name,
+                            stepDescription: stepDescription,
                         }
                     }
-                    questDetailObject?.questSteps.questNumberedSteps.push(numberedStepNpc)
-                    stepIndex ++;
-                });
-            }
-
-            if (turnInNpc) {
-                turnInStep = steps.find((step: TypeStep) => step.step_npc === turnInNpc?.id 
-                && activeQuest.id === step.quest_step);
-                questDetailObject.questSteps.questTurnIn.turnInIcon = 
-                `/icons/cluster_Icons/${activeQuest.quest_type.split(' ').join('')}TurninIcon.png`;
-                questDetailObject.questSteps.questTurnIn.activeTurnInIcon = 
-                `/icons/cluster_Icons/${activeQuest.quest_type.split(' ').join('')}TurninIconActive.png`;
-                questDetailObject.questSteps.questTurnIn.turnInLocX = parseFloat(turnInNpc.npc_location_x);
-                questDetailObject.questSteps.questTurnIn.turnInLocY = parseFloat(turnInNpc.npc_location_y);
-                questDetailObject.questSteps.questTurnIn.tooltipDetails.npcName = turnInNpc.npc_name;
-                questDetailObject.questSteps.questTurnIn.tooltipDetails.questName = activeQuest.quest_name;
-                if (turnInStep) {
-                    questDetailObject.questSteps.questTurnIn.tooltipDetails.stepDescription = turnInStep.step_description;
+                    questDetailObject?.questSteps.push(questStepObject);
+                    stepIndex++;
                 }
-            }
-        }
-
+            })
+                  
         if (colorIndex < questColors.length - 1) {
             colorIndex ++;
         } else {
@@ -167,8 +100,7 @@ const ZoneMap = () => {
         if (questDetailObject) {
             questDetailArray.push(questDetailObject);
         }
-    })
-
+    }})
     return <div>
         <div id='map'>
             <MapWithNoSSR />

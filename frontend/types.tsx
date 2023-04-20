@@ -275,78 +275,34 @@ export type TypeSeoMessages = string[];
 export type TypeQuestDetail = {
     quest: TypeQuest,
     questBgColor: string,
+    stepContainerIcon: string,
+    activeStepContainerIcon: string,
     questBgColorIcon: string,
     questTypeIcon: string,
     activeQuestTypeIcon: string,
     questSteps: {
-        questStarter: {
-            starterIcon: string,
-            activeStarterIcon: string,
-            starterLocX: number,
-            starterLocY: number,
-            tooltipDetails: {
-                npcName: string,
-                questName: string,
-                stepDescription: string
-            }
+        stepIcon: string,
+        activeStepIcon: string,
+        npcPosition: number[],
+        tooltipDetails: {
+            npcName: string,
+            questName: string,
+            stepDescription: string
         },
-        questNumberedSteps: {
-            stepContainerIcon: string,
-            activeStepContainerIcon: string,
-            stepNumberIcon: string,
-            activeStepNumberIcon: string,
-            stepLocX: number,
-            stepLocY: number,
-            tooltipDetails: {
-                npcName: string,
-                questName: string,
-                stepDescription: string
-            }
-        }[],
-        questTurnIn: {
-            turnInIcon: string,
-            activeTurnInIcon: string,
-            turnInLocX: number,
-            turnInLocY: number,
-            tooltipDetails: {
-                npcName: string,
-                questName: string,
-                stepDescription: string
-            }
-        }
-    }
+    }[]
 };
-export type TypeStarterMarker = {
-    position: number[],
-    colorIcon: string,
-    startIcon: string,
-    activeStartIcon: string,
-    npcName: string,
-    questName: string,
-    stepDescription: string,
-    quest: TypeQuest,
-};
-export type TypeTurnInMarker = {
-    position: number[],
-    colorIcon: string,
-    turnInIcon: string,
-    activeTurnInIcon: string,
-    npcName: string,
-    questName: string,
-    stepDescription: string,
-    quest: TypeQuest,
-};
-export type TypeNumberedStepMarker = {
-    position: number[],
-    colorIcon: string,
+export type TypeMarkerObject = {
+    quest: TypeQuest;
+    questBgColorIcon: string,
     stepContainerIcon: string,
     activeStepContainerIcon: string,
     questTypeIcon: string,
     activeQuestTypeIcon: string,
-    stepNumberIcon: string,
-    activeStepNumberIcon: string,
+    stepIcon: string,
+    activeStepIcon: string,
+    npcPosition: number[],
     npcName: string,
     questName: string,
-    stepDescription: string,
-    quest: TypeQuest,
+    stepDescription: string
 }
+
