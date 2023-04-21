@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { TypeNpc, TypeQuest, TypeQuestDetail, TypeStep } from '@/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getNpcsState, getActiveQuestsState, getQuestIconBgColorsState, getStepsState, updateQuestDetails} from '@/store/slices/dataStoreSlice';
@@ -6,15 +5,9 @@ import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 const ZoneMap = () => {
-    const router = useRouter();
-    const { asPath } = router;
-    let splitPathName: string = asPath.split('/').slice(-1)[0];
-    let zoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join(' ');
-    let npcs: TypeNpc[] = useSelector(getNpcsState).filter((npc: TypeNpc) => npc.npc_zone.includes(zoneName) && 
-    npc.npc_type !== 'Aetheryte' && npc.npc_type !== 'Delivery Moogle' && !npc.npc_name.includes('Chocobokeep'));
-    let npcIds: number[] = npcs.map((n: TypeNpc) => n.id);
+    let npcs: TypeNpc[] = useSelector(getNpcsState).filter((npc: TypeNpc) => npc.npc_type !== 'Aetheryte' && 
+    npc.npc_type !== 'Delivery Moogle' && !npc.npc_name.includes('Chocobokeep'));
     let activeQuests: TypeQuest[] = useSelector(getActiveQuestsState);
-    let activeInZoneQuests: TypeQuest[] = [];
     let questColors: string[] = useSelector(getQuestIconBgColorsState);
     let colorIndex: number = 0;
     let questDetailArray: TypeQuestDetail[] = [];
@@ -27,16 +20,9 @@ const ZoneMap = () => {
 
     const MapWithNoSSR = dynamic(() => import('../../components/ZoneMap'), { ssr: false });
 
-    activeQuests.map((aq: TypeQuest) => {
-        aq.quest_npcs.map(npc => {
-            if (npcIds.includes(npc) && !activeInZoneQuests.includes(aq)) {
-                activeInZoneQuests.push(aq);
-            }
-        })
-    })
-
-    activeInZoneQuests.map((activeQuest: TypeQuest) => {
+    activeQuests.map((activeQuest: TypeQuest) => {
         let stepIndex = 0;
+        let questSteps = steps.filter((step: TypeStep) => step.quest_step === activeQuest.id);
         let questDetailObject: TypeQuestDetail | undefined = {
             quest: activeQuest,
             questBgColor: '',
@@ -57,14 +43,16 @@ const ZoneMap = () => {
             questDetailObject.activeQuestTypeIcon = 
             `/icons/fourth_layer/${activeQuest.quest_type.split(' ').join('')}QuestIconActive.png`;
 
-            activeQuest.quest_npcs.map((questNpc: number) => {
+            questSteps.map((step: TypeStep) => {
                 let stepIcon = '';
                 let activeStepIcon = ''
-                let npcLocX = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_x;
-                let npcLocY = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_location_y;
-                let npcName = npcs.find((npc: TypeNpc) => npc.id === questNpc)?.npc_name;
-                let stepDescription = steps.find((step: TypeStep) => step.step_npc === questNpc)?.step_description;
-                if (npcLocY && npcLocX && stepDescription && npcName) {
+                let npc = npcs.find((npc: TypeNpc) => npc.id === step.step_npc);
+                let npcLocX = npc?.npc_location_x;
+                let npcLocY = npc?.npc_location_y;
+                let npcName = npc?.npc_name;
+                let npcZone = npc?.npc_zone;
+                let stepDescription = step.step_description;
+                if (npcLocY && npcLocX && stepDescription && npcName && npcZone) {
                     let npcPosition = [-parseFloat(npcLocY), parseFloat(npcLocX)];
                     if (stepIndex === 0) {
                         stepIcon = `/icons/third_layer/StartIcon.png`;
@@ -80,6 +68,7 @@ const ZoneMap = () => {
                         stepIcon: stepIcon,
                         activeStepIcon: activeStepIcon,
                         npcPosition: npcPosition,
+                        npcZone: npcZone,
                         tooltipDetails: {
                             npcName: npcName,
                             questName: activeQuest.quest_name,

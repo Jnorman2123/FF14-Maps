@@ -50,11 +50,14 @@ const ZoneMap = () => {
                 stepIcon: questStep.stepIcon,
                 activeStepIcon: questStep.activeStepIcon,
                 npcPosition: questStep.npcPosition,
+                npcZone: questStep.npcZone,
                 npcName: questStep.tooltipDetails.npcName,
                 questName: questStep.tooltipDetails.questName,
                 stepDescription: questStep.tooltipDetails.stepDescription,
             };
-            markerData.push(markerObject);
+            if (questStep.npcZone.includes(spacedZoneName)) {
+                markerData.push(markerObject);
+            }
         })
     })
 

@@ -284,6 +284,7 @@ export type TypeQuestDetail = {
         stepIcon: string,
         activeStepIcon: string,
         npcPosition: number[],
+        npcZone: string,
         tooltipDetails: {
             npcName: string,
             questName: string,
@@ -301,6 +302,7 @@ export type TypeMarkerObject = {
     stepIcon: string,
     activeStepIcon: string,
     npcPosition: number[],
+    npcZone: string,
     npcName: string,
     questName: string,
     stepDescription: string
