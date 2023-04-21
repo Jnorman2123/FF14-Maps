@@ -1,25 +1,35 @@
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState,
+getRegionNamesState } from '@/store/slices/dataStoreSlice';
 
 export default function NavBar() {
+    let regionNames = useSelector(getRegionNamesState).slice(0, 3);
+    let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
+    let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
+    let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
+
     return <div className='h-navbar w-auto text-3xl font-bold underline bg-slate-400'>
         <div>Nav Bar</div>
-        <Link href={{pathname: '/region/Thanalan'}}>Thanalan</Link>
-        <Link href={{pathname: '/region/La-Noscea'}}>La Noscea</Link>
-        <Link href={{pathname: '/region/The-Black-Shroud'}}>The Black Shroud</Link>
-        <Link href={{pathname: '/zone/Central-Thanalan'}}>Central Thanalan</Link>
-        <Link href={{pathname: '/zone/Northern-Thanalan'}}>Northern Thanalan</Link>
-        <Link href={{pathname: '/zone/Southern-Thanalan'}}>Southern Thanalan</Link>
-        <Link href={{pathname: '/zone/Western-Thanalan'}}>Western Thanalan</Link>
-        <Link href={{pathname: '/zone/Eastern-Thanalan'}}>Eastern Thanalan</Link>
-        <Link href={{pathname: '/zone/Central-Shroud'}}>Central Shroud</Link>
-        <Link href={{pathname: '/zone/Northern-Shroud'}}>Northern Shroud</Link>
-        <Link href={{pathname: '/zone/Southern-Shroud'}}>Southern Shroud</Link>
-        <Link href={{pathname: '/zone/Western-Shroud'}}>Western Shroud</Link>
-        <Link href={{pathname: '/zone/Eastern-Shroud'}}>Eastern Shroud</Link>
-        <Link href={{pathname: '/zone/Central-La-Noscea'}}>Central La Noscea</Link>
-        <Link href={{pathname: '/zone/Northern-La-Noscea'}}>Northern La Noscea</Link>
-        <Link href={{pathname: '/zone/Southern-La-Noscea'}}>Southern La Noscea</Link>
-        <Link href={{pathname: '/zone/Western-La-Noscea'}}>Western La Noscea</Link>
-        <Link href={{pathname: '/zone/Eastern-La-Noscea'}}>Eastern La Noscea</Link>
+            {regionNames.map((regionName: string) => {
+                let zones = [];
+                let regionLink = regionName.split(' ').join('-');
+                if (regionName === 'La Noscea') {
+                    zones = laNosceaZoneNames;
+                } else if (regionName === 'The Black Shroud') {
+                    zones = theBlackShroudZoneNames;
+                } else {
+                    zones = thanalanZoneNames;
+                }
+                return <div key={regionName} >
+                    <h6><Link href={`/region/${regionLink}`}>{regionName}</Link></h6>
+                    <ul>
+                        {zones.map((zone: string) => {
+                            let zoneLink = zone.split(' ').join('-');
+                            return <li key={zone} ><Link href={`/zone/${zoneLink}`} >{zone}</Link></li>
+                        })}
+                    </ul>
+                </div>
+            })}
         </div>
 }
