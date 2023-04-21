@@ -1,6 +1,8 @@
-import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep } from "@/types";
-import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState } from "@/store/slices/dataStoreSlice";
+import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep, TypeNpc } from "@/types";
+import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState, 
+getNpcsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 export default function QuestInfoContainer() {
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
@@ -8,6 +10,8 @@ export default function QuestInfoContainer() {
     let rewards: TypeReward[] = useSelector(getRewardsState);
     let steps: TypeStep[] = useSelector(getStepsState);
     let items: TypeItem[] = useSelector(getItemsState);
+    let npcs: TypeNpc[] = useSelector(getNpcsState);
+    let stepIndex: number = 0;
     
     if (toggledQuest[0] !== undefined) {
         let questClass: TypeJob | undefined;
@@ -15,8 +19,6 @@ export default function QuestInfoContainer() {
         let questReward: TypeReward | undefined;
         let guaranteedItems: TypeItem[] = [];
         let optionalItems: TypeItem[] = [];
-        let stepIndex: number = 0;
-        
         
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
@@ -50,12 +52,27 @@ export default function QuestInfoContainer() {
             <h4>Previous Quest: {toggledQuest[0].previous_quest}</h4>
             <h4>Next Quest: {toggledQuest[0].next_quest}</h4>
             <h4>Quest Steps</h4>
-            <h6>Start - {questSteps[0].step_description}</h6>
-            {questSteps.slice(1, -1).map((qs: TypeStep) => {
-                stepIndex ++;
-                return <h6 key={qs.id} >{stepIndex} - {qs.step_description}</h6>
-            })}
-            <h6>Turn In - {questSteps[questSteps.length - 1].step_description}</h6>
+            <ul>
+                {questSteps.map((step: TypeStep) => {
+                    let stepNpcZone = npcs.find((npc: TypeNpc) => 
+                    npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
+                    let zoneLink = stepNpcZone?.split(' ').join('-');
+                    let stepNumber = '';
+                    if (stepIndex === 0) {
+                        stepNumber = 'Start';
+                    } else if (stepIndex === questSteps.length - 1) {
+                        stepNumber = 'Turn In'
+                    } else {
+                        stepNumber = stepIndex.toString();
+                    }
+                    stepIndex++;
+                    return <li key={step.step_description}>
+                        {`${stepNumber} - ${step.step_description} (`}
+                        <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
+                        {`)`}
+                    </li>
+                })}
+            </ul>
             <h4>Quest Rewards</h4>
             <h6>Experience: {questReward?.reward_experience}</h6>
             <h6>Gil: {questReward?.reward_gil}</h6>
