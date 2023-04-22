@@ -306,5 +306,57 @@ export type TypeMarkerObject = {
     npcName: string,
     questName: string,
     stepDescription: string
+};
+export type TypeHoverOverlay = {
+    map: string,
+    mapNameIcon: {
+        mapNameIconUrl: string,
+        mapNameIconPos: number[],
+        mapNameIconSize: number[],
+    }, 
+    highlightedMapIcon: {
+        highlightedMapIconUrl: string,
+        highlightedMapIconPos: number[],
+        highlightedMapIconSize: number[],
+    },
+    legendOverlayIcon: {
+        legendOverlayIconUrl: string,
+        legendOverlayIconPos: number[],
+        legendOverlayIconSize: number[],
+    }
+    mapLinkUrl: string,
 }
-
+export type TypeLegend = {
+    legendIcon: {
+        legendIconUrl: string,
+        legendIconPos: number[],
+        legendIconSize: number[],
+        legendIconZOffset: number,
+    },
+    arrowIcon: {
+        arrowIconUrl: string,
+        arrowIconPos: number[],
+        arrowIconSize: number[],
+        arrowIconZOffset: number,
+    },
+    mainQuestNumberIcon: {
+        mainQuestNumberIconUrl: string,
+        mainQuestNumberIconPos: number[],
+        mainQuestNumberIconSize: number[],
+    },
+    classQuestNumberIcon: {
+        classQuestNumberIconUrl: string,
+        classQuestNumberIconPos: number[],
+        classQuestNumberIconSize: number[],
+    },
+    sideQuestNumberIcon: {
+        sideQuestNumberIconUrl: string,
+        sideQuestNumberIconPos: number[],
+        sideQuestNumberIconSize: number[],
+    },
+    huntingLogQuestNumberIcon: {
+        huntingLogQuestNumberIconUrl: string,
+        huntingLogQuestNumberIconPos: number[],
+        huntingLogQuestNumberIconSize: number[],
+    }
+}

@@ -90,7 +90,7 @@ export default function Layout({ children }: LayoutProps) {
     setItems();
     setNpcs();
     setSteps();
-
+    
     return (
         <div className='space-y-borderspace'>
             <NavBar />

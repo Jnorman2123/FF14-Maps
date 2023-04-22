@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep, TypeQuestDetail } from '@/types';
+import { TypeQuest, TypeJob, TypeItem, TypeNpc, TypeReward, TypeStep, TypeQuestDetail, TypeHoverOverlay, TypeLegend } from '@/types';
 
 export interface DataStoreState {
   classes: {
@@ -241,6 +241,8 @@ export interface DataStoreState {
   steps: TypeStep[],
   items: TypeItem[],
   questDetails: TypeQuestDetail[],
+  hoverOverlayDetails: TypeHoverOverlay[],
+  legendDetails: TypeLegend[],
 }
 
 const initialState: DataStoreState = {
@@ -563,7 +565,9 @@ const initialState: DataStoreState = {
   items: [],
   rewards: [],
   steps: [],
-  questDetails: []
+  questDetails: [],
+  hoverOverlayDetails: [],
+  legendDetails: [],
 }
 
 export const dataStoreSlice = createSlice({
@@ -647,6 +651,14 @@ export const dataStoreSlice = createSlice({
     updateQuestDetails(state, action) {
       const { questDetailsArray } = action.payload;
       state.questDetails = questDetailsArray;
+    }, 
+    updateHoverOverlayDetails(state, action) {
+      const { hoverOverlayDetailsArray } = action.payload;
+      state.hoverOverlayDetails = hoverOverlayDetailsArray;
+    }, 
+    updateLegendDetails(state, action) {
+      const { legendDetailsArray } = action.payload;
+      state.legendDetails = legendDetailsArray;
     }
   },
 })
@@ -679,9 +691,11 @@ export const getNpcsState = (state: { dataStore: DataStoreState }) => state.data
 export const getRewardsState = (state: { dataStore: DataStoreState }) => state.dataStore.rewards
 export const getStepsState = (state: { dataStore: DataStoreState }) => state.dataStore.steps
 export const getQuestDetailsState = (state: { dataStore: DataStoreState }) => state.dataStore.questDetails
+export const getHoverOverlayDetailsState = (state: { dataStore: DataStoreState }) => state.dataStore.hoverOverlayDetails
+export const getLegendDetailsState = (state: { dataStore: DataStoreState }) => state.dataStore.legendDetails
 export const { updateClassActiveByName, updateClassHoveredByName, updateQuestTypeActiveByName,
 updateQuestTypeHoveredByName, updateQuestLevelActiveByName, updateQuestLevelHoveredByName, 
 updateActiveQuests, updateToggledQuest, updateQuests, updateItems, updateJobs, updateNpcs, updateRewards,
-updateSteps, updateQuestDetails } = dataStoreSlice.actions;
+updateSteps, updateQuestDetails, updateHoverOverlayDetails, updateLegendDetails } = dataStoreSlice.actions;
 
 export default dataStoreSlice.reducer
