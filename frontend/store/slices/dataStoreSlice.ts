@@ -330,7 +330,7 @@ const initialState: DataStoreState = {
     laNosceaNamePos: [0,10],
     limsaLominsaUpperDecksAttributes: {
         legendPos: [-36, 15],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-33.5, 15],
         highlightPos: [-29.05, 15.05],
@@ -338,7 +338,7 @@ const initialState: DataStoreState = {
     },
     limsaLominsaLowerDecksAttributes: {
         legendPos: [-30, 5.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-30, 9],
         highlightPos: [-30.6, 13.37],
@@ -346,7 +346,7 @@ const initialState: DataStoreState = {
     },
     middleLaNosceaAttributes: {
         legendPos: [-17.75, 25.25],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-20.25, 25.25],
         highlightPos: [-22.44, 21.255],
@@ -354,7 +354,7 @@ const initialState: DataStoreState = {
     },
     lowerLaNosceaAttributes: {
         legendPos: [-30, 36.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-30, 33],
         highlightPos: [-33.5, 27.47],
@@ -362,7 +362,7 @@ const initialState: DataStoreState = {
     },
     easternLaNosceaAttributes: {
         legendPos: [-12, 34],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-14.5, 34],
         highlightPos: [-19.32, 34.1],
@@ -370,7 +370,7 @@ const initialState: DataStoreState = {
     },
     westernLaNosceaAttributes: {
         legendPos: [-23.5, 10.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-21, 10.5],
         highlightPos: [-18.05, 9.05],
@@ -378,7 +378,7 @@ const initialState: DataStoreState = {
     },
     upperLaNosceaAttributes: {
         legendPos: [-13, 12],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-13, 15.5],
         highlightPos: [-12.39, 20.91],
@@ -386,7 +386,7 @@ const initialState: DataStoreState = {
     },
     outerLaNosceaAttributes: {
         legendPos: [-6, 11.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-6, 15],
         highlightPos: [-6.02, 19.2],
@@ -397,7 +397,7 @@ const initialState: DataStoreState = {
     theBlackShroudNamePos: [0,0],
     oldGridaniaAttributes: {
         legendPos: [-13.5, 17.25],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-13.5, 20.75],
         highlightPos: [-12.73, 24.88],
@@ -405,7 +405,7 @@ const initialState: DataStoreState = {
     },
     newGridaniaAttributes: {
         legendPos: [-19.75, 25.25],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-17.25, 25.25],
         highlightPos: [-15.37, 25.9],
@@ -413,7 +413,7 @@ const initialState: DataStoreState = {
     },
     eastShroudAttributes: {
         legendPos: [-25, 35.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-22.5, 35.5],
         highlightPos: [-16.49, 34.85],
@@ -421,7 +421,7 @@ const initialState: DataStoreState = {
     },
     northShroudAttributes: {
         legendPos: [-21, 8.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-18.5, 8.5],
         highlightPos: [-14.9, 9.9],
@@ -429,7 +429,7 @@ const initialState: DataStoreState = {
     },
     centralShroudAttributes: {
         legendPos: [-28.5, 14],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-26, 14],
         highlightPos: [-24.46, 18.5],
@@ -437,7 +437,7 @@ const initialState: DataStoreState = {
     },
     southShroudAttributes: {
         legendPos: [-38.5, 27],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-36, 27],
         highlightPos: [-35.78, 24.42],
@@ -448,7 +448,7 @@ const initialState: DataStoreState = {
     thanalanNamePos: [0,0],
     uldahStepsOfNaldAttributes: {
         legendPos: [-33, 10],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-33, 13.5],
         highlightPos: [-31.98, 16.875],
@@ -456,7 +456,7 @@ const initialState: DataStoreState = {
     },
     uldahStepsOfThalAttributes: {
         legendPos: [-32, 24],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-32, 20.5],
         highlightPos: [-31.85, 17.2],
@@ -464,7 +464,7 @@ const initialState: DataStoreState = {
     },
     hustingsStripAttributes: {
         legendPos: [-37.5, 17],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerUp.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-35, 17],
         highlightPos: [-31.91, 17.055],
@@ -472,7 +472,7 @@ const initialState: DataStoreState = {
     },
     westernThanalanAttributes: {
         legendPos: [-18, 12.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-18, 9],
         highlightPos: [-21.45, 8.67],
@@ -480,7 +480,7 @@ const initialState: DataStoreState = {
     },
     easternThanalanAttributes: {
         legendPos: [-10.5, 32.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerDown.png`,
         arrowSize: [59.5, 42.5],
         arrowPos: [-13, 32.5],
         highlightPos: [-16.27, 33.35],
@@ -488,7 +488,7 @@ const initialState: DataStoreState = {
     },
     centralThanalanAttributes: {
         legendPos: [-23.5, 27],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-23.5, 23.5],
         highlightPos: [-22.2, 21.25],
@@ -496,7 +496,7 @@ const initialState: DataStoreState = {
     },
     southernThanalanAttributes: {
         legendPos: [-32.5, 38],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerLeft.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-32.5, 34.5],
         highlightPos: [-30.7, 33],
@@ -504,7 +504,7 @@ const initialState: DataStoreState = {
     },
     northernThanalanAttributes: {
         legendPos: [-12, 18.5],
-        arrowIcon: `./icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
+        arrowIcon: `/icons/quest_legend_icons/QuestTotalsBoxPointerRight.png`,
         arrowSize: [42.5, 59.5],
         arrowPos: [-12, 22],
         highlightPos: [-9.65, 24.275],

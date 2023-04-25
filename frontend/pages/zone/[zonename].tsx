@@ -5,7 +5,7 @@ import { getNpcsState, getActiveQuestsState, getQuestIconBgColorsState, getSteps
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
-const ZoneMap = () => {
+const Zone = () => {
     let npcs: TypeNpc[] = useSelector(getNpcsState).filter((npc: TypeNpc) => npc.npc_type !== 'Aetheryte' && 
     npc.npc_type !== 'Delivery Moogle' && !npc.npc_name.includes('Chocobokeep'));
     let activeQuests: TypeQuest[] = useSelector(getActiveQuestsState);
@@ -98,4 +98,4 @@ const ZoneMap = () => {
     </div>;
 }
 
-export default ZoneMap;
+export default Zone;
