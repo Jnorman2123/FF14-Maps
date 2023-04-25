@@ -12,7 +12,6 @@ const WorldMapComponent = () => {
         iconSize: [205.7, 34.85]}), position: [-7.4, 21.5], zOffset: 100});
     const [highlightedMarkers, setHighlightedMarkers] = useState<any[]>([]);
     const router = useRouter();
-    const { asPath } = router;
     let hoverOverlayDetails: TypeHoverOverlay[] = useSelector(getHoverOverlayDetailsState);
     let legendDetails: TypeLegend[] = useSelector(getLegendDetailsState);
     let markers: any[] = [];

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { getHoverOverlayDetailsState, getLegendDetailsState } from '@/store/slices/dataStoreSlice';
 import type { TypeHoverOverlay, TypeLegend } from '@/types';
+import RegionBackButton from './RegionBackButton';
 
 const RegionMapComponent = () => {
     const [laNosceaZoneMarker, setLaNosceaZoneMarker] = useState({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`, 
@@ -175,6 +176,7 @@ const RegionMapComponent = () => {
                 return <Marker key={Math.random()} icon={marker.icon} position={[marker.position[0], marker.position[1]]} 
                 zIndexOffset={marker.zOffset} opacity={1}/>
             })}
+            <RegionBackButton />
         </MapContainer>
     )
 }
