@@ -1,6 +1,7 @@
 import { TypeNpc, TypeQuest, TypeQuestDetail, TypeStep } from '@/types';
 import { useSelector, useDispatch } from 'react-redux';
-import { getNpcsState, getActiveQuestsState, getQuestIconBgColorsState, getStepsState, updateQuestDetails} from '@/store/slices/dataStoreSlice';
+import { getNpcsState, getActiveQuestsState, getQuestIconBgColorsState, getStepsState, 
+    updateQuestDetails} from '@/store/slices/dataStoreSlice';
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 

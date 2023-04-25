@@ -343,20 +343,24 @@ export type TypeLegend = {
         mainQuestNumberIconUrl: string,
         mainQuestNumberIconPos: number[],
         mainQuestNumberIconSize: number[],
+        mainQuestNumberZOffset: number,
     },
     classQuestNumberIcon: {
         classQuestNumberIconUrl: string,
         classQuestNumberIconPos: number[],
         classQuestNumberIconSize: number[],
+        classQuestNumberZOffset: number,
     },
     sideQuestNumberIcon: {
         sideQuestNumberIconUrl: string,
         sideQuestNumberIconPos: number[],
         sideQuestNumberIconSize: number[],
+        sideQuestNumberZOffset: number,
     },
     huntingLogQuestNumberIcon: {
         huntingLogQuestNumberIconUrl: string,
         huntingLogQuestNumberIconPos: number[],
         huntingLogQuestNumberIconSize: number[],
+        huntingLogQuestNumberZOffset: number,
     }
 }
