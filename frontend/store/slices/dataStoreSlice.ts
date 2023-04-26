@@ -273,8 +273,8 @@ const initialState: DataStoreState = {
     {name: '21-25', active: false, hovered: false}, {name: '26-30', active: false, hovered: false},
   ],
   insideZoneNames: [
-    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'New Gridania','Old Gridania', "Ul'dah - Steps of Nald", 
-    "Ul'dah - Steps of Thal", 'Hustings Strip', 'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
+    'Limsa Lominsa Upper Decks', 'Limsa Lominsa Lower Decks', 'New Gridania','Old Gridania', "Ul'dah Steps of Nald", 
+    "Ul'dah Steps of Thal", 'Hustings Strip', 'The Gold Saucer', 'Foundation', 'The Pillars', 'Idyllshire', "Rhalgr's Reach",  
     'Kugane', 'Crystarium', 'Old Sharlayan', 'Labyrinthos', 'Radz-at-Han',
   ],
   outsideZoneNames: [
@@ -294,7 +294,7 @@ const initialState: DataStoreState = {
     'New Gridania', 'Old Gridania', 'Central Shroud', 'East Shroud', 'South Shroud', 'North Shroud'
   ],
   thanalanZoneNames: [
-    "Ul'dah - Steps of Nald", "Ul'dah - Steps of Thal", 'Hustings Strip', 'Western Thanalan', 'Eastern Thanalan', 
+    "Ul'dah Steps of Nald", "Ul'dah Steps of Thal", 'Hustings Strip', 'Western Thanalan', 'Eastern Thanalan', 
     'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan'
   ],
   regionNames: [
@@ -305,7 +305,7 @@ const initialState: DataStoreState = {
     'Lower La Noscea (La Noscea)', 'Eastern La Noscea (La Noscea)', 'Western La Noscea (La Noscea)', 'Upper La Noscea (La Noscea)', 
     'Outer La Noscea (La Noscea)', 'New Gridania (The Black Shroud)', 'Old Gridania (The Black Shroud)', 
     'Central Shroud (The Black Shroud)', 'East Shroud (The Black Shroud)', 'South Shroud (The Black Shroud)', 
-    'North Shroud (The Black Shroud)', "Ul'dah - Steps of Nald (Thanalan)", "Ul'dah - Steps of Thal (Thanalan)", 
+    'North Shroud (The Black Shroud)', "Ul'dah Steps of Nald (Thanalan)", "Ul'dah Steps of Thal (Thanalan)", 
     'Hustings Strip (Thanalan)', 'The Gold Saucer (Thanalan)', 'Western Thanalan (Thanalan)', 'Eastern Thanalan (Thanalan)', 
     'Central Thanalan (Thanalan)', 'Southern Thanalan (Thanalan)', 'Northern Thanalan (Thanalan)', 'Foundation (Coerthas)', 
     'The Pillars (Coerthas)', 'Coerthas Central Highlands (Coerthas)', 'Coerthas Western Highlands (Coerthas)', 

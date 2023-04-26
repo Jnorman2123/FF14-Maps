@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: false,
   theme: {
     space: {
       borderspace: '1px',
@@ -16,6 +19,9 @@ module.exports = {
     },
     extend: {
     },
+  },
+  variants: {
+    extend: {},
   },
   plugins: [],
 }

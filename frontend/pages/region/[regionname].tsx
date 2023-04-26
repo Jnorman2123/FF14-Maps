@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLegendIconAttributesState, getActiveQuestsState, getNpcsState, getLaNosceaZoneNamesState, 
     getTheBlackShroudZoneNamesState, getThanalanZoneNamesState, getLaNosceaMapAttributesState, 
@@ -8,9 +8,10 @@ import { TypeNpc, TypeQuest, TypeHoverOverlay, TypeLegend } from '@/types';
 import dynamic from 'next/dynamic';
 
 const Region = () => {
-    const router = useRouter();
     const dispatch = useDispatch();
-    const MapWithNoSSR = dynamic(() => import('../../components/RegionMap'), { ssr: false });
+    let activeQuests = useSelector(getActiveQuestsState);
+    const MapWithNoSSR = React.useMemo(() =>  dynamic(() => import('../../components/RegionMap'), { ssr: false }), 
+    [activeQuests]);
     let laNosceaMapAttributes = useSelector(getLaNosceaMapAttributesState);
     let theBlackShroudMapAttributes = useSelector(getTheBlackShroudMapAttributesState);
     let thanalanMapAttributes = useSelector(getThanalanMapAttributesState);
@@ -18,7 +19,6 @@ const Region = () => {
     let zones = useSelector(getLaNosceaZoneNamesState).concat(useSelector(getTheBlackShroudZoneNamesState)).
     concat(useSelector(getThanalanZoneNamesState));
     let npcs = useSelector(getNpcsState);
-    let activeQuests = useSelector(getActiveQuestsState);
     let starters: {
         npc: TypeNpc,
         questType: string,
@@ -88,9 +88,9 @@ const Region = () => {
             southShroudStarters.push(starter.questType);
         } else if (starter.npc.npc_zone.includes('North Shroud')) {
             northShroudStarters.push(starter.questType);
-        } else if (starter.npc.npc_zone.includes(`Ul'dah - Steps of Nald`)) {
+        } else if (starter.npc.npc_zone.includes(`Ul'dah Steps of Nald`)) {
             uldahStepsOfNaldStarters.push(starter.questType);
-        } else if (starter.npc.npc_zone.includes(`Ul'dah - Steps of Thal`)) {
+        } else if (starter.npc.npc_zone.includes(`Ul'dah Steps of Thal`)) {
             uldahStepsOfThalStarters.push(starter.questType);
         } else if (starter.npc.npc_zone.includes('Hustings Strip')) {
             hustingsStripStarters.push(starter.questType);
@@ -522,7 +522,7 @@ const Region = () => {
                 classNumberIcon = `/icons/quest_numbers/${northShroudClassStarters}.png`;
                 sideNumberIcon = `/icons/quest_numbers/${northShroudSideStarters}.png`;
                 huntingLogNumberIcon = `/icons/quest_numbers/${northShroudHuntingLogStarters}.png`;
-            } else if (zone === `Ul'dah - Steps of Nald`) {
+            } else if (zone === `Ul'dah Steps of Nald`) {
                 legendOverlayPos = [thanalanMapAttributes.uldahStepsOfNaldAttributes.legendPos[0], 
                 thanalanMapAttributes.uldahStepsOfNaldAttributes.legendPos[1]];
                 highlightedMapSize = [thanalanMapAttributes.uldahStepsOfNaldAttributes.highlightSize[0], 
@@ -538,7 +538,7 @@ const Region = () => {
                 classNumberIcon = `/icons/quest_numbers/${uldahStepsOfNaldClassStarters}.png`;
                 sideNumberIcon = `/icons/quest_numbers/${uldahStepsOfNaldSideStarters}.png`;
                 huntingLogNumberIcon = `/icons/quest_numbers/${uldahStepsOfNaldHuntingLogStarters}.png`;
-            } else if (zone === `Ul'dah - Steps of Thal`) {
+            } else if (zone === `Ul'dah Steps of Thal`) {
                 legendOverlayPos = [thanalanMapAttributes.uldahStepsOfThalAttributes.legendPos[0], 
                 thanalanMapAttributes.uldahStepsOfThalAttributes.legendPos[1]];
                 highlightedMapSize = [thanalanMapAttributes.uldahStepsOfThalAttributes.highlightSize[0], 

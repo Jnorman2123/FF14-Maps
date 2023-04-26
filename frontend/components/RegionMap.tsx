@@ -128,7 +128,7 @@ const RegionMapComponent = () => {
         markers.push(theBlackShroudZoneMarker);
         createLegendIcons(theBlackShroudLegendDetails);
         regionHoverOverlayDetails = hoverOverlayDetails.slice(8, 14);
-    } else {
+    } else if (spacedRegionName === 'Thanalan') {
         markers.push(thanalanZoneMarker);
         createLegendIcons(thanalanLegendDetails);
         regionHoverOverlayDetails = hoverOverlayDetails.slice(14, 22);

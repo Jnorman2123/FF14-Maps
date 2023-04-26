@@ -3,6 +3,7 @@ import { getLegendIconAttributesState, getWorldMapAttributesState, getActiveQues
     getNpcsState, getOriginalRegionsState, updateHoverOverlayDetails, updateLegendDetails } from '@/store/slices/dataStoreSlice';
 import { TypeNpc, TypeQuest, TypeHoverOverlay, TypeLegend } from '@/types';
 import dynamic from 'next/dynamic';
+import { NextSeo } from 'next-seo';
 
 const World = () => {
     
@@ -182,6 +183,7 @@ const World = () => {
     setLegendDetails();
 
     return <div>
+      <NextSeo title='World Map Title' description='World Map' />=
         <div id='map'>
             <MapWithNoSSR />
         </div>

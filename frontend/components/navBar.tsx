@@ -25,7 +25,8 @@ export default function NavBar() {
                     <h6><Link href={`/region/${regionLink}`}>{regionName}</Link></h6>
                     <ul>
                         {zones.map((zone: string) => {
-                            let zoneLink = zone.split(' ').join('-');
+                            let zoneLink = zone.split(' ').join('');
+                            console.log(zoneLink)
                             return <li key={zone} ><Link href={`/zone/${zoneLink}`} >{zone}</Link></li>
                         })}
                     </ul>
