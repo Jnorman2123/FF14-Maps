@@ -721,8 +721,8 @@ const Region = () => {
     
     setLegendDetails();
 
-    return <div>
-        <div id='map'>
+    return <div >
+        <div id='map' >
             <MapWithNoSSR />
         </div>
     </div>;

@@ -96,7 +96,7 @@ export default function Layout({ children }: LayoutProps) {
             <NavBar />
             <div className='grid grid-cols-12 gap-1 h-screen'>
                 <ToggleContainer />
-                <main  className='col-span-6 h-main'>{children} </main>
+                <main  className='col-span-6 h-main z-1'>{children} </main>
                 <QuestInfoContainer />
             </div>
         </div>
