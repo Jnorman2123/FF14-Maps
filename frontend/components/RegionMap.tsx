@@ -138,7 +138,7 @@ const RegionMapComponent = () => {
     return (
         <MapContainer maxBounds={bounds} center={[-20.95, 20.95]} zoom={4.25}
             crs={L.CRS.Simple} maxBoundsViscosity={1} scrollWheelZoom={false} maxZoom={4.25}
-            minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg z-20'>
+            minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg z-20' zoomControl={false}>
             <ImageOverlay url={`../maps/${regionName}.jpg`} bounds={bounds} opacity={1} />
             {regionHoverOverlayDetails.map((hoverOverlayObject: TypeHoverOverlay) => {
                 let legendOverlayIcon = new L.Icon({iconUrl: hoverOverlayObject.legendOverlayIcon.legendOverlayIconUrl, 

@@ -93,7 +93,7 @@ const WorldMapComponent = () => {
     return (
         <MapContainer maxBounds={bounds} center={[-20.95, 20.95]} zoom={4.25}
             crs={L.CRS.Simple} maxBoundsViscosity={1} scrollWheelZoom={false} maxZoom={4.25}
-            minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg'>
+            minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg' zoomControl={false}>
             
             <ImageOverlay url={`./maps/world.jpg`} bounds={bounds} opacity={1} />
             {hoverOverlayDetails.map((hoverOverlayObject: TypeHoverOverlay) => {
