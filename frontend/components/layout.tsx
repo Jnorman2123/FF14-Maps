@@ -94,7 +94,7 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <div className='space-y-borderspace'>
             <NavBar />
-            <div className='grid grid-cols-12 gap-2 h-screen'>
+            <div className='grid grid-cols-12 gap-1 h-screen'>
                 <ToggleContainer />
                 <main  className='col-span-6 h-main'>{children} </main>
                 <QuestInfoContainer />

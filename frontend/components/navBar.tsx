@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState,
 getRegionNamesState } from '@/store/slices/dataStoreSlice';
@@ -11,7 +12,7 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function NavBar() {
 
     let regionNames = useSelector(getRegionNamesState).slice(0, 3);
     let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
@@ -19,7 +20,12 @@ export default function Example() {
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
 
   return (
-    <div className='h-navbar relative bg-center bg-cover' style={{ backgroundImage: "url('/nav_bar/NavBar.jpg')", height: '140px'}}>
+    <div className="aspect-h-10 relative bg-[url('/nav_bar/NavBar.jpg')] bg-contain bg-no-repeat">
+        <div className='grid grid-cols-12 gap-1' >
+            <div className='col-span-3'>
+                <Image src='/nav_bar/logos/HelperQuest_Logo.png' alt='HelperQuest Logo' width={600} height={140} />
+            </div>
+        </div>
         {regionNames.map((regionName: string) => {
             let zones = [];
             let divClassName = '';
