@@ -187,22 +187,26 @@ export default function ToggleContainer() {
     activeQuests = useSelector(getActiveQuestsState);
 
     return <div className="bg-gray-500 col-span-3 h-full">
-        {classes.map((c: TypeClass) => {
-            if (c.active) {
-                buttonIcon = `${c.name}Active`;
-            } else if (c.hovered && !c.active) {
-                buttonIcon = `${c.name}Hover`;
-            } else {
-                buttonIcon = `${c.name}`;
-            }
-            return <div key={c.name}>
-                <button name={c.name} onClick={updateClassActive} 
-                onMouseEnter={updateClassHovered} onMouseLeave={updateClassNotHovered}>
-                    <Image src={`/icons/class_icons/${buttonIcon}.png`} alt={c.name} width={30} height={30} />
-                </button>
-                <br></br>
-            </div>
-        })}
+        <Image src={`/icons/ui_components/SelectClassHeader.jpg`} alt='Select Class Header' width={500} height={10}/>
+        <div className="bg-gray-600 grid grid-cols-5 gap-1" style={{padding: 15}}>
+            {classes.map((c: TypeClass) => {
+                if (c.active) {
+                    buttonIcon = `${c.name}Active`;
+                } else if (c.hovered && !c.active) {
+                    buttonIcon = `${c.name}Hover`;
+                } else {
+                    buttonIcon = `${c.name}`;
+                }
+                return <div key={c.name}>
+                    <button name={c.name} onClick={updateClassActive} 
+                    onMouseEnter={updateClassHovered} onMouseLeave={updateClassNotHovered}>
+                        <Image src={`/icons/class_icons/${buttonIcon}.png`} alt={c.name} width={45} height={45} />
+                    </button>
+                    <br></br>
+                </div>
+            })}
+        </div>
+        
         {questTypes.map((qt: TypeQuestType) => {
             if (qt.active) {
                 buttonIcon = `${qt.name}Active`;
