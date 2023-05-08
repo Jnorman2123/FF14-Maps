@@ -206,7 +206,8 @@ export default function ToggleContainer() {
             })}
         </div>
         <Image src={`/icons/ui_components/SelectQuestHeader.jpg`} alt='Select Quest Header' width={500} height={10} />
-        <div className="bg-gray-700 grid grid-cols-4 gap-1 justify-items-center" style={{padding: 10}}>
+        <div className="bg-gray-700 grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
+            <div></div>
             {questTypes.map((qt: TypeQuestType) => {
                 if (qt.active) {
                     buttonIcon = `${qt.name}Active`;
@@ -220,27 +221,28 @@ export default function ToggleContainer() {
                     onMouseEnter={updateQuestTypeHovered} onMouseLeave={updateQuestTypeNotHovered}>
                         <Image src={`/icons/quest_type_icons/${buttonIcon}.png`} alt={qt.name} width={45} height={45} />
                     </button>
-                    <br></br>
+                </div>
+            })}
+            <div></div>
+        </div>
+        <Image src={`/icons/ui_components/SelectLevelHeader.jpg`} alt='Select Level Header' width={500} height={10} />
+        <div className="bg-gray-800 grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
+            {questLevels.map((ql: TypeQuestLevel) => {
+                if (ql.active) {
+                    buttonIcon = `${ql.name}Active`;
+                } else if (ql.hovered && !ql.active) {
+                    buttonIcon = `${ql.name}Hover`;
+                } else {
+                    buttonIcon = `${ql.name}`;
+                }
+                return <div key={ql.name}>
+                    <button name={ql.name} onClick={updateQuestLevelActive} 
+                    onMouseEnter={updateQuestLevelHovered} onMouseLeave={updateQuestLevelNotHovered}>
+                        <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={45} height={45} />
+                    </button>
                 </div>
             })}
         </div>
-        {questLevels.map((ql: TypeQuestLevel) => {
-            if (ql.active) {
-                buttonIcon = `${ql.name}Active`;
-            } else if (ql.hovered && !ql.active) {
-                buttonIcon = `${ql.name}Hover`;
-            } else {
-                buttonIcon = `${ql.name}`;
-            }
-            return <div key={ql.name}>
-                <button name={ql.name} onClick={updateQuestLevelActive} 
-                onMouseEnter={updateQuestLevelHovered} onMouseLeave={updateQuestLevelNotHovered}>
-                    <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={30} height={30} />
-                </button>
-                <br></br>
-            </div>
-        })}
-        <br></br>
         <h1>Available Quests</h1>
         {activeQuests.map((aq: TypeQuest) => {
             return <div key={aq.quest_name}>
