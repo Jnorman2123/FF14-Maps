@@ -35,57 +35,57 @@ export default function NavBar() {
                 } else {
                     zones = thanalanZoneNames;
                 }
-                return <Menu key={regionName} as="div" className="bottom-0 text-left relative ">
-                    <div>
-                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm 
-                        font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        {regionName}
-                        <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                return <div className='grid-cols-1 relative'>
+                    <Menu key={regionName} as="div" className="text-left absolute bottom-0 w-full">
+                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-white px-3 
+                        py-2 text-navtab font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            {regionName}
+                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
                         </Menu.Button>
-                    </div>
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className="absolute left-0 z-[1000] mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1
-                        ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
-                                <Menu.Item>
-                                {({ active }) => (
-                                    <Link href={`/region/${regionLink}`}
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                    >
-                                        {regionName}
-                                    </Link>
-                                )}
-                                </Menu.Item>
-                                {zones.map((zone: string) => {
-                                    let zoneLink = zone.split(' ').join('');
-                                    return <Menu.Item key={zone}>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute left-0 z-[1000] mt-2 w-56 origin-top-right rounded-md bg-white 
+                            shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="py-1">
+                                    <Menu.Item>
                                     {({ active }) => (
-                                        <Link href={`/zone/${zoneLink}`}
+                                        <Link href={`/region/${regionLink}`}
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                             'block px-4 py-2 text-sm'
                                         )}
                                         >
-                                        {zone}
+                                            {regionName}
                                         </Link>
                                     )}
                                     </Menu.Item>
-                                })}
-                            </div>
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
+                                    {zones.map((zone: string) => {
+                                        let zoneLink = zone.split(' ').join('');
+                                        return <Menu.Item key={zone}>
+                                        {({ active }) => (
+                                            <Link href={`/zone/${zoneLink}`}
+                                            className={classNames(
+                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                'block px-4 py-2 text-sm'
+                                            )}
+                                            >
+                                            {zone}
+                                            </Link>
+                                        )}
+                                        </Menu.Item>
+                                    })}
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                </div>
             })}
         </div>
     </div>

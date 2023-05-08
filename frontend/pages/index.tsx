@@ -183,7 +183,7 @@ const World = () => {
     setLegendDetails();
 
     return <div>
-      <NextSeo title='World Map Title' description='World Map' />=
+      <NextSeo title='World Map Title' description='World Map' />
         <div id='map'>
             <MapWithNoSSR />
         </div>

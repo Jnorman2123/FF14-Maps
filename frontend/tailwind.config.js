@@ -15,6 +15,9 @@ module.exports = {
     },
     extend: {
     },
+    fontSize: {
+      navtab: '.7vw',
+    }
   },
   variants: {
     extend: {},
