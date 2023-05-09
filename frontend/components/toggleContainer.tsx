@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
+    const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
@@ -148,6 +149,11 @@ export default function ToggleContainer() {
         dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
     }
 
+    const toggleDropdownQuests: MouseEventHandler<HTMLButtonElement> = () => {
+        setDropdownQuests(!dropdownQuests);
+        console.log(dropdownQuests);
+    }
+
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
     questLevels = useSelector(getQuestLevelsState);
@@ -186,9 +192,10 @@ export default function ToggleContainer() {
 
     activeQuests = useSelector(getActiveQuestsState);
 
-    return <div className="bg-gray-500 col-span-3 h-full">
+    return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
+        bg-cover bg-no-repeat ju">
         <Image src={`/icons/ui_components/SelectClassHeader.jpg`} alt='Select Class Header' width={500} height={10} />
-        <div className="bg-gray-600 grid grid-cols-5 gap-1 justify-items-center" style={{padding: 10}}>
+        <div className="grid grid-cols-5 gap-1 justify-items-center" style={{padding: 10}}>
             {classes.map((c: TypeClass) => {
                 if (c.active) {
                     buttonIcon = `${c.name}Active`;
@@ -206,7 +213,7 @@ export default function ToggleContainer() {
             })}
         </div>
         <Image src={`/icons/ui_components/SelectQuestHeader.jpg`} alt='Select Quest Header' width={500} height={10} />
-        <div className="bg-gray-700 grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
+        <div className="grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
             <div></div>
             {questTypes.map((qt: TypeQuestType) => {
                 if (qt.active) {
@@ -226,7 +233,7 @@ export default function ToggleContainer() {
             <div></div>
         </div>
         <Image src={`/icons/ui_components/SelectLevelHeader.jpg`} alt='Select Level Header' width={500} height={10} />
-        <div className="bg-gray-800 grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
+        <div className="grid grid-cols-6 gap-1 justify-items-center" style={{padding: 10}}>
             {questLevels.map((ql: TypeQuestLevel) => {
                 if (ql.active) {
                     buttonIcon = `${ql.name}Active`;
@@ -243,11 +250,18 @@ export default function ToggleContainer() {
                 </div>
             })}
         </div>
-        <h1>Available Quests</h1>
-        {activeQuests.map((aq: TypeQuest) => {
-            return <div key={aq.quest_name}>
-                <button onClick={toggleQuest}>{aq.quest_name}</button>
+        <div className="items-start" style={{paddingLeft: 40, paddingTop: 10}}>
+            <button className="bg-image bg-cover" onClick={toggleDropdownQuests}>
+                <Image src='/icons/ui_components/AvailableQuestsHeader.jpg' alt='Available Quests Header' 
+                width={400} height={10} style={{paddingBottom: 10}} />
+            </button>
+            <div className="h-availablequests overflow-auto w-11/12" style={{paddingLeft: 15}}>
+                {activeQuests.map((aq: TypeQuest) => {
+                    return <div key={aq.quest_name}>
+                        <button onClick={toggleQuest}>{aq.quest_name}</button>
+                    </div>
+                })}
             </div>
-        })}
+        </div>
     </div>
 }

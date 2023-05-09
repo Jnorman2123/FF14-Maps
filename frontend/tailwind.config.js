@@ -12,6 +12,7 @@ module.exports = {
     height: {
       main: '825px',
       navbar: '140px',
+      availablequests: '35vh',
     },
     extend: {
     },

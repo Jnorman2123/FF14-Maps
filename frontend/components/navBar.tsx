@@ -35,8 +35,8 @@ export default function NavBar() {
                 } else {
                     zones = thanalanZoneNames;
                 }
-                return <div className='grid-cols-1 relative'>
-                    <Menu key={regionName} as="div" className="text-left absolute bottom-0 w-full">
+                return <div className='grid-cols-1 relative' key={regionName}>
+                    <Menu  as="div" className="text-left absolute bottom-0 w-full">
                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-gray-600 px-3 
                         py-2 text-navtab font-bold text-white shadow-sm hover:bg-gray-700 opacity-75">
                             {regionName}
