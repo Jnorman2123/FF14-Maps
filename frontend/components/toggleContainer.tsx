@@ -154,6 +154,21 @@ export default function ToggleContainer() {
         console.log(dropdownQuests);
     }
 
+    const setAvailableQuestData = () => {
+        if (dropdownQuests) {
+            return <div className="h-availablequests overflow-auto w-11/12" style={{paddingLeft: 15}}>
+                {activeQuests.map((aq: TypeQuest) => {
+                    return <div key={aq.quest_name}>
+                        <button onClick={toggleQuest}>{aq.quest_name}</button>
+                    </div>
+                })}
+            </div>
+        } else {
+            return <div></div>
+        }
+    }
+
+
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
     questLevels = useSelector(getQuestLevelsState);
@@ -255,13 +270,7 @@ export default function ToggleContainer() {
                 <Image src='/icons/ui_components/AvailableQuestsHeader.jpg' alt='Available Quests Header' 
                 width={400} height={10} style={{paddingBottom: 10}} />
             </button>
-            <div className="h-availablequests overflow-auto w-11/12" style={{paddingLeft: 15}}>
-                {activeQuests.map((aq: TypeQuest) => {
-                    return <div key={aq.quest_name}>
-                        <button onClick={toggleQuest}>{aq.quest_name}</button>
-                    </div>
-                })}
-            </div>
+            {setAvailableQuestData()}
         </div>
     </div>
 }
