@@ -25,7 +25,7 @@ export default function ToggleContainer() {
         number[]
     ] = [[]];
     let activeQuests: TypeQuest[] = [];
-    let filteredActiveQuests: TypeQuest[] = [];
+    let filteredQuestDetails: TypeQuestDetail[] = [];
     const dispatch = useDispatch();
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let jobs: TypeJob[] = useSelector(getJobsState);
@@ -190,24 +190,26 @@ export default function ToggleContainer() {
                         </button>
                     </div>
                 </div>
-                {filteredActiveQuests.map((aq: TypeQuest) => {
+                {filteredQuestDetails.map((aq: TypeQuestDetail) => {
                     let questIconType: string = '';
+                    let questIconColor: string = aq.questBgColor;
 
-                    if (aq.quest_type === 'Main Story') {
+                    if (aq.quest.quest_type === 'Main Story') {
                         questIconType = 'main_story_icons';
-                    } else if (aq.quest_type === 'Class') {
+                    } else if (aq.quest.quest_type === 'Class') {
                         questIconType = 'class_icons';
-                    } else if (aq.quest_type === 'Side') {
+                    } else if (aq.quest.quest_type === 'Side') {
                         questIconType = 'side_icons';
                     } else {
                         questIconType = 'hunting_log_icons';
                     }
 
-                    return <div key={aq.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
-                        <div className="col-span-1 text-center">
-                            {/* <Image /> */}
+                    return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
+                        <div className="col-span-1 text-center" style={{paddingTop: 5}}>
+                            <Image src={`/icons/available_quest_icons/${questIconType}/${questIconColor}.png`} width={25} 
+                            height={25} alt='quest icon' />
                         </div>
-                        <button className="col-span-8 text-left" onClick={toggleQuest}>{aq.quest_name}</button>
+                        <button className="col-span-8 text-left" onClick={toggleQuest}>{aq.quest.quest_name}</button>
                         <button className="col-span-1 text-center">
                             <Image src='/icons/available_quest_icons/DeleteQuest.png' width={30} height={30} alt='delete quest' />
                         </button>
@@ -254,9 +256,8 @@ export default function ToggleContainer() {
     })
 
     activeQuests = useSelector(getActiveQuestsState);
-    filteredActiveQuests = activeQuests;
-    console.log(filteredActiveQuests)
-    console.log(questDetails)
+    filteredQuestDetails = questDetails;
+    console.log(filteredQuestDetails)
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat ju">
