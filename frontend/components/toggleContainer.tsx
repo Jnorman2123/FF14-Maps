@@ -197,6 +197,7 @@ export default function ToggleContainer() {
                 {filteredQuestDetails.map((aq: TypeQuestDetail) => {
                     let questIconType: string = '';
                     let questIconColor: string = aq.questBgColor;
+                    let deleteQuestIcon: string = '/icons/available_quest_icons/DeleteQuest';
 
                     if (aq.quest.quest_type === 'Main Story') {
                         questIconType = 'main_story_icons';
@@ -212,6 +213,8 @@ export default function ToggleContainer() {
 
                     if (hovered === aq.quest.quest_name && toggledQuest[0] !== aq.quest) {
                         questIconUrl = questIconUrl + 'Hover';
+                    } else if (hovered === `Delete ${aq.quest.quest_name}`) {
+                        deleteQuestIcon = deleteQuestIcon + 'Hover'
                     }
 
                     if (toggledQuest[0] === aq.quest) {
@@ -226,9 +229,11 @@ export default function ToggleContainer() {
                         </button>
                         <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
                             {aq.quest.quest_name}
-                            </button>
-                        <button className="col-span-1 text-center">
-                            <Image src='/icons/available_quest_icons/DeleteQuest.png' width={30} height={30} alt='delete quest' />
+                        </button>
+                        <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
+                        id={`Delete ${aq.quest.quest_name}`}>
+                            <Image src={`${deleteQuestIcon}.png`} width={30} height={30} alt='delete quest' 
+                            id={`Delete ${aq.quest.quest_name}`} />
                         </button>
                     </div>
                 })}
