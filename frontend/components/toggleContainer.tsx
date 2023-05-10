@@ -1,6 +1,6 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest,
+updateQuestLevelHoveredByName, updateActiveQuests, updateToggledQuest, getToggledQuestState,
 getQuestsState, getJobsState, getQuestDetailsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail } from "@/types";
@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
     const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
-    const [hovered, setHovered] = useState<boolean>(true);
+    const [hovered, setHovered] = useState<string>('');
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
@@ -24,12 +24,12 @@ export default function ToggleContainer() {
     let activeQuestLevelNumbers: [
         number[]
     ] = [[]];
-    let activeQuests: TypeQuest[] = [];
     let filteredQuestDetails: TypeQuestDetail[] = [];
     const dispatch = useDispatch();
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let jobs: TypeJob[] = useSelector(getJobsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
+    let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
@@ -145,7 +145,6 @@ export default function ToggleContainer() {
 
     const toggleQuest: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let toggledQuestObject: TypeQuest | undefined;
-        console.log(event.target.id);
         if (toggledQuestObject?.quest_name !== null) {
             toggledQuestObject = quests.find(q => q.quest_name === event.target.id)
         }
@@ -157,8 +156,12 @@ export default function ToggleContainer() {
         setDropdownQuests(!dropdownQuests);
     }
 
-    const updateHovered: MouseEventHandler<HTMLButtonElement> = () => {
-        setHovered(!hovered);
+    const updateHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        setHovered(event.target.id);
+    }
+
+    const clearHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+        setHovered('');
     }
 
     const setAvailableQuestData = () => {
@@ -171,10 +174,10 @@ export default function ToggleContainer() {
             availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         }
 
-        if (hovered) {
-            refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestList.png';
-        } else {
+        if (hovered === 'Refresh Available Quests') {
             refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestListHover.png';
+        } else {
+            refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestList.png';
         }
 
         return <div style={{paddingLeft: 15, paddingRight: 15, paddingTop: 5}}>
@@ -185,9 +188,9 @@ export default function ToggleContainer() {
                         Refresh Quests
                     </div>
                     <div className="col-span-2 text-center" style={{paddingTop: 5}}>
-                        <button onMouseEnter={updateHovered} onMouseLeave={updateHovered}>
+                        <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} >
                             <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
-                             width={30} height={30}/>
+                             width={30} height={30} id='Refresh Available Quests'/>
                         </button>
                     </div>
                 </div>
@@ -205,10 +208,20 @@ export default function ToggleContainer() {
                         questIconType = 'hunting_log_icons';
                     }
 
+                    let questIconUrl: string = `/icons/available_quest_icons/${questIconType}/${questIconColor}`;
+
+                    if (hovered === aq.quest.quest_name && toggledQuest[0] !== aq.quest) {
+                        questIconUrl = questIconUrl + 'Hover';
+                    }
+
+                    if (toggledQuest[0] === aq.quest) {
+                        questIconUrl = questIconUrl + 'Active';
+                    }
+
                     return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
                         <button className="col-span-1 text-center" style={{paddingTop: 5}} 
-                        onClick={toggleQuest} id={aq.quest.quest_name}>
-                            <Image src={`/icons/available_quest_icons/${questIconType}/${questIconColor}.png`} width={25} 
+                        onClick={toggleQuest} id={aq.quest.quest_name} onMouseEnter={updateHovered} onMouseLeave={clearHovered}>
+                            <Image src={`${questIconUrl}.png`} width={25} 
                             height={25} alt='quest icon' id={aq.quest.quest_name}/>
                         </button>
                         <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
@@ -259,9 +272,7 @@ export default function ToggleContainer() {
         })
     })
 
-    activeQuests = useSelector(getActiveQuestsState);
     filteredQuestDetails = questDetails;
-    console.log(filteredQuestDetails)
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat ju">
