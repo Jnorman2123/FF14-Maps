@@ -145,8 +145,9 @@ export default function ToggleContainer() {
 
     const toggleQuest: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let toggledQuestObject: TypeQuest | undefined;
+        console.log(event.target.id);
         if (toggledQuestObject?.quest_name !== null) {
-            toggledQuestObject = quests.find(q => q.quest_name === event.target.innerText)
+            toggledQuestObject = quests.find(q => q.quest_name === event.target.id)
         }
         
         dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
@@ -205,11 +206,14 @@ export default function ToggleContainer() {
                     }
 
                     return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
-                        <div className="col-span-1 text-center" style={{paddingTop: 5}}>
+                        <button className="col-span-1 text-center" style={{paddingTop: 5}} 
+                        onClick={toggleQuest} id={aq.quest.quest_name}>
                             <Image src={`/icons/available_quest_icons/${questIconType}/${questIconColor}.png`} width={25} 
-                            height={25} alt='quest icon' />
-                        </div>
-                        <button className="col-span-8 text-left" onClick={toggleQuest}>{aq.quest.quest_name}</button>
+                            height={25} alt='quest icon' id={aq.quest.quest_name}/>
+                        </button>
+                        <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
+                            {aq.quest.quest_name}
+                            </button>
                         <button className="col-span-1 text-center">
                             <Image src='/icons/available_quest_icons/DeleteQuest.png' width={30} height={30} alt='delete quest' />
                         </button>
