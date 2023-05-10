@@ -1,15 +1,16 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
 updateQuestLevelHoveredByName, updateActiveQuests, getActiveQuestsState, updateToggledQuest,
-getQuestsState, getJobsState } from "@/store/slices/dataStoreSlice";
+getQuestsState, getJobsState, getQuestDetailsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob } from "@/types";
+import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
     const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
+    const [hovered, setHovered] = useState<boolean>(true);
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
@@ -24,9 +25,11 @@ export default function ToggleContainer() {
         number[]
     ] = [[]];
     let activeQuests: TypeQuest[] = [];
+    let filteredActiveQuests: TypeQuest[] = [];
     const dispatch = useDispatch();
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let jobs: TypeJob[] = useSelector(getJobsState);
+    let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
@@ -153,25 +156,66 @@ export default function ToggleContainer() {
         setDropdownQuests(!dropdownQuests);
     }
 
+    const updateHovered: MouseEventHandler<HTMLButtonElement> = () => {
+        setHovered(!hovered);
+    }
+
     const setAvailableQuestData = () => {
         let availableQuestsTheme: string = '';
+        let refreshIcon: string = '';
+
         if (dropdownQuests) {
             availableQuestsTheme = 'h-availablequests overflow-auto w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         } else {
             availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         }
+
+        if (hovered) {
+            refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestList.png';
+        } else {
+            refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestListHover.png';
+        }
+
         return <div style={{paddingLeft: 15, paddingRight: 15, paddingTop: 5}}>
-            <div className={availableQuestsTheme}
-            style={{paddingLeft: 10}}>
-                {activeQuests.map((aq: TypeQuest) => {
-                    return <div key={aq.quest_name}>
-                        <button onClick={toggleQuest}>{aq.quest_name}</button>
+            <div className={availableQuestsTheme}>
+                <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
+                    <div className="col-span-2"></div>
+                    <div className="col-span-6 text-center">
+                        Refresh Quests
+                    </div>
+                    <div className="col-span-2 text-center" style={{paddingTop: 5}}>
+                        <button onMouseEnter={updateHovered} onMouseLeave={updateHovered}>
+                            <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
+                             width={30} height={30}/>
+                        </button>
+                    </div>
+                </div>
+                {filteredActiveQuests.map((aq: TypeQuest) => {
+                    let questIconType: string = '';
+
+                    if (aq.quest_type === 'Main Story') {
+                        questIconType = 'main_story_icons';
+                    } else if (aq.quest_type === 'Class') {
+                        questIconType = 'class_icons';
+                    } else if (aq.quest_type === 'Side') {
+                        questIconType = 'side_icons';
+                    } else {
+                        questIconType = 'hunting_log_icons';
+                    }
+
+                    return <div key={aq.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
+                        <div className="col-span-1 text-center">
+                            {/* <Image /> */}
+                        </div>
+                        <button className="col-span-8 text-left" onClick={toggleQuest}>{aq.quest_name}</button>
+                        <button className="col-span-1 text-center">
+                            <Image src='/icons/available_quest_icons/DeleteQuest.png' width={30} height={30} alt='delete quest' />
+                        </button>
                     </div>
                 })}
             </div>
         </div>
     }
-
 
     classes = useSelector(getClassesState);
     questTypes = useSelector(getQuestTypesState);
@@ -210,6 +254,9 @@ export default function ToggleContainer() {
     })
 
     activeQuests = useSelector(getActiveQuestsState);
+    filteredActiveQuests = activeQuests;
+    console.log(filteredActiveQuests)
+    console.log(questDetails)
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat ju">
