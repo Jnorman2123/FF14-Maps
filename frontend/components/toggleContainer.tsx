@@ -151,21 +151,25 @@ export default function ToggleContainer() {
 
     const toggleDropdownQuests: MouseEventHandler<HTMLButtonElement> = () => {
         setDropdownQuests(!dropdownQuests);
-        console.log(dropdownQuests);
     }
 
     const setAvailableQuestData = () => {
+        let availableQuestsTheme: string = '';
         if (dropdownQuests) {
-            return <div className="h-availablequests overflow-auto w-11/12" style={{paddingLeft: 15}}>
+            availableQuestsTheme = 'h-availablequests overflow-auto w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+        } else {
+            availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+        }
+        return <div style={{paddingLeft: 15, paddingRight: 15, paddingTop: 5}}>
+            <div className={availableQuestsTheme}
+            style={{paddingLeft: 10}}>
                 {activeQuests.map((aq: TypeQuest) => {
                     return <div key={aq.quest_name}>
                         <button onClick={toggleQuest}>{aq.quest_name}</button>
                     </div>
                 })}
             </div>
-        } else {
-            return <div></div>
-        }
+        </div>
     }
 
 
@@ -268,7 +272,7 @@ export default function ToggleContainer() {
         <div className="items-start" style={{paddingLeft: 40, paddingTop: 10}}>
             <button className="bg-image bg-cover" onClick={toggleDropdownQuests}>
                 <Image src='/icons/ui_components/AvailableQuestsHeader.jpg' alt='Available Quests Header' 
-                width={400} height={10} style={{paddingBottom: 10}} />
+                width={400} height={10} />
             </button>
             {setAvailableQuestData()}
         </div>
