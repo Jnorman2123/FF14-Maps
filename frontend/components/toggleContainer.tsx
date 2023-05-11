@@ -167,6 +167,10 @@ export default function ToggleContainer() {
         setFilteredQuests([...filteredQuests, filteredQuest[0]]) ;
     }
 
+    const refreshAvailableQuests: MouseEventHandler<HTMLButtonElement> = () => {
+        setFilteredQuests([]);
+    }
+
     const setAvailableQuestData = () => {
         let availableQuestsTheme: string = '';
         let refreshIcon: string = '';
@@ -191,7 +195,7 @@ export default function ToggleContainer() {
                         Refresh Quests
                     </div>
                     <div className="col-span-2 text-center" style={{paddingTop: 5}}>
-                        <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} >
+                        <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} onClick={refreshAvailableQuests}>
                             <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
                              width={30} height={30} id='Refresh Available Quests'/>
                         </button>
@@ -280,8 +284,6 @@ export default function ToggleContainer() {
             return activeQuestsArray;
         })
     })
-
-    console.log(filteredQuests)
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat ju">
