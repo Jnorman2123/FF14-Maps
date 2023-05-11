@@ -176,9 +176,9 @@ export default function ToggleContainer() {
         let refreshIcon: string = '';
 
         if (dropdownQuests) {
-            availableQuestsTheme = 'h-availablequests overflow-auto w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
-        } else {
             availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+        } else {
+            availableQuestsTheme = 'h-availablequests overflow-auto w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         }
 
         if (hovered === 'Refresh Available Quests') {
@@ -187,65 +187,157 @@ export default function ToggleContainer() {
             refreshIcon = '/icons/available_quest_icons/RefreshAvailableQuestList.png';
         }
 
-        return <div style={{paddingLeft: 15, paddingRight: 15}}>
-            <div className={availableQuestsTheme}>
-                <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
-                    <div className="col-span-2"></div>
-                    <div className="col-span-6 text-center">
-                        Refresh Quests
+        if (questDetails.length > 0) {
+            return <div style={{paddingLeft: 15, paddingRight: 15}}>
+                <div className={availableQuestsTheme}>
+                    <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
+                        <div className="col-span-2"></div>
+                        <div className="col-span-6 text-center"></div>
+                        <div className="col-span-2 text-center" style={{paddingTop: 5}}>
+                            <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} onClick={refreshAvailableQuests}>
+                                <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
+                                width={30} height={30} id='Refresh Available Quests'/>
+                            </button>
+                        </div>
                     </div>
-                    <div className="col-span-2 text-center" style={{paddingTop: 5}}>
-                        <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} onClick={refreshAvailableQuests}>
-                            <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
-                             width={30} height={30} id='Refresh Available Quests'/>
-                        </button>
+                    {questDetails.map((aq: TypeQuestDetail) => {
+                        let questIconType: string = '';
+                        let questIconColor: string = aq.questBgColor;
+                        let deleteQuestIcon: string = '/icons/available_quest_icons/DeleteQuest';
+
+                        if (aq.quest.quest_type === 'Main Story') {
+                            questIconType = 'main_story_icons';
+                        } else if (aq.quest.quest_type === 'Class') {
+                            questIconType = 'class_icons';
+                        } else if (aq.quest.quest_type === 'Side') {
+                            questIconType = 'side_icons';
+                        } else {
+                            questIconType = 'hunting_log_icons';
+                        }
+
+                        let questIconUrl: string = `/icons/available_quest_icons/${questIconType}/${questIconColor}`;
+
+                        if (hovered === aq.quest.quest_name && toggledQuest[0] !== aq.quest) {
+                            questIconUrl = questIconUrl + 'Hover';
+                        } else if (hovered === `Delete ${aq.quest.quest_name}`) {
+                            deleteQuestIcon = deleteQuestIcon + 'Hover'
+                        }
+
+                        if (toggledQuest[0] === aq.quest) {
+                            questIconUrl = questIconUrl + 'Active';
+                        }
+
+                        return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
+                            <button className="col-span-1 text-center" style={{paddingTop: 5}} 
+                            onClick={toggleQuest} id={aq.quest.quest_name} onMouseEnter={updateHovered} onMouseLeave={clearHovered}>
+                                <Image src={`${questIconUrl}.png`} width={25} 
+                                height={25} alt='quest icon' id={aq.quest.quest_name}/>
+                            </button>
+                            <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
+                                {aq.quest.quest_name}
+                            </button>
+                            <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
+                            id={`Delete ${aq.quest.quest_name}`} onClick={deleteQuest} >
+                                <Image src={`${deleteQuestIcon}.png`} width={30} height={30} alt='delete quest' 
+                                id={`Delete ${aq.quest.quest_name}`} />
+                            </button>
+                        </div>
+                    })}
+                </div>
+            </div>
+        } else {
+            let startMessage = null;
+            let questTypeWarning = null;
+            let questClassWarning = null;
+            let questLevelWarning = null;
+            let noQuestsWarning = null;
+
+            if (activeClasses.length === 0 && activeQuestTypes.length === 0 && activeQuestLevels.length === 0) {
+                startMessage = <div className="text-center">
+                    Make Your Selections, Quester.
+                </div>
+            }
+            if (activeQuestTypes.length !== 0) {
+                if (activeQuestLevels.length === 0) {
+                    questLevelWarning = <div className="text-center">
+                        Select Your Level.
+                    </div>;
+                }
+                if (questTypes[1].active && activeClasses.length === 0) {
+                    questClassWarning = <div className="text-center"> 
+                        Select Your Class.
+                    </div>;
+                }
+            }
+            if (activeQuestLevels.length !== 0) {
+                if (activeQuestTypes.length === 0) {
+                    if (activeClasses.length === 0) {
+                        questClassWarning = <div className="text-center"> 
+                            Select Your Class.
+                        </div>;
+                    }
+                    questTypeWarning = <div className="text-center">
+                        Select Your Quest.
+                    </div>;
+                }
+                if (questTypes[0].active) {
+                    noQuestsWarning = <div className="text-center"> 
+                        No Quests Meet Your Criteria.
+                    </div>;
+                }
+                if (questTypes[1].active && activeClasses.length === 0) {
+                    questClassWarning = <div className="text-center"> 
+                        Select Your Class.
+                    </div>;
+                }
+                if (questTypes[3].active) {
+                    noQuestsWarning = <div className="text-center"> 
+                        No Quests Meet Your Criteria.
+                    </div>;
+                }
+            }
+            if (activeClasses.length !== 0) {
+                if (activeQuestLevels.length === 0) {
+                    questLevelWarning = <div className="text-center">
+                        Select Your Level.
+                    </div>;
+                } 
+                if (activeQuestTypes.length === 0) {
+                    questTypeWarning = <div className="text-center">
+                        Select Your Quest.
+                    </div>;
+                }
+            }
+            if (activeClasses.length !== 0 && activeQuestTypes.length !== 0 && activeQuestLevels.length !== 0) {
+                noQuestsWarning = <div className="text-center">
+                    No Quests Meet Your Criteria.
+                </div>;
+            }
+            return <div style={{paddingLeft: 15, paddingRight: 15}}>
+                <div className={availableQuestsTheme}>
+                    <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
+                        <div className="col-span-2"></div>
+                        <div className="col-span-6 text-center"></div>
+                        <div className="col-span-2 text-center" style={{paddingTop: 5}}>
+                            <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} onClick={refreshAvailableQuests}>
+                                <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
+                                width={30} height={30} id='Refresh Available Quests'/>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="grid grid-rows-6">
+                        <div className="row-span-5"></div>
+                        <div> 
+                            {startMessage}
+                            {noQuestsWarning}
+                            {questTypeWarning}
+                            {questClassWarning}
+                            {questLevelWarning}
+                        </div>
                     </div>
                 </div>
-                {questDetails.map((aq: TypeQuestDetail) => {
-                    let questIconType: string = '';
-                    let questIconColor: string = aq.questBgColor;
-                    let deleteQuestIcon: string = '/icons/available_quest_icons/DeleteQuest';
-
-                    if (aq.quest.quest_type === 'Main Story') {
-                        questIconType = 'main_story_icons';
-                    } else if (aq.quest.quest_type === 'Class') {
-                        questIconType = 'class_icons';
-                    } else if (aq.quest.quest_type === 'Side') {
-                        questIconType = 'side_icons';
-                    } else {
-                        questIconType = 'hunting_log_icons';
-                    }
-
-                    let questIconUrl: string = `/icons/available_quest_icons/${questIconType}/${questIconColor}`;
-
-                    if (hovered === aq.quest.quest_name && toggledQuest[0] !== aq.quest) {
-                        questIconUrl = questIconUrl + 'Hover';
-                    } else if (hovered === `Delete ${aq.quest.quest_name}`) {
-                        deleteQuestIcon = deleteQuestIcon + 'Hover'
-                    }
-
-                    if (toggledQuest[0] === aq.quest) {
-                        questIconUrl = questIconUrl + 'Active';
-                    }
-
-                    return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
-                        <button className="col-span-1 text-center" style={{paddingTop: 5}} 
-                        onClick={toggleQuest} id={aq.quest.quest_name} onMouseEnter={updateHovered} onMouseLeave={clearHovered}>
-                            <Image src={`${questIconUrl}.png`} width={25} 
-                            height={25} alt='quest icon' id={aq.quest.quest_name}/>
-                        </button>
-                        <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
-                            {aq.quest.quest_name}
-                        </button>
-                        <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
-                        id={`Delete ${aq.quest.quest_name}`} onClick={deleteQuest} >
-                            <Image src={`${deleteQuestIcon}.png`} width={30} height={30} alt='delete quest' 
-                            id={`Delete ${aq.quest.quest_name}`} />
-                        </button>
-                    </div>
-                })}
             </div>
-        </div>
+        }
     }
 
     classes = useSelector(getClassesState);
