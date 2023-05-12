@@ -2,25 +2,28 @@ import NavBar from './navBar';
 import QuestInfoContainer from './questInfoContainer';
 import ToggleContainer from './toggleContainer';
 import type { TypeQuest, TypeReward, TypeNpc, TypeItem,  TypeJob, TypeStep, TypeQuestDetail } from "../types";
-import { useGetQuestsQuery, useGetRewardsQuery, useGetItemsQuery, useGetJobsQuery, useGetNpcsQuery, 
-useGetStepsQuery } from "@/store/services/helperquest";
-import { updateQuests, updateItems, updateJobs, updateNpcs, updateRewards, updateSteps, 
-getNpcsState, getActiveQuestsState, getQuestIconBgColorsState, getStepsState, 
-updateQuestDetails } from '@/store/slices/dataStoreSlice';
+import { updateQuests, updateItems, updateJobs, updateNpcs, updateRewards, updateSteps, getActiveQuestsState, 
+getQuestIconBgColorsState, updateQuestDetails } from '@/store/slices/dataStoreSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useGetQuests } from '@/custom_hooks/useGetQuests';
+import { useGetJobs } from '@/custom_hooks/useGetJobs';
+import { useGetNpcs } from '@/custom_hooks/useGetNpcs';
+import { useGetRewards } from '@/custom_hooks/useGetRewards';
+import { useGetSteps } from '@/custom_hooks/useGetSteps';
+import { useGetItems } from '@/custom_hooks/useGetItems';
 
 type LayoutProps = {
     children: React.ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
-    let quests: TypeQuest[] = [];
-    let jobs: TypeJob[] = [];
-    let rewards: TypeReward[] = [];
-    let npcs: TypeNpc[] = [];
-    let items: TypeItem[] = [];
-    let steps: TypeStep[] = [];
+    let quests: TypeQuest[] = useGetQuests();
+    let jobs: TypeJob[] = useGetJobs();
+    let rewards: TypeReward[] = useGetRewards();
+    let npcs: TypeNpc[] = useGetNpcs();
+    let items: TypeItem[] = useGetItems();
+    let steps: TypeStep[] = useGetSteps();
     let filteredNpcs: TypeNpc[] = [];
     let activeQuests: TypeQuest[] = useSelector(getActiveQuestsState);
     let questColors: string[] = useSelector(getQuestIconBgColorsState);
@@ -40,68 +43,7 @@ export default function Layout({ children }: LayoutProps) {
     useEffect(() => {
         dispatch(updateQuestDetails({questDetailsArray: questDetailArray}));
     }, [questDetailArray]);
-
-    const setQuests = () => {
-        const { data, error, isLoading } = useGetQuestsQuery('quests');
-        if (isLoading) {
-        return quests = [];
-        } else {
-        return quests = data
-        }
-    }
-
-    const setJobs = () => {
-        const { data, error, isLoading } = useGetJobsQuery('jobs');
-        if (isLoading) {
-        return jobs = [];
-        } else {
-        return jobs = data
-        }
-    }
-
-    const setRewards = () => {
-        const { data, error, isLoading } = useGetRewardsQuery('rewards');
-        if (isLoading) {
-        return rewards = [];
-        } else {
-        return rewards = data
-        }
-    }
-
-    const setNpcs = () => {
-        const { data, error, isLoading } = useGetNpcsQuery('npcs');
-        if (isLoading) {
-        return npcs = [];
-        } else {
-        return npcs = data
-        }
-    }
-
-    const setItems = () => {
-        const { data, error, isLoading } = useGetItemsQuery('items');
-        if (isLoading) {
-        return items = [];
-        } else {
-        return items = data
-        }
-    }
-
-    const setSteps = () => {
-        const { data, error, isLoading } = useGetStepsQuery('steps');
-        if (isLoading) {
-        return steps = [];
-        } else {
-        return steps = data
-        }
-    }
-
-    setQuests();
-    setRewards();
-    setJobs();
-    setItems();
-    setNpcs();
-    setSteps();
-
+    
     filteredNpcs = npcs.filter((npc: TypeNpc) => npc.npc_type !== 'Aetheryte' && 
     npc.npc_type !== 'Delivery Moogle' && !npc.npc_name.includes('Chocobokeep'));
     
