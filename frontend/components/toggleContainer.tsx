@@ -16,6 +16,7 @@ export default function ToggleContainer() {
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
     let buttonIcon: string = '';
+    let tooltip: any = null;
     let filteredByJobAndClassArray: TypeQuest[] = [];
     let activeQuestsArray: TypeQuest[] = [];
     let activeClasses: string[] = [];
@@ -232,7 +233,8 @@ export default function ToggleContainer() {
                             <button className="col-span-1 text-center" style={{paddingTop: 5}} 
                             onClick={toggleQuest} id={aq.quest.quest_name} onMouseEnter={updateHovered} onMouseLeave={clearHovered}>
                                 <Image src={`${questIconUrl}.png`} width={25} 
-                                height={25} alt='quest icon' id={aq.quest.quest_name}/>
+                                height={25} alt='quest icon' id={aq.quest.quest_name}
+                                title={`Toggle ${aq.quest.quest_name}.`}/>
                             </button>
                             <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
                                 {aq.quest.quest_name}
@@ -240,7 +242,7 @@ export default function ToggleContainer() {
                             <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
                             id={`Delete ${aq.quest.quest_name}`} onClick={deleteQuest} >
                                 <Image src={`${deleteQuestIcon}.png`} width={30} height={30} alt='delete quest' 
-                                id={`Delete ${aq.quest.quest_name}`} />
+                                id={`Delete ${aq.quest.quest_name}`} title={`Delete ${aq.quest.quest_name}.`} />
                             </button>
                         </div>
                     })}
@@ -392,10 +394,12 @@ export default function ToggleContainer() {
                 } else {
                     buttonIcon = `${c.name}`;
                 }
+
                 return <div key={c.name}>
                     <button name={c.name} onClick={updateClassActive} 
-                    onMouseEnter={updateClassHovered} onMouseLeave={updateClassNotHovered} >
-                        <Image src={`/icons/class_icons/${buttonIcon}.png`} alt={c.name} width={45} height={45} />
+                    onMouseEnter={updateClassHovered} onMouseLeave={updateClassNotHovered}>
+                        <Image src={`/icons/class_icons/${buttonIcon}.png`} alt={c.name} width={45} height={45} 
+                        title={c.name} />
                     </button>
                 </div>
             })}
@@ -411,10 +415,12 @@ export default function ToggleContainer() {
                 } else {
                     buttonIcon = `${qt.name}`;
                 }
+
                 return <div key={qt.name}>
                     <button name={qt.name} onClick={updateQuestTypeActive} 
                     onMouseEnter={updateQuestTypeHovered} onMouseLeave={updateQuestTypeNotHovered}>
-                        <Image src={`/icons/quest_type_icons/${buttonIcon}.png`} alt={qt.name} width={45} height={45} />
+                        <Image src={`/icons/quest_type_icons/${buttonIcon}.png`} alt={qt.name} width={45} height={45} 
+                        title={qt.name} />
                     </button>
                 </div>
             })}
@@ -430,10 +436,12 @@ export default function ToggleContainer() {
                 } else {
                     buttonIcon = `${ql.name}`;
                 }
+
                 return <div key={ql.name}>
                     <button name={ql.name} onClick={updateQuestLevelActive} 
                     onMouseEnter={updateQuestLevelHovered} onMouseLeave={updateQuestLevelNotHovered}>
-                        <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={45} height={45} />
+                        <Image src={`/icons/quest_level_icons/${buttonIcon}.png`} alt={ql.name} width={45} height={45} 
+                        title={ql.name} />
                     </button>
                 </div>
             })}
