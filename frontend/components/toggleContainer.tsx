@@ -316,8 +316,7 @@ export default function ToggleContainer() {
             return <div style={{paddingLeft: 15, paddingRight: 15}}>
                 <div className={availableQuestsTheme}>
                     <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
-                        <div className="col-span-2"></div>
-                        <div className="col-span-6 text-center"></div>
+                        <div className="col-span-8"></div>
                         <div className="col-span-2 text-center" style={{paddingTop: 5}}>
                             <button onMouseEnter={updateHovered} onMouseLeave={clearHovered} onClick={refreshAvailableQuests}>
                                 <Image src={refreshIcon} alt='refresh available quests' title='Refresh Available Quests'
@@ -325,15 +324,12 @@ export default function ToggleContainer() {
                             </button>
                         </div>
                     </div>
-                    <div className="grid grid-rows-6">
-                        <div className="row-span-5"></div>
-                        <div> 
-                            {startMessage}
-                            {noQuestsWarning}
-                            {questTypeWarning}
-                            {questClassWarning}
-                            {questLevelWarning}
-                        </div>
+                    <div style={{paddingTop: 125}} className="text-center">
+                        {questClassWarning}
+                        {questLevelWarning}
+                        {startMessage}
+                        {noQuestsWarning}
+                        {questTypeWarning}
                     </div>
                 </div>
             </div>
