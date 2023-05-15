@@ -20,7 +20,7 @@ export default function NavBar() {
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
 
   return (
-    <div className="aspect-h-9 relative bg-[url('/nav_bar/NavBar.jpg')] bg-contain bg-no-repeat">
+    <div className="aspect-h-9 relative bg-[url('/nav_bar/NavBar.jpg')] bg-cover bg-no-repeat">
         <div className='grid grid-cols-12 gap-1' >
             <div className='col-span-3'>
                 <Image src='/nav_bar/logos/HelperQuest_Logo.png' alt='HelperQuest Logo' width={600} height={140} />

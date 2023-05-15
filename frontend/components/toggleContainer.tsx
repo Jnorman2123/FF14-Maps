@@ -383,7 +383,7 @@ export default function ToggleContainer() {
     }
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
-        bg-cover bg-no-repeat ju">
+        bg-cover bg-no-repeat">
         <Image src={`/icons/ui_components/SelectClassHeader.jpg`} alt='Select Class Header' width={500} height={10} />
         <div className="grid grid-cols-5 gap-1 justify-items-center" style={{padding: 10}}>
             {classes.map((c: TypeClass) => {

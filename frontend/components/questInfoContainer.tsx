@@ -3,6 +3,7 @@ import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, get
 getNpcsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function QuestInfoContainer() {
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
@@ -19,6 +20,8 @@ export default function QuestInfoContainer() {
         let questReward: TypeReward | undefined;
         let guaranteedItems: TypeItem[] = [];
         let optionalItems: TypeItem[] = [];
+        let questLvlIcon: string = toggledQuest[0].quest_level.toString();
+        let questTypeIcon: string = toggledQuest[0].quest_type.split(' ').join('');
         
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
@@ -33,12 +36,26 @@ export default function QuestInfoContainer() {
             }
         })
         
-        return <div className="bg-white text-black col-span-3 h-full text-center">
-            <h1>Quest Info Container</h1>
-            <h4>Quest Name</h4>
-            <h6>{toggledQuest[0].quest_name}</h6>
-            <h4>Quest Details</h4>
-            <h6>Quest Class(es) Quest Type Quest Level</h6>
+        return <div className="col-span-3 h-full text-center
+            bg-[url('/icons/quest_info_ui_components/QuestInfoComponentBg.jpg')] bg-contain bg-no-repeat"
+            style={{padding: 5}}>
+                <div className="bg-[url('/icons/quest_info_ui_components/QuestNameContainerBg.png')] 
+                    bg-contain bg-no-repeat flex items-center justify-center" style={{height: 50}}>
+                            {toggledQuest[0].quest_name}
+                </div>
+                <div className="grid grid-cols-10 gap-2" style={{paddingTop: 10}}>
+                    <div className="col-span-1"></div>
+                    <div className="relative col-span-1">
+                        <Image src='/icons/quest_info_ui_components/LevelIcon.png' alt='Quest Level Container' 
+                        width={50} height={50} className="object-cover"/>
+                        <Image src={`/icons/quest_numbers/${questLvlIcon}.png`} alt='Quest Level Number' 
+                        title={`Level ${questLvlIcon}`} width={25} height={25} className="absolute top-4 left-2"/>
+                    </div>
+                    <div className="col-span-1">
+                        <Image src={`/icons/quest_type_icons/${questTypeIcon}.png`} alt='Quest Type' 
+                        title={toggledQuest[0].quest_type} width={50} height={50} />
+                    </div>
+                </div>
             <ul>
                 {toggledQuest[0].quest_class.map((qc: number) => {
                     if (questClass?.id !== null) {
