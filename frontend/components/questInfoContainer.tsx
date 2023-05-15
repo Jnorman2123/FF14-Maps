@@ -22,6 +22,7 @@ export default function QuestInfoContainer() {
         let optionalItems: TypeItem[] = [];
         let questLvlIcon: string = toggledQuest[0].quest_level.toString();
         let questTypeIcon: string = toggledQuest[0].quest_type.split(' ').join('');
+        let questClassIcon: string | undefined = '';
         
         if (questReward?.id !== null) {
             questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
@@ -36,60 +37,64 @@ export default function QuestInfoContainer() {
             }
         })
         
-        return <div className="col-span-3 h-full text-center
-            bg-[url('/icons/quest_info_ui_components/QuestInfoComponentBg.jpg')] bg-contain bg-no-repeat"
-            style={{padding: 5}}>
+        return <div className="col-span-3 h-full text-center relative
+            bg-[url('/icons/quest_info_ui_components/QuestInfoComponentBg.jpg')] bg-cover bg-no-repeat "
+            style={{padding: 10}}>
                 <div className="bg-[url('/icons/quest_info_ui_components/QuestNameContainerBg.png')] 
                     bg-contain bg-no-repeat flex items-center justify-center" style={{height: 50}}>
                             {toggledQuest[0].quest_name}
                 </div>
-                <div className="grid grid-cols-10 gap-2" style={{paddingTop: 10}}>
-                    <div className="col-span-1"></div>
-                    <div className="relative col-span-1">
-                        <Image src='/icons/quest_info_ui_components/LevelIcon.png' alt='Quest Level Container' 
-                        width={50} height={50} className="object-cover"/>
-                        <Image src={`/icons/quest_numbers/${questLvlIcon}.png`} alt='Quest Level Number' 
-                        title={`Level ${questLvlIcon}`} width={25} height={25} className="absolute top-4 left-2"/>
+                <div className="bg-[url('/icons/quest_info_ui_components/QuestInfoContainerBg.jpg')] bg-cover bg-no-repeat
+                    h-full w-11/12 absolute left-5 rounded-b-lg">
+                    <div className="grid grid-cols-10 gap-1" style={{paddingTop: 10}}>
+                        <div className="col-span-1"></div>
+                        <div className="relative col-span-1">
+                            <Image src='/icons/quest_info_ui_components/LevelIcon.png' alt='Quest Level Container' 
+                            width={50} height={50} className="object-cover"/>
+                            <Image src={`/icons/quest_numbers/${questLvlIcon}.png`} alt='Quest Level Number' 
+                            title={`Level ${questLvlIcon}`} width={25} height={25} className="absolute top-4 left-2"/>
+                        </div>
+                        <div className="col-span-1">
+                            <Image src={`/icons/quest_type_icons/${questTypeIcon}.png`} alt='Quest Type' 
+                            title={`${toggledQuest[0].quest_type} Quest`} width={50} height={50} />
+                        </div>
+                        {toggledQuest[0].quest_class.map((qc: number) => {
+                            if (questClass?.id !== null) {
+                                questClass = jobs.find((j: TypeJob) => j.id === qc)
+                            }
+                            questClassIcon = questClass?.job_name;
+                            return <div className="col-span-1" key={qc}>
+                                <Image src={`/icons/class_icons/${questClassIcon}.png`} alt='Quest Class' title={questClassIcon} 
+                                width={50} height={50}/>
+                            </div>
+                        })}
                     </div>
-                    <div className="col-span-1">
-                        <Image src={`/icons/quest_type_icons/${questTypeIcon}.png`} alt='Quest Type' 
-                        title={toggledQuest[0].quest_type} width={50} height={50} />
+                    <div>
+                    <ul>
+                        {questSteps.map((step: TypeStep) => {
+                            let stepNpcZone = npcs.find((npc: TypeNpc) => 
+                            npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
+                            let zoneLink = stepNpcZone?.split(' ').join('-');
+                            let stepNumber = '';
+                            if (stepIndex === 0) {
+                                stepNumber = 'Start';
+                            } else if (stepIndex === questSteps.length - 1) {
+                                stepNumber = 'Turn In'
+                            } else {
+                                stepNumber = stepIndex.toString();
+                            }
+                            stepIndex++;
+                            return <li key={step.step_description}>
+                                {`${stepNumber} - ${step.step_description} (`}
+                                <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
+                                {`)`}
+                            </li>
+                        })}
+                    </ul>
                     </div>
                 </div>
-            <ul>
-                {toggledQuest[0].quest_class.map((qc: number) => {
-                    if (questClass?.id !== null) {
-                        questClass = jobs.find((j: TypeJob) => j.id === qc)
-                    }
-                    return <li key={qc}>{questClass?.job_name}</li>
-                })}
-            </ul>
-            <h6>{toggledQuest[0].quest_type}</h6>
-            <h6>{toggledQuest[0].quest_level}</h6>
-            <h4>Previous Quest: {toggledQuest[0].previous_quest}</h4>
-            <h4>Next Quest: {toggledQuest[0].next_quest}</h4>
-            <h4>Quest Steps</h4>
-            <ul>
-                {questSteps.map((step: TypeStep) => {
-                    let stepNpcZone = npcs.find((npc: TypeNpc) => 
-                    npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
-                    let zoneLink = stepNpcZone?.split(' ').join('-');
-                    let stepNumber = '';
-                    if (stepIndex === 0) {
-                        stepNumber = 'Start';
-                    } else if (stepIndex === questSteps.length - 1) {
-                        stepNumber = 'Turn In'
-                    } else {
-                        stepNumber = stepIndex.toString();
-                    }
-                    stepIndex++;
-                    return <li key={step.step_description}>
-                        {`${stepNumber} - ${step.step_description} (`}
-                        <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
-                        {`)`}
-                    </li>
-                })}
-            </ul>
+            
+            
             <h4>Quest Rewards</h4>
             <h6>Experience: {questReward?.reward_experience}</h6>
             <h6>Gil: {questReward?.reward_gil}</h6>
