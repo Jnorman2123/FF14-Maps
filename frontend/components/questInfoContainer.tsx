@@ -46,7 +46,7 @@ export default function QuestInfoContainer() {
                 </div>
                 <div className="bg-[url('/icons/quest_info_ui_components/QuestInfoContainerBg.jpg')] bg-cover bg-no-repeat
                     h-full w-11/12 absolute left-5 rounded-b-lg">
-                    <div className="grid grid-cols-10 gap-1" style={{paddingTop: 10}}>
+                    <div className="grid grid-cols-10 gap-1" style={{paddingTop: 10, paddingBottom: 15}}>
                         <div className="col-span-1"></div>
                         <div className="relative col-span-1">
                             <Image src='/icons/quest_info_ui_components/LevelIcon.png' alt='Quest Level Container' 
@@ -69,28 +69,30 @@ export default function QuestInfoContainer() {
                             </div>
                         })}
                     </div>
-                    <div>
-                    <ul>
-                        {questSteps.map((step: TypeStep) => {
-                            let stepNpcZone = npcs.find((npc: TypeNpc) => 
-                            npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
-                            let zoneLink = stepNpcZone?.split(' ').join('-');
-                            let stepNumber = '';
-                            if (stepIndex === 0) {
-                                stepNumber = 'Start';
-                            } else if (stepIndex === questSteps.length - 1) {
-                                stepNumber = 'Turn In'
-                            } else {
-                                stepNumber = stepIndex.toString();
-                            }
-                            stepIndex++;
-                            return <li key={step.step_description}>
-                                {`${stepNumber} - ${step.step_description} (`}
-                                <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
-                                {`)`}
-                            </li>
-                        })}
-                    </ul>
+                    <div className="bg-gray-500 rounded-lg w-11/12 relative left-5">
+                        <Image src='/icons/quest_info_ui_components/QuestStepsContainerHeader.jpg' alt='Quest Steps Header' 
+                        width={750} height={70} className="rounded-t-lg w-full"/>
+                        <ul>
+                            {questSteps.map((step: TypeStep) => {
+                                let stepNpcZone = npcs.find((npc: TypeNpc) => 
+                                npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
+                                let zoneLink = stepNpcZone?.split(' ').join('-');
+                                let stepNumber = '';
+                                if (stepIndex === 0) {
+                                    stepNumber = 'Start';
+                                } else if (stepIndex === questSteps.length - 1) {
+                                    stepNumber = 'Turn In'
+                                } else {
+                                    stepNumber = stepIndex.toString();
+                                }
+                                stepIndex++;
+                                return <li key={step.step_description}>
+                                    {`${stepNumber} - ${step.step_description} (`}
+                                    <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
+                                    {`)`}
+                                </li>
+                            })}
+                        </ul>
                     </div>
                 </div>
             
