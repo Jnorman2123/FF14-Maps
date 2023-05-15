@@ -28,6 +28,7 @@ export default function ToggleContainer() {
     let jobs: TypeJob[] = useSelector(getJobsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
+    let availableQuestCollapseImage: string = '';
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
@@ -176,9 +177,9 @@ export default function ToggleContainer() {
         let refreshIcon: string = '';
 
         if (dropdownQuests) {
-            availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+            availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-full bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         } else {
-            availableQuestsTheme = 'h-availablequests overflow-auto w-11/12 bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+            availableQuestsTheme = 'h-availablequests overflow-auto w-full bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
         }
 
         if (hovered === 'Refresh Available Quests') {
@@ -188,7 +189,7 @@ export default function ToggleContainer() {
         }
 
         if (questDetails.length > 0) {
-            return <div style={{paddingLeft: 15, paddingRight: 15}}>
+            return <div style={{paddingLeft: 15}}>
                 <div className={availableQuestsTheme}>
                     <div className="bg-refreshbarbg rounded-lg grid grid-cols-10 gap-1">
                         <div className="col-span-2"></div>
@@ -373,6 +374,12 @@ export default function ToggleContainer() {
         })
     })
 
+    if (dropdownQuests) {
+        availableQuestCollapseImage = '/icons/ui_components/Expand.png';
+    } else {
+        availableQuestCollapseImage = '/icons/ui_components/Collapse.png';
+    }
+
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat ju">
         <Image src={`/icons/ui_components/SelectClassHeader.jpg`} alt='Select Class Header' width={500} height={10} />
@@ -431,10 +438,12 @@ export default function ToggleContainer() {
                 </div>
             })}
         </div>
-        <div className="items-start" style={{paddingLeft: 40, paddingTop: 10}}>
-            <button className="bg-image bg-cover" onClick={toggleDropdownQuests}>
+        <div className="items-start" style={{paddingLeft: 30, paddingTop: 10, paddingRight: 30}}>
+            <button className="relative" onClick={toggleDropdownQuests}>
                 <Image src='/icons/ui_components/AvailableQuestsHeader.jpg' alt='Available Quests Header' 
-                width={400} height={10} />
+                width={400} height={10} className="w-full h-full object-cover"/>
+                <Image src={availableQuestCollapseImage} alt='Available Quests Header' 
+                width={35} height={35} className="absolute top-3 right-5"/>
             </button>
             {setAvailableQuestData()}
         </div>
