@@ -45,7 +45,7 @@ export default function QuestInfoContainer() {
                             {toggledQuest[0].quest_name}
                 </div>
                 <div className="bg-[url('/icons/quest_info_ui_components/QuestInfoContainerBg.jpg')] bg-cover bg-no-repeat
-                    h-full w-11/12 absolute left-5 rounded-b-lg">
+                    h-full w-11/12 absolute left-5 rounded-b-lg" style={{paddingBottom: 50}}>
                     <div className="grid grid-cols-10 gap-1" style={{paddingTop: 10, paddingBottom: 15}}>
                         <div className="col-span-1"></div>
                         <div className="relative col-span-1">
@@ -69,30 +69,32 @@ export default function QuestInfoContainer() {
                             </div>
                         })}
                     </div>
-                    <div className="bg-gray-500 rounded-lg w-11/12 relative left-5">
+                    <div className="bg-gray-500 rounded-lg w-11/12 relative left-5" style={{paddingBottom: 20}}>
                         <Image src='/icons/quest_info_ui_components/QuestStepsContainerHeader.jpg' alt='Quest Steps Header' 
                         width={750} height={70} className="rounded-t-lg w-full"/>
-                        <ul>
-                            {questSteps.map((step: TypeStep) => {
-                                let stepNpcZone = npcs.find((npc: TypeNpc) => 
-                                npc.id === step.step_npc)?.npc_zone.split(' ').slice(0, -1).join(' ');
-                                let zoneLink = stepNpcZone?.split(' ').join('-');
-                                let stepNumber = '';
-                                if (stepIndex === 0) {
-                                    stepNumber = 'Start';
-                                } else if (stepIndex === questSteps.length - 1) {
-                                    stepNumber = 'Turn In'
-                                } else {
-                                    stepNumber = stepIndex.toString();
-                                }
-                                stepIndex++;
-                                return <li key={step.step_description}>
-                                    {`${stepNumber} - ${step.step_description} (`}
-                                    <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
-                                    {`)`}
-                                </li>
-                            })}
-                        </ul>
+                        <div style={{padding: 10}}>
+                            <ul>
+                                {questSteps.map((step: TypeStep) => {
+                                    let stepNpcZone = npcs.find((npc: TypeNpc) => 
+                                    npc.id === step.step_npc)?.npc_zone.split('(')[0];
+                                    let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('-');
+                                    let stepNumber = '';
+                                    if (stepIndex === 0) {
+                                        stepNumber = 'Start';
+                                    } else if (stepIndex === questSteps.length - 1) {
+                                        stepNumber = 'Turn In'
+                                    } else {
+                                        stepNumber = stepIndex.toString();
+                                    }
+                                    stepIndex++;
+                                    return <li key={step.step_description}>
+                                        {`${stepNumber} - ${step.step_description} (`}
+                                        <Link href={`/zone/${zoneLink}`} >{stepNpcZone}</Link>
+                                        {`)`}
+                                    </li>
+                                })}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             
