@@ -1,7 +1,7 @@
 import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep, TypeNpc } from "@/types";
 import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState, 
 getNpcsState } from "@/store/slices/dataStoreSlice";
-import { useSelector } from "react-redux";
+import { ReactReduxContext, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,6 +13,50 @@ export default function QuestInfoContainer() {
     let items: TypeItem[] = useSelector(getItemsState);
     let npcs: TypeNpc[] = useSelector(getNpcsState);
     let stepIndex: number = 0;
+    let rewardLinesNumber: number = 0;
+    let guaranteedRewardDetails: {
+        theme: string,
+        rewardItem: TypeItem | undefined,
+    }[] = [];
+    let optionalRewardDetails: {
+        theme: string,
+        rewardItem: TypeItem | undefined,
+    }[] = [];
+
+    const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
+        for (let i = 0; i < lines; i++) {
+            let theme: string = '';
+            let rewardDetail: {
+                theme: string,
+                rewardItem: TypeItem | undefined
+            };
+
+            if (i % 2 === 0) {
+                theme = 'bg-blue-300';
+            } else {
+                theme = 'bg-gray-500';
+            }
+
+            if (i === lines - 1) {
+                theme = theme + ' rounded-b-lg';
+            }
+
+            if (rewardItems[i] && rewardItems[i].item_quantity > 0) {
+                rewardDetail = {
+                    theme: theme,
+                    rewardItem: rewardItems[i],
+                } 
+                
+                rewardDetails.push(rewardDetail);
+            } else {
+                rewardDetail = {
+                    theme: theme,
+                    rewardItem: undefined,
+                }
+                rewardDetails.push(rewardDetail);
+            }
+        }
+    })
     
     if (toggledQuest[0] !== undefined) {
         let questClass: TypeJob | undefined;
@@ -36,6 +80,15 @@ export default function QuestInfoContainer() {
                 guaranteedItems.push(rewardItem);
             }
         })
+
+        if (guaranteedItems.length > optionalItems.length) {
+            rewardLinesNumber = guaranteedItems.length;
+        } else if (optionalItems.length >= guaranteedItems.length) {
+            rewardLinesNumber = optionalItems.length;
+        }
+
+        createRewardGrid(rewardLinesNumber, guaranteedItems, guaranteedRewardDetails);
+        createRewardGrid(rewardLinesNumber, optionalItems, optionalRewardDetails);
         
         return <div className="col-span-3 h-full text-center relative
             bg-[url('/icons/quest_info_ui_components/QuestInfoComponentBg.jpg')] bg-cover bg-no-repeat "
@@ -69,9 +122,9 @@ export default function QuestInfoContainer() {
                             </div>
                         })}
                     </div>
-                    <div className="bg-gray-500 rounded-lg w-11/12 relative left-5" style={{paddingBottom: 20}}>
+                    <div className="bg-gray-500 rounded-lg w-11/12 relative left-5" style={{paddingBottom: 10}}>
                         <Image src='/icons/quest_info_ui_components/QuestStepsContainerHeader.jpg' alt='Quest Steps Header' 
-                        width={750} height={70} className="rounded-t-lg w-full"/>
+                        width={750} height={70} className="rounded-t-lg"/>
                         <div style={{padding: 10}}>
                             <ul>
                                 {questSteps.map((step: TypeStep) => {
@@ -96,20 +149,75 @@ export default function QuestInfoContainer() {
                             </ul>
                         </div>
                     </div>
+                    <div style={{height: 15}}></div>
+                    <div className="bg-gray-300 rounded-lg w-11/12 relative left-5">
+                        <Image src='/icons/quest_info_ui_components/RewardContainerHeader.jpg' alt='Quest Reward Header'
+                        width={750} height={70} className="rounded-t-lg" />
+                        <div className="grid grid-cols-2 gap-1" style={{padding: 10}}>
+                                <div className="col-span-1 rounded-lg">
+                                    <Image src='/icons/quest_info_ui_components/RewardGuaranteedHeader.jpg' 
+                                    alt='Guaranteed Reward Header' width={750} height={70} className="rounded-t-lg"/> 
+                                    <div>
+                                        <ul>
+                                            {guaranteedRewardDetails.map((rewardDetail: any) => {
+                                                if (rewardDetail.rewardItem) {
+                                                    return <li className={`bg-${rewardDetail.bgColor}`} 
+                                                    key={rewardDetail.rewardItem.item_name}>
+                                                        <div className="grid grid-cols-4 gap-1" style={{padding: 5}}>
+                                                            <div className="col-span-3 text-left">
+                                                                {rewardDetail.rewardItem.item_name}
+                                                            </div>
+                                                            <div className="col-span-1 text-right">
+                                                                {rewardDetail.rewardItem.item_quantity}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                } else {
+                                                    return <li className={rewardDetail.theme} 
+                                                    key={Math.random()}>
+                                                        <div style={{padding: 5}}>
+                                                            <br></br>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="col-span-1">
+                                    <Image src='/icons/quest_info_ui_components/RewardOptionalHeader.jpg' 
+                                    alt='Optional Reward Header' width={750} height={70} className="rounded-t-lg"/>
+                                    <div>
+                                        <ul>
+                                            {optionalRewardDetails.map((rewardDetail: any) => {
+                                                if (rewardDetail.rewardItem) {
+                                                    return <li className={rewardDetail.theme} 
+                                                    key={rewardDetail.rewardItem.item_name}>
+                                                        <div className="grid grid-cols-4 gap-1" style={{padding: 5}}>
+                                                            <div className="col-span-3 text-left">
+                                                                {rewardDetail.rewardItem.item_name}
+                                                            </div>
+                                                            <div className="col-span-1 text-right">
+                                                                {rewardDetail.rewardItem.item_quantity}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                } else {
+                                                    return <li className={rewardDetail.theme} 
+                                                    key={Math.random()}>
+                                                        <div style={{padding: 5}}>
+                                                            <br></br>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
                 </div>
             
-            
-            <h4>Quest Rewards</h4>
-            <h6>Experience: {questReward?.reward_experience}</h6>
-            <h6>Gil: {questReward?.reward_gil}</h6>
-            <h4>Guaranteed Items</h4>
-            <ul>
-                {guaranteedItems.map((item: TypeItem) => {
-                    if (item.item_quantity > 0) {
-                        return <li key={item.id} >{item.item_name} {item.item_quantity}</li>
-                    }
-                })}
-            </ul>
             <h4>Optional Items</h4>
             <ul>
                 {optionalItems.map((item: TypeItem) => {
