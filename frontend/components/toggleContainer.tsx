@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
+import { inter200, inter300, inter400, inter600 } from "@/styles/fonts";
 
 export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
@@ -178,9 +179,11 @@ export default function ToggleContainer() {
         let refreshIcon: string = '';
 
         if (dropdownQuests) {
-            availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-full bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+            availableQuestsTheme = 'h-hiddenavailablequests overflow-hidden w-full bg-lightbg text-accordiontext rounded-lg'
+            + ` transition-height duration-250 ease-in-out ${inter300.className}`;
         } else {
-            availableQuestsTheme = 'h-availablequests overflow-auto w-full bg-lightbg text-accordiontext rounded-lg transition-height duration-250 ease-in-out';
+            availableQuestsTheme = 'h-availablequests overflow-auto w-full bg-lightbg text-accordiontext rounded-lg'
+            + ` transition-height duration-250 ease-in-out ${inter300.className}`;
         }
 
         if (hovered === 'Refresh Available Quests') {

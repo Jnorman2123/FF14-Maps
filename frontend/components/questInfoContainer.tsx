@@ -4,7 +4,7 @@ getNpcsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
-import { inter200, inter300, inter400, inter600, inter700 } from "@/styles/fonts";
+import { inter400, inter600 } from "@/styles/fonts";
 
 export default function QuestInfoContainer() {
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
