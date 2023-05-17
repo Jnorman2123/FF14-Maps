@@ -27,7 +27,9 @@ export default function NavBar() {
             </div>
             {regionNames.map((regionName: string) => {
                 let zones = [];
-                let regionLink = regionName.split(' ').join('-');
+                let regionTabUrl: string = regionName.split(' ').join('');
+                console.log(regionTabUrl)
+                let regionLink: string = regionName.split(' ').join('-');
                 if (regionName === 'La Noscea') {
                     zones = laNosceaZoneNames;
                 } else if (regionName === 'The Black Shroud') {
@@ -37,10 +39,10 @@ export default function NavBar() {
                 }
                 return <div className='grid-cols-1 relative' key={regionName}>
                     <Menu  as="div" className="text-left absolute bottom-0 w-full">
-                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-gray-600 px-3 
-                        py-2 text-navtab font-bold text-white shadow-sm hover:bg-gray-700 opacity-75">
-                            {regionName}
-                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-t-questinfo bg-transparent 
+                        px-3 py-2 text-navtab font-bold text-white shadow-sm hover:opacity-90 opacity-75 relative">
+                            <Image src={`/nav_bar/${regionTabUrl}NavTab.png`} alt={`${regionName} Tab`} 
+                            width={200} height={50} className='absolute bottom-0'/>
                         </Menu.Button>
                         <Transition
                             as={Fragment}
