@@ -18,6 +18,8 @@ module.exports = {
     },
     borderRadius: {
       questinfo: '20px',
+      md: '10px',
+      lg: '15px',
     },
     extend: {
       colors: {

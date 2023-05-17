@@ -146,7 +146,7 @@ export default function QuestInfoContainer() {
                                 stepIndex++;
                                 return <li key={step.step_description}>
                                     {`${stepNumber}. ${step.step_description} (`}
-                                    <Link href={`/zone/${zoneLink}`} className="text-blue-300 underline underline-offset-2">
+                                    <Link href={`/zone/${zoneLink}`} className="text-blue-500 underline underline-offset-2">
                                         {stepNpcZone}
                                     </Link>
                                     {`)`}
@@ -261,7 +261,7 @@ export default function QuestInfoContainer() {
                             <div className={`row-span-1 text-questrewardtext ${inter600.className} text-previousquestsize`}>
                                 Previous Quest
                             </div>
-                            <div className={`row-span-1 text-blue-300 ${inter600.className} text-questrewardnumbersize
+                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
                                 {toggledQuest[0].previous_quest}
                             </div>
@@ -272,7 +272,7 @@ export default function QuestInfoContainer() {
                             <div className={`row-span-1 text-questrewardtext ${inter600.className} text-previousquestsize`}>
                                 Next Quest
                             </div>
-                            <div className={`row-span-1 text-blue-300 ${inter600.className} text-questrewardnumbersize
+                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
                                 {toggledQuest[0].next_quest}
                             </div>

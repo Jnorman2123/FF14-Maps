@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState,
 getRegionNamesState } from '@/store/slices/dataStoreSlice';
+import { inter400 } from "@/styles/fonts";
 
 
 function classNames(...classes: any[]) {
@@ -28,7 +28,6 @@ export default function NavBar() {
             {regionNames.map((regionName: string) => {
                 let zones = [];
                 let regionTabUrl: string = regionName.split(' ').join('');
-                console.log(regionTabUrl)
                 let regionLink: string = regionName.split(' ').join('-');
                 if (regionName === 'La Noscea') {
                     zones = laNosceaZoneNames;
@@ -39,8 +38,8 @@ export default function NavBar() {
                 }
                 return <div className='grid-cols-1 relative' key={regionName}>
                     <Menu  as="div" className="text-left absolute bottom-0 w-full">
-                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-t-questinfo bg-transparent 
-                        px-3 py-2 text-navtab font-bold text-white shadow-sm hover:opacity-90 opacity-75 relative">
+                        <Menu.Button className="inline-flex w-full justify-center bg-transparent py-2 hover:opacity-95 opacity-80 
+                        relative">
                             <Image src={`/nav_bar/${regionTabUrl}NavTab.png`} alt={`${regionName} Tab`} 
                             width={200} height={50} className='absolute bottom-0'/>
                         </Menu.Button>
@@ -53,14 +52,14 @@ export default function NavBar() {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                         >
-                            <Menu.Items className="absolute left-0 z-[1000] mt-2 w-56 origin-top-right rounded-md bg-white 
-                            shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Items className={`absolute left-0 z-[1000] mt-2 w-56 origin-top-right rounded-md bg-lightbg 
+                            shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${inter400.className}`}>
                                 <div className="py-1">
                                     <Menu.Item>
                                     {({ active }) => (
                                         <Link href={`/region/${regionLink}`}
                                         className={classNames(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            active ? 'bg-queststepsbg text-blue-500' : 'text-blue-500',
                                             'block px-4 py-2 text-sm'
                                         )}
                                         >
@@ -74,7 +73,7 @@ export default function NavBar() {
                                         {({ active }) => (
                                             <Link href={`/zone/${zoneLink}`}
                                             className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                active ? 'bg-queststepsbg text-blue-500' : 'text-blue-500',
                                                 'block px-4 py-2 text-sm'
                                             )}
                                             >
