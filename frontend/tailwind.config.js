@@ -14,6 +14,10 @@ module.exports = {
       navbar: '140px',
       availablequests: '34vh',
       hiddenavailablequests: '0px',
+      questinfocontainer: '750px',
+    },
+    borderRadius: {
+      questinfo: '20px',
     },
     extend: {
       colors: {
@@ -63,13 +67,25 @@ module.exports = {
         navbarbg: '#c4821f',
         refreshbarbg: '#fee4b8',
         homepagebg: '#fff2cf',
+        questinfoheadercolor: '#fffce5',
+        queststepsbg: '#f7f2c8',
+        queststepstext: '#7c5034',
+        questrewardbg1: '#ffe5ac',
+        questrewardbg2: '#ffefc7',
+        questrewardtext: '#7c5034',
+        questrewardnumber: '#7c5034',
       },
       transitionProperty: {
         'height': 'height',
-      }
+      },
     },
     fontSize: {
       navtab: '.7vw',
+      questinfoheader: '22px',
+      queststepstextsize: '16px',
+      questrewardtextsize: '14px',
+      questrewardnumbersize: '16px',
+      previousquestsize: '18px',
     },
   },
   variants: {
