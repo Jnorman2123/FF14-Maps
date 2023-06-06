@@ -8,7 +8,11 @@ getOutsideZoneNamesState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeMarkerObject } from "@/types";
 import ZoneLegend from "./ZoneLegend";
 
-const ZoneMap = () => {
+type ZoneMapProps = {
+    zoneName?: string;
+}
+
+export default function ZoneMap({ zoneName }: ZoneMapProps) {
     interface ClusteredMarkerData {
         [key: string]: any[];
     }
@@ -17,8 +21,8 @@ const ZoneMap = () => {
     const { asPath } = router;
     const dispatch = useDispatch();
     let splitPathName: string = asPath.split('/').slice(-1)[0];
-    let spacedZoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join(' ');
-    let zoneName: string = splitPathName.split('-').filter((word: string) => word !== '-').join('');
+    let spacedZoneName: string;
+    let zoneMapUrl: string;
     let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
@@ -27,7 +31,16 @@ const ZoneMap = () => {
     let zoom: number;
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
+    
+    if (zoneName) {
+        spacedZoneName = zoneName.split(/(?=[A-Z])/).join(' ');
+        zoneMapUrl = zoneName;
+    } else {
+        spacedZoneName = splitPathName.split(/(?=[A-Z])/).join(' ');
+        zoneMapUrl = splitPathName;
+    }
 
+    console.log(spacedZoneName)
     if (outsideZoneNames.includes(spacedZoneName)) {
         bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
         center = L.latLng([-20.95, 20.95]);
@@ -96,7 +109,7 @@ const ZoneMap = () => {
     return (
         <MapContainer crs={L.CRS.Simple} center={center} zoom={zoom} minZoom={zoom} maxZoom={maxZoom} scrollWheelZoom={true} 
         style={{height: '825px', width: '100%'}} maxBounds={bounds} maxBoundsViscosity={1} zoomControl={false}>
-            <ImageOverlay url={`/maps/${zoneName}.jpg`} bounds={bounds} />
+            <ImageOverlay url={`/maps/${zoneMapUrl}.jpg`} bounds={bounds} />
             {unclusteredMarkerData.map((markerObject: any) => {
                 let colorIcon = new L.Icon({iconUrl: markerObject.questBgColorIcon, iconSize: [35, 35]});
                 let stepIconUrl: string = markerObject.stepIcon;
@@ -130,9 +143,7 @@ const ZoneMap = () => {
                     </Marker>
                 </LayerGroup>
             })}
-            <ZoneLegend />
+            <ZoneLegend zoneName={zoneName} />
         </MapContainer>
     )
 }
-
-export default ZoneMap;

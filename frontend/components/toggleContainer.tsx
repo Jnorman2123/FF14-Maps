@@ -6,9 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
-import { inter200, inter300, inter400, inter600 } from "@/styles/fonts";
+import { inter300 } from "@/styles/fonts";
 
-export default function ToggleContainer() {
+type ToggleProps = {
+    pathName: string;
+}
+
+export default function ToggleContainer({ pathName }: ToggleProps) {
     const [clicked, setClicked] = useState<boolean>(false);
     const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
     const [hovered, setHovered] = useState<string>('');
@@ -31,6 +35,7 @@ export default function ToggleContainer() {
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let availableQuestCollapseImage: string = '';
+    console.log(pathName)
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));

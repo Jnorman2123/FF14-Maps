@@ -12,12 +12,15 @@ import { useGetNpcs } from '@/custom_hooks/useGetNpcs';
 import { useGetRewards } from '@/custom_hooks/useGetRewards';
 import { useGetSteps } from '@/custom_hooks/useGetSteps';
 import { useGetItems } from '@/custom_hooks/useGetItems';
+import { useRouter } from 'next/router';
+
 
 type LayoutProps = {
-    children: React.ReactNode
+    children: React.ReactNode;
+    pathName?: string;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, pathName }: LayoutProps) {
     let quests: TypeQuest[] = useGetQuests();
     let jobs: TypeJob[] = useGetJobs();
     let rewards: TypeReward[] = useGetRewards();
@@ -30,6 +33,11 @@ export default function Layout({ children }: LayoutProps) {
     let colorIndex: number = 0;
     let questDetailArray: TypeQuestDetail[] = [];
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { asPath } = router;
+    pathName = asPath.split('/').slice(-1)[0];
+
+    console.log(pathName);
 
     useEffect(() => {
         dispatch(updateQuests({questArray: quests}));
@@ -122,9 +130,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className='space-y-borderspace'>
             <NavBar />
             <div className='grid grid-cols-12 gap-1 h-screen'>
-                <ToggleContainer />
+                <ToggleContainer pathName={pathName} />
                 <main  className='col-span-6 h-main z-1'>{children} </main>
-                <QuestInfoContainer />
+                <QuestInfoContainer pathName={pathName} />
             </div>
         </div>
     )

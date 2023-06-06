@@ -6,7 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { inter400, inter600 } from "@/styles/fonts";
 
-export default function QuestInfoContainer() {
+
+type QuestInfoProps = {
+    pathName: string;
+}
+
+export default function QuestInfoContainer({ pathName }: QuestInfoProps) {
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let jobs: TypeJob[] = useSelector(getJobsState);
     let rewards: TypeReward[] = useSelector(getRewardsState);
@@ -23,6 +28,7 @@ export default function QuestInfoContainer() {
         theme: string,
         rewardItem: TypeItem | undefined,
     }[] = [];
+    console.log(pathName)
 
     const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
         for (let i = 0; i < lines; i++) {

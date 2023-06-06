@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 805 805">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #262262;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-6, .cls-9 {
+        fill: none;
+      }
+
+      .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-11 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 12px;
+      }
+
+      .cls-2 {
+        stroke: #2bb673;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        stroke: #9e1f63;
+      }
+
+      .cls-4 {
+        fill: #e1d38e;
+      }
+
+      .cls-4, .cls-5, .cls-7, .cls-8 {
+        stroke: #82deff;
+        stroke-width: 5px;
+      }
+
+      .cls-13 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        fill: #5fbae1;
+      }
+
+      .cls-14 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-6 {
+        stroke: #fff200;
+      }
+
+      .cls-15 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-18 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+
+      .cls-20 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-21 {
+        letter-spacing: 0em;
+      }
+
+      .cls-22 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-7 {
+        fill: #4ca678;
+      }
+
+      .cls-8 {
+        fill: #ec8bc5;
+      }
+    </style>
+  </defs>
+  <g id="background">
+    <rect id="mainbackground" class="cls-4" x="2.5" y="2.5" width="800" height="800"/>
+  </g>
+  <g id="Layer1">
+    <rect id="background-2" data-name="background" class="cls-8" x="179.5" y="220.5" width="246" height="161"/>
+    <rect id="empty_04" class="cls-9" x="344.5" y="303.5" width="53" height="53"/>
+    <rect id="empty_03" class="cls-9" x="214.5" y="303.5" width="53" height="53"/>
+    <rect id="empty_02" class="cls-9" x="344.5" y="243.5" width="53" height="53"/>
+    <rect id="empty_01" class="cls-9" x="214.5" y="243.5" width="53" height="53"/>
+    <text class="cls-11" transform="translate(203.99 237.02)"><tspan class="cls-16" x="0" y="0">t</tspan><tspan x="3.9" y="0">est </tspan><tspan class="cls-19" x="21.18" y="0">c</tspan><tspan x="26.48" y="0">o</tspan><tspan class="cls-12" x="33.07" y="0">n</tspan><tspan x="39.68" y="0">tainer on</tspan><tspan class="cls-18" x="84.63" y="0">e</tspan><tspan x="90.5" y="0">. bel</tspan><tspan class="cls-15" x="111.2" y="0">o</tspan><tspan x="117.71" y="0">w a</tspan><tspan class="cls-10" x="134.87" y="0">r</tspan><tspan x="138.67" y="0">e </tspan><tspan class="cls-14" x="147.23" y="0">f</tspan><tspan x="150.57" y="0">our empties </tspan><tspan class="cls-16" x="0" y="14.4">c</tspan><tspan x="5.3" y="14.4">o</tspan><tspan class="cls-13" x="11.89" y="14.4">n</tspan><tspan x="18.5" y="14.4">tainers whose </tspan><tspan class="cls-16" x="90.35" y="14.4">c</tspan><tspan x="95.65" y="14.4">e</tspan><tspan class="cls-12" x="101.66" y="14.4">n</tspan><tspan class="cls-19" x="108.27" y="14.4">t</tspan><tspan x="112.17" y="14.4">ers </tspan><tspan class="cls-10" x="129.41" y="14.4">y</tspan><tspan x="134.94" y="14.4">ou can a</tspan><tspan class="cls-19" x="176.83" y="14.4">cc</tspan><tspan x="187.44" y="14.4">ess</tspan></text>
+  </g>
+  <g id="Layer2">
+    <rect id="background-3" data-name="background" class="cls-5" x="179.5" y="510.5" width="246" height="161"/>
+    <rect id="empty_04-2" data-name="empty_04" class="cls-9" x="344.5" y="593.5" width="53" height="53"/>
+    <rect id="empty_03-2" data-name="empty_03" class="cls-9" x="214.5" y="593.5" width="53" height="53"/>
+    <rect id="empty_02-2" data-name="empty_02" class="cls-9" x="344.5" y="533.5" width="53" height="53"/>
+    <rect id="empty_01-2" data-name="empty_01" class="cls-9" x="214.5" y="533.5" width="53" height="53"/>
+    <text class="cls-11" transform="translate(203.99 527.02)"><tspan class="cls-16" x="0" y="0">t</tspan><tspan x="3.9" y="0">est </tspan><tspan class="cls-19" x="21.18" y="0">c</tspan><tspan x="26.48" y="0">o</tspan><tspan class="cls-12" x="33.07" y="0">n</tspan><tspan x="39.68" y="0">tainer </tspan><tspan class="cls-21" x="71.39" y="0">t</tspan><tspan class="cls-22" x="75.47" y="0">w</tspan><tspan class="cls-20" x="84.18" y="0">o</tspan><tspan x="90.48" y="0">. bel</tspan><tspan class="cls-15" x="111.18" y="0">o</tspan><tspan x="117.68" y="0">w a</tspan><tspan class="cls-22" x="134.84" y="0">r</tspan><tspan x="138.65" y="0">e </tspan><tspan class="cls-14" x="147.2" y="0">f</tspan><tspan x="150.55" y="0">our empties </tspan><tspan class="cls-16" x="0" y="14.4">c</tspan><tspan x="5.3" y="14.4">o</tspan><tspan class="cls-13" x="11.89" y="14.4">n</tspan><tspan x="18.5" y="14.4">tainers whose </tspan><tspan class="cls-16" x="90.35" y="14.4">c</tspan><tspan x="95.65" y="14.4">e</tspan><tspan class="cls-12" x="101.66" y="14.4">n</tspan><tspan class="cls-19" x="108.27" y="14.4">t</tspan><tspan x="112.17" y="14.4">ers </tspan><tspan class="cls-10" x="129.41" y="14.4">y</tspan><tspan x="134.94" y="14.4">ou can a</tspan><tspan class="cls-19" x="176.83" y="14.4">cc</tspan><tspan x="187.44" y="14.4">ess</tspan></text>
+  </g>
+  <g id="Layer3">
+    <rect id="background-4" data-name="background" class="cls-7" x="479.5" y="370.5" width="246" height="161"/>
+    <rect id="empty_04-3" data-name="empty_04" class="cls-6" x="644.5" y="463.5" width="53" height="53"/>
+    <rect id="empty_03-3" data-name="empty_03" class="cls-3" x="504.5" y="463.5" width="53" height="53"/>
+    <rect id="empty_02-3" data-name="empty_02" class="cls-1" x="644.5" y="406.5" width="53" height="53"/>
+    <rect id="empty_01-3" data-name="empty_01" class="cls-2" x="504.5" y="409.5" width="53" height="53"/>
+    <text class="cls-11" transform="translate(490.5 387.02)"><tspan class="cls-16" x="0" y="0">t</tspan><tspan x="3.9" y="0">est </tspan><tspan class="cls-19" x="21.18" y="0">c</tspan><tspan x="26.48" y="0">o</tspan><tspan class="cls-12" x="33.07" y="0">n</tspan><tspan x="39.68" y="0">tainer th</tspan><tspan class="cls-22" x="82.02" y="0">r</tspan><tspan x="85.82" y="0">e</tspan><tspan class="cls-17" x="91.83" y="0">e</tspan><tspan x="97.7" y="0">. bel</tspan><tspan class="cls-15" x="118.4" y="0">o</tspan><tspan x="124.9" y="0">w a</tspan><tspan class="cls-22" x="142.06" y="0">r</tspan><tspan x="145.87" y="0">e </tspan><tspan class="cls-14" x="154.42" y="0">f</tspan><tspan x="157.77" y="0">our empties </tspan><tspan class="cls-16" x="0" y="14.4">c</tspan><tspan x="5.3" y="14.4">o</tspan><tspan class="cls-13" x="11.89" y="14.4">n</tspan><tspan x="18.5" y="14.4">tainers whose </tspan><tspan class="cls-16" x="90.35" y="14.4">c</tspan><tspan x="95.65" y="14.4">e</tspan><tspan class="cls-12" x="101.66" y="14.4">n</tspan><tspan class="cls-19" x="108.27" y="14.4">t</tspan><tspan x="112.17" y="14.4">ers </tspan><tspan class="cls-10" x="129.41" y="14.4">y</tspan><tspan x="134.94" y="14.4">ou can a</tspan><tspan class="cls-19" x="176.83" y="14.4">cc</tspan><tspan x="187.44" y="14.4">ess</tspan></text>
+  </g>
+</svg>

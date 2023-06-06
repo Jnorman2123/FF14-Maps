@@ -1,4 +1,4 @@
-import { MapContainer, Marker, ImageOverlay } from 'react-leaflet';
+import { MapContainer, Marker, ImageOverlay, SVGOverlay } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
@@ -94,8 +94,7 @@ const WorldMapComponent = () => {
         <MapContainer maxBounds={bounds} center={[-20.95, 20.95]} zoom={4.25}
             crs={L.CRS.Simple} maxBoundsViscosity={1} scrollWheelZoom={false} maxZoom={4.25}
             minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg' zoomControl={false}>
-            
-            <ImageOverlay url={`./maps/world.jpg`} bounds={bounds} opacity={1} />
+            <ImageOverlay url={`./maps/World.jpg`} bounds={bounds} opacity={1} />
             {hoverOverlayDetails.map((hoverOverlayObject: TypeHoverOverlay) => {
                 let legendOverlayIcon = new L.Icon({iconUrl: hoverOverlayObject.legendOverlayIcon.legendOverlayIconUrl, 
                 iconSize: [hoverOverlayObject.legendOverlayIcon.legendOverlayIconSize[0], 
