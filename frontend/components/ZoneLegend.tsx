@@ -18,6 +18,12 @@ export default function ZoneLegend() {
     let legendIconPosistion: any;
     let backButtonIconPosition: any;
 
+    if (asPath.split('/')[1] === 'quest') {
+        spacedZoneName = splitPathName.split('+')[0].split(/(?=[A-Z])/).join(' ');
+    } else {
+        spacedZoneName = splitPathName.split(/(?=[A-Z])/).join(' '); 
+    }
+
     if (outsideZoneNames.includes(spacedZoneName)) {
         legendIconPosistion = L.latLng([-36.25, 8.4]) ;
         backButtonIconPosition = L.latLng([-39, 39]);

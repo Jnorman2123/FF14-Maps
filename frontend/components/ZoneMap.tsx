@@ -17,8 +17,8 @@ export default function ZoneMap() {
     const { asPath } = router;
     const dispatch = useDispatch();
     let splitPathName: string = asPath.split('/').slice(-1)[0];
-    let spacedZoneName: string = splitPathName.split(/(?=[A-Z])/).join(' ');
-    let zoneMapUrl: string = splitPathName;
+    let spacedZoneName: string;
+    let zoneMapUrl: string;
     let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
@@ -27,6 +27,14 @@ export default function ZoneMap() {
     let zoom: number;
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
+
+    if (asPath.split('/')[1] === 'quest') {
+        spacedZoneName = splitPathName.split('+')[0].split(/(?=[A-Z])/).join(' ');
+        zoneMapUrl = splitPathName.split('+')[0];
+    } else {
+        spacedZoneName = splitPathName.split(/(?=[A-Z])/).join(' '); 
+        zoneMapUrl = splitPathName; 
+    }
 
     if (outsideZoneNames.includes(spacedZoneName)) {
         bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
