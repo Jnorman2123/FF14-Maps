@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
 import { getQuestDetailsState, getToggledQuestState, updateToggledQuest, 
-getOutsideZoneNamesState } from "@/store/slices/dataStoreSlice";
+getOutsideZoneNamesState, getQuestsState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeMarkerObject } from "@/types";
 import ZoneLegend from "./ZoneLegend";
 
@@ -21,12 +21,15 @@ export default function ZoneMap() {
     let zoneMapUrl: string;
     let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
-    let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
+    let toggledQuest: TypeQuest | undefined;
     let bounds: any;
     let center: any;
     let zoom: number;
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
+    let quests: TypeQuest[] = useSelector(getQuestsState);
+    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
 
     if (asPath.split('/')[1] === 'quest') {
         spacedZoneName = splitPathName.split('+')[0].split(/(?=[A-Z])/).join(' ');

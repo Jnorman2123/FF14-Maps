@@ -1,7 +1,7 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
-updateQuestLevelHoveredByName, updateActiveQuests, updateToggledQuest, getToggledQuestState,
-getQuestsState, getJobsState, getQuestDetailsState, getNpcsState } from "@/store/slices/dataStoreSlice";
+updateQuestLevelHoveredByName, updateActiveQuests, getQuestsState, getJobsState, getQuestDetailsState, 
+getNpcsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail, TypeNpc } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
@@ -26,13 +26,16 @@ export default function ToggleContainer() {
     let activeJobs: number[] = [];
     let activeQuestLevelNumbers: [number[]] = [[]];
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { asPath } = router;
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let jobs: TypeJob[] = useSelector(getJobsState);
     let npcs: TypeNpc[] = useSelector(getNpcsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
-    let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
+    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    let toggledQuest: TypeQuest | undefined;
     let availableQuestCollapseImage: string = '';
-    const router = useRouter();
+    toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
@@ -157,11 +160,7 @@ export default function ToggleContainer() {
                 toggledQuestZone = toggledQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
             }
         }
-        console.log(toggledQuestZone);
-        console.log(event.target.id.split(' ').join(''));
         questUrl = event.target.id.split(' ').join('');
-        
-        dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
         router.push(`/quest/${toggledQuestZone}+${questUrl}`)
     }
 
@@ -235,13 +234,13 @@ export default function ToggleContainer() {
 
                         let questIconUrl: string = `/icons/available_quest_icons/${questIconType}/${questIconColor}`;
 
-                        if (hovered === aq.quest.quest_name && toggledQuest[0] !== aq.quest) {
+                        if (hovered === aq.quest.quest_name && toggledQuest !== aq.quest) {
                             questIconUrl = questIconUrl + 'Hover';
                         } else if (hovered === `Delete ${aq.quest.quest_name}`) {
                             deleteQuestIcon = deleteQuestIcon + 'Hover'
                         }
 
-                        if (toggledQuest[0] === aq.quest) {
+                        if (toggledQuest === aq.quest) {
                             questIconUrl = questIconUrl + 'Active';
                         }
 

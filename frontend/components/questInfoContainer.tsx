@@ -1,13 +1,16 @@
 import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep, TypeNpc } from "@/types";
-import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState, 
-getNpcsState } from "@/store/slices/dataStoreSlice";
+import { getJobsState, getRewardsState, getStepsState, getItemsState, getNpcsState, 
+getQuestsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { inter400, inter600 } from "@/styles/fonts";
+import { useRouter } from "next/router";
 
 export default function QuestInfoContainer() {
-    let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
+    const router = useRouter();
+    const { asPath } = router;
+    let toggledQuest: TypeQuest | undefined;
     let jobs: TypeJob[] = useSelector(getJobsState);
     let rewards: TypeReward[] = useSelector(getRewardsState);
     let steps: TypeStep[] = useSelector(getStepsState);
@@ -23,6 +26,9 @@ export default function QuestInfoContainer() {
         theme: string,
         rewardItem: TypeItem | undefined,
     }[] = [];
+    let quests: TypeQuest[] = useSelector(getQuestsState);
+    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
 
     const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
         for (let i = 0; i < lines; i++) {
@@ -59,20 +65,20 @@ export default function QuestInfoContainer() {
         }
     })
     
-    if (toggledQuest[0] !== undefined) {
+    if (toggledQuest !== undefined) {
         let questClass: TypeJob | undefined;
         let questSteps: TypeStep[];
         let questReward: TypeReward | undefined;
         let guaranteedItems: TypeItem[] = [];
         let optionalItems: TypeItem[] = [];
-        let questLvlIcon: string = toggledQuest[0].quest_level.toString();
-        let questTypeIcon: string = toggledQuest[0].quest_type.split(' ').join('');
+        let questLvlIcon: string = toggledQuest.quest_level.toString();
+        let questTypeIcon: string = toggledQuest.quest_type.split(' ').join('');
         let questClassIcon: string | undefined = '';
         
         if (questReward?.id !== null) {
-            questReward = rewards.find((r: TypeReward) => r.id === toggledQuest[0].quest_reward)
+            questReward = rewards.find((r: TypeReward) => r.id === toggledQuest?.quest_reward)
         }
-        questSteps = steps.filter((s: TypeStep) => s.quest_step === toggledQuest[0].id);
+        questSteps = steps.filter((s: TypeStep) => s.quest_step === toggledQuest?.id);
         questReward?.reward_items.map((ri: number) => {
             let rewardItem = items.find((item: TypeItem) => item.id === ri);
             if (rewardItem?.item_optional) {
@@ -97,7 +103,7 @@ export default function QuestInfoContainer() {
             <div className={`bg-[url('/icons/quest_info_ui_components/QuestNameContainerBg.png')] 
                 bg-contain bg-no-repeat flex items-center justify-center ${inter600.className} text-questinfoheader 
                 text-questinfoheadercolor`} style={{height: 50}}>
-                        {toggledQuest[0].quest_name}
+                        {toggledQuest.quest_name}
             </div>
             <div className="bg-[url('/icons/quest_info_ui_components/QuestInfoContainerBg.jpg')] bg-cover bg-no-repeat
                 h-questinfocontainer w-11/12 absolute left-5 rounded-b-questinfo overflow-auto" style={{paddingBottom: 50}}>
@@ -111,9 +117,9 @@ export default function QuestInfoContainer() {
                     </div>
                     <div className="col-span-1">
                         <Image src={`/icons/quest_type_icons/${questTypeIcon}.png`} alt='Quest Type' 
-                        title={`${toggledQuest[0].quest_type} Quest`} width={50} height={50} />
+                        title={`${toggledQuest.quest_type} Quest`} width={50} height={50} />
                     </div>
-                    {toggledQuest[0].quest_class.map((qc: number) => {
+                    {toggledQuest.quest_class.map((qc: number) => {
                         if (questClass?.id !== null) {
                             questClass = jobs.find((j: TypeJob) => j.id === qc)
                         }
@@ -263,7 +269,7 @@ export default function QuestInfoContainer() {
                             </div>
                             <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
-                                {toggledQuest[0].previous_quest}
+                                {toggledQuest.previous_quest}
                             </div>
                         </div>
                     </div>
@@ -274,7 +280,7 @@ export default function QuestInfoContainer() {
                             </div>
                             <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
-                                {toggledQuest[0].next_quest}
+                                {toggledQuest.next_quest}
                             </div>
                         </div>
                     </div>
