@@ -31,6 +31,7 @@ export default function ZoneMap({ zoneName }: ZoneMapProps) {
     let zoom: number;
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
+    console.log(zoneName)
     
     if (zoneName) {
         spacedZoneName = zoneName.split(/(?=[A-Z])/).join(' ');
@@ -40,7 +41,6 @@ export default function ZoneMap({ zoneName }: ZoneMapProps) {
         zoneMapUrl = splitPathName;
     }
 
-    console.log(spacedZoneName)
     if (outsideZoneNames.includes(spacedZoneName)) {
         bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
         center = L.latLng([-20.95, 20.95]);

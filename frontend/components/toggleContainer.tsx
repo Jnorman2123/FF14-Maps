@@ -9,10 +9,11 @@ import Image from "next/image";
 import { inter300 } from "@/styles/fonts";
 
 type ToggleProps = {
-    pathName: string;
+    zoneName?: string;
+    questName?: string;
 }
 
-export default function ToggleContainer({ pathName }: ToggleProps) {
+export default function ToggleContainer({ zoneName, questName }: ToggleProps) {
     const [clicked, setClicked] = useState<boolean>(false);
     const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
     const [hovered, setHovered] = useState<string>('');
@@ -21,7 +22,6 @@ export default function ToggleContainer({ pathName }: ToggleProps) {
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
     let buttonIcon: string = '';
-    let tooltip: any = null;
     let filteredByJobAndClassArray: TypeQuest[] = [];
     let activeQuestsArray: TypeQuest[] = [];
     let activeClasses: string[] = [];
@@ -35,7 +35,11 @@ export default function ToggleContainer({ pathName }: ToggleProps) {
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let availableQuestCollapseImage: string = '';
-    console.log(pathName)
+
+    if (questName) {
+        let toggledQuestObject: TypeQuest | undefined = quests.find(q => q.quest_name === questName);
+        dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
+    }
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));

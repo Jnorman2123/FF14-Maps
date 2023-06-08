@@ -19,8 +19,8 @@ const RegionMapComponent = () => {
     const router = useRouter();
     const { asPath } = router;
     let splitPathName = asPath.split('/').slice(-1)[0];
-    let spacedRegionName = splitPathName.split('-').filter((str: string) => str !== '-').join(' ');
-    let regionName = splitPathName.split('-').filter((str: string) => str !== '-').join('');
+    let spacedRegionName = splitPathName.split(/(?=[A-Z])/).join(' ');
+    let regionName = splitPathName.split(/(?=[A-Z])/).join('');
     let hoverOverlayDetails: TypeHoverOverlay[] = useSelector(getHoverOverlayDetailsState);
     let regionHoverOverlayDetails: TypeHoverOverlay[] = [];
     let legendDetails: TypeLegend[] = useSelector(getLegendDetailsState);

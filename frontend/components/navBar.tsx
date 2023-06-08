@@ -57,7 +57,7 @@ export default function NavBar() {
                                 <div className="py-1">
                                     <Menu.Item>
                                     {({ active }) => (
-                                        <Link href={`/region/${regionLink}`}
+                                        <Link href={`/region/${regionTabUrl}`}
                                         className={classNames(
                                             active ? 'bg-queststepsbg text-blue-500' : 'text-blue-500',
                                             'block px-4 py-2 text-sm'

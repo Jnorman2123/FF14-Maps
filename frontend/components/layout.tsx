@@ -17,10 +17,11 @@ import { useRouter } from 'next/router';
 
 type LayoutProps = {
     children: React.ReactNode;
-    pathName?: string;
+    zoneName?: string;
+    questName?: string;
 }
 
-export default function Layout({ children, pathName }: LayoutProps) {
+export default function Layout({ children, zoneName, questName }: LayoutProps) {
     let quests: TypeQuest[] = useGetQuests();
     let jobs: TypeJob[] = useGetJobs();
     let rewards: TypeReward[] = useGetRewards();
@@ -35,9 +36,13 @@ export default function Layout({ children, pathName }: LayoutProps) {
     const dispatch = useDispatch();
     const router = useRouter();
     const { asPath } = router;
-    pathName = asPath.split('/').slice(-1)[0];
 
-    console.log(pathName);
+    if (asPath.split('/')[1] === 'quest') {
+        zoneName = asPath.split('@')[0].split('/').slice(-1)[0];
+        questName = asPath.split('@')[1];
+    }
+    console.log(zoneName);
+    console.log(questName)
 
     useEffect(() => {
         dispatch(updateQuests({questArray: quests}));
@@ -130,9 +135,9 @@ export default function Layout({ children, pathName }: LayoutProps) {
         <div className='space-y-borderspace'>
             <NavBar />
             <div className='grid grid-cols-12 gap-1 h-screen'>
-                <ToggleContainer pathName={pathName} />
+                <ToggleContainer zoneName={zoneName} questName={questName} />
                 <main  className='col-span-6 h-main z-1'>{children} </main>
-                <QuestInfoContainer pathName={pathName} />
+                <QuestInfoContainer questName={questName} />
             </div>
         </div>
     )

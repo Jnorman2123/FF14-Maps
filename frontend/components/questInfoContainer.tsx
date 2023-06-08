@@ -1,23 +1,26 @@
 import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep, TypeNpc } from "@/types";
 import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState, 
-getNpcsState } from "@/store/slices/dataStoreSlice";
-import { useSelector } from "react-redux";
+getNpcsState, getQuestsState, updateToggledQuest } from "@/store/slices/dataStoreSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { inter400, inter600 } from "@/styles/fonts";
 
 
 type QuestInfoProps = {
-    pathName: string;
+    questName?: string;
 }
 
-export default function QuestInfoContainer({ pathName }: QuestInfoProps) {
+export default function QuestInfoContainer({ questName }: QuestInfoProps) {
+    const dispatch = useDispatch();
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let jobs: TypeJob[] = useSelector(getJobsState);
     let rewards: TypeReward[] = useSelector(getRewardsState);
     let steps: TypeStep[] = useSelector(getStepsState);
     let items: TypeItem[] = useSelector(getItemsState);
     let npcs: TypeNpc[] = useSelector(getNpcsState);
+    let quests: TypeQuest[] = useSelector(getQuestsState);
     let stepIndex: number = 0;
     let rewardLinesNumber: number = 0;
     let guaranteedRewardDetails: {
@@ -28,7 +31,6 @@ export default function QuestInfoContainer({ pathName }: QuestInfoProps) {
         theme: string,
         rewardItem: TypeItem | undefined,
     }[] = [];
-    console.log(pathName)
 
     const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
         for (let i = 0; i < lines; i++) {

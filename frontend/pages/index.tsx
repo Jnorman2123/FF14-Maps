@@ -63,7 +63,6 @@ const World = () => {
     const setLegendDetails = () => {
         regions.map((region: string) => {
             let regionName = region.split(' ').join('');
-            let regionLink = region.split(' ').join('-');
             let legendOverlayPos: number[] = [];
             let highlightedMapSize: number[] = [];
             let highlightedMapPos: number[] = [];
@@ -129,7 +128,7 @@ const World = () => {
                     legendOverlayIconPos: legendOverlayPos,
                     legendOverlayIconSize: legendAttributes.legendSize,
                 },
-                mapLinkUrl: regionLink,
+                mapLinkUrl: regionName,
             }
             hoverOverlayDetails.push(hoverOverlayObject);
             let legendObject: TypeLegend | undefined = {
