@@ -1,19 +1,15 @@
 import { getClassesState, getQuestTypesState, getQuestLevelsState, updateClassActiveByName, updateClassHoveredByName, 
 updateQuestTypeActiveByName, updateQuestTypeHoveredByName, updateQuestLevelActiveByName, 
 updateQuestLevelHoveredByName, updateActiveQuests, updateToggledQuest, getToggledQuestState,
-getQuestsState, getJobsState, getQuestDetailsState } from "@/store/slices/dataStoreSlice";
+getQuestsState, getJobsState, getQuestDetailsState, getNpcsState } from "@/store/slices/dataStoreSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail } from "@/types";
+import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail, TypeNpc } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
 import { inter300 } from "@/styles/fonts";
+import { useRouter } from "next/router";
 
-type ToggleProps = {
-    zoneName?: string;
-    questName?: string;
-}
-
-export default function ToggleContainer({ zoneName, questName }: ToggleProps) {
+export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
     const [dropdownQuests, setDropdownQuests] = useState<boolean>(false);
     const [hovered, setHovered] = useState<string>('');
@@ -32,14 +28,11 @@ export default function ToggleContainer({ zoneName, questName }: ToggleProps) {
     const dispatch = useDispatch();
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let jobs: TypeJob[] = useSelector(getJobsState);
+    let npcs: TypeNpc[] = useSelector(getNpcsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let availableQuestCollapseImage: string = '';
-
-    if (questName) {
-        let toggledQuestObject: TypeQuest | undefined = quests.find(q => q.quest_name === questName);
-        dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
-    }
+    const router = useRouter();
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
@@ -154,11 +147,22 @@ export default function ToggleContainer({ zoneName, questName }: ToggleProps) {
 
     const toggleQuest: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let toggledQuestObject: TypeQuest | undefined;
+        let toggledQuestStarter: TypeNpc | undefined;
+        let toggledQuestZone: string = '';
+        let questUrl: string = '';
         if (toggledQuestObject?.quest_name !== null) {
-            toggledQuestObject = quests.find(q => q.quest_name === event.target.id)
+            toggledQuestObject = quests.find(q => q.quest_name === event.target.id);
+            toggledQuestStarter = npcs.find((npc: TypeNpc) => npc.id === toggledQuestObject?.quest_npcs[0]);
+            if (toggledQuestStarter) {
+                toggledQuestZone = toggledQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+            }
         }
+        console.log(toggledQuestZone);
+        console.log(event.target.id.split(' ').join(''));
+        questUrl = event.target.id.split(' ').join('');
         
         dispatch(updateToggledQuest({tQuest: toggledQuestObject}));
+        router.push(`/quest/${toggledQuestZone}+${questUrl}`)
     }
 
     const toggleDropdownQuests: MouseEventHandler<HTMLButtonElement> = () => {

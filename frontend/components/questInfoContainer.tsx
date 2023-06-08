@@ -1,26 +1,18 @@
 import { TypeQuest, TypeJob, TypeReward, TypeItem, TypeStep, TypeNpc } from "@/types";
 import { getToggledQuestState, getJobsState, getRewardsState, getStepsState, getItemsState, 
-getNpcsState, getQuestsState, updateToggledQuest } from "@/store/slices/dataStoreSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from 'react';
+getNpcsState } from "@/store/slices/dataStoreSlice";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { inter400, inter600 } from "@/styles/fonts";
 
-
-type QuestInfoProps = {
-    questName?: string;
-}
-
-export default function QuestInfoContainer({ questName }: QuestInfoProps) {
-    const dispatch = useDispatch();
+export default function QuestInfoContainer() {
     let toggledQuest: TypeQuest[] = useSelector(getToggledQuestState);
     let jobs: TypeJob[] = useSelector(getJobsState);
     let rewards: TypeReward[] = useSelector(getRewardsState);
     let steps: TypeStep[] = useSelector(getStepsState);
     let items: TypeItem[] = useSelector(getItemsState);
     let npcs: TypeNpc[] = useSelector(getNpcsState);
-    let quests: TypeQuest[] = useSelector(getQuestsState);
     let stepIndex: number = 0;
     let rewardLinesNumber: number = 0;
     let guaranteedRewardDetails: {

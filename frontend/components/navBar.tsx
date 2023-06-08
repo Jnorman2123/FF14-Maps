@@ -28,7 +28,6 @@ export default function NavBar() {
             {regionNames.map((regionName: string) => {
                 let zones = [];
                 let regionTabUrl: string = regionName.split(' ').join('');
-                let regionLink: string = regionName.split(' ').join('-');
                 if (regionName === 'La Noscea') {
                     zones = laNosceaZoneNames;
                 } else if (regionName === 'The Black Shroud') {

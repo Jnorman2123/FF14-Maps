@@ -5,28 +5,18 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { getOutsideZoneNamesState } from '@/store/slices/dataStoreSlice';
 
-type ZoneLegendProps = {
-    zoneName?: string;
-}
-
-export default function ZoneLegend({ zoneName }: ZoneLegendProps) {
+export default function ZoneLegend() {
     const [zoomLevel, setZoomLevel] = useState<number>(4.25);
     const [hovered, setHovered] = useState<boolean>(false);
     const router = useRouter();
     const { asPath } = router;
     let splitPathName: string = asPath.split('/').slice(-1)[0];
-    let spacedZoneName: string;
+    let spacedZoneName: string = splitPathName.split(/(?=[A-Z])/).join(' ');
     let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let legendIcon = new L.Icon ({iconUrl: `/icons/ZoneLegend.png`, iconSize: [280, 209]});
     let backButtonIcon = new L.Icon ({iconUrl: `/icons/nav_icons/BackButton.png`, iconSize: [64, 64]});
     let legendIconPosistion: any;
     let backButtonIconPosition: any;
-
-    if (zoneName) {
-        spacedZoneName = zoneName.split(/(?=[A-Z])/).join(' ');
-    } else {
-        spacedZoneName = splitPathName.split('-').filter((word: string) => word !== '-').join(' ');
-    }
 
     if (outsideZoneNames.includes(spacedZoneName)) {
         legendIconPosistion = L.latLng([-36.25, 8.4]) ;

@@ -8,11 +8,7 @@ getOutsideZoneNamesState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeMarkerObject } from "@/types";
 import ZoneLegend from "./ZoneLegend";
 
-type ZoneMapProps = {
-    zoneName?: string;
-}
-
-export default function ZoneMap({ zoneName }: ZoneMapProps) {
+export default function ZoneMap() {
     interface ClusteredMarkerData {
         [key: string]: any[];
     }
@@ -21,8 +17,8 @@ export default function ZoneMap({ zoneName }: ZoneMapProps) {
     const { asPath } = router;
     const dispatch = useDispatch();
     let splitPathName: string = asPath.split('/').slice(-1)[0];
-    let spacedZoneName: string;
-    let zoneMapUrl: string;
+    let spacedZoneName: string = splitPathName.split(/(?=[A-Z])/).join(' ');
+    let zoneMapUrl: string = splitPathName;
     let outsideZoneNames: string[] = useSelector(getOutsideZoneNamesState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let toggledQuest: TypeQuest = useSelector(getToggledQuestState)[0];
@@ -31,15 +27,6 @@ export default function ZoneMap({ zoneName }: ZoneMapProps) {
     let zoom: number;
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
-    console.log(zoneName)
-    
-    if (zoneName) {
-        spacedZoneName = zoneName.split(/(?=[A-Z])/).join(' ');
-        zoneMapUrl = zoneName;
-    } else {
-        spacedZoneName = splitPathName.split(/(?=[A-Z])/).join(' ');
-        zoneMapUrl = splitPathName;
-    }
 
     if (outsideZoneNames.includes(spacedZoneName)) {
         bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
@@ -143,7 +130,7 @@ export default function ZoneMap({ zoneName }: ZoneMapProps) {
                     </Marker>
                 </LayerGroup>
             })}
-            <ZoneLegend zoneName={zoneName} />
+            <ZoneLegend />
         </MapContainer>
     )
 }
