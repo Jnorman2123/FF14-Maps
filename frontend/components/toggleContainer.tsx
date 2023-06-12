@@ -32,9 +32,12 @@ export default function ToggleContainer() {
     let jobs: TypeJob[] = useSelector(getJobsState);
     let npcs: TypeNpc[] = useSelector(getNpcsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
-    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    let questName: string;
     let toggledQuest: TypeQuest | undefined;
     let availableQuestCollapseImage: string = '';
+    if (asPath.split('/')[1] === 'quest') {
+        questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
+    }
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 
 
     useEffect(() => {

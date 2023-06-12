@@ -27,7 +27,11 @@ export default function QuestInfoContainer() {
         rewardItem: TypeItem | undefined,
     }[] = [];
     let quests: TypeQuest[] = useSelector(getQuestsState);
-    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    let questName: string;
+
+    if (asPath.split('/')[1] === 'quest') {
+        questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
+    }
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
 
     const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
