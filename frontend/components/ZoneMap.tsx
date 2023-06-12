@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestDetailsState, getToggledQuestState, updateToggledQuest, 
+import { getQuestDetailsState, updateToggledQuest, 
 getOutsideZoneNamesState, getQuestsState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeMarkerObject } from "@/types";
 import ZoneLegend from "./ZoneLegend";
@@ -28,16 +28,19 @@ export default function ZoneMap() {
     let maxZoom: number = 7;
     let markerData: TypeMarkerObject[] = [];
     let quests: TypeQuest[] = useSelector(getQuestsState);
-    let questName: string = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
-    toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
-
-    if (asPath.split('/')[1] === 'quest') {
+    let questName: string;
+    
+    if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
+        questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
         spacedZoneName = splitPathName.split('+')[0].split(/(?=[A-Z])/).join(' ');
         zoneMapUrl = splitPathName.split('+')[0];
     } else {
         spacedZoneName = splitPathName.split(/(?=[A-Z])/).join(' '); 
         zoneMapUrl = splitPathName; 
     }
+
+    toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
+
 
     if (outsideZoneNames.includes(spacedZoneName)) {
         bounds = L.latLngBounds([[-1,1], [-41.9, 41.9]]);
@@ -121,12 +124,13 @@ export default function ZoneMap() {
                 let stepNumberIcon = new L.Icon({iconUrl: stepIconUrl, iconSize: [35, 35]});
                 let questTypeIcon = new L.Icon({iconUrl: questTypeIconUrl, iconSize: [35, 35]});
                 let stepContainerIcon = new L.Icon({iconUrl: stepContainerIconUrl, iconSize: [35, 35]});
+                let questUrl: string = markerObject.questName.split(' ').join('');
                 return <LayerGroup key={Math.random()} >
                     <Marker key={Math.random()} position={markerObject.npcPosition} icon={colorIcon} />
                     <Marker key={Math.random()} position={markerObject.npcPosition} icon={stepContainerIcon} />
                     <Marker key={Math.random()} position={markerObject.npcPosition} icon={questTypeIcon} />
                     <Marker key={Math.random()} position={markerObject.npcPosition} icon={stepNumberIcon}
-                    eventHandlers={{ click: () => dispatch(updateToggledQuest({tQuest: markerObject.quest}))}} >
+                    eventHandlers={{ click: () => router.push(`/quest/${zoneMapUrl}+${questUrl}`)}} >
                         <Tooltip>
                             <h6 className='text-center'>
                                 {markerObject.npcName}

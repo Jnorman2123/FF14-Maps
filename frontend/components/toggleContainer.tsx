@@ -35,7 +35,9 @@ export default function ToggleContainer() {
     let questName: string;
     let toggledQuest: TypeQuest | undefined;
     let availableQuestCollapseImage: string = '';
-    if (asPath.split('/')[1] === 'quest') {
+
+    console.log(asPath.split('/').slice(-1)[0].split('+')[1]);
+    if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
     }
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 

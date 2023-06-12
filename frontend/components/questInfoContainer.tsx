@@ -29,7 +29,7 @@ export default function QuestInfoContainer() {
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let questName: string;
 
-    if (asPath.split('/')[1] === 'quest') {
+    if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
     }
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
@@ -291,9 +291,13 @@ export default function QuestInfoContainer() {
                 </div>
             </div>
         </div>
+    } else if (asPath.split('/')[1] === 'quest' && toggledQuest === undefined) {
+        return <div className="bg-white text-black col-span-3 h-full">
+            <h6>No quest by that name exists.</h6>
+        </div>
     } else {
         return <div className="bg-white text-black col-span-3 h-full">
-            <h6>Quest Info Container</h6>
+            <h6>No quest selected.</h6>
         </div>
     }
 }
