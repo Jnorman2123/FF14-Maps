@@ -144,7 +144,7 @@ export default function QuestInfoContainer() {
                             {questSteps.map((step: TypeStep) => {
                                 let stepNpcZone = npcs.find((npc: TypeNpc) => 
                                 npc.id === step.step_npc)?.npc_zone.split('(')[0];
-                                let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('-');
+                                let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('');
                                 let stepNumber = '';
                                 if (stepIndex === 0) {
                                     stepNumber = 'Start';
@@ -156,7 +156,8 @@ export default function QuestInfoContainer() {
                                 stepIndex++;
                                 return <li key={step.step_description}>
                                     {`${stepNumber}. ${step.step_description} (`}
-                                    <Link href={`/zone/${zoneLink}`} className="text-blue-500 underline underline-offset-2">
+                                    <Link href={`/quest/${zoneLink}+${questName.split(' ').join('')}`} 
+                                    className="text-blue-500 underline underline-offset-2">
                                         {stepNpcZone}
                                     </Link>
                                     {`)`}

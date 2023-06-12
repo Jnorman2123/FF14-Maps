@@ -2,9 +2,8 @@ import { MapContainer, ImageOverlay, Marker, LayerGroup, Tooltip } from "react-l
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useRouter } from 'next/router';
-import { useSelector, useDispatch } from "react-redux";
-import { getQuestDetailsState, updateToggledQuest, 
-getOutsideZoneNamesState, getQuestsState } from "@/store/slices/dataStoreSlice";
+import { useSelector } from "react-redux";
+import { getQuestDetailsState, getOutsideZoneNamesState, getQuestsState } from "@/store/slices/dataStoreSlice";
 import { TypeQuestDetail, TypeQuest, TypeMarkerObject } from "@/types";
 import ZoneLegend from "./ZoneLegend";
 
@@ -15,7 +14,6 @@ export default function ZoneMap() {
 
     const router = useRouter();
     const { asPath } = router;
-    const dispatch = useDispatch();
     let splitPathName: string = asPath.split('/').slice(-1)[0];
     let spacedZoneName: string;
     let zoneMapUrl: string;
