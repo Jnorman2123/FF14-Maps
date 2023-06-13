@@ -36,7 +36,6 @@ export default function ToggleContainer() {
     let toggledQuest: TypeQuest | undefined;
     let availableQuestCollapseImage: string = '';
 
-    console.log(asPath.split('/').slice(-1)[0].split('+')[1]);
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
     }
