@@ -34,6 +34,8 @@ export default function QuestInfoContainer() {
     let previousQuestStarter: TypeNpc | undefined;
     let nextQuestZone: string | undefined;
     let previousQuestZone: string | undefined;
+    let nextQuestName: string | undefined;
+    let previousQuestName: string | undefined;
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
@@ -43,10 +45,25 @@ export default function QuestInfoContainer() {
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
     nextQuest = quests.find((quest: TypeQuest) => quest.quest_name === toggledQuest?.next_quest);
     nextQuestStarter = npcs.find((npc: TypeNpc) => npc.id === nextQuest?.quest_npcs[0]);
-    nextQuestZone = nextQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+
+    if (nextQuest !== undefined) {
+        nextQuestZone = nextQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+        nextQuestName = nextQuest.quest_name;
+    } else {
+        nextQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join('');
+        nextQuestName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    }
+    
     previousQuest = quests.find((quest: TypeQuest) => quest.quest_name === toggledQuest?.previous_quest);
     previousQuestStarter = npcs.find((npc: TypeNpc) => npc.id === previousQuest?.quest_npcs[0]);
-    previousQuestZone = previousQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+
+    if (previousQuest !== undefined) {
+        previousQuestZone = previousQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+        previousQuestName = previousQuest.quest_name;
+    } else {
+        previousQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join('');
+        previousQuestName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
+    }
     
     const createRewardGrid = ((lines: number, rewardItems: TypeItem[], rewardDetails: any[]) => {
         for (let i = 0; i < lines; i++) {
@@ -288,7 +305,7 @@ export default function QuestInfoContainer() {
                             </div>
                             <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
-                                <Link href={`/quest/${previousQuestZone}+${previousQuest?.quest_name.split(' ').join('')}`}>
+                                <Link href={`/quest/${previousQuestZone}+${previousQuestName.split(' ').join('')}`}>
                                         {toggledQuest.previous_quest}
                                 </Link>
                                 
@@ -302,7 +319,7 @@ export default function QuestInfoContainer() {
                             </div>
                             <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
                             underline underline-offset-2`}>
-                                <Link href={`/quest/${nextQuestZone}+${nextQuest?.quest_name.split(' ').join('')}`}>
+                                <Link href={`/quest/${nextQuestZone}+${nextQuestName.split(' ').join('')}`}>
                                         {toggledQuest.next_quest}
                                 </Link>
                             </div>
