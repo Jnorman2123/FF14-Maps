@@ -28,7 +28,7 @@ export default function ZoneMap() {
     let quests: TypeQuest[] = useSelector(getQuestsState);
     let questName: string;
     
-    if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
+    if (asPath.split('/')[1] === 'quest' && splitPathName.includes('+')) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
         spacedZoneName = splitPathName.split('+')[0].split(/(?=[A-Z])/).join(' ');
         zoneMapUrl = splitPathName.split('+')[0];

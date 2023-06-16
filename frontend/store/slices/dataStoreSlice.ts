@@ -294,7 +294,7 @@ const initialState: DataStoreState = {
     'New Gridania', 'Old Gridania', 'Central Shroud', 'East Shroud', 'South Shroud', 'North Shroud'
   ],
   thanalanZoneNames: [
-    "Ul'dah Steps of Nald", "Ul'dah Steps of Thal", 'Hustings Strip', 'Western Thanalan', 'Eastern Thanalan', 
+    "Ul'dah Steps Of Nald", "Ul'dah Steps Of Thal", 'Hustings Strip', 'Western Thanalan', 'Eastern Thanalan', 
     'Central Thanalan', 'Southern Thanalan', 'Northern Thanalan'
   ],
   regionNames: [

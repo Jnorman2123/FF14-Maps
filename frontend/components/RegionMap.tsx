@@ -25,9 +25,6 @@ const RegionMapComponent = () => {
     let regionHoverOverlayDetails: TypeHoverOverlay[] = [];
     let legendDetails: TypeLegend[] = useSelector(getLegendDetailsState);
     let markers: any[] = [];
-    let laNosceaLegendDetails: TypeLegend[] = legendDetails.slice(0, 8);
-    let theBlackShroudLegendDetails: TypeLegend[] = legendDetails.slice(8, 14);
-    let thanalanLegendDetails: TypeLegend[] = legendDetails.slice(14, 22);
 
     const addMarker = ((pos: number[], icon: any) => {
         let marker = {icon: icon, position: pos};
@@ -122,16 +119,17 @@ const RegionMapComponent = () => {
 
     if (spacedRegionName === 'La Noscea') {
         markers.push(laNosceaZoneMarker);
-        createLegendIcons(laNosceaLegendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails.slice(0, 8);
+        createLegendIcons(legendDetails);
+        regionHoverOverlayDetails = hoverOverlayDetails;
     } else if (spacedRegionName === 'The Black Shroud') {
         markers.push(theBlackShroudZoneMarker);
-        createLegendIcons(theBlackShroudLegendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails.slice(8, 14);
+        createLegendIcons(legendDetails);
+        regionHoverOverlayDetails = hoverOverlayDetails;
     } else if (spacedRegionName === 'Thanalan') {
+        console.log(legendDetails)
         markers.push(thanalanZoneMarker);
-        createLegendIcons(thanalanLegendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails.slice(14, 22);
+        createLegendIcons(legendDetails);
+        regionHoverOverlayDetails = hoverOverlayDetails;
     }
     
     let bounds = new L.LatLngBounds([-1,1], [-41.9, 41.9]);
