@@ -143,17 +143,17 @@ export default function QuestInfoContainer() {
             </div>
             <div className="bg-[url('/icons/quest_info_ui_components/QuestInfoContainerBg.jpg')] bg-cover bg-no-repeat
                 h-questinfocontainer w-11/12 absolute left-5 rounded-b-questinfo overflow-auto" style={{paddingBottom: 50}}>
-                <div className="grid grid-cols-10 gap-1" style={{paddingTop: 10, paddingBottom: 15}}>
-                    <div className="col-span-1"></div>
-                    <div className="relative col-span-1">
+                <div className="grid grid-cols-8 gap-1" style={{paddingTop: 10, paddingBottom: 10}}>
+                    <div className='col-span-1'></div>
+                    <div className="relative col-span-1 border-r-2 border-gray-950">
                         <Image src='/icons/quest_info_ui_components/LevelIcon.png' alt='Quest Level Container' 
-                        width={50} height={50} className="object-cover"/>
+                        width={50} height={50} style={{padding: 5}} className="object-cover"/>
                         <Image src={`/icons/quest_numbers/${questLvlIcon}.png`} alt='Quest Level Number' 
-                        title={`Level ${questLvlIcon}`} width={25} height={25} className="absolute top-4 left-2"/>
+                        title={`Level ${questLvlIcon}`} width={25} height={25} className="absolute top-5 left-3"/>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 border-r-2 border-gray-950">
                         <Image src={`/icons/quest_type_icons/${questTypeIcon}.png`} alt='Quest Type' 
-                        title={`${toggledQuest.quest_type} Quest`} width={50} height={50} />
+                        title={`${toggledQuest.quest_type} Quest`} width={50} height={50} style={{padding: 5}}/>
                     </div>
                     {toggledQuest.quest_class.map((qc: number) => {
                         if (questClass?.id !== null) {
@@ -162,7 +162,7 @@ export default function QuestInfoContainer() {
                         questClassIcon = questClass?.job_name;
                         return <div className="col-span-1" key={qc}>
                             <Image src={`/icons/class_icons/${questClassIcon}.png`} alt='Quest Class' title={questClassIcon} 
-                            width={50} height={50}/>
+                            width={50} height={50} style={{padding: 5}}/>
                         </div>
                     })}
                 </div>
@@ -178,6 +178,7 @@ export default function QuestInfoContainer() {
                                 npc.id === step.step_npc)?.npc_zone.split('(')[0];
                                 let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('');
                                 let stepNumber = '';
+                                let bgColor = 'bg-queststepsbg';
                                 if (stepIndex === 0) {
                                     stepNumber = 'Start';
                                 } else if (stepIndex === questSteps.length - 1) {
@@ -185,8 +186,12 @@ export default function QuestInfoContainer() {
                                 } else {
                                     stepNumber = stepIndex.toString();
                                 }
+
+                                if (stepIndex % 2 === 0) {
+                                    bgColor = 'bg-questrewardbg1';
+                                }
                                 stepIndex++;
-                                return <li key={step.step_description}>
+                                return <li key={step.step_description} className={bgColor}>
                                     {`${stepNumber}. ${step.step_description} (`}
                                     <Link href={`/quest/${zoneLink}+${questName.split(' ').join('')}`} 
                                     className="text-blue-500 underline underline-offset-2">
