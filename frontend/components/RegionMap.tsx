@@ -122,7 +122,10 @@ export default function RegionMap({ zoneNameMarker }: RegionMapProps) {
                 iconSize: [hoverOverlayObject.highlightedMapIcon.highlightedMapIconSize[0],
                 hoverOverlayObject.highlightedMapIcon.highlightedMapIconSize[1]]});
                 let regionNameIcon = hoverOverlayObject.mapNameIcon.mapNameIconUrl;
-                let regionLink = hoverOverlayObject.mapLinkUrl.split('/')[2].split('.')[0];
+                let regionLink = '';
+                if (hoverOverlayObject.mapLinkUrl.split('/')[2]) {
+                    regionLink = hoverOverlayObject.mapLinkUrl.split('/')[2].split('.')[0];
+                }
                 return <Marker key={Math.random()} icon={legendOverlayIcon} 
                 position={[hoverOverlayObject.legendOverlayIcon.legendOverlayIconPos[0], 
                 hoverOverlayObject.legendOverlayIcon.legendOverlayIconPos[1]]} 

@@ -44,7 +44,6 @@ export default function ToggleContainer() {
         zoneName = '';
     }
 
-    console.log(zoneName);
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 
 
     useEffect(() => {
@@ -171,7 +170,7 @@ export default function ToggleContainer() {
             }
         }
         questUrl = event.target.id.split(' ').join('');
-        router.push(`/quest/${toggledQuestZone}+${questUrl}`)
+        router.push(`/quest/${toggledQuestZone}+${questUrl}`);
     }
 
     const updateHovered: MouseEventHandler<HTMLButtonElement> = (event: any) => {
@@ -189,7 +188,7 @@ export default function ToggleContainer() {
         if (filteredQuest[0] === toggledQuest) {
             toggledQuest = undefined;
         }
-        router.push(`/zone/${zoneName.split(' ').join('')}`)
+        router.push(`/zone/${zoneName.split(' ').join('')}`);
     }
 
     const refreshAvailableQuests: MouseEventHandler<HTMLButtonElement> = () => {

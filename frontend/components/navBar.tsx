@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalanZoneNamesState,
 getRegionNamesState } from '@/store/slices/dataStoreSlice';
 import { inter400 } from "@/styles/fonts";
+import { useRouter } from "next/router";
 
 
 function classNames(...classes: any[]) {
@@ -14,17 +15,23 @@ function classNames(...classes: any[]) {
 
 export default function NavBar() {
 
+    const router = useRouter();
     let regionNames = useSelector(getRegionNamesState).slice(0, 3);
     let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
     let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
+    
+    const navigateToWorld = () => {
+        router.push(`/`);
+    }
 
   return (
     <div className="aspect-h-9 relative bg-[url('/nav_bar/NavBar.jpg')] bg-cover bg-no-repeat">
         <div className='grid grid-cols-12 gap-1' >
-            <div className='col-span-3'>
-                <Image src='/nav_bar/logos/HelperQuest_Logo.png' alt='HelperQuest Logo' width={600} height={140} />
-            </div>
+            <button className="col-span-3" onClick={navigateToWorld}> 
+                <Image src='/nav_bar/logos/HelperQuest_Logo.png' alt='HelperQuest Logo' title='Navigate to World Map'
+                width={600} height={140} />
+            </button>
             {regionNames.map((regionName: string) => {
                 let zones = [];
                 let regionTabUrl: string = regionName.split(' ').join('');
