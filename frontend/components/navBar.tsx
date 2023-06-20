@@ -37,7 +37,7 @@ export default function NavBar() {
                 }
                 return <div className='grid-cols-1 relative' key={regionName}>
                     <Menu  as="div" className="text-left absolute bottom-0 w-full">
-                        <Menu.Button className="inline-flex w-full justify-center bg-transparent py-2 hover:opacity-95 opacity-80 
+                        <Menu.Button className="w-full justify-center py-2 hover:opacity-95 opacity-80 
                         relative">
                             <Image src={`/nav_bar/${regionTabUrl}NavTab.png`} alt={`${regionName} Tab`} 
                             width={200} height={50} className='absolute bottom-0'/>

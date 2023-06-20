@@ -265,7 +265,7 @@ export default function ToggleContainer() {
                             </button>
                             <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
                             id={`Delete ${aq.quest.quest_name}`} onClick={deleteQuest} >
-                                <Image src={`${deleteQuestIcon}.png`} width={30} height={30} alt='delete quest' 
+                                <Image src={`${deleteQuestIcon}.png`} width={25} height={25} alt='delete quest' 
                                 id={`Delete ${aq.quest.quest_name}`} title={`Delete ${aq.quest.quest_name}.`} />
                             </button>
                         </div>
