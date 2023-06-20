@@ -65,7 +65,7 @@ export default function NavBar() {
                                     {({ active }) => (
                                         <Link href={`/region/${regionTabUrl}`}
                                         className={classNames(
-                                            active ? 'bg-queststepsbg text-blue-500' : 'text-blue-500',
+                                            active ? 'bg-queststepsbg text-blue-500' : 'bg-questrewardbg1 text-blue-500',
                                             'block px-4 py-2 text-sm'
                                         )}
                                         >
