@@ -12,7 +12,6 @@ import { useGetNpcs } from '@/custom_hooks/useGetNpcs';
 import { useGetRewards } from '@/custom_hooks/useGetRewards';
 import { useGetSteps } from '@/custom_hooks/useGetSteps';
 import { useGetItems } from '@/custom_hooks/useGetItems';
-import { useRouter } from 'next/router';
 
 
 type LayoutProps = {

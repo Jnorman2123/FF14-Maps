@@ -8,7 +8,15 @@ import { TypeNpc, TypeQuest, TypeHoverOverlay, TypeLegend } from '@/types';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-const Region = () => {
+interface RegionProps {
+    zoneNameMarker: {
+        iconUrl: string;
+        iconSize: number[];
+        iconPosition: number[];
+    };
+}
+
+export default function Region({ zoneNameMarker }: RegionProps) {
     interface ZoneStarters {
         [key: string]: {
             npc: TypeNpc,
@@ -39,16 +47,24 @@ const Region = () => {
     let zoneStarters: ZoneStarters = {};
     let starterQuestTypes: StarterQuestTypes = {};
     let zoneLegendDetails: TypeLegend[] = [];
+    zoneNameMarker = {
+        iconUrl: `/icons/zone_names/SelectAZone.png`,
+        iconSize: [205.7, 34.85],
+        iconPosition: [0, 0]
+    };
 
     if (regionName === 'La Noscea') {
         mapAttributes = useSelector(getLaNosceaMapAttributesState);
         zoneNames = useSelector(getLaNosceaZoneNamesState);
+        zoneNameMarker.iconPosition = [-7.5, 33.2];
     } else if (regionName === 'The Black Shroud') {
         mapAttributes = useSelector(getTheBlackShroudMapAttributesState);
         zoneNames = useSelector(getTheBlackShroudZoneNamesState);
+        zoneNameMarker.iconPosition = [-7.3, 21.5];
     } else {
         mapAttributes = useSelector(getThanalanMapAttributesState);
         zoneNames = useSelector(getThanalanZoneNamesState);
+        zoneNameMarker.iconPosition = [-7.3, 10];
     }
     
     activeQuests.map((quest: TypeQuest) => {
@@ -212,9 +228,7 @@ const Region = () => {
 
     return <div >
         <div id='map' >
-            <MapWithNoSSR />
+            <MapWithNoSSR zoneNameMarker={zoneNameMarker} />
         </div>
     </div>;
 }
-
-export default Region;

@@ -4,7 +4,7 @@ getQuestsState } from "@/store/slices/dataStoreSlice";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
-import { inter400, inter600 } from "@/styles/fonts";
+import { inter500, inter600 } from "@/styles/fonts";
 import { useRouter } from "next/router";
 
 export default function QuestInfoContainer() {
@@ -166,7 +166,7 @@ export default function QuestInfoContainer() {
                         </div>
                     })}
                 </div>
-                <div className={`bg-queststepsbg rounded-questinfo w-11/12 relative left-5 ${inter400.className}
+                <div className={`bg-queststepsbg rounded-questinfo w-11/12 relative left-5 ${inter500.className}
                 text-queststepstext text-queststepstextsize text-left shadow-2xl`} 
                 style={{paddingBottom: 10}}>
                     <Image src='/icons/quest_info_ui_components/QuestStepsContainerHeader.jpg' alt='Quest Steps Header' 
@@ -215,11 +215,11 @@ export default function QuestInfoContainer() {
                                                     <div className="grid grid-cols-4 gap-1 items-center" 
                                                     style={{padding: 5, height: 50}}>
                                                         <div className={`col-span-3 text-left text-questrewardtext 
-                                                        text-questrewardtextsize ${inter400.className}`}>
+                                                        text-questrewardtextsize ${inter500.className}`}>
                                                             {rewardDetail.rewardItem.item_name}
                                                         </div>
                                                         <div className={`col-span-1 text-right text-questrewardnumber
-                                                        text-questrewardnumbersize ${inter400.className}
+                                                        text-questrewardnumbersize ${inter500.className}
                                                         flew items-center`}>
                                                             {rewardDetail.rewardItem.item_quantity}
                                                         </div>
@@ -249,11 +249,11 @@ export default function QuestInfoContainer() {
                                                     <div className="grid grid-cols-4 gap-1 items-center" 
                                                     style={{padding: 5, height: 50}}>
                                                         <div className={`col-span-3 text-left text-questrewardtext 
-                                                        text-questrewardtextsize ${inter400.className}`}>
+                                                        text-questrewardtextsize ${inter500.className}`}>
                                                             {rewardDetail.rewardItem.item_name}
                                                         </div>
                                                         <div className={`col-span-1 text-right text-questrewardnumber
-                                                        text-questrewardnumbersize ${inter400.className}
+                                                        text-questrewardnumbersize ${inter500.className}
                                                         flew items-center`}>
                                                             {rewardDetail.rewardItem.item_quantity}
                                                         </div>
@@ -278,7 +278,7 @@ export default function QuestInfoContainer() {
                                 <Image  src='/icons/quest_info_ui_components/ExpIcon.png' alt='Experience' 
                                 title='Experience' width={40} height={40} className="col-span-1"/>
                                 <div className={`col-span-1 flex justify-center items-center text-questrewardtext 
-                                ${inter600.className}`}>
+                                text-queststepstextsize ${inter600.className}`}>
                                         {questReward?.reward_experience}
                                 </div>
                             </div>
@@ -288,23 +288,24 @@ export default function QuestInfoContainer() {
                                 <Image  src='/icons/quest_info_ui_components/GilIcon.png' alt='Gil' 
                                 title='Gil' width={40} height={40} className="col-span-1"/>
                                 <div className={`col-span-1 flex justify-center items-center text-questrewardtext 
-                                ${inter600.className}`}>
+                                text-queststepstextsize ${inter600.className}`}>
                                         {questReward?.reward_gil}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className={`text-left text-questrewardtext ${inter400.className}`} style={{padding: 10}}>
+                    <div className={`text-left text-questrewardtext text-queststepstextsize
+                    ${inter600.className}`} style={{padding: 10}}>
                         Other Reward: {questReward?.reward_other}
                     </div>
                 </div>
-                <div className="grid grid-cols-2" style={{padding: 10}}>
+                <div className="grid grid-cols-2" style={{paddingTop: 30, paddingLeft: 10, paddingRight: 10, paddingBottom: 10}}>
                     <div className="col-span-1 text-center">
                         <div className="grid-rows-2">
                             <div className={`row-span-1 text-questrewardtext ${inter600.className} text-previousquestsize`}>
                                 Previous Quest
                             </div>
-                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
+                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-queststepstextsize
                             underline underline-offset-2`}>
                                 <Link href={`/quest/${previousQuestZone}+${previousQuestName?.split(' ').join('')}`}>
                                         {toggledQuest.previous_quest}
@@ -318,7 +319,7 @@ export default function QuestInfoContainer() {
                             <div className={`row-span-1 text-questrewardtext ${inter600.className} text-previousquestsize`}>
                                 Next Quest
                             </div>
-                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-questrewardnumbersize
+                            <div className={`row-span-1 text-blue-500 ${inter600.className} text-queststepstextsize
                             underline underline-offset-2`}>
                                 <Link href={`/quest/${nextQuestZone}+${nextQuestName?.split(' ').join('')}`}>
                                         {toggledQuest.next_quest}

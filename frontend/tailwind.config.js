@@ -10,7 +10,7 @@ module.exports = {
       borderspace: '1px',
     },
     height: {
-      main: '825px',
+      main: '865px',
       navbar: '140px',
       availablequests: '34vh',
       hiddenavailablequests: '0px',
@@ -84,9 +84,9 @@ module.exports = {
     fontSize: {
       navtab: '.7vw',
       questinfoheader: '22px',
-      queststepstextsize: '16px',
-      questrewardtextsize: '14px',
-      questrewardnumbersize: '16px',
+      queststepstextsize: '14px',
+      questrewardtextsize: '12px',
+      questrewardnumbersize: '12px',
       previousquestsize: '18px',
     },
   },

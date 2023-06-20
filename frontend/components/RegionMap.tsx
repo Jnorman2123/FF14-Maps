@@ -1,30 +1,38 @@
 import { MapContainer, Marker, ImageOverlay } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { getHoverOverlayDetailsState, getLegendDetailsState } from '@/store/slices/dataStoreSlice';
 import type { TypeHoverOverlay, TypeLegend } from '@/types';
 import RegionBackButton from './RegionBackButton';
 
-const RegionMapComponent = () => {
-    const [laNosceaZoneMarker, setLaNosceaZoneMarker] = useState({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`, 
-        iconSize: [205.7, 34.85]}), position: [-7.5, 33.2]});
-    const [theBlackShroudZoneMarker, setBlackShroudZoneMarker] = useState({icon: 
-        new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`, iconSize: [205.7, 34.85]}), position: [-7.3, 21.5]});
-    const [thanalanZoneMarker, setThanalanZoneMarker] = useState({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`, 
-        iconSize: [205.7, 34.85]}), position: [-7.3, 10]});
+type RegionMapProps = {
+    zoneNameMarker: {
+        iconUrl: string;
+        iconSize: number[];
+        iconPosition: number[];
+    };
+}
+
+export default function RegionMap({ zoneNameMarker }: RegionMapProps) {
+    const [zoneMarker, setZoneMarker] = useState({icon: new L.Icon({iconUrl: zoneNameMarker.iconUrl, 
+        iconSize: [zoneNameMarker.iconSize[0], zoneNameMarker.iconSize[1]]}), 
+        position: [zoneNameMarker.iconPosition[0], zoneNameMarker.iconPosition[1]]});
     const [highlightedMarkers, setHighlightedMarkers] = useState<any[]>([]);
     const router = useRouter();
     const { asPath } = router;
     let splitPathName = asPath.split('/').slice(-1)[0];
-    let spacedRegionName = splitPathName.split(/(?=[A-Z])/).join(' ');
     let regionName = splitPathName.split(/(?=[A-Z])/).join('');
     let hoverOverlayDetails: TypeHoverOverlay[] = useSelector(getHoverOverlayDetailsState);
-    let regionHoverOverlayDetails: TypeHoverOverlay[] = [];
     let legendDetails: TypeLegend[] = useSelector(getLegendDetailsState);
     let markers: any[] = [];
+
+    useEffect(() => {
+        resetZoneMarker();
+        removeMarker();
+    }, [splitPathName])
 
     const addMarker = ((pos: number[], icon: any) => {
         let marker = {icon: icon, position: pos};
@@ -35,30 +43,15 @@ const RegionMapComponent = () => {
         setHighlightedMarkers([]);
     };
 
-    const setZoneMarker = ((zoneIcon: string) => {
-        if (spacedRegionName === "La Noscea") {
-           setLaNosceaZoneMarker({icon: new L.Icon({iconUrl: zoneIcon, iconSize: [205.7, 34.85]}),
-                position: [-7.5, 33.2]});
-        } else if (spacedRegionName === 'The Black Shroud') {
-            setBlackShroudZoneMarker({icon: new L.Icon({iconUrl: zoneIcon, iconSize: [205.7, 34.85]}),
-                position: [-7.3, 21.5]});
-        } else {
-            setThanalanZoneMarker({icon: new L.Icon({iconUrl: zoneIcon, iconSize: [205.7, 34.85]}),
-                position: [-7.3, 10]});
-        }
+    const setNewZoneMarker = ((zoneIcon: string) => {
+        setZoneMarker({icon: new L.Icon({iconUrl: zoneIcon, iconSize: [zoneNameMarker.iconSize[0], zoneNameMarker.iconSize[1]]}),
+        position: [zoneNameMarker.iconPosition[0], zoneNameMarker.iconPosition[1]]});
     })
 
     const resetZoneMarker = () => {
-        if (spacedRegionName === "La Noscea") {
-            setLaNosceaZoneMarker({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.5, 33.2]});
-        } else if (spacedRegionName === 'The Black Shroud') {
-            setBlackShroudZoneMarker({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.3, 21.5]});
-        } else {
-            setThanalanZoneMarker({icon: new L.Icon({iconUrl: `/icons/zone_names/SelectAZone.png`,
-        iconSize: [205.7, 34.85]}), position: [-7.3, 10]});
-        }
+        setZoneMarker({icon: new L.Icon({iconUrl: zoneNameMarker.iconUrl,
+        iconSize: [zoneNameMarker.iconSize[0], zoneNameMarker.iconSize[1]]}), 
+        position: [zoneNameMarker.iconPosition[0], zoneNameMarker.iconPosition[1]]});
     }
 
     const createLegendIcons = ((legendDetails: TypeLegend[]) => {
@@ -69,15 +62,12 @@ const RegionMapComponent = () => {
                 position: [legendDetailObject.legendIcon.legendIconPos[0], legendDetailObject.legendIcon.legendIconPos[1]],
                 zOffset: legendDetailObject.legendIcon.legendIconZOffset
             };
-            markers.push(legendMarker);
-            
             let arrowMarker = {
                 icon: new L.Icon({iconUrl: legendDetailObject.arrowIcon.arrowIconUrl, 
                 iconSize: [legendDetailObject.arrowIcon.arrowIconSize[0], legendDetailObject.arrowIcon.arrowIconSize[1]]}),
                 position: [legendDetailObject.arrowIcon.arrowIconPos[0], legendDetailObject.arrowIcon.arrowIconPos[1]],
                 zOffset: legendDetailObject.arrowIcon.arrowIconZOffset
             };
-            markers.push(arrowMarker);
             let mainQuestNumberMarker = {
                 icon: new L.Icon({iconUrl: legendDetailObject.mainQuestNumberIcon.mainQuestNumberIconUrl, 
                 iconSize: [legendDetailObject.mainQuestNumberIcon.mainQuestNumberIconSize[0], 
@@ -86,7 +76,6 @@ const RegionMapComponent = () => {
                 legendDetailObject.mainQuestNumberIcon.mainQuestNumberIconPos[1]],
                 zOffset: legendDetailObject.mainQuestNumberIcon.mainQuestNumberZOffset
             };
-            markers.push(mainQuestNumberMarker);
             let classQuestNumberMarker = {
                 icon: new L.Icon({iconUrl: legendDetailObject.classQuestNumberIcon.classQuestNumberIconUrl, 
                 iconSize: [legendDetailObject.classQuestNumberIcon.classQuestNumberIconSize[0], 
@@ -95,7 +84,6 @@ const RegionMapComponent = () => {
                 legendDetailObject.classQuestNumberIcon.classQuestNumberIconPos[1]],
                 zOffset: legendDetailObject.classQuestNumberIcon.classQuestNumberZOffset
             };
-            markers.push(classQuestNumberMarker);
             let sideQuestNumberMarker = {
                 icon: new L.Icon({iconUrl: legendDetailObject.sideQuestNumberIcon.sideQuestNumberIconUrl, 
                 iconSize: [legendDetailObject.sideQuestNumberIcon.sideQuestNumberIconSize[0], 
@@ -104,7 +92,6 @@ const RegionMapComponent = () => {
                 legendDetailObject.sideQuestNumberIcon.sideQuestNumberIconPos[1]],
                 zOffset: legendDetailObject.sideQuestNumberIcon.sideQuestNumberZOffset
             };
-            markers.push(sideQuestNumberMarker);
             let huntingLogQuestNumberMarker = {
                 icon: new L.Icon({iconUrl: legendDetailObject.huntingLogQuestNumberIcon.huntingLogQuestNumberIconUrl, 
                 iconSize: [legendDetailObject.huntingLogQuestNumberIcon.huntingLogQuestNumberIconSize[0], 
@@ -113,24 +100,13 @@ const RegionMapComponent = () => {
                 legendDetailObject.huntingLogQuestNumberIcon.huntingLogQuestNumberIconPos[1]],
                 zOffset: legendDetailObject.huntingLogQuestNumberIcon.huntingLogQuestNumberZOffset
             };
-            markers.push(huntingLogQuestNumberMarker);
+            markers.push(legendMarker, classQuestNumberMarker, arrowMarker, mainQuestNumberMarker, 
+                sideQuestNumberMarker, huntingLogQuestNumberMarker);
         })
     })
 
-    if (spacedRegionName === 'La Noscea') {
-        markers.push(laNosceaZoneMarker);
-        createLegendIcons(legendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails;
-    } else if (spacedRegionName === 'The Black Shroud') {
-        markers.push(theBlackShroudZoneMarker);
-        createLegendIcons(legendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails;
-    } else if (spacedRegionName === 'Thanalan') {
-        console.log(legendDetails)
-        markers.push(thanalanZoneMarker);
-        createLegendIcons(legendDetails);
-        regionHoverOverlayDetails = hoverOverlayDetails;
-    }
+    markers.push(zoneMarker);
+    createLegendIcons(legendDetails);
     
     let bounds = new L.LatLngBounds([-1,1], [-41.9, 41.9]);
     return (
@@ -138,7 +114,7 @@ const RegionMapComponent = () => {
             crs={L.CRS.Simple} maxBoundsViscosity={1} scrollWheelZoom={false} maxZoom={4.25}
             minZoom={4.25} style={{height: '825px', width: '100%'}} className='bg-lightbg z-20' zoomControl={false}>
             <ImageOverlay url={`../maps/${regionName}.jpg`} bounds={bounds} opacity={1} />
-            {regionHoverOverlayDetails.map((hoverOverlayObject: TypeHoverOverlay) => {
+            {hoverOverlayDetails.map((hoverOverlayObject: TypeHoverOverlay) => {
                 let legendOverlayIcon = new L.Icon({iconUrl: hoverOverlayObject.legendOverlayIcon.legendOverlayIconUrl, 
                 iconSize: [hoverOverlayObject.legendOverlayIcon.legendOverlayIconSize[0], 
                 hoverOverlayObject.legendOverlayIcon.legendOverlayIconSize[1]]});
@@ -146,7 +122,7 @@ const RegionMapComponent = () => {
                 iconSize: [hoverOverlayObject.highlightedMapIcon.highlightedMapIconSize[0],
                 hoverOverlayObject.highlightedMapIcon.highlightedMapIconSize[1]]});
                 let regionNameIcon = hoverOverlayObject.mapNameIcon.mapNameIconUrl;
-                let regionLink = hoverOverlayObject.mapLinkUrl;
+                let regionLink = hoverOverlayObject.mapLinkUrl.split('/')[2].split('.')[0];
                 return <Marker key={Math.random()} icon={legendOverlayIcon} 
                 position={[hoverOverlayObject.legendOverlayIcon.legendOverlayIconPos[0], 
                 hoverOverlayObject.legendOverlayIcon.legendOverlayIconPos[1]]} 
@@ -154,7 +130,7 @@ const RegionMapComponent = () => {
                     mouseover: () => {
                         if (highlightedMarkers.length === 0) {
                             addMarker(hoverOverlayObject.highlightedMapIcon.highlightedMapIconPos, highlightedMapIcon);
-                            setZoneMarker(regionNameIcon);
+                            setNewZoneMarker(regionNameIcon);
                         }
                     },
                     mouseout: () => {
@@ -178,5 +154,3 @@ const RegionMapComponent = () => {
         </MapContainer>
     )
 }
-
-export default RegionMapComponent;
