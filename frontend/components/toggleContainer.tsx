@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TypeClass, TypeQuest, TypeQuestType, TypeQuestLevel, TypeJob, TypeQuestDetail, TypeNpc } from "@/types";
 import { MouseEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
-import { inter500 } from "@/styles/fonts";
+import { inter500, inter700 } from "@/styles/fonts";
 import { useRouter } from "next/router";
 
 export default function ToggleContainer() {
@@ -185,7 +185,7 @@ export default function ToggleContainer() {
     }
 
     const setAvailableQuestData = () => {
-        let availableQuestsTheme: string = `h-availablequests overflow-auto w-full bg-lightbg text-accordiontext rounded-b-lg ${inter500.className}`;
+        let availableQuestsTheme: string = `h-availablequests overflow-auto w-full bg-lightbg rounded-b-lg`;
         let refreshIcon: string = '';
 
         if (hovered === 'Refresh Available Quests') {
@@ -212,6 +212,7 @@ export default function ToggleContainer() {
                         let questIconColor: string = aq.questBgColor;
                         let deleteQuestIcon: string = '/icons/available_quest_icons/DeleteQuest';
                         let questNameBarTheme: string = 'grid grid-cols-10 gap-1';
+                        let questNameTheme: string = `col-span-8 text-left text-accordiontext ${inter500.className}`;
 
                         if (aq.quest.quest_type === 'Main Story') {
                             questIconType = 'main_story_icons';
@@ -236,6 +237,7 @@ export default function ToggleContainer() {
 
                         if (toggledQuest === aq.quest) {
                             questIconUrl = questIconUrl + 'Active';
+                            questNameTheme = `col-span-8 text-left text-accordiontext ${inter700.className}`;
                         }
 
                         return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className={questNameBarTheme}>
@@ -245,8 +247,8 @@ export default function ToggleContainer() {
                                 height={25} alt='quest icon' id={aq.quest.quest_name}
                                 title={`Toggle ${aq.quest.quest_name}.`}/>
                             </button>
-                            <button className="col-span-8 text-left" onClick={toggleQuest} onMouseEnter={updateHovered} 
-                            onMouseLeave={clearHovered} id={aq.quest.quest_name}>
+                            <button className={questNameTheme} 
+                            onClick={toggleQuest} onMouseEnter={updateHovered} onMouseLeave={clearHovered} id={aq.quest.quest_name}>
                                 {aq.quest.quest_name}
                             </button>
                             <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}
