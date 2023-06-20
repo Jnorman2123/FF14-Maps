@@ -7,6 +7,7 @@ import { getLaNosceaZoneNamesState, getTheBlackShroudZoneNamesState, getThanalan
 getRegionNamesState } from '@/store/slices/dataStoreSlice';
 import { inter400 } from "@/styles/fonts";
 import { useRouter } from "next/router";
+import { useState, useEffect} from 'react';
 
 
 function classNames(...classes: any[]) {
@@ -14,22 +15,38 @@ function classNames(...classes: any[]) {
 }
 
 export default function NavBar() {
-
+    const [logoIndex, setLogoIndex] = useState<number>(1);
+    const [backgroundIndex, setBackgroundIndex] = useState<number>(0);
     const router = useRouter();
     let regionNames = useSelector(getRegionNamesState).slice(0, 3);
     let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
     let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
+    let logoUrl: string = `/nav_bar/logos/HelperQuestLogo${logoIndex}.png`
+    let backgroundUrl: string = `/nav_bar/backgrounds/NavBackground${backgroundIndex}.jpg`;
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setLogoIndex((prevLogoIndex) =>
+            prevLogoIndex === 40 ? 1 : prevLogoIndex + 1
+          );
+          setBackgroundIndex((prevBackgroundIndex) => 
+            prevBackgroundIndex === 116 ? 0 : prevBackgroundIndex + 1
+          )
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
     
     const navigateToWorld = () => {
         router.push(`/`);
     }
 
   return (
-    <div className="aspect-h-9 relative bg-[url('/nav_bar/NavBar.jpg')] bg-cover bg-no-repeat">
+    <div className='aspect-h-9 relative' style={{backgroundImage: `url(${backgroundUrl})`, 
+    backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className='grid grid-cols-12 gap-1' >
             <button className="col-span-3" onClick={navigateToWorld}> 
-                <Image src='/nav_bar/logos/HelperQuest_Logo.png' alt='HelperQuest Logo' title='Navigate to World Map'
+                <Image src={logoUrl} alt='HelperQuest Logo' title='Navigate to World Map'
                 width={600} height={140} />
             </button>
             {regionNames.map((regionName: string) => {
