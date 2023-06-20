@@ -211,6 +211,7 @@ export default function ToggleContainer() {
                         let questIconType: string = '';
                         let questIconColor: string = aq.questBgColor;
                         let deleteQuestIcon: string = '/icons/available_quest_icons/DeleteQuest';
+                        let questNameBarTheme: string = 'grid grid-cols-10 gap-1';
 
                         if (aq.quest.quest_type === 'Main Story') {
                             questIconType = 'main_story_icons';
@@ -226,22 +227,26 @@ export default function ToggleContainer() {
 
                         if (hovered === aq.quest.quest_name && toggledQuest !== aq.quest) {
                             questIconUrl = questIconUrl + 'Hover';
+                            questNameBarTheme = 'grid grid-cols-10 gap-1 bg-questrewardbg2';
                         } else if (hovered === `Delete ${aq.quest.quest_name}`) {
                             deleteQuestIcon = deleteQuestIcon + 'Hover'
+                        } else if (hovered === aq.quest.quest_name && toggledQuest === aq.quest) {
+                            questNameBarTheme = 'grid grid-cols-10 gap-1 bg-questrewardbg2';
                         }
 
                         if (toggledQuest === aq.quest) {
                             questIconUrl = questIconUrl + 'Active';
                         }
 
-                        return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className="grid grid-cols-10 gap-1">
+                        return <div key={aq.quest.quest_name} style={{paddingLeft: 10}} className={questNameBarTheme}>
                             <button className="col-span-1 text-center" style={{paddingTop: 5}} 
                             onClick={toggleQuest} id={aq.quest.quest_name} onMouseEnter={updateHovered} onMouseLeave={clearHovered}>
                                 <Image src={`${questIconUrl}.png`} width={25} 
                                 height={25} alt='quest icon' id={aq.quest.quest_name}
                                 title={`Toggle ${aq.quest.quest_name}.`}/>
                             </button>
-                            <button className="col-span-8 text-left" onClick={toggleQuest} id={aq.quest.quest_name}>
+                            <button className="col-span-8 text-left" onClick={toggleQuest} onMouseEnter={updateHovered} 
+                            onMouseLeave={clearHovered} id={aq.quest.quest_name}>
                                 {aq.quest.quest_name}
                             </button>
                             <button className="col-span-1 text-center" onMouseEnter={updateHovered} onMouseLeave={clearHovered}

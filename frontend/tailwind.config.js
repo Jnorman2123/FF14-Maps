@@ -76,6 +76,7 @@ module.exports = {
         questrewardbg2: '#ffefc7',
         questrewardtext: '#7c5034',
         questrewardnumber: '#7c5034',
+        queststepbg2: '#fffff5',
       },
       transitionProperty: {
         'height': 'height',
