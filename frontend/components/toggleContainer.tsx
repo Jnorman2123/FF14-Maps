@@ -32,11 +32,19 @@ export default function ToggleContainer() {
     let npcs: TypeNpc[] = useSelector(getNpcsState);
     let questDetails: TypeQuestDetail[] = useSelector(getQuestDetailsState);
     let questName: string;
+    let zoneName: string;
     let toggledQuest: TypeQuest | undefined;
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
+        zoneName = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join(' ');
+    } else if (asPath.split('/')[1] === 'zone' && asPath.split('/').slice(-1)[0]) {
+        zoneName = asPath.split('/').slice(-1)[0].split(/(?=[A-Z])/).join(' ');
+    } else {
+        zoneName = '';
     }
+
+    console.log(zoneName);
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 
 
     useEffect(() => {
@@ -177,7 +185,11 @@ export default function ToggleContainer() {
     const deleteQuest: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         let questName: string = event.target.id.split(' ').splice(1).join(' ');
         let filteredQuest: TypeQuest[] = activeQuestsArray.filter((q: TypeQuest) => q.quest_name === questName);
-        setFilteredQuests([...filteredQuests, filteredQuest[0]]) ;
+        setFilteredQuests([...filteredQuests, filteredQuest[0]]);
+        if (filteredQuest[0] === toggledQuest) {
+            toggledQuest = undefined;
+        }
+        router.push(`/zone/${zoneName.split(' ').join('')}`)
     }
 
     const refreshAvailableQuests: MouseEventHandler<HTMLButtonElement> = () => {
