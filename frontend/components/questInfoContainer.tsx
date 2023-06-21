@@ -177,14 +177,18 @@ export default function QuestInfoContainer() {
                                 let stepNpcZone = npcs.find((npc: TypeNpc) => 
                                 npc.id === step.step_npc)?.npc_zone.split('(')[0];
                                 let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('');
-                                let stepNumber = '';
+                                let stepNumberUrl = '';
                                 let bgColor = 'bg-queststepsbg';
+                                let stepNumberSize = 0;
                                 if (stepIndex === 0) {
-                                    stepNumber = 'Start';
+                                    stepNumberUrl = '/icons/third_layer/StartIcon.png';
+                                    stepNumberSize = 35;
                                 } else if (stepIndex === questSteps.length - 1) {
-                                    stepNumber = 'Turn In'
+                                    stepNumberUrl = '/icons/third_layer/TurnInIcon.png';
+                                    stepNumberSize = 35;
                                 } else {
-                                    stepNumber = stepIndex.toString();
+                                    stepNumberUrl = `/icons/third_layer/Step${stepIndex.toString()}Icon.png`;
+                                    stepNumberSize = 40;
                                 }
 
                                 if (stepIndex % 2 === 0) {
@@ -192,12 +196,20 @@ export default function QuestInfoContainer() {
                                 }
                                 stepIndex++;
                                 return <li key={step.step_description} className={bgColor}>
-                                    {`${stepNumber}. ${step.step_description} (`}
-                                    <Link href={`/quest/${zoneLink}+${questName.split(' ').join('')}`} 
-                                    className="text-blue-500 underline underline-offset-2">
-                                        {stepNpcZone}
-                                    </Link>
-                                    {`)`}
+                                    <div className="grid grid-cols-8">
+                                        <div className="col-span-1 flex items-center">
+                                            <Image src={stepNumberUrl} alt={`Quest Step stepIndex.toString()`} 
+                                            width={stepNumberSize} height={stepNumberSize} />
+                                        </div>
+                                        <div className="col-span-7">
+                                            {`${step.step_description} (`}
+                                            <Link href={`/quest/${zoneLink}+${questName.split(' ').join('')}`} 
+                                            className="text-blue-500 underline underline-offset-2">
+                                                {stepNpcZone}
+                                            </Link>
+                                            {`)`}
+                                        </div>
+                                    </div>
                                 </li>
                             })}
                         </ul>

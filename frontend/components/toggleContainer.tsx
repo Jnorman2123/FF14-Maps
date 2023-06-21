@@ -166,10 +166,18 @@ export default function ToggleContainer() {
             toggledQuestObject = quests.find(q => q.quest_name === event.target.id);
             toggledQuestStarter = npcs.find((npc: TypeNpc) => npc.id === toggledQuestObject?.quest_npcs[0]);
             if (toggledQuestStarter) {
-                toggledQuestZone = toggledQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+                toggledQuestZone = toggledQuestStarter?.npc_zone.split('(')[0].split(' ').map((str: string) => {
+                    if (str === 'of') {
+                        str = 'Of';
+                    } else if (str === '-') {
+                        str = '';
+                    }
+                    return str;
+                }).join('');
             }
         }
         questUrl = event.target.id.split(' ').join('');
+        console.log(toggledQuestZone);
         router.push(`/quest/${toggledQuestZone}+${questUrl}`);
     }
 
