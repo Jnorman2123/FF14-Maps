@@ -177,7 +177,6 @@ export default function ToggleContainer() {
             }
         }
         questUrl = event.target.id.split(' ').join('');
-        console.log(toggledQuestZone);
         router.push(`/quest/${toggledQuestZone}+${questUrl}`);
     }
 

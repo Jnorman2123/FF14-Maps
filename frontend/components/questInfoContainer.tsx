@@ -44,10 +44,24 @@ export default function QuestInfoContainer() {
         nextQuestStarter = npcs.find((npc: TypeNpc) => npc.id === nextQuest?.quest_npcs[0]);
 
         if (nextQuest !== undefined) {
-            nextQuestZone = nextQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+            nextQuestZone = nextQuestStarter?.npc_zone.split('(')[0].split(' ').map((str: string) => {
+                if (str === 'of') {
+                    str = 'Of';
+                } else if (str === '-') {
+                    str = '';
+                }
+                return str;
+            }).join('');
             nextQuestName = nextQuest.quest_name;
         } else {
-            nextQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join('');
+            nextQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).map((str: string) => {
+                if (str === 'of') {
+                    str = 'Of';
+                } else if (str === '-') {
+                    str = '';
+                }
+                return str;
+            }).join('');
             nextQuestName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
         }
         
@@ -55,10 +69,24 @@ export default function QuestInfoContainer() {
         previousQuestStarter = npcs.find((npc: TypeNpc) => npc.id === previousQuest?.quest_npcs[0]);
 
         if (previousQuest !== undefined) {
-            previousQuestZone = previousQuestStarter?.npc_zone.split('(')[0].split(' ').join('');
+            previousQuestZone = previousQuestStarter?.npc_zone.split('(')[0].split(' ').map((str: string) => {
+                if (str === 'of') {
+                    str = 'Of';
+                } else if (str === '-') {
+                    str = '';
+                }
+                return str;
+            }).join('');
             previousQuestName = previousQuest.quest_name;
         } else {
-            previousQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join('');
+            previousQuestZone = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).map((str: string) => {
+                if (str === 'of') {
+                    str = 'Of';
+                } else if (str === '-') {
+                    str = '';
+                }
+                return str;
+            }).join('');
             previousQuestName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' ');
         }
     } else {
@@ -176,7 +204,14 @@ export default function QuestInfoContainer() {
                             {questSteps.map((step: TypeStep) => {
                                 let stepNpcZone = npcs.find((npc: TypeNpc) => 
                                 npc.id === step.step_npc)?.npc_zone.split('(')[0];
-                                let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').join('');
+                                let zoneLink = stepNpcZone?.split(' ').filter((word: string) => word !== '').map((str: string) => {
+                                    if (str === 'of') {
+                                        str = 'Of';
+                                    } else if (str === '-') {
+                                        str = '';
+                                    }
+                                    return str;
+                                }).join('');
                                 let stepNumberUrl = '';
                                 let bgColor = 'bg-queststepsbg';
                                 let stepNumberSize = 0;
