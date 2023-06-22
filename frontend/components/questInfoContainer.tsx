@@ -216,10 +216,10 @@ export default function QuestInfoContainer() {
                                 let bgColor = 'bg-queststepsbg';
                                 let stepNumberSize = 0;
                                 if (stepIndex === 0) {
-                                    stepNumberUrl = '/icons/third_layer/StartIcon.png';
+                                    stepNumberUrl = '/icons/third_layer/StartIconActive.png';
                                     stepNumberSize = 35;
                                 } else if (stepIndex === questSteps.length - 1) {
-                                    stepNumberUrl = '/icons/third_layer/TurnInIcon.png';
+                                    stepNumberUrl = '/icons/third_layer/TurnInIconActive.png';
                                     stepNumberSize = 35;
                                 } else {
                                     stepNumberUrl = `/icons/third_layer/Step${stepIndex.toString()}Icon.png`;

@@ -47,6 +47,13 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     let zoneStarters: ZoneStarters = {};
     let starterQuestTypes: StarterQuestTypes = {};
     let zoneLegendDetails: TypeLegend[] = [];
+    let laNosceaMapAttributes = useSelector(getLaNosceaMapAttributesState);
+    let theBlackShroudMapAttributes = useSelector(getTheBlackShroudMapAttributesState);
+    let thanalanMapAttributes = useSelector(getThanalanMapAttributesState);
+    let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
+    let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
+    let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
+    
     zoneNameMarker = {
         iconUrl: `/icons/zone_names/SelectAZone.png`,
         iconSize: [205.7, 34.85],
@@ -54,16 +61,16 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     };
 
     if (regionName === 'La Noscea') {
-        mapAttributes = useSelector(getLaNosceaMapAttributesState);
-        zoneNames = useSelector(getLaNosceaZoneNamesState);
+        mapAttributes = laNosceaMapAttributes;
+        zoneNames = laNosceaZoneNames;
         zoneNameMarker.iconPosition = [-7.5, 33.2];
     } else if (regionName === 'The Black Shroud') {
-        mapAttributes = useSelector(getTheBlackShroudMapAttributesState);
-        zoneNames = useSelector(getTheBlackShroudZoneNamesState);
+        mapAttributes = theBlackShroudMapAttributes;
+        zoneNames = theBlackShroudZoneNames;
         zoneNameMarker.iconPosition = [-7.3, 21.5];
     } else {
-        mapAttributes = useSelector(getThanalanMapAttributesState);
-        zoneNames = useSelector(getThanalanZoneNamesState);
+        mapAttributes = thanalanMapAttributes;
+        zoneNames = thanalanZoneNames;
         zoneNameMarker.iconPosition = [-7.3, 10];
     }
     
