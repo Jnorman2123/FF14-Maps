@@ -44,7 +44,10 @@ export default function Zone() {
         reward_other: ''
     };
     let rewardItems: string[] = [];
+    let seoTitle: string = '';
     let seoDescription: string = '';
+    let openGraphTitle: string = '';
+    let openGraphDescription: string = '';
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
@@ -71,20 +74,29 @@ export default function Zone() {
     };
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
-        seoDescription = `Showing steps and zone for ${questName}, ${currentQuestJobs}, ${currentQuestNpcs}`;
+        seoTitle = 'Level faster. Quest smarter. Get map guides for FF14 Online.'
+        seoDescription = `Need help with ${questName}? Looking for ${currentQuestNpcs[0]}?` + 
+            ` Our FFXIV map of ${zoneName} shows the locations for all quest steps and more.`;
+        openGraphTitle = `Check out this map for help with ${questName}!`;
+        openGraphDescription = `Check out this easy-to-read map for help with ${questName}.` + 
+            ` The map shows locations for every single quest step. You can also find other quests based on your level and class.`
     } else if (asPath.split('/')[1] === 'zone') {
-        seoDescription = `Find locations for NPCs, quest steps, and turn-ins with this ${zoneName} map for Final Fantasy 14 Online. 
-        Filter by level, class, and quest type.`;
+        seoTitle = 'Find quest info fast with our Final Fantasy 14 Online maps.'
+        seoDescription = `Find locations for NPCs, quest steps, and turn-ins with this ${zoneName}` + 
+            ` map for Final Fantasy 14 Online. Filter by level, class, and quest type.`;
+        openGraphTitle = `Find quests fast. A map of ${zoneName} for FF14.`;
+        openGraphDescription = `Check out this easy-to-read map of ${zoneName} to find the locations of quest givers,` + 
+            ` quest steps, and turn-ins. Simply choose your level, class, and quest type. Help us, help you.`
     } 
 
     return <div>
         <NextSeo 
-            title='Find quest info fast with our Final Fantasy 14 Online maps.' 
+            title={seoTitle} 
             description={seoDescription}
             openGraph={{
                 url: `https://helperquest.com/zone/${zoneName.split(' ').join('')}`,
-                title: `Find quest info on this map of ${zoneName}.`,
-                description: 'Find quest info fast with our Final Fantasy 14 Online Maps.',
+                title: openGraphTitle,
+                description: openGraphDescription,
                 images: [
                     {
                         url: '/icons/open_graph/HelperQuestOpenGraph.jpg',
