@@ -23,6 +23,13 @@ const World = () => {
     let theBlackShroudStarters: string[] = [];
     let hoverOverlayDetails: TypeHoverOverlay[] = [];
     let legendDetails: TypeLegend[] = [];
+    let seoTitle: string = 'The ultimate quest companion and map guide for FFXIV Online.';
+    let seoDescription: string = 'Level faster and quest smarter in Final Fantasy 14 Online.' +  
+        ' Find NPCs, quest steps, and turn-ins on easy-to-read maps. Filter by level, class, and quest type.';
+    let openGraphTitle: string = 'Find quest info fast with our Final Fantasy 14 Online maps.';
+    let openGraphDescription: string = 'Level faster and quest smarter in Final Fantasy 14 Online.' + 
+        ' Our easy-to-read maps will help you find NPCs, quest steps, turn-ins and more!'
+
     
     activeQuests.map((quest: TypeQuest) => {
         let npc: TypeNpc | undefined = npcs.find((npc: TypeNpc) => npc.id === quest.quest_npcs[0]);
@@ -182,7 +189,30 @@ const World = () => {
     setLegendDetails();
 
     return <div>
-      <NextSeo title='World Map Title' description='World Map' />
+      <NextSeo 
+        title={seoTitle} 
+        description={seoDescription}
+        openGraph={{
+            url: 'https://helperquest.com',
+            title: openGraphTitle,
+            description: openGraphDescription,
+            images: [
+                {
+                    url: '/icons/open_graph/HelperQuestOpenGraph.jpg',
+                    width: 800,
+                    height: 700,
+                    alt: 'Open Graph HelperQuest image',
+                    type: 'image/jpeg'
+                }
+            ],
+            siteName: 'HelperQuest',
+        }} 
+        twitter={{
+            handle: '@handle',
+            site: '@site',
+            cardType: 'summary_large_image',
+        }}
+      />
         <div id='map'>
             <MapWithNoSSR />
         </div>

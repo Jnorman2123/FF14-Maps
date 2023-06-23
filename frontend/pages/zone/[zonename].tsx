@@ -44,21 +44,14 @@ export default function Zone() {
         reward_other: ''
     };
     let rewardItems: string[] = [];
-
-    
-    let seoTitle: string = '';
     let seoDescription: string = '';
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
         zoneName = asPath.split('/').slice(-1)[0].split('+')[0].split(/(?=[A-Z])/).join(' ');
-        seoTitle = `Quest: ${questName}`;
-        seoDescription = `Showing steps and zone for ${questName}`;
     } else if (asPath.split('/')[1] === 'zone') {
         zoneName = asPath.split('/').slice(-1)[0].split(/(?=[A-Z])/).join(' ');
         questName = '';
-        seoTitle = `Zone: ${zoneName}`;
-        seoDescription = `Showing ${zoneName} zone map`;
     } 
 
     currentQuest = quests.filter((quest: TypeQuest) => quest.quest_name === questName)[0];
@@ -78,17 +71,36 @@ export default function Zone() {
     };
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
-        seoTitle = `Quest: ${questName}`;
         seoDescription = `Showing steps and zone for ${questName}, ${currentQuestJobs}, ${currentQuestNpcs}`;
     } else if (asPath.split('/')[1] === 'zone') {
-        seoTitle = `Zone: ${zoneName}`;
-        seoDescription = `Showing ${zoneName} zone map`;
+        seoDescription = `Find locations for NPCs, quest steps, and turn-ins with this ${zoneName} map for Final Fantasy 14 Online. 
+        Filter by level, class, and quest type.`;
     } 
 
     return <div>
         <NextSeo 
-            title={seoTitle}
+            title='Find quest info fast with our Final Fantasy 14 Online maps.' 
             description={seoDescription}
+            openGraph={{
+                url: `https://helperquest.com/zone/${zoneName.split(' ').join('')}`,
+                title: `Find quest info on this map of ${zoneName}.`,
+                description: 'Find quest info fast with our Final Fantasy 14 Online Maps.',
+                images: [
+                    {
+                        url: '/icons/open_graph/HelperQuestOpenGraph.jpg',
+                        width: 800,
+                        height: 700,
+                        alt: 'Open Graph HelperQuest image',
+                        type: 'image/jpeg'
+                    }
+                ],
+                siteName: 'HelperQuest',
+            }} 
+            twitter={{
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+            }}
         />
         <div id='map'>
             <MapWithNoSSR />

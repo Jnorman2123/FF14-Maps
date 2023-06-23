@@ -7,6 +7,7 @@ import { getActiveQuestsState, getNpcsState, getLaNosceaZoneNamesState,
 import { TypeNpc, TypeQuest, TypeHoverOverlay, TypeLegend } from '@/types';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 
 interface RegionProps {
     zoneNameMarker: {
@@ -31,7 +32,8 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     const dispatch = useDispatch();
     const router = useRouter();
     const { asPath } = router;
-    let regionName = asPath.split('/').slice(-1)[0].split(/(?=[A-Z])/).join(' ');
+    let regionRoute = asPath.split('/').slice(-1)[0]
+    let regionName = regionRoute.split(/(?=[A-Z])/).join(' ');
     let activeQuests = useSelector(getActiveQuestsState);
     let legendAttributes = useSelector(getLegendIconAttributesState);
     const MapWithNoSSR = React.useMemo(() =>  dynamic(() => import('../../components/RegionMap'), { ssr: false }), 
@@ -53,7 +55,7 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
     let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
-    
+
     zoneNameMarker = {
         iconUrl: `/icons/zone_names/SelectAZone.png`,
         iconSize: [205.7, 34.85],
@@ -234,6 +236,31 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     setLegendDetails();
 
     return <div >
+        <NextSeo 
+            title='Easy-to-read map guides for Final Fantasy 14 Online quests.' 
+            description={`Find the best quests in ${regionName} for Final Fantasy 14 online. 
+            Our maps will show you locations for NPCs, quest steps, and turn-ins. Filter by level, class, and quest type.`}
+            openGraph={{
+                url: `https://helperquest.com/region/${regionRoute}`,
+                title: 'The ultimate quest companion and map guide for FFXIV Online.',
+                description: 'Find quest info fast with our Final Fantasy 14 Online Maps.',
+                images: [
+                    {
+                        url: '/icons/open_graph/HelperQuestOpenGraph.jpg',
+                        width: 800,
+                        height: 700,
+                        alt: 'Open Graph HelperQuest image',
+                        type: 'image/jpeg'
+                    }
+                ],
+                siteName: 'HelperQuest',
+            }} 
+            twitter={{
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+            }}
+        />
         <div id='map' >
             <MapWithNoSSR zoneNameMarker={zoneNameMarker} />
         </div>
