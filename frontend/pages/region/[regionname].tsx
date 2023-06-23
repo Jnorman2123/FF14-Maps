@@ -55,6 +55,14 @@ export default function Region({ zoneNameMarker }: RegionProps) {
     let laNosceaZoneNames = useSelector(getLaNosceaZoneNamesState);
     let theBlackShroudZoneNames = useSelector(getTheBlackShroudZoneNamesState);
     let thanalanZoneNames = useSelector(getThanalanZoneNamesState);
+    let seoTitle: string = 'Easy-to-read map guides for Final Fantasy 14 Online quests.';
+    let seoDescription: string = `Find the best quests in ${regionName} for Final Fantasy 14 online.` + 
+        ` Our maps will show you locations for NPCs, quest steps, and turn-ins. Filter by level and class.`;
+    let openGraphTitle: string = 'The ultimate quest companion and map guide for FFXIV Online.';
+    let openGraphDescription: string = 'Need less fetching and more fun in Final Fantasy 14 Online?' + 
+        ' Use HelperQuest.com to plot out the best routes for your level and class. Our easy-to-read maps keep it simple.';
+
+
 
     zoneNameMarker = {
         iconUrl: `/icons/zone_names/SelectAZone.png`,
@@ -237,13 +245,12 @@ export default function Region({ zoneNameMarker }: RegionProps) {
 
     return <div >
         <NextSeo 
-            title='Easy-to-read map guides for Final Fantasy 14 Online quests.' 
-            description={`Find the best quests in ${regionName} for Final Fantasy 14 online. 
-            Our maps will show you locations for NPCs, quest steps, and turn-ins. Filter by level, class, and quest type.`}
+            title={seoTitle} 
+            description={seoDescription}
             openGraph={{
                 url: `https://helperquest.com/region/${regionRoute}`,
-                title: 'The ultimate quest companion and map guide for FFXIV Online.',
-                description: 'Find quest info fast with our Final Fantasy 14 Online Maps.',
+                title: openGraphTitle,
+                description: openGraphDescription,
                 images: [
                     {
                         url: '/icons/open_graph/HelperQuestOpenGraph.jpg',
