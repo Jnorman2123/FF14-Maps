@@ -382,13 +382,9 @@ export default function QuestInfoContainer() {
                 </div>
             </div>
         </div>
-    } else if (asPath.split('/')[1] === 'quest' && toggledQuest === undefined) {
-        return <div className="bg-white text-black col-span-3 h-full">
-            <h6>No quest by that name exists.</h6>
-        </div>
-    } else {
-        return <div className="bg-white text-black col-span-3 h-full">
-            <h6>No quest selected.</h6>
+    } else  {
+        return <div className="col-span-3 h-full bg-cover bg-no-repeat
+            bg-[url('/icons/quest_info_ui_components/QuestInfoComponentBg.jpg')]">
         </div>
     }
 }
