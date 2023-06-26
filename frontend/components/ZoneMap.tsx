@@ -37,7 +37,19 @@ export default function ZoneMap() {
         zoneMapUrl = splitPathName; 
     }
 
+    if (spacedZoneName.includes("Ul'dah")) {
+        spacedZoneName = spacedZoneName.split(' ').map((str: string) => {
+            if (str === 'of') {
+                str = 'Of';
+            } else if (str === '-') {
+                str = '';
+            }
+            return str;
+        }).join(' ');
+    }
+
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName);
+    
 
 
     if (outsideZoneNames.includes(spacedZoneName)) {
@@ -67,6 +79,11 @@ export default function ZoneMap() {
                 questName: questStep.tooltipDetails.questName,
                 stepDescription: questStep.tooltipDetails.stepDescription,
             };
+            if (spacedZoneName === "Ul'dah Steps Of Nald") {
+                spacedZoneName = "Ul'dah - Steps of Nald";
+            } else if (spacedZoneName === "Ul'dah Steps Of Thal") {
+                spacedZoneName = "Ul'dah - Steps of Thal";
+            }
             if (questStep.npcZone.includes(spacedZoneName)) {
                 markerData.push(markerObject);
             }

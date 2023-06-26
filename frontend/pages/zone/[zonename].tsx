@@ -48,6 +48,7 @@ export default function Zone() {
     let seoDescription: string = '';
     let openGraphTitle: string = '';
     let openGraphDescription: string = '';
+    let openGraphUrl: string = '';
 
     if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
         questName = asPath.split('/').slice(-1)[0].split('+')[1].split(/(?=[A-Z])/).join(' '); 
@@ -79,14 +80,16 @@ export default function Zone() {
             ` Our FFXIV map of ${zoneName} shows the locations for all quest steps and more.`;
         openGraphTitle = `Check out this map for help with ${questName}!`;
         openGraphDescription = `Check out this easy-to-read map for help with ${questName}.` + 
-            ` The map shows locations for every single quest step. You can also find other quests based on your level and class.`
+            ` The map shows locations for every single quest step. You can also find other quests based on your level and class.`;
+        openGraphUrl = `https://helperquest.com${asPath}`
     } else if (asPath.split('/')[1] === 'zone') {
         seoTitle = 'Find quest info fast with our Final Fantasy 14 Online maps.'
         seoDescription = `Find locations for NPCs, quest steps, and turn-ins with this ${zoneName}` + 
             ` map for Final Fantasy 14 Online. Filter by level, class, and quest type.`;
         openGraphTitle = `Find quests fast. A map of ${zoneName} for FF14.`;
         openGraphDescription = `Check out this easy-to-read map of ${zoneName} to find the locations of quest givers,` + 
-            ` quest steps, and turn-ins. Simply choose your level, class, and quest type. Help us, help you.`
+            ` quest steps, and turn-ins. Simply choose your level, class, and quest type. Help us, help you.`;
+        openGraphUrl = `https://helperquest.com${asPath}`;
     } 
 
     return <div>
@@ -94,7 +97,7 @@ export default function Zone() {
             title={seoTitle} 
             description={seoDescription}
             openGraph={{
-                url: `https://helperquest.com/zone/${zoneName.split(' ').join('')}`,
+                url: openGraphUrl,
                 title: openGraphTitle,
                 description: openGraphDescription,
                 images: [
