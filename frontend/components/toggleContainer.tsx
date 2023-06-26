@@ -13,6 +13,17 @@ export default function ToggleContainer() {
     const [clicked, setClicked] = useState<boolean>(false);
     const [hovered, setHovered] = useState<string>('');
     const [filteredQuests, setFilteredQuests] = useState<TypeQuest[]>([]);
+    const [selectedQuest, setSelectedQuest] = useState<TypeQuest>({
+        quest_class: [0],
+        quest_level: 0,
+        id: 0,
+        quest_name: '',
+        quest_npcs: [0],
+        quest_reward: 0,
+        quest_type: '',
+        next_quest: '',
+        previous_quest: '',
+    });
     let classes: TypeClass[] = [];
     let questTypes: TypeQuestType[] = [];
     let questLevels: TypeQuestLevel[] = [];
@@ -45,10 +56,13 @@ export default function ToggleContainer() {
     }
 
     toggledQuest = quests.find((quest: TypeQuest) => quest.quest_name === questName); 
+    if (toggledQuest && selectedQuest !== toggledQuest) {
+        setSelectedQuest(toggledQuest);
+    }
 
     useEffect(() => {
         dispatch(updateActiveQuests({activeQuestArray: activeQuestsArray}));
-    }, [clicked, filteredQuests])
+    }, [clicked, filteredQuests, selectedQuest])
 
     const updateClassActive: MouseEventHandler<HTMLButtonElement> = (event: any) => {
         setClicked(!clicked);
@@ -405,6 +419,10 @@ export default function ToggleContainer() {
             return activeQuestsArray;
         })
     })
+
+    if (!activeQuestsArray.includes(selectedQuest)) {
+        activeQuestsArray.push(selectedQuest)
+    }
 
     return <div className="bg-gray-500 col-span-3 relative bg-[url('/icons/ui_components/ToggleContainerBg.jpg')] 
         bg-cover bg-no-repeat">
