@@ -420,7 +420,7 @@ export default function ToggleContainer() {
         })
     })
 
-    if (!activeQuestsArray.includes(selectedQuest)) {
+    if (!activeQuestsArray.includes(selectedQuest) && selectedQuest.quest_name !== '') {
         activeQuestsArray.push(selectedQuest)
     }
 
