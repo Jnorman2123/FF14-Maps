@@ -13,7 +13,6 @@ import { useGetRewards } from '@/custom_hooks/useGetRewards';
 import { useGetSteps } from '@/custom_hooks/useGetSteps';
 import { useGetItems } from '@/custom_hooks/useGetItems';
 
-
 type LayoutProps = {
     children: React.ReactNode;
 }

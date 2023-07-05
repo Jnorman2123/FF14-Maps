@@ -16,10 +16,9 @@ export default function Zone() {
     let zoneName: string = '';
     let npcs = useSelector(getNpcsState);
     let quests = useSelector(getQuestsState);
-    let rewards = useSelector(getRewardsState);
-    let steps = useSelector(getStepsState);
-    let items = useSelector(getItemsState);
-    let jobs = useSelector(getJobsState);
+    // let rewards = useSelector(getRewardsState);
+    // let items = useSelector(getItemsState);
+    // let jobs = useSelector(getJobsState);
     let currentQuest: TypeQuest = {
         id: 0,
         quest_name: '',
@@ -31,19 +30,19 @@ export default function Zone() {
         quest_reward: 0,
         quest_type: ''
     };
-    let currentQuestJobs: string[] = [];
-    let currentQuestLevel: number = 0;
-    let currentQuestType: string = '';
+    // let currentQuestJobs: string[] = [];
+    // let currentQuestLevel: number = 0;
+    // let currentQuestType: string = '';
     let currentQuestNpcs: string[] = [];
-    let currentQuestReward: TypeReward = {
-        id: 0,
-        reward_quest_name: '',
-        reward_experience: 0,
-        reward_gil: 0,
-        reward_items: [],
-        reward_other: ''
-    };
-    let rewardItems: string[] = [];
+    // let currentQuestReward: TypeReward = {
+    //     id: 0,
+    //     reward_quest_name: '',
+    //     reward_experience: 0,
+    //     reward_gil: 0,
+    //     reward_items: [],
+    //     reward_other: ''
+    // };
+    // let rewardItems: string[] = [];
     let seoTitle: string = '';
     let seoDescription: string = '';
     let openGraphTitle: string = '';
@@ -60,21 +59,21 @@ export default function Zone() {
 
     currentQuest = quests.filter((quest: TypeQuest) => quest.quest_name === questName)[0];
     if (currentQuest) {
-        currentQuestJobs = currentQuest.quest_class.map((questClass: number) => {
-            return jobs.filter((job: TypeJob) => job.id === questClass)[0].job_name;
-        });
-        currentQuestLevel = currentQuest.quest_level;
-        currentQuestType = currentQuest.quest_type;
+        // currentQuestJobs = currentQuest.quest_class.map((questClass: number) => {
+        //     return jobs.filter((job: TypeJob) => job.id === questClass)[0].job_name;
+        // });
+        // currentQuestLevel = currentQuest.quest_level;
+        // currentQuestType = currentQuest.quest_type;
         currentQuestNpcs = currentQuest.quest_npcs.map((questNpc: number) => {
-            return npcs.filter((npc: TypeNpc) => npc.id === questNpc)[0].npc_name;
+            return npcs.filter((npc: TypeNpc) => npc.id === questNpc)[0]?.npc_name;
         });
-        currentQuestReward = rewards.filter((reward: TypeReward) => reward.id === currentQuest.quest_reward)[0];
-        rewardItems = currentQuestReward.reward_items.map((itemId: number) => {
-            return items.filter((item: TypeItem) => item.id === itemId)[0].item_name;
-        }).filter((rewardItem: string) => rewardItem !== 'None');
+        // currentQuestReward = rewards.filter((reward: TypeReward) => reward.id === currentQuest.quest_reward)[0];
+        // rewardItems = currentQuestReward.reward_items.map((itemId: number) => {
+        //     return items.filter((item: TypeItem) => item.id === itemId)[0].item_name;
+        // }).filter((rewardItem: string) => rewardItem !== 'None');
     };
 
-    if (asPath.split('/')[1] === 'quest' && asPath.split('/').slice(-1)[0].split('+')[1]) {
+    if (questName !== '') {
         seoTitle = 'Level faster. Quest smarter. Get map guides for FF14 Online.'
         seoDescription = `Need help with ${questName}? Looking for ${currentQuestNpcs[0]}?` + 
             ` Our FFXIV map of ${zoneName} shows the locations for all quest steps and more.`;
@@ -82,7 +81,7 @@ export default function Zone() {
         openGraphDescription = `Check out this easy-to-read map for help with ${questName}.` + 
             ` The map shows locations for every single quest step. You can also find other quests based on your level and class.`;
         openGraphUrl = `https://helperquest.com${asPath}`
-    } else if (asPath.split('/')[1] === 'zone') {
+    } else  {
         seoTitle = 'Find quest info fast with our Final Fantasy 14 Online maps.'
         seoDescription = `Find locations for NPCs, quest steps, and turn-ins with this ${zoneName}` + 
             ` map for Final Fantasy 14 Online. Filter by level, class, and quest type.`;
