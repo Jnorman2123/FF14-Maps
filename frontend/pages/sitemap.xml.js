@@ -1,12 +1,6 @@
-import React from "react";
-
 const Sitemap = () => {};
 
 export const getServerSideProps = async ({ res }) => {
-  const baseUrl = {
-    development: "http://localhost:3000",
-    production: "https://helperquest.com",
-  }[process.env.NODE_ENV];
 
   const questsRes = await fetch('https://api.helperquest.com/quests');
   const quests = await questsRes.json();
